@@ -1,0 +1,7 @@
+{
+  "name": "fftcg-online",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
