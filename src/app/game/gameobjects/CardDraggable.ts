@@ -17,7 +17,7 @@ export default class CardDraggable extends CardBase {
         this._draggable = true;
         this._dragging = false;
         this._onDragEnd = ondragend;
-        this.setScale(.75, .75);
+        this.setScale(.7, .7);
         this.setSize(this.spriteImage.width, this.spriteImage.height);
         this.setInteractive();
         this.scene.input.setDraggable(this);

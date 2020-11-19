@@ -3,8 +3,9 @@ ion-menu ion-content {
 }
 
 ion-menu {
-  --max-width: 300px;
-  --side-width:300px
+  --max-width: 100px;
+  --side-width: 100px;
+  --width: 100px;
 }
 
 ion-menu.md ion-content {

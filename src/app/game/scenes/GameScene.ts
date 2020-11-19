@@ -11,6 +11,13 @@ import DROP = Phaser.Input.Events.DROP;
 import DRAG = Phaser.Input.Events.DRAG;
 
 
+export const ZONE_LAYOUT_SPECS = {
+    HEIGHT: 150,
+    WIDTH: 125,
+    SPACING: 30
+};
+
+
 export default class GameScene extends Scene {
     private playerHand: PlayerHand;
     private playerDeck: PlayerDeck;
@@ -38,64 +45,68 @@ export default class GameScene extends Scene {
 
     create() {
         const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
         this.playerHand = new PlayerHand({
             scene: this,
             name: 'Hand',
-            x: screenWidth / 2 - 150,
-            y: window.screen.height - 300,
+            x: screenWidth / 2,
+            y: screenHeight - ZONE_LAYOUT_SPECS.HEIGHT,
             width: screenWidth * .7,
-            height: 150
+            height: ZONE_LAYOUT_SPECS.HEIGHT
         });
 
         this.playerBackupZone = new PlayerBackupField({
             scene: this,
             name: 'Backup',
-            x: screenWidth / 2 - 150,
-            y: window.screen.height - 500,
+            x: screenWidth / 2,
+            y: screenHeight - ((ZONE_LAYOUT_SPECS.HEIGHT * 2) + ZONE_LAYOUT_SPECS.SPACING),
             width: screenWidth * .7,
-            height: 150
+            height: ZONE_LAYOUT_SPECS.HEIGHT
         });
 
         this.playerDeck = new PlayerDeck({
             scene: this,
             name: 'Deck',
-            x: screenWidth - 425,
-            y: window.screen.height - 500,
-            width: 125,
-            height: 150
+            x: screenWidth - ZONE_LAYOUT_SPECS.WIDTH,
+            y: screenHeight - ((ZONE_LAYOUT_SPECS.HEIGHT * 2) + ZONE_LAYOUT_SPECS.SPACING),
+            width: ZONE_LAYOUT_SPECS.WIDTH,
+            height: ZONE_LAYOUT_SPECS.HEIGHT
         });
+
+        const damageZoneHeight = (this.playerHand.height * 2) + (this.playerHand.y - this.playerBackupZone.y) / 2;
 
         this.playerDamageZone = new PlayerDamageZone({
             scene: this,
             name: 'Damage',
             x: 125,
-            y: window.screen.height - 525,
-            width: 150,
-            height: (this.playerHand.height * 2) + (this.playerHand.y - this.playerBackupZone.y) / 2
+            y: window.screen.height - damageZoneHeight,
+            width: ZONE_LAYOUT_SPECS.WIDTH + ZONE_LAYOUT_SPECS.SPACING,
+            height: damageZoneHeight
         });
 
         this.playerBreakZone = new PlayerBreakZone({
             scene: this,
             name: 'BreakZone',
-            x: screenWidth - 425,
-            y: window.screen.height - 300,
-            width: 125,
-            height: 150
+            x: screenWidth - ZONE_LAYOUT_SPECS.WIDTH,
+            y: screenHeight - ZONE_LAYOUT_SPECS.HEIGHT,
+            width: ZONE_LAYOUT_SPECS.WIDTH,
+            height: ZONE_LAYOUT_SPECS.HEIGHT
         });
 
 
         for (let c = 0; c < 10; c++) {
 
             const column = 20 + (c * 100);
-            const row = 300 * ((c % 3) || 1);
+            const row = 100 * ((c % 3) || 1);
 
             const newCard = new CardDraggable({
                 scene: this,
-                name: `Card`,
+                name: `Card-${c}`,
                 // x: this.playerDeck.x + (c * 2),
                 // y: this.playerDeck.y + (c * 2),
                 x: 500,
-                y: 500,
+                y: row,
                 image: `card${c}`,
                 imageBack: 'card-back',
                 card: 'playercard',
@@ -103,7 +114,7 @@ export default class GameScene extends Scene {
                     console.log('End Drag');
                 }
             });
-            this.playerDeck.addCard(newCard);
+            // this.playerDeck.addCard(newCard);
         }
 
         this.input.on(DRAG, (pointer, gameObject, dragX, dragY) => {
@@ -131,17 +142,22 @@ export default class GameScene extends Scene {
             } else {
                 console.log('was nowhere');
             }
-            console.log('Dropzone name: ', dropZone.name);
             gameObject.setData('currentZone', dropZone.name);
 
             this.children.bringToTop(gameObject);
 
             if (dropZone.shouldStack()) {
-                gameObject.x = dropZone.x;
+                gameObject.x = dropZone.x - ZONE_LAYOUT_SPECS.SPACING / 2;
                 gameObject.y = dropZone.y;
             } else {
-                gameObject.x = dropZone.x - (gameObject.width * dropZone.cards.length);
-                gameObject.y = dropZone.y;
+                if (dropZone.shouldBeSideways()) {
+                    gameObject.y = (dropZone.y + (dropZone.height / 2)) - (((gameObject.width / 3) * dropZone.cards.length) + 30);
+                    gameObject.x = dropZone.x - ZONE_LAYOUT_SPECS.SPACING / 2;
+                } else {
+                    gameObject.x = (dropZone.x) - (((gameObject.width / 3) * dropZone.cards.length) + 5);
+                    gameObject.y = dropZone.y;
+                    dropZone.shiftCards(-1);
+                }
             }
 
             if (dropZone.shouldBeShown()) {

@@ -58,8 +58,14 @@ export class GameZone extends Zone implements ICardGameZone {
             this.cards = [];
         }
 
+        if (this.findCard(card)) {
+            return;
+        }
+
         this.cards.push(card);
-        this.shiftCards();
+        if (this.cards.length > 1) {
+            this.cardCount.text = this.cards.length.toString();
+        }
         this.cardCount.text = this.cards.length.toString();
     }
 
@@ -71,10 +77,16 @@ export class GameZone extends Zone implements ICardGameZone {
         this.cardCount.text = this.cards.length.toString();
     }
 
+    findCard(cardToFind: CardDraggable): CardDraggable {
+        return this.cards.find((card) => {
+            return cardToFind.name === card.name;
+        });
+    }
+
     shiftCards(direction: number = 1) {
         if (direction) {
             for (const card of this.cards) {
-                card.x = card.x + (card.width * .20);
+                card.x = card.x + (card.width * .32);
             }
         } else {
 
