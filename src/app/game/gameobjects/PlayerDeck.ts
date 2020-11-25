@@ -11,6 +11,8 @@ export interface ICardGameZone {
 export default class PlayerDeck extends GameZone implements ICardGameZone {
     constructor(config: IGameZoneConfig) {
         super(config);
+
+        this.depth = -100;
     }
 
     shouldBeShown(): boolean {

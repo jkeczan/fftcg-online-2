@@ -26,6 +26,8 @@
     "@ionic/angular": "^5.0.0",
     "phaser": "^3.24.1",
     "rxjs": "~6.5.5",
+    "socket.io-client": "^3.0.3",
+    "sockette": "^2.0.6",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

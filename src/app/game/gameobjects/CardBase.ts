@@ -2,6 +2,18 @@ import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
 import {Scene} from 'phaser';
 
+export interface ICardConfig {
+    scene: Scene;
+    x: number;
+    y: number;
+    card: string;
+    image: string;
+    name: string;
+    depth: number;
+    imageBack: string;
+
+}
+
 export default class CardBase extends Container {
     private _name: string;
     private _scene: Scene;
@@ -10,7 +22,7 @@ export default class CardBase extends Container {
     private _spriteImage: Sprite;
     private _spriteImageBack: Sprite;
 
-    constructor(data) {
+    constructor(data: ICardConfig) {
         const {scene, x, y, card, image, name, depth, imageBack} = data;
         const spriteCard = new Sprite(scene, 0, 0, card);
         const spriteImage = new Sprite(scene, 0, 0, image);
@@ -39,6 +51,43 @@ export default class CardBase extends Container {
     flipForward() {
         this.spriteImage.visible = true;
         this.spriteImageBack.visible = false;
+    }
+
+    updateCardImage(image: string) {
+        this.spriteImage = new Sprite(this.scene, this.x, this.y, image);
+    }
+
+    get isVisible(): boolean {
+        return this.spriteImage.visible;
+    }
+
+    get isHidden(): boolean {
+        return this.spriteImageBack.visible;
+    }
+
+
+    get halfWidth(): number {
+        return this.width / 2;
+    }
+
+    get halfHeight(): number {
+        return this.height / 2;
+    }
+
+    get fourthWidth(): number {
+        return this.width / 4;
+    }
+
+    get fourthHeight(): number {
+        return this.height / 4;
+    }
+
+    get eigthWidth(): number {
+        return this.width / 8;
+    }
+
+    get eigthHeight(): number {
+        return this.height / 8;
     }
 
     get name(): string {
