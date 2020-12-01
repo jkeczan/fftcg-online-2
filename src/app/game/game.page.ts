@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Game} from 'phaser';
 import GameScene from './scenes/GameScene';
 import {MenuController} from '@ionic/angular';
@@ -10,7 +10,6 @@ import {MenuController} from '@ionic/angular';
 })
 export class GamePage implements OnInit {
     private gameClient: Game;
-
     @ViewChild('#game-container')
     private gameContainer: HTMLCanvasElement;
 
@@ -25,14 +24,14 @@ export class GamePage implements OnInit {
             width: window.screen.width,
             height: window.screen.height,
             scene: GameScene,
-            parent: 'game-container',
+            parent: 'game-container'
         });
     }
 
     async toggleMenu() {
-        console.log('Toggle')
+        console.log('Toggle');
         await this.menuController.close('side-menu');
-       // await this.menuController.toggle('side-menu');
+        // await this.menuController.toggle('side-menu');
     }
 
     get game(): Game {

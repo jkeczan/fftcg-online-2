@@ -18,7 +18,7 @@ export class SocketManager {
     }
 
     sendMessage(message: string) {
-
+        // this.socket.send()
     }
 
     onOpen() {
