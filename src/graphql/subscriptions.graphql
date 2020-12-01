@@ -1,0 +1,106 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateCard {
+  onCreateCard {
+    id
+    cost
+    elements {
+      id
+      name
+      icon
+    }
+    cardType
+    jobs
+    categories {
+      id
+      name
+    }
+    powerLevel
+    effectText
+    isExBurst
+    rarity
+    isMultiPlay
+  }
+}
+subscription OnUpdateCard {
+  onUpdateCard {
+    id
+    cost
+    elements {
+      id
+      name
+      icon
+    }
+    cardType
+    jobs
+    categories {
+      id
+      name
+    }
+    powerLevel
+    effectText
+    isExBurst
+    rarity
+    isMultiPlay
+  }
+}
+subscription OnDeleteCard {
+  onDeleteCard {
+    id
+    cost
+    elements {
+      id
+      name
+      icon
+    }
+    cardType
+    jobs
+    categories {
+      id
+      name
+    }
+    powerLevel
+    effectText
+    isExBurst
+    rarity
+    isMultiPlay
+  }
+}
+subscription OnCreateCardCategory {
+  onCreateCardCategory {
+    id
+    name
+  }
+}
+subscription OnUpdateCardCategory {
+  onUpdateCardCategory {
+    id
+    name
+  }
+}
+subscription OnDeleteCardCategory {
+  onDeleteCardCategory {
+    id
+    name
+  }
+}
+subscription OnCreateCardElement {
+  onCreateCardElement {
+    id
+    name
+    icon
+  }
+}
+subscription OnUpdateCardElement {
+  onUpdateCardElement {
+    id
+    name
+    icon
+  }
+}
+subscription OnDeleteCardElement {
+  onDeleteCardElement {
+    id
+    name
+    icon
+  }
+}

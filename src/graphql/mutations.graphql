@@ -1,0 +1,133 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateCard(
+  $input: CreateCardInput!
+  $condition: ModelCardConditionInput
+) {
+  createCard(input: $input, condition: $condition) {
+    id
+    cost
+    elements {
+      id
+      name
+      icon
+    }
+    cardType
+    jobs
+    categories {
+      id
+      name
+    }
+    powerLevel
+    effectText
+    isExBurst
+    rarity
+    isMultiPlay
+  }
+}
+mutation UpdateCard(
+  $input: UpdateCardInput!
+  $condition: ModelCardConditionInput
+) {
+  updateCard(input: $input, condition: $condition) {
+    id
+    cost
+    elements {
+      id
+      name
+      icon
+    }
+    cardType
+    jobs
+    categories {
+      id
+      name
+    }
+    powerLevel
+    effectText
+    isExBurst
+    rarity
+    isMultiPlay
+  }
+}
+mutation DeleteCard(
+  $input: DeleteCardInput!
+  $condition: ModelCardConditionInput
+) {
+  deleteCard(input: $input, condition: $condition) {
+    id
+    cost
+    elements {
+      id
+      name
+      icon
+    }
+    cardType
+    jobs
+    categories {
+      id
+      name
+    }
+    powerLevel
+    effectText
+    isExBurst
+    rarity
+    isMultiPlay
+  }
+}
+mutation CreateCardCategory(
+  $input: CreateCardCategoryInput!
+  $condition: ModelCardCategoryConditionInput
+) {
+  createCardCategory(input: $input, condition: $condition) {
+    id
+    name
+  }
+}
+mutation UpdateCardCategory(
+  $input: UpdateCardCategoryInput!
+  $condition: ModelCardCategoryConditionInput
+) {
+  updateCardCategory(input: $input, condition: $condition) {
+    id
+    name
+  }
+}
+mutation DeleteCardCategory(
+  $input: DeleteCardCategoryInput!
+  $condition: ModelCardCategoryConditionInput
+) {
+  deleteCardCategory(input: $input, condition: $condition) {
+    id
+    name
+  }
+}
+mutation CreateCardElement(
+  $input: CreateCardElementInput!
+  $condition: ModelCardElementConditionInput
+) {
+  createCardElement(input: $input, condition: $condition) {
+    id
+    name
+    icon
+  }
+}
+mutation UpdateCardElement(
+  $input: UpdateCardElementInput!
+  $condition: ModelCardElementConditionInput
+) {
+  updateCardElement(input: $input, condition: $condition) {
+    id
+    name
+    icon
+  }
+}
+mutation DeleteCardElement(
+  $input: DeleteCardElementInput!
+  $condition: ModelCardElementConditionInput
+) {
+  deleteCardElement(input: $input, condition: $condition) {
+    id
+    name
+    icon
+  }
+}

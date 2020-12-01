@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-fftcgonline-dev-222040-authRole",
+            "UnauthRoleArn": "arn:aws:iam::890285403543:role/amplify-fftcgonline-dev-222040-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::890285403543:role/amplify-fftcgonline-dev-222040-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-fftcgonline-dev-222040-deployment",
+            "UnauthRoleName": "amplify-fftcgonline-dev-222040-unauthRole",
+            "StackName": "amplify-fftcgonline-dev-222040",
+            "StackId": "arn:aws:cloudformation:us-east-1:890285403543:stack/amplify-fftcgonline-dev-222040/07518bf0-32bb-11eb-b5d8-0e4c53e0aefd",
+            "AmplifyAppId": "d7rch1j249hea"
+        }
+    }
+}

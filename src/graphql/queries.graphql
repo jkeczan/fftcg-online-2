@@ -1,0 +1,92 @@
+# this is an auto generated file. This will be overwritten
+query GetCard($id: ID!) {
+  getCard(id: $id) {
+    id
+    cost
+    elements {
+      id
+      name
+      icon
+    }
+    cardType
+    jobs
+    categories {
+      id
+      name
+    }
+    powerLevel
+    effectText
+    isExBurst
+    rarity
+    isMultiPlay
+  }
+}
+query ListCards(
+  $filter: ModelCardFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      cost
+      elements {
+        id
+        name
+        icon
+      }
+      cardType
+      jobs
+      categories {
+        id
+        name
+      }
+      powerLevel
+      effectText
+      isExBurst
+      rarity
+      isMultiPlay
+    }
+    nextToken
+  }
+}
+query GetCardCategory($id: ID!) {
+  getCardCategory(id: $id) {
+    id
+    name
+  }
+}
+query ListCardCategorys(
+  $filter: ModelCardCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCardCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+    }
+    nextToken
+  }
+}
+query GetCardElement($id: ID!) {
+  getCardElement(id: $id) {
+    id
+    name
+    icon
+  }
+}
+query ListCardElements(
+  $filter: ModelCardElementFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCardElements(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      icon
+    }
+    nextToken
+  }
+}

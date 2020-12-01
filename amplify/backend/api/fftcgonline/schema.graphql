@@ -1,0 +1,50 @@
+enum FFTCGCardType {
+    Forward
+    Backup
+    Monster
+    Summon
+}
+
+enum FFTCGCardElement {
+    FIRE
+    WIND
+    WATER
+    EARTH
+    LIGHTNING
+    ICE
+    LIGHT
+    DARK
+}
+
+enum FFTCGCardRarity {
+    COMMON
+    RARE
+    HERO
+    LEGEND
+}
+
+type Card @model @aws_api_key {
+    id: ID!
+    cost: Int!
+    elements: [CardElement!]!
+    cardType: String!
+    jobs: [String!]!
+    categories: [CardCategory!]!
+    powerLevel: Int!
+    effectText: String!
+    #	effects: Array<any>;
+    isExBurst: Boolean!
+    rarity: FFTCGCardRarity!
+    isMultiPlay: Boolean!
+}
+
+type CardCategory @model  @aws_api_key {
+    id: ID!
+    name: String!
+}
+
+type CardElement @model  @aws_api_key {
+    id: ID!
+    name: String!
+    icon: String!
+}
