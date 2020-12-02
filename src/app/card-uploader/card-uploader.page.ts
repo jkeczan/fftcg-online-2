@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {APIService} from '../API.service';
 import {ToastController} from '@ionic/angular';
+import {CardCategoryService} from '../services/card-category.service';
 
 @Component({
     selector: 'app-card-uploader',
@@ -11,6 +12,7 @@ import {ToastController} from '@ionic/angular';
 export class CardUploaderPage implements OnInit {
     public cardForm: FormGroup;
     public cardCategoryForm: FormGroup;
+    public jobForm: FormGroup;
     public cardTypes = [
         'Forward',
         'Backup',
@@ -31,10 +33,11 @@ export class CardUploaderPage implements OnInit {
 
     public imageSrc = '';
 
-    constructor(private formBuilder: FormBuilder, private api: APIService, private toastController: ToastController) {
+    constructor(private formBuilder: FormBuilder, private api: APIService,
+                private toastController: ToastController, private cardCategoryService: CardCategoryService) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.cardForm = this.formBuilder.group({
             cost: [null, Validators.required],
             serialNumber: [null, Validators.required],
@@ -54,6 +57,13 @@ export class CardUploaderPage implements OnInit {
         this.cardCategoryForm = this.formBuilder.group({
             name: [null, Validators.required]
         });
+
+        this.jobForm = this.formBuilder.group({
+            name: [null, Validators.required]
+        });
+
+        await this.getCategories();
+        this.api.OnCreateCardCategoryListener.subscribe(this.onCategoryAdded.bind(this));
     }
 
     onImageChange(event) {
@@ -72,9 +82,21 @@ export class CardUploaderPage implements OnInit {
         }
     }
 
+    onCategoryAdded(newCategory) {
+        this.categories.push(newCategory.value.data.onCreateCardCategory);
+    }
+
+    onJobAdded(newJob) {
+        this.jobs.push(newJob.value.data.onCreateJob);
+    }
+
+    async getCategories() {
+        this.categories = await this.cardCategoryService.getAllCategories();
+    }
+
     async addCategory() {
         try {
-            await this.api.CreateCardCategory(this.cardForm.value);
+            await this.api.CreateCardCategory(this.cardCategoryForm.value);
             await (await this.toastController.create({message: 'Update Successful'})).present();
         } catch (err) {
             console.log(err);

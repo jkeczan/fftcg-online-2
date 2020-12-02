@@ -23,7 +23,7 @@ enum FFTCGCardRarity {
     LEGEND
 }
 
-type Card @model @aws_api_key {
+type Card @model @auth(rules: [{ allow: public }]) {
     id: ID!
     cost: Int!
     elements: [CardElement!]!
@@ -38,13 +38,18 @@ type Card @model @aws_api_key {
     isMultiPlay: Boolean!
 }
 
-type CardCategory @model  @aws_api_key {
+type CardCategory @model @auth(rules: [{ allow: public }]) {
     id: ID!
     name: String!
 }
 
-type CardElement @model  @aws_api_key {
+type CardElement @model @auth(rules: [{ allow: public }]) {
     id: ID!
     name: String!
     icon: String!
+}
+
+type CardJob @model @auth(rules: [{ allow: public }]) {
+    id: ID!
+    name: String!
 }
