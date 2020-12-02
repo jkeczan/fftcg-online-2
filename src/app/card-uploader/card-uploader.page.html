@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-title>Card Uploader</ion-title>
         <ion-buttons slot="end">
-            <ion-button>Add</ion-button>
+            <ion-button (click)="addCard()">Add</ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -12,90 +12,91 @@
     <form *ngIf="cardForm" [formGroup]="cardForm">
         <ion-grid>
             <ion-row>
-                <ion-col size="6">
-                    <ion-list>
-                        <ion-item>
-                            <ion-label position="stacked">Serial #</ion-label>
-                            <input formControlName="serialNumber" type="text"/>
-                        </ion-item>
+                <ion-col size="3">
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-card-title>General Information</ion-card-title>
+                        </ion-card-header>
+                        <ion-list>
+                            <ion-item>
+                                <ion-label>Serial #</ion-label>
+                                <input formControlName="serialNumber" type="text"/>
+                            </ion-item>
 
-                        <ion-item>
-                            <ion-label position="stacked">Cost</ion-label>
-                            <input formControlName="cost" type="number"/>
-                        </ion-item>
+                            <ion-item>
+                                <ion-label>Cost</ion-label>
+                                <input formControlName="cost" type="number"/>
+                            </ion-item>
 
-                        <ion-item>
-                            <ion-label position="stacked">Card Type</ion-label>
-                            <select formControlName="cardType">
-                                <option *ngFor="let cardType of cardTypes" [value]="cardType">
-                                    {{cardType}}
-                                </option>
-                            </select>
-                        </ion-item>
+                            <ion-item>
+                                <ion-label>Power</ion-label>
+                                <input formControlName="powerLevel" type="number"/>
+                            </ion-item>
 
-                        <ion-item>
-                            <ion-label position="stacked">Card Rarity</ion-label>
-                            <select formControlName="rarity">
-                                <option *ngFor="let rarity of rarities" [value]="rarity">
-                                    {{rarity | uppercase}}
-                                </option>
-                            </select>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label position="stacked">Card Rarity</ion-label>
-                            <select formControlName="rarity">
-                                <option *ngFor="let rarity of rarities" [value]="rarity">
-                                    {{rarity | uppercase}}
-                                </option>
-                            </select>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label position="stacked">Is ExBurst</ion-label>
-                            <ion-toggle formControlName="isExBurst"></ion-toggle>
-                        </ion-item>
+                            <ion-item>
+                                <ion-label>Is ExBurst</ion-label>
+                                <ion-toggle formControlName="isExBurst"></ion-toggle>
+                            </ion-item>
 
-                        <ion-item>
-                            <ion-label position="stacked">Is Multiplay</ion-label>
-                            <ion-toggle formControlName="isMultiPlay"></ion-toggle>
-                        </ion-item>
+                            <ion-item>
+                                <ion-label>Is Multiplay</ion-label>
+                                <ion-toggle formControlName="isMultiPlay"></ion-toggle>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card>
 
-                        <ion-item>
-                            <ion-label position="stacked">Categories</ion-label>
-                            <ion-select formControlName="categories" multiple="true" style="width: 400px">
-                                <ion-select-option  *ngFor="let category of categories" [value]="category.id">
-                                    {{category.name}}
-                                </ion-select-option>
-                            </ion-select>
-                        </ion-item>
-
-                        <ion-item>
-                            <ion-label position="stacked">Jobs</ion-label>
-                            <select formControlName="jobs" multiple="true" style="width: 400px">
-                                <option *ngFor="let job of jobs" [value]="job">
-                                    {{job | uppercase}}
-                                </option>
-                            </select>
-                        </ion-item>
-                    </ion-list>
                 </ion-col>
-                <ion-col size="6">
-                    <ion-list>
-                        <ion-item>
-                            <ion-label position="stacked">Effect Text</ion-label>
-                            <textarea formControlName="effectText" type="text"
-                                      style="height: 250px; width: 400px;"></textarea>
-                        </ion-item>
+                <ion-col size="3">
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-card-title>General Information</ion-card-title>
+                        </ion-card-header>
+                        <ion-list>
+                            <ion-item>
+                                <ion-label>Categories</ion-label>
+                                <ion-select formControlName="categories" multiple="true" style="width: 400px">
+                                    <ion-select-option *ngFor="let category of categories" [value]="category.id">
+                                        {{category.name}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>Jobs</ion-label>
+                                <ion-select formControlName="jobs" multiple="true" style="width: 400px">
+                                    <ion-select-option *ngFor="let job of jobs" [value]="job.id">
+                                        {{job.name}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>Card Type</ion-label>
+                                <ion-select formControlName="cardType">
+                                    <ion-select-option *ngFor="let cardType of cardTypes" [value]="cardType">
+                                        {{cardType}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>Card Rarity</ion-label>
+                                <ion-select formControlName="rarity">
+                                    <ion-select-option *ngFor="let rarity of rarities" [value]="rarity">
+                                        {{rarity}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card>
+                </ion-col>
+                <ion-col size="3">
+                    <h3>Effect Text</h3>
+                    <textarea formControlName="effectText" type="text"
+                              style="height: 200px; width: 400px;"></textarea>
 
-                        <ion-item>
-                            <ion-label position="stacked">Card Image</ion-label>
-                            <input type="file" (change)="onImageChange($event)"/>
-                        </ion-item>
-
-                        <ion-item *ngIf="imageSrc">
-                            <img [src]="imageSrc"/>
-                        </ion-item>
-
-                    </ion-list>
+                </ion-col>
+                <ion-col size="3">
+                    <div>Card Image</div>
+                    <input type="file" (change)="onImageChange($event)"/>
+                    <img *ngIf="imageSrc" [src]="imageSrc"/>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -103,38 +104,45 @@
 
     <ion-row>
         <ion-col size="3">
-            <ion-card>
-                <ion-header>
-                    <ion-title>Card Category Form</ion-title>
-                </ion-header>
-                <ion-card-content>
-                    <form [formGroup]="cardCategoryForm">
+            <form [formGroup]="cardCategoryForm">
+                <ion-card>
+                    <ion-header>
+                        <ion-title>Card Category Form</ion-title>
+                    </ion-header>
+                    <ion-card-content>
                         <ion-list>
-                            <ion-label position="stack">Name: </ion-label>
-                            <input type="text" formControlName="name"/>
-                        </ion-list>
+                            <ion-item>
+                                <ion-label>Name:</ion-label>
+                                <input type="text" formControlName="name"/>
+                            </ion-item>
 
-                        <ion-button (click)="addCategory()">Add</ion-button>
-                    </form>
-                </ion-card-content>
-            </ion-card>
+                        </ion-list>
+                        <div>
+                            <ion-button (click)="addCategory()" expand="full">Add</ion-button>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+            </form>
         </ion-col>
         <ion-col size="3">
-            <ion-card>
-                <ion-header>
-                    <ion-title>Job Form</ion-title>
-                </ion-header>
-                <ion-card-content>
-                    <form [formGroup]="jobForm">
+            <form [formGroup]="jobForm">
+                <ion-card>
+                    <ion-header>
+                        <ion-title>Job Form</ion-title>
+                    </ion-header>
+                    <ion-card-content>
                         <ion-list>
-                            <ion-label position="stack">Name: </ion-label>
-                            <input type="text" formControlName="name"/>
+                            <ion-item>
+                                <ion-label>Name:</ion-label>
+                                <input type="text" formControlName="name"/>
+                            </ion-item>
                         </ion-list>
-
-                        <ion-button (click)="addJob()">Add</ion-button>
-                    </form>
-                </ion-card-content>
-            </ion-card>
+                        <div>
+                            <ion-button (click)="addJob()" expand="full">Add</ion-button>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+            </form>
         </ion-col>
     </ion-row>
 </ion-content>

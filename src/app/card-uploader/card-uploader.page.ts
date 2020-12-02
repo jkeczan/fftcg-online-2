@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {APIService} from '../API.service';
 import {ToastController} from '@ionic/angular';
 import {CardCategoryService} from '../services/card-category.service';
+import {CardJobService} from '../services/card-job.service';
 
 @Component({
     selector: 'app-card-uploader',
@@ -34,7 +35,8 @@ export class CardUploaderPage implements OnInit {
     public imageSrc = '';
 
     constructor(private formBuilder: FormBuilder, private api: APIService,
-                private toastController: ToastController, private cardCategoryService: CardCategoryService) {
+                private toastController: ToastController, private cardCategoryService: CardCategoryService,
+                private cardJobService: CardJobService) {
     }
 
     async ngOnInit() {
@@ -63,7 +65,9 @@ export class CardUploaderPage implements OnInit {
         });
 
         await this.getCategories();
+        await this.getJobs();
         this.api.OnCreateCardCategoryListener.subscribe(this.onCategoryAdded.bind(this));
+        this.api.OnCreateCardJobListener.subscribe(this.onJobAdded.bind(this));
     }
 
     onImageChange(event) {
@@ -87,20 +91,44 @@ export class CardUploaderPage implements OnInit {
     }
 
     onJobAdded(newJob) {
-        this.jobs.push(newJob.value.data.onCreateJob);
+        this.jobs.push(newJob.value.data.onCreateCardJob);
     }
 
     async getCategories() {
         this.categories = await this.cardCategoryService.getAllCategories();
     }
 
+    async getJobs() {
+        this.jobs = await this.cardJobService.getAllJobs();
+    }
+
+    async addCard() {
+        try {
+            await this.api.CreateCard(this.cardForm.value);
+            await (await this.toastController.create({message: 'Card Created Successfully'})).present();
+        } catch (err) {
+            console.log(err);
+            await (await this.toastController.create({message: 'Card Created Failed'})).present();
+        }
+    }
+
     async addCategory() {
         try {
             await this.api.CreateCardCategory(this.cardCategoryForm.value);
-            await (await this.toastController.create({message: 'Update Successful'})).present();
+            await (await this.toastController.create({message: 'Category Created Successfully'})).present();
         } catch (err) {
             console.log(err);
-            await (await this.toastController.create({message: 'Update Failed'})).present();
+            await (await this.toastController.create({message: 'Category Created Failed'})).present();
+        }
+    }
+
+    async addJob() {
+        try {
+            await this.api.CreateCardJob(this.jobForm.value);
+            await (await this.toastController.create({message: 'Job Created Successfully'})).present();
+        } catch (err) {
+            console.log(err);
+            await (await this.toastController.create({message: 'Job Created Failed Failed'})).present();
         }
     }
 }
