@@ -90,3 +90,22 @@ query ListCardElements(
     nextToken
   }
 }
+query GetCardJob($id: ID!) {
+  getCardJob(id: $id) {
+    id
+    name
+  }
+}
+query ListCardJobs(
+  $filter: ModelCardJobFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCardJobs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+    }
+    nextToken
+  }
+}

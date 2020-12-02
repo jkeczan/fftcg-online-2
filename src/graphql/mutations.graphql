@@ -131,3 +131,30 @@ mutation DeleteCardElement(
     icon
   }
 }
+mutation CreateCardJob(
+  $input: CreateCardJobInput!
+  $condition: ModelCardJobConditionInput
+) {
+  createCardJob(input: $input, condition: $condition) {
+    id
+    name
+  }
+}
+mutation UpdateCardJob(
+  $input: UpdateCardJobInput!
+  $condition: ModelCardJobConditionInput
+) {
+  updateCardJob(input: $input, condition: $condition) {
+    id
+    name
+  }
+}
+mutation DeleteCardJob(
+  $input: DeleteCardJobInput!
+  $condition: ModelCardJobConditionInput
+) {
+  deleteCardJob(input: $input, condition: $condition) {
+    id
+    name
+  }
+}

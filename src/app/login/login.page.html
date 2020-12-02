@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button expand="full" color="primary" (click)="signInWithFacebook()">
+    Login with
+    <ion-icon name="logo-facebook"></ion-icon>
+  </ion-button>
+  <amplify-authenticator>
+    <amplify-sign-out></amplify-sign-out>
+  </amplify-authenticator>
+</ion-content>

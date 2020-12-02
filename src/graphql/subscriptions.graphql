@@ -104,3 +104,21 @@ subscription OnDeleteCardElement {
     icon
   }
 }
+subscription OnCreateCardJob {
+  onCreateCardJob {
+    id
+    name
+  }
+}
+subscription OnUpdateCardJob {
+  onUpdateCardJob {
+    id
+    name
+  }
+}
+subscription OnDeleteCardJob {
+  onDeleteCardJob {
+    id
+    name
+  }
+}

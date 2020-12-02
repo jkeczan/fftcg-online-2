@@ -163,6 +163,27 @@ export type DeleteCardElementInput = {
   id?: string | null;
 };
 
+export type CreateCardJobInput = {
+  id?: string | null;
+  name: string;
+};
+
+export type ModelCardJobConditionInput = {
+  name?: ModelStringInput | null;
+  and?: Array<ModelCardJobConditionInput | null> | null;
+  or?: Array<ModelCardJobConditionInput | null> | null;
+  not?: ModelCardJobConditionInput | null;
+};
+
+export type UpdateCardJobInput = {
+  id: string;
+  name?: string | null;
+};
+
+export type DeleteCardJobInput = {
+  id?: string | null;
+};
+
 export type ModelCardFilterInput = {
   id?: ModelIDInput | null;
   cost?: ModelIntInput | null;
@@ -209,6 +230,14 @@ export type ModelCardElementFilterInput = {
   and?: Array<ModelCardElementFilterInput | null> | null;
   or?: Array<ModelCardElementFilterInput | null> | null;
   not?: ModelCardElementFilterInput | null;
+};
+
+export type ModelCardJobFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  and?: Array<ModelCardJobFilterInput | null> | null;
+  or?: Array<ModelCardJobFilterInput | null> | null;
+  not?: ModelCardJobFilterInput | null;
 };
 
 export type CreateCardMutation = {
@@ -322,6 +351,24 @@ export type DeleteCardElementMutation = {
   icon: string;
 };
 
+export type CreateCardJobMutation = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+};
+
+export type UpdateCardJobMutation = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+};
+
+export type DeleteCardJobMutation = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+};
+
 export type GetCardQuery = {
   __typename: "Card";
   id: string;
@@ -404,6 +451,22 @@ export type ListCardElementsQuery = {
     id: string;
     name: string;
     icon: string;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetCardJobQuery = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+};
+
+export type ListCardJobsQuery = {
+  __typename: "ModelCardJobConnection";
+  items: Array<{
+    __typename: "CardJob";
+    id: string;
+    name: string;
   } | null> | null;
   nextToken: string | null;
 };
@@ -517,6 +580,24 @@ export type OnDeleteCardElementSubscription = {
   id: string;
   name: string;
   icon: string;
+};
+
+export type OnCreateCardJobSubscription = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+};
+
+export type OnUpdateCardJobSubscription = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+};
+
+export type OnDeleteCardJobSubscription = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
 };
 
 @Injectable({
@@ -778,6 +859,72 @@ export class APIService {
     )) as any;
     return <DeleteCardElementMutation>response.data.deleteCardElement;
   }
+  async CreateCardJob(
+    input: CreateCardJobInput,
+    condition?: ModelCardJobConditionInput
+  ): Promise<CreateCardJobMutation> {
+    const statement = `mutation CreateCardJob($input: CreateCardJobInput!, $condition: ModelCardJobConditionInput) {
+        createCardJob(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateCardJobMutation>response.data.createCardJob;
+  }
+  async UpdateCardJob(
+    input: UpdateCardJobInput,
+    condition?: ModelCardJobConditionInput
+  ): Promise<UpdateCardJobMutation> {
+    const statement = `mutation UpdateCardJob($input: UpdateCardJobInput!, $condition: ModelCardJobConditionInput) {
+        updateCardJob(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateCardJobMutation>response.data.updateCardJob;
+  }
+  async DeleteCardJob(
+    input: DeleteCardJobInput,
+    condition?: ModelCardJobConditionInput
+  ): Promise<DeleteCardJobMutation> {
+    const statement = `mutation DeleteCardJob($input: DeleteCardJobInput!, $condition: ModelCardJobConditionInput) {
+        deleteCardJob(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteCardJobMutation>response.data.deleteCardJob;
+  }
   async GetCard(id: string): Promise<GetCardQuery> {
     const statement = `query GetCard($id: ID!) {
         getCard(id: $id) {
@@ -957,6 +1104,53 @@ export class APIService {
     )) as any;
     return <ListCardElementsQuery>response.data.listCardElements;
   }
+  async GetCardJob(id: string): Promise<GetCardJobQuery> {
+    const statement = `query GetCardJob($id: ID!) {
+        getCardJob(id: $id) {
+          __typename
+          id
+          name
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetCardJobQuery>response.data.getCardJob;
+  }
+  async ListCardJobs(
+    filter?: ModelCardJobFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListCardJobsQuery> {
+    const statement = `query ListCardJobs($filter: ModelCardJobFilterInput, $limit: Int, $nextToken: String) {
+        listCardJobs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            name
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListCardJobsQuery>response.data.listCardJobs;
+  }
   OnCreateCardListener: Observable<OnCreateCardSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreateCard {
@@ -1133,4 +1327,46 @@ export class APIService {
       }`
     )
   ) as Observable<OnDeleteCardElementSubscription>;
+
+  OnCreateCardJobListener: Observable<
+    OnCreateCardJobSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateCardJob {
+        onCreateCardJob {
+          __typename
+          id
+          name
+        }
+      }`
+    )
+  ) as Observable<OnCreateCardJobSubscription>;
+
+  OnUpdateCardJobListener: Observable<
+    OnUpdateCardJobSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateCardJob {
+        onUpdateCardJob {
+          __typename
+          id
+          name
+        }
+      }`
+    )
+  ) as Observable<OnUpdateCardJobSubscription>;
+
+  OnDeleteCardJobListener: Observable<
+    OnDeleteCardJobSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteCardJob {
+        onDeleteCardJob {
+          __typename
+          id
+          name
+        }
+      }`
+    )
+  ) as Observable<OnDeleteCardJobSubscription>;
 }
