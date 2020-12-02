@@ -36,7 +36,7 @@ type Card @model @auth(rules: [{ allow: public }]) {
     isExBurst: Boolean!
     rarity: FFTCGCardRarity!
     isMultiPlay: Boolean!
-    serailNumber: String!
+    serialNumber: String!
 }
 
 type CardCategory @model @auth(rules: [{ allow: public }]) {
