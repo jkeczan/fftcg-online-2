@@ -1,6 +1,6 @@
 {
     "identityPoolName": "fftcgonline3bd1df18_identitypool_3bd1df18",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "fftcgo3bd1df18",
     "userPoolName": "fftcgonline3bd1df18_userpool_3bd1df18",
     "autoVerifiedAttributes": [

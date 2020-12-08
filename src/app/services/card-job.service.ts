@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {APIService, CreateCardJobInput, CreateCardJobMutation, ListCardJobsQuery} from '../API.service';
+import {APIService, CreateCardJobInput, CreateCardJobMutation, ListCardJobsQuery} from '../services/api.service';
 
 @Injectable({
     providedIn: 'root'

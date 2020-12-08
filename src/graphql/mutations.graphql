@@ -5,23 +5,123 @@ mutation CreateCard(
 ) {
   createCard(input: $input, condition: $condition) {
     id
+    name
     cost
-    elements {
-      id
-      name
-      icon
-    }
+    elements
     cardType
     jobs
-    categories {
-      id
-      name
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     powerLevel
     effectText
     isExBurst
     rarity
     isMultiPlay
+    serialNumber
+    imageSource
+    cardHash
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateCard(
@@ -30,23 +130,123 @@ mutation UpdateCard(
 ) {
   updateCard(input: $input, condition: $condition) {
     id
+    name
     cost
-    elements {
-      id
-      name
-      icon
-    }
+    elements
     cardType
     jobs
-    categories {
-      id
-      name
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     powerLevel
     effectText
     isExBurst
     rarity
     isMultiPlay
+    serialNumber
+    imageSource
+    cardHash
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteCard(
@@ -55,23 +255,555 @@ mutation DeleteCard(
 ) {
   deleteCard(input: $input, condition: $condition) {
     id
+    name
     cost
-    elements {
-      id
-      name
-      icon
-    }
+    elements
     cardType
     jobs
-    categories {
-      id
-      name
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     powerLevel
     effectText
     isExBurst
     rarity
     isMultiPlay
+    serialNumber
+    imageSource
+    cardHash
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateCardCategoryConnection(
+  $input: CreateCardCategoryConnectionInput!
+  $condition: ModelCardCategoryConnectionConditionInput
+) {
+  createCardCategoryConnection(input: $input, condition: $condition) {
+    id
+    cardID
+    categoryID
+    card {
+      id
+      name
+      cost
+      elements
+      cardType
+      jobs
+      cardCategories {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      powerLevel
+      effectText
+      isExBurst
+      rarity
+      isMultiPlay
+      serialNumber
+      imageSource
+      cardHash
+      createdAt
+      updatedAt
+    }
+    category {
+      id
+      name
+      cards {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateCardCategoryConnection(
+  $input: UpdateCardCategoryConnectionInput!
+  $condition: ModelCardCategoryConnectionConditionInput
+) {
+  updateCardCategoryConnection(input: $input, condition: $condition) {
+    id
+    cardID
+    categoryID
+    card {
+      id
+      name
+      cost
+      elements
+      cardType
+      jobs
+      cardCategories {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      powerLevel
+      effectText
+      isExBurst
+      rarity
+      isMultiPlay
+      serialNumber
+      imageSource
+      cardHash
+      createdAt
+      updatedAt
+    }
+    category {
+      id
+      name
+      cards {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteCardCategoryConnection(
+  $input: DeleteCardCategoryConnectionInput!
+  $condition: ModelCardCategoryConnectionConditionInput
+) {
+  deleteCardCategoryConnection(input: $input, condition: $condition) {
+    id
+    cardID
+    categoryID
+    card {
+      id
+      name
+      cost
+      elements
+      cardType
+      jobs
+      cardCategories {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      powerLevel
+      effectText
+      isExBurst
+      rarity
+      isMultiPlay
+      serialNumber
+      imageSource
+      cardHash
+      createdAt
+      updatedAt
+    }
+    category {
+      id
+      name
+      cards {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
   }
 }
 mutation CreateCardCategory(
@@ -81,6 +813,110 @@ mutation CreateCardCategory(
   createCardCategory(input: $input, condition: $condition) {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateCardCategory(
@@ -90,6 +926,110 @@ mutation UpdateCardCategory(
   updateCardCategory(input: $input, condition: $condition) {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteCardCategory(
@@ -99,6 +1039,110 @@ mutation DeleteCardCategory(
   deleteCardCategory(input: $input, condition: $condition) {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
   }
 }
 mutation CreateCardElement(
@@ -109,6 +1153,8 @@ mutation CreateCardElement(
     id
     name
     icon
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateCardElement(
@@ -119,6 +1165,8 @@ mutation UpdateCardElement(
     id
     name
     icon
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteCardElement(
@@ -129,6 +1177,8 @@ mutation DeleteCardElement(
     id
     name
     icon
+    createdAt
+    updatedAt
   }
 }
 mutation CreateCardJob(
@@ -138,6 +1188,8 @@ mutation CreateCardJob(
   createCardJob(input: $input, condition: $condition) {
     id
     name
+    createdAt
+    updatedAt
   }
 }
 mutation UpdateCardJob(
@@ -147,6 +1199,8 @@ mutation UpdateCardJob(
   updateCardJob(input: $input, condition: $condition) {
     id
     name
+    createdAt
+    updatedAt
   }
 }
 mutation DeleteCardJob(
@@ -156,5 +1210,7 @@ mutation DeleteCardJob(
   deleteCardJob(input: $input, condition: $condition) {
     id
     name
+    createdAt
+    updatedAt
   }
 }

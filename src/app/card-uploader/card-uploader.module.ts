@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {CardUploaderPageRoutingModule} from './card-uploader-routing.module';
 
 import {CardUploaderPage} from './card-uploader.page';
+import {AmplifyUIAngularModule} from '@aws-amplify/ui-angular';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {CardUploaderPage} from './card-uploader.page';
         FormsModule,
         ReactiveFormsModule,
         IonicModule,
-        CardUploaderPageRoutingModule
+        CardUploaderPageRoutingModule,
+        AmplifyUIAngularModule
     ],
     declarations: [CardUploaderPage]
 })

@@ -25,11 +25,12 @@ enum FFTCGCardRarity {
 
 type Card @model @auth(rules: [{ allow: public }]) {
     id: ID!
+    name: String!
     cost: Int!
-    elements: [CardElement!]!
+    elements: [FFTCGCardElement!]!
     cardType: String!
     jobs: [String!]!
-    categories: [CardCategory!]!
+    cardCategories: [CardCategoryConnection!]! @connection(keyName: "byCard", fields: ["id"])
     powerLevel: Int!
     effectText: String!
     #	effects: Array<any>;
@@ -37,11 +38,27 @@ type Card @model @auth(rules: [{ allow: public }]) {
     rarity: FFTCGCardRarity!
     isMultiPlay: Boolean!
     serialNumber: String!
+    imageSource: String!
+    cardHash: String!
+}
+
+type CardCategoryConnection
+    @model(queries: null)
+    @auth(rules: [{ allow: public }])
+    @key(name:"byCard", fields: ["cardID","categoryID"])
+    @key(name:"byCategory", fields: ["categoryID","cardID"]) {
+
+    id: ID!
+    cardID: ID!
+    categoryID: ID!
+    card: Card! @connection(fields: ["cardID"])
+    category: CardCategory! @connection(fields: ["categoryID"])
 }
 
 type CardCategory @model @auth(rules: [{ allow: public }]) {
     id: ID!
     name: String!
+    cards: [CardCategoryConnection] @connection(keyName: "byCategory", fields: ["id"])
 }
 
 type CardElement @model @auth(rules: [{ allow: public }]) {

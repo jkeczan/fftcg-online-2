@@ -2,23 +2,123 @@
 query GetCard($id: ID!) {
   getCard(id: $id) {
     id
+    name
     cost
-    elements {
-      id
-      name
-      icon
-    }
+    elements
     cardType
     jobs
-    categories {
-      id
-      name
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
     }
     powerLevel
     effectText
     isExBurst
     rarity
     isMultiPlay
+    serialNumber
+    imageSource
+    cardHash
+    createdAt
+    updatedAt
   }
 }
 query ListCards(
@@ -29,23 +129,75 @@ query ListCards(
   listCards(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      name
       cost
-      elements {
-        id
-        name
-        icon
-      }
+      elements
       cardType
       jobs
-      categories {
-        id
-        name
+      cardCategories {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       powerLevel
       effectText
       isExBurst
       rarity
       isMultiPlay
+      serialNumber
+      imageSource
+      cardHash
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -54,6 +206,110 @@ query GetCardCategory($id: ID!) {
   getCardCategory(id: $id) {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        category {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
   }
 }
 query ListCardCategorys(
@@ -65,6 +321,62 @@ query ListCardCategorys(
     items {
       id
       name
+      cards {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -74,6 +386,8 @@ query GetCardElement($id: ID!) {
     id
     name
     icon
+    createdAt
+    updatedAt
   }
 }
 query ListCardElements(
@@ -86,6 +400,8 @@ query ListCardElements(
       id
       name
       icon
+      createdAt
+      updatedAt
     }
     nextToken
   }
@@ -94,6 +410,8 @@ query GetCardJob($id: ID!) {
   getCardJob(id: $id) {
     id
     name
+    createdAt
+    updatedAt
   }
 }
 query ListCardJobs(
@@ -105,6 +423,8 @@ query ListCardJobs(
     items {
       id
       name
+      createdAt
+      updatedAt
     }
     nextToken
   }
