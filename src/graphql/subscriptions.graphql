@@ -91,6 +91,12 @@ subscription OnCreateCard {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -223,6 +229,12 @@ subscription OnCreateCard {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -278,6 +290,12 @@ subscription OnCreateCard {
     serialNumber
     imageSource
     cardHash
+    cardDesigner {
+      id
+      name
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -374,6 +392,12 @@ subscription OnUpdateCard {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -506,6 +530,12 @@ subscription OnUpdateCard {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -561,6 +591,12 @@ subscription OnUpdateCard {
     serialNumber
     imageSource
     cardHash
+    cardDesigner {
+      id
+      name
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -657,6 +693,12 @@ subscription OnDeleteCard {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -789,6 +831,12 @@ subscription OnDeleteCard {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -844,6 +892,12 @@ subscription OnDeleteCard {
     serialNumber
     imageSource
     cardHash
+    cardDesigner {
+      id
+      name
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -898,6 +952,12 @@ subscription OnCreateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -961,6 +1021,12 @@ subscription OnCreateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -993,6 +1059,12 @@ subscription OnCreateCardCategoryConnection {
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -1038,6 +1110,12 @@ subscription OnCreateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1119,6 +1197,12 @@ subscription OnUpdateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1182,6 +1266,12 @@ subscription OnUpdateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1214,6 +1304,12 @@ subscription OnUpdateCardCategoryConnection {
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -1259,6 +1355,12 @@ subscription OnUpdateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1340,6 +1442,12 @@ subscription OnDeleteCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1403,6 +1511,12 @@ subscription OnDeleteCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1435,6 +1549,12 @@ subscription OnDeleteCardCategoryConnection {
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -1480,6 +1600,12 @@ subscription OnDeleteCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1600,6 +1726,12 @@ subscription OnCreateCardCategory {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -1740,6 +1872,12 @@ subscription OnUpdateCardCategory {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -1880,6 +2018,12 @@ subscription OnDeleteCardCategory {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -1958,6 +2102,30 @@ subscription OnDeleteCardElement {
     updatedAt
   }
 }
+subscription OnCreateCardDesigner {
+  onCreateCardDesigner {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCardDesigner {
+  onUpdateCardDesigner {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCardDesigner {
+  onDeleteCardDesigner {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateCardJobConnection {
   onCreateCardJobConnection {
     id
@@ -2008,6 +2176,12 @@ subscription OnCreateCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2071,6 +2245,12 @@ subscription OnCreateCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2103,6 +2283,12 @@ subscription OnCreateCardJobConnection {
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -2148,6 +2334,12 @@ subscription OnCreateCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2229,6 +2421,12 @@ subscription OnUpdateCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2292,6 +2490,12 @@ subscription OnUpdateCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2324,6 +2528,12 @@ subscription OnUpdateCardJobConnection {
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -2369,6 +2579,12 @@ subscription OnUpdateCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2450,6 +2666,12 @@ subscription OnDeleteCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2513,6 +2735,12 @@ subscription OnDeleteCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2545,6 +2773,12 @@ subscription OnDeleteCardJobConnection {
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -2590,6 +2824,12 @@ subscription OnDeleteCardJobConnection {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2710,6 +2950,12 @@ subscription OnCreateCardJob {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -2850,6 +3096,12 @@ subscription OnUpdateCardJob {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -2990,6 +3242,12 @@ subscription OnDeleteCardJob {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }

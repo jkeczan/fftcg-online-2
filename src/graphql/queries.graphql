@@ -91,6 +91,12 @@ query GetCard($id: ID!) {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -223,6 +229,12 @@ query GetCard($id: ID!) {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -278,6 +290,12 @@ query GetCard($id: ID!) {
     serialNumber
     imageSource
     cardHash
+    cardDesigner {
+      id
+      name
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -333,6 +351,12 @@ query ListCards(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -396,6 +420,12 @@ query ListCards(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -428,6 +458,12 @@ query ListCards(
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -523,6 +559,12 @@ query GetCardCategory($id: ID!) {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -622,6 +664,12 @@ query ListCardCategorys(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -671,6 +719,29 @@ query ListCardElements(
       id
       name
       icon
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetCardDesigner($id: ID!) {
+  getCardDesigner(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+query ListCardDesigners(
+  $filter: ModelCardDesignerFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCardDesigners(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
       createdAt
       updatedAt
     }
@@ -766,6 +837,12 @@ query GetCardJob($id: ID!) {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -865,6 +942,12 @@ query ListCardJobs(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }

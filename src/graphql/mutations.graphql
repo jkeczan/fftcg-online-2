@@ -94,6 +94,12 @@ mutation CreateCard(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -226,6 +232,12 @@ mutation CreateCard(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -281,6 +293,12 @@ mutation CreateCard(
     serialNumber
     imageSource
     cardHash
+    cardDesigner {
+      id
+      name
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -380,6 +398,12 @@ mutation UpdateCard(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -512,6 +536,12 @@ mutation UpdateCard(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -567,6 +597,12 @@ mutation UpdateCard(
     serialNumber
     imageSource
     cardHash
+    cardDesigner {
+      id
+      name
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -666,6 +702,12 @@ mutation DeleteCard(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -798,6 +840,12 @@ mutation DeleteCard(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -853,6 +901,12 @@ mutation DeleteCard(
     serialNumber
     imageSource
     cardHash
+    cardDesigner {
+      id
+      name
+      createdAt
+      updatedAt
+    }
     createdAt
     updatedAt
   }
@@ -910,6 +964,12 @@ mutation CreateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -973,6 +1033,12 @@ mutation CreateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1005,6 +1071,12 @@ mutation CreateCardCategoryConnection(
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -1050,6 +1122,12 @@ mutation CreateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1134,6 +1212,12 @@ mutation UpdateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1197,6 +1281,12 @@ mutation UpdateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1229,6 +1319,12 @@ mutation UpdateCardCategoryConnection(
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -1274,6 +1370,12 @@ mutation UpdateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1358,6 +1460,12 @@ mutation DeleteCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1421,6 +1529,12 @@ mutation DeleteCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1453,6 +1567,12 @@ mutation DeleteCardCategoryConnection(
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -1498,6 +1618,12 @@ mutation DeleteCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -1621,6 +1747,12 @@ mutation CreateCardCategory(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -1764,6 +1896,12 @@ mutation UpdateCardCategory(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -1907,6 +2045,12 @@ mutation DeleteCardCategory(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -1994,6 +2138,39 @@ mutation DeleteCardElement(
     updatedAt
   }
 }
+mutation CreateCardDesigner(
+  $input: CreateCardDesignerInput!
+  $condition: ModelCardDesignerConditionInput
+) {
+  createCardDesigner(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateCardDesigner(
+  $input: UpdateCardDesignerInput!
+  $condition: ModelCardDesignerConditionInput
+) {
+  updateCardDesigner(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteCardDesigner(
+  $input: DeleteCardDesignerInput!
+  $condition: ModelCardDesignerConditionInput
+) {
+  deleteCardDesigner(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
 mutation CreateCardJobConnection(
   $input: CreateCardJobConnectionInput!
   $condition: ModelCardJobConnectionConditionInput
@@ -2047,6 +2224,12 @@ mutation CreateCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2110,6 +2293,12 @@ mutation CreateCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2142,6 +2331,12 @@ mutation CreateCardJobConnection(
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -2187,6 +2382,12 @@ mutation CreateCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2271,6 +2472,12 @@ mutation UpdateCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2334,6 +2541,12 @@ mutation UpdateCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2366,6 +2579,12 @@ mutation UpdateCardJobConnection(
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -2411,6 +2630,12 @@ mutation UpdateCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2495,6 +2720,12 @@ mutation DeleteCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2558,6 +2789,12 @@ mutation DeleteCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2590,6 +2827,12 @@ mutation DeleteCardJobConnection(
       serialNumber
       imageSource
       cardHash
+      cardDesigner {
+        id
+        name
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -2635,6 +2878,12 @@ mutation DeleteCardJobConnection(
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -2758,6 +3007,12 @@ mutation CreateCardJob(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -2901,6 +3156,12 @@ mutation UpdateCardJob(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -3044,6 +3305,12 @@ mutation DeleteCardJob(
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }

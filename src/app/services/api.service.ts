@@ -236,6 +236,27 @@ export type DeleteCardElementInput = {
   id?: string | null;
 };
 
+export type CreateCardDesignerInput = {
+  id?: string | null;
+  name: string;
+};
+
+export type ModelCardDesignerConditionInput = {
+  name?: ModelStringInput | null;
+  and?: Array<ModelCardDesignerConditionInput | null> | null;
+  or?: Array<ModelCardDesignerConditionInput | null> | null;
+  not?: ModelCardDesignerConditionInput | null;
+};
+
+export type UpdateCardDesignerInput = {
+  id: string;
+  name?: string | null;
+};
+
+export type DeleteCardDesignerInput = {
+  id?: string | null;
+};
+
 export type CreateCardJobConnectionInput = {
   id?: string | null;
   cardID: string;
@@ -315,6 +336,14 @@ export type ModelCardElementFilterInput = {
   and?: Array<ModelCardElementFilterInput | null> | null;
   or?: Array<ModelCardElementFilterInput | null> | null;
   not?: ModelCardElementFilterInput | null;
+};
+
+export type ModelCardDesignerFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  and?: Array<ModelCardDesignerFilterInput | null> | null;
+  or?: Array<ModelCardDesignerFilterInput | null> | null;
+  not?: ModelCardDesignerFilterInput | null;
 };
 
 export type ModelCardJobFilterInput = {
@@ -428,6 +457,13 @@ export type CreateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -576,6 +612,13 @@ export type CreateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -636,6 +679,13 @@ export type CreateCardMutation = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
+  cardDesigner: {
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -743,6 +793,13 @@ export type UpdateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -891,6 +948,13 @@ export type UpdateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -951,6 +1015,13 @@ export type UpdateCardMutation = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
+  cardDesigner: {
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -1058,6 +1129,13 @@ export type DeleteCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -1206,6 +1284,13 @@ export type DeleteCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -1266,6 +1351,13 @@ export type DeleteCardMutation = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
+  cardDesigner: {
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -1328,6 +1420,13 @@ export type CreateCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1401,6 +1500,13 @@ export type CreateCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1436,6 +1542,13 @@ export type CreateCardCategoryConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -1489,6 +1602,13 @@ export type CreateCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1581,6 +1701,13 @@ export type UpdateCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1654,6 +1781,13 @@ export type UpdateCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1689,6 +1823,13 @@ export type UpdateCardCategoryConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -1742,6 +1883,13 @@ export type UpdateCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1834,6 +1982,13 @@ export type DeleteCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1907,6 +2062,13 @@ export type DeleteCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -1942,6 +2104,13 @@ export type DeleteCardCategoryConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -1995,6 +2164,13 @@ export type DeleteCardCategoryConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -2129,6 +2305,13 @@ export type CreateCardCategoryMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -2285,6 +2468,13 @@ export type UpdateCardCategoryMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -2441,6 +2631,13 @@ export type DeleteCardCategoryMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -2524,6 +2721,30 @@ export type DeleteCardElementMutation = {
   updatedAt: string;
 };
 
+export type CreateCardDesignerMutation = {
+  __typename: "CardDesigner";
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateCardDesignerMutation = {
+  __typename: "CardDesigner";
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteCardDesignerMutation = {
+  __typename: "CardDesigner";
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type CreateCardJobConnectionMutation = {
   __typename: "CardJobConnection";
   id: string;
@@ -2582,6 +2803,13 @@ export type CreateCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -2655,6 +2883,13 @@ export type CreateCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -2690,6 +2925,13 @@ export type CreateCardJobConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -2743,6 +2985,13 @@ export type CreateCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -2835,6 +3084,13 @@ export type UpdateCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -2908,6 +3164,13 @@ export type UpdateCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -2943,6 +3206,13 @@ export type UpdateCardJobConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -2996,6 +3266,13 @@ export type UpdateCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -3088,6 +3365,13 @@ export type DeleteCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -3161,6 +3445,13 @@ export type DeleteCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -3196,6 +3487,13 @@ export type DeleteCardJobConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -3249,6 +3547,13 @@ export type DeleteCardJobConnectionMutation = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -3383,6 +3688,13 @@ export type CreateCardJobMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -3539,6 +3851,13 @@ export type UpdateCardJobMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -3695,6 +4014,13 @@ export type DeleteCardJobMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -3854,6 +4180,13 @@ export type GetCardQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -4002,6 +4335,13 @@ export type GetCardQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -4062,6 +4402,13 @@ export type GetCardQuery = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
+  cardDesigner: {
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -4121,6 +4468,13 @@ export type ListCardsQuery = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -4194,6 +4548,13 @@ export type ListCardsQuery = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -4229,6 +4590,13 @@ export type ListCardsQuery = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4335,6 +4703,13 @@ export type GetCardCategoryQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -4443,6 +4818,13 @@ export type ListCardCategorysQuery = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -4492,6 +4874,26 @@ export type ListCardElementsQuery = {
     id: string;
     name: string;
     icon: string;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetCardDesignerQuery = {
+  __typename: "CardDesigner";
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListCardDesignersQuery = {
+  __typename: "ModelCardDesignerConnection";
+  items: Array<{
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -4598,6 +5000,13 @@ export type GetCardJobQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -4706,6 +5115,13 @@ export type ListCardJobsQuery = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -4842,6 +5258,13 @@ export type OnCreateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -4990,6 +5413,13 @@ export type OnCreateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -5050,6 +5480,13 @@ export type OnCreateCardSubscription = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
+  cardDesigner: {
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -5157,6 +5594,13 @@ export type OnUpdateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -5305,6 +5749,13 @@ export type OnUpdateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -5365,6 +5816,13 @@ export type OnUpdateCardSubscription = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
+  cardDesigner: {
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -5472,6 +5930,13 @@ export type OnDeleteCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -5620,6 +6085,13 @@ export type OnDeleteCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -5680,6 +6152,13 @@ export type OnDeleteCardSubscription = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
+  cardDesigner: {
+    __typename: "CardDesigner";
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   createdAt: string;
   updatedAt: string;
 };
@@ -5742,6 +6221,13 @@ export type OnCreateCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -5815,6 +6301,13 @@ export type OnCreateCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -5850,6 +6343,13 @@ export type OnCreateCardCategoryConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -5903,6 +6403,13 @@ export type OnCreateCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -5995,6 +6502,13 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -6068,6 +6582,13 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -6103,6 +6624,13 @@ export type OnUpdateCardCategoryConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -6156,6 +6684,13 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -6248,6 +6783,13 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -6321,6 +6863,13 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -6356,6 +6905,13 @@ export type OnDeleteCardCategoryConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -6409,6 +6965,13 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -6543,6 +7106,13 @@ export type OnCreateCardCategorySubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -6699,6 +7269,13 @@ export type OnUpdateCardCategorySubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -6855,6 +7432,13 @@ export type OnDeleteCardCategorySubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -6938,6 +7522,30 @@ export type OnDeleteCardElementSubscription = {
   updatedAt: string;
 };
 
+export type OnCreateCardDesignerSubscription = {
+  __typename: "CardDesigner";
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateCardDesignerSubscription = {
+  __typename: "CardDesigner";
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteCardDesignerSubscription = {
+  __typename: "CardDesigner";
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type OnCreateCardJobConnectionSubscription = {
   __typename: "CardJobConnection";
   id: string;
@@ -6996,6 +7604,13 @@ export type OnCreateCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7069,6 +7684,13 @@ export type OnCreateCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7104,6 +7726,13 @@ export type OnCreateCardJobConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -7157,6 +7786,13 @@ export type OnCreateCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7249,6 +7885,13 @@ export type OnUpdateCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7322,6 +7965,13 @@ export type OnUpdateCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7357,6 +8007,13 @@ export type OnUpdateCardJobConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -7410,6 +8067,13 @@ export type OnUpdateCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7502,6 +8166,13 @@ export type OnDeleteCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7575,6 +8246,13 @@ export type OnDeleteCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7610,6 +8288,13 @@ export type OnDeleteCardJobConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
+    cardDesigner: {
+      __typename: "CardDesigner";
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+    };
     createdAt: string;
     updatedAt: string;
   };
@@ -7663,6 +8348,13 @@ export type OnDeleteCardJobConnectionSubscription = {
           serialNumber: string;
           imageSource: string;
           cardHash: string;
+          cardDesigner: {
+            __typename: "CardDesigner";
+            id: string;
+            name: string;
+            createdAt: string;
+            updatedAt: string;
+          };
           createdAt: string;
           updatedAt: string;
         };
@@ -7797,6 +8489,13 @@ export type OnCreateCardJobSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -7953,6 +8652,13 @@ export type OnUpdateCardJobSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -8109,6 +8815,13 @@ export type OnDeleteCardJobSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
+        cardDesigner: {
+          __typename: "CardDesigner";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        };
         createdAt: string;
         updatedAt: string;
       };
@@ -8277,6 +8990,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -8425,6 +9145,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -8485,6 +9212,13 @@ export class APIService {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -8608,6 +9342,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -8756,6 +9497,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -8816,6 +9564,13 @@ export class APIService {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -8939,6 +9694,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -9087,6 +9849,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -9147,6 +9916,13 @@ export class APIService {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -9225,6 +10001,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9298,6 +10081,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9333,6 +10123,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -9386,6 +10183,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9496,6 +10300,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9569,6 +10380,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9604,6 +10422,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -9657,6 +10482,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9767,6 +10599,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9840,6 +10679,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -9875,6 +10721,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -9928,6 +10781,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -10080,6 +10940,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -10252,6 +11119,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -10424,6 +11298,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -10566,6 +11447,78 @@ export class APIService {
     )) as any;
     return <DeleteCardElementMutation>response.data.deleteCardElement;
   }
+  async CreateCardDesigner(
+    input: CreateCardDesignerInput,
+    condition?: ModelCardDesignerConditionInput
+  ): Promise<CreateCardDesignerMutation> {
+    const statement = `mutation CreateCardDesigner($input: CreateCardDesignerInput!, $condition: ModelCardDesignerConditionInput) {
+        createCardDesigner(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateCardDesignerMutation>response.data.createCardDesigner;
+  }
+  async UpdateCardDesigner(
+    input: UpdateCardDesignerInput,
+    condition?: ModelCardDesignerConditionInput
+  ): Promise<UpdateCardDesignerMutation> {
+    const statement = `mutation UpdateCardDesigner($input: UpdateCardDesignerInput!, $condition: ModelCardDesignerConditionInput) {
+        updateCardDesigner(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateCardDesignerMutation>response.data.updateCardDesigner;
+  }
+  async DeleteCardDesigner(
+    input: DeleteCardDesignerInput,
+    condition?: ModelCardDesignerConditionInput
+  ): Promise<DeleteCardDesignerMutation> {
+    const statement = `mutation DeleteCardDesigner($input: DeleteCardDesignerInput!, $condition: ModelCardDesignerConditionInput) {
+        deleteCardDesigner(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteCardDesignerMutation>response.data.deleteCardDesigner;
+  }
   async CreateCardJobConnection(
     input: CreateCardJobConnectionInput,
     condition?: ModelCardJobConnectionConditionInput
@@ -10629,6 +11582,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -10702,6 +11662,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -10737,6 +11704,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -10790,6 +11764,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -10900,6 +11881,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -10973,6 +11961,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -11008,6 +12003,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -11061,6 +12063,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -11171,6 +12180,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -11244,6 +12260,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -11279,6 +12302,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -11332,6 +12362,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -11484,6 +12521,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -11656,6 +12700,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -11828,6 +12879,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -12000,6 +13058,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -12148,6 +13213,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -12208,6 +13280,13 @@ export class APIService {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -12281,6 +13360,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -12354,6 +13440,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -12389,6 +13482,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -12512,6 +13612,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -12634,6 +13741,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -12734,6 +13848,57 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListCardElementsQuery>response.data.listCardElements;
+  }
+  async GetCardDesigner(id: string): Promise<GetCardDesignerQuery> {
+    const statement = `query GetCardDesigner($id: ID!) {
+        getCardDesigner(id: $id) {
+          __typename
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetCardDesignerQuery>response.data.getCardDesigner;
+  }
+  async ListCardDesigners(
+    filter?: ModelCardDesignerFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListCardDesignersQuery> {
+    const statement = `query ListCardDesigners($filter: ModelCardDesignerFilterInput, $limit: Int, $nextToken: String) {
+        listCardDesigners(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListCardDesignersQuery>response.data.listCardDesigners;
   }
   async GetCardJob(id: string): Promise<GetCardJobQuery> {
     const statement = `query GetCardJob($id: ID!) {
@@ -12837,6 +14002,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -12959,6 +14131,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -13115,6 +14294,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -13263,6 +14449,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -13323,6 +14516,13 @@ export class APIService {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -13438,6 +14638,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -13586,6 +14793,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -13646,6 +14860,13 @@ export class APIService {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -13761,6 +14982,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -13909,6 +15137,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -13969,6 +15204,13 @@ export class APIService {
           serialNumber
           imageSource
           cardHash
+          cardDesigner {
+            __typename
+            id
+            name
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -14039,6 +15281,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14112,6 +15361,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14147,6 +15403,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -14200,6 +15463,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14302,6 +15572,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14375,6 +15652,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14410,6 +15694,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -14463,6 +15754,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14565,6 +15863,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14638,6 +15943,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14673,6 +15985,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -14726,6 +16045,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -14870,6 +16196,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -15034,6 +16367,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -15198,6 +16538,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -15308,6 +16655,54 @@ export class APIService {
     )
   ) as Observable<SubscriptionResponse<OnDeleteCardElementSubscription>>;
 
+  OnCreateCardDesignerListener: Observable<
+    SubscriptionResponse<OnCreateCardDesignerSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateCardDesigner {
+        onCreateCardDesigner {
+          __typename
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateCardDesignerSubscription>>;
+
+  OnUpdateCardDesignerListener: Observable<
+    SubscriptionResponse<OnUpdateCardDesignerSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateCardDesigner {
+        onUpdateCardDesigner {
+          __typename
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateCardDesignerSubscription>>;
+
+  OnDeleteCardDesignerListener: Observable<
+    SubscriptionResponse<OnDeleteCardDesignerSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteCardDesigner {
+        onDeleteCardDesigner {
+          __typename
+          id
+          name
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteCardDesignerSubscription>>;
+
   OnCreateCardJobConnectionListener: Observable<
     SubscriptionResponse<OnCreateCardJobConnectionSubscription>
   > = API.graphql(
@@ -15371,6 +16766,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -15444,6 +16846,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -15479,6 +16888,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -15532,6 +16948,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -15632,6 +17055,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -15705,6 +17135,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -15740,6 +17177,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -15793,6 +17237,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -15893,6 +17344,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -15966,6 +17424,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -16001,6 +17466,13 @@ export class APIService {
             serialNumber
             imageSource
             cardHash
+            cardDesigner {
+              __typename
+              id
+              name
+              createdAt
+              updatedAt
+            }
             createdAt
             updatedAt
           }
@@ -16054,6 +17526,13 @@ export class APIService {
                   serialNumber
                   imageSource
                   cardHash
+                  cardDesigner {
+                    __typename
+                    id
+                    name
+                    createdAt
+                    updatedAt
+                  }
                   createdAt
                   updatedAt
                 }
@@ -16196,6 +17675,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -16360,6 +17846,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }
@@ -16524,6 +18017,13 @@ export class APIService {
                 serialNumber
                 imageSource
                 cardHash
+                cardDesigner {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
                 createdAt
                 updatedAt
               }

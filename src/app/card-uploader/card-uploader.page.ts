@@ -15,6 +15,7 @@ export class CardUploaderPage implements OnInit {
     public cardForm: FormGroup;
     public cardCategoryForm: FormGroup;
     public jobForm: FormGroup;
+    public cardDesignerForm: FormGroup;
     public cardTypes = [
         'Forward',
         'Backup',
@@ -44,6 +45,8 @@ export class CardUploaderPage implements OnInit {
 
     public jobs = [];
 
+    public designers = [];
+
     public cards: Array<any> = [];
 
     public imageSrc = '';
@@ -70,7 +73,8 @@ export class CardUploaderPage implements OnInit {
             isExBurst: [false, Validators.required],
             rarity: [null, Validators.required],
             isMultiPlay: [false, Validators.required],
-            imageSource: [null, Validators.required]
+            imageSource: [null, Validators.required],
+            cardDesigner: [null, Validators.required]
         });
 
         this.cardCategoryForm = this.formBuilder.group({
@@ -81,12 +85,18 @@ export class CardUploaderPage implements OnInit {
             name: [null, Validators.required]
         });
 
+        this.cardDesignerForm = this.formBuilder.group({
+            name: [null, Validators.required]
+        });
+
         await this.getCategories();
         await this.getJobs();
         await this.getCards();
+        await this.getCardDesigners();
         this.api.OnCreateCardCategoryListener.subscribe(this.onCategoryAdded.bind(this));
         this.api.OnCreateCardJobListener.subscribe(this.onJobAdded.bind(this));
         this.api.OnCreateCardListener.subscribe(this.onCardAdded.bind(this));
+        this.api.OnCreateCardDesignerListener.subscribe(this.onCardDesignerAdded.bind(this));
     }
 
     onImageChange(event) {
@@ -118,6 +128,10 @@ export class CardUploaderPage implements OnInit {
         this.cards.push(newCard.value.data.onCreateCard);
     }
 
+    onCardDesignerAdded(newDesigner) {
+        this.designers.push(newDesigner.value.data.onCreateCardDesigner);
+    }
+
     viewCard(card) {
         // TODO
     }
@@ -134,6 +148,10 @@ export class CardUploaderPage implements OnInit {
         this.cards = await this.cardService.getAllCards();
     }
 
+    async getCardDesigners() {
+        this.designers = await this.cardService.getAllCardDesigners();
+    }
+
     async addCard() {
         try {
             await this.cardService.createCard(this.cardForm.value, this.image);
@@ -142,6 +160,17 @@ export class CardUploaderPage implements OnInit {
         } catch (err) {
             console.log(err);
             await (await this.toastController.create({message: 'Card Created Failed'})).present();
+        }
+    }
+
+    async addCardDesigner() {
+        try {
+            await this.cardService.createCardDesigner(this.cardDesignerForm.value);
+            await (await this.toastController.create({message: 'Card Designer Created Successfully'})).present();
+            this.cardDesignerForm.reset();
+        } catch (err) {
+            console.log(err);
+            await (await this.toastController.create({message: 'Card Designer Created Failed'})).present();
         }
     }
 

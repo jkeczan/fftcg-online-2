@@ -20,8 +20,8 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "https://localhost:8100/,https://fftcg.online/",
-        "redirectSignOut": "https://localhost:8100/,https://fftcg.online/",
+        "redirectSignIn": "https://localhost:8100/,https://www.fftcg.online/",
+        "redirectSignOut": "https://localhost:8100/,https://www.fftcg.online/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",

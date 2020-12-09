@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {APIService, CreateCardMutation, ListCardsQuery} from '../services/api.service';
+import {APIService, CreateCardDesignerMutation, CreateCardMutation, ListCardDesignersQuery, ListCardsQuery} from '../services/api.service';
 import {Storage} from 'aws-amplify';
 import {uuid4} from '@capacitor/core/dist/esm/util';
 
@@ -56,5 +56,15 @@ export class CardService {
     async getAllCards() {
         const query: ListCardsQuery = await this.api.ListCards();
         return query.items;
+    }
+
+    async getAllCardDesigners() {
+        const query: ListCardDesignersQuery = await this.api.ListCardDesigners();
+        return query.items;
+    }
+
+    async createCardDesigner(newDesigner) {
+        const newDesignerQuery: CreateCardDesignerMutation = await this.api.CreateCardDesigner(newDesigner);
+        return newDesignerQuery;
     }
 }
