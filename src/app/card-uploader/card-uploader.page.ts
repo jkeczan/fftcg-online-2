@@ -56,18 +56,18 @@ export class CardUploaderPage implements OnInit {
 
     async ngOnInit() {
         this.cardForm = this.formBuilder.group({
-            name: ['Auron', Validators.required],
-            cost: [6, Validators.required],
-            serialNumber: ['1-001H', Validators.required],
-            elements: [['FIRE'], Validators.required],
-            cardType: ['Forward', Validators.required],
+            name: [null, Validators.required],
+            cost: [null, Validators.required],
+            serialNumber: [null, Validators.required],
+            elements: [[null], Validators.required],
+            cardType: [null, Validators.required],
             jobs: [null, Validators.required],
             cardCategories: [null, Validators.required],
-            powerLevel: [9000, Validators.required],
-            effectText: ['When Auron deals damage to your opponent, you may play 1 Fire Backup from your hand onto the field dull.', Validators.required],
+            powerLevel: [null, Validators.required],
+            effectText: [null, Validators.required],
             // effects: [null, Validators.required],
             isExBurst: [false, Validators.required],
-            rarity: ['HERO', Validators.required],
+            rarity: [null, Validators.required],
             isMultiPlay: [false, Validators.required],
             imageSource: [null, Validators.required]
         });

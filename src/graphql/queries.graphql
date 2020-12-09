@@ -6,19 +6,50 @@ query GetCard($id: ID!) {
     cost
     elements
     cardType
-    jobs
-    cardCategories {
+    jobs {
       items {
         id
         cardID
-        categoryID
+        jobID
         card {
           id
           name
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -30,7 +61,138 @@ query GetCard($id: ID!) {
                 cost
                 elements
                 cardType
-                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
                 powerLevel
                 effectText
                 isExBurst
@@ -78,7 +240,6 @@ query GetCard($id: ID!) {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -133,7 +294,69 @@ query ListCards(
       cost
       elements
       cardType
-      jobs
+      jobs {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       cardCategories {
         items {
           id
@@ -145,7 +368,16 @@ query ListCards(
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -217,7 +449,39 @@ query GetCardCategory($id: ID!) {
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -229,7 +493,6 @@ query GetCardCategory($id: ID!) {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -277,7 +540,6 @@ query GetCardCategory($id: ID!) {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -332,7 +594,16 @@ query ListCardCategorys(
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -410,6 +681,138 @@ query GetCardJob($id: ID!) {
   getCardJob(id: $id) {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        jobID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -423,6 +826,69 @@ query ListCardJobs(
     items {
       id
       name
+      cards {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }

@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
         <ion-title>Card Uploader</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="addCard()">Add</ion-button>
@@ -58,7 +58,7 @@
                         <ion-list>
                             <ion-item>
                                 <ion-label>Elements</ion-label>
-                                <ion-select formControlName="elements" multiple="true" style="width: 400px">
+                                <ion-select formControlName="elements" multiple="true" style="width: 400px; text-align: right">
                                     <ion-select-option *ngFor="let element of elements" [value]="element">
                                         {{element}}
                                     </ion-select-option>
@@ -179,28 +179,40 @@
                 <tr>
                     <th>Name</th>
                     <th>Serial</th>
+                    <th>Element(s)</th>
                     <th>Rarity</th>
                     <th>Cost</th>
                     <th>Power</th>
+                    <th>Category</th>
                     <th>IsMultiPlay</th>
                     <th>IsEXBurst</th>
                     <th></th>
                 </tr>
-
                 </thead>
                 <tbody>
                 <tr *ngFor="let card of cards">
                     <td>{{card.name}}</td>
                     <td>{{card.serialNumber}}</td>
+                    <td><span *ngFor="let element of card.elements">
+                        <img src="../../assets/icon/crystals/{{element}}_Crystal.png" />
+                        {{element}}&nbsp;</span>
+                    </td>
                     <td>{{card.rarity}}</td>
                     <td>{{card.cost}}</td>
                     <td>{{card.powerLevel}}</td>
-                    <td><ion-icon *ngIf="card.isMultiPlay" name="checkmark-outline" class="ion-color-primary"></ion-icon> </td>
-                    <td><ion-icon *ngIf="card.isExBurst" name="checkmark-outline" class="ion-color-primary"></ion-icon> </td>
+                    <td>
+                        <span *ngFor="let item of card.cardCategories.items">{{item.category.name}}&nbsp;</span>
+                    </td>
+                    <td>
+                        <ion-icon *ngIf="card.isMultiPlay" name="checkmark-outline"
+                                  class="ion-color-primary"></ion-icon>
+                    </td>
+                    <td>
+                        <ion-icon *ngIf="card.isExBurst" name="checkmark-outline" class="ion-color-primary"></ion-icon>
+                    </td>
                     <td>
                         <ion-button fill="clear">View Image</ion-button>
                     </td>
-
                 </tr>
                 </tbody>
             </table>

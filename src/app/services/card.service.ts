@@ -25,7 +25,6 @@ export class CardService {
             newCard.imageSource = newCard.serialNumber;
             mutation = await this.api.CreateCard(newCard);
             await this.linkCardCategories(mutation.id, categories);
-
         }
         return mutation;
     }
@@ -43,9 +42,5 @@ export class CardService {
     async getAllCards() {
         const query: ListCardsQuery = await this.api.ListCards();
         return query.items;
-    }
-
-    async getAllCardsWithFullDetails() {
-        // this.api.
     }
 }

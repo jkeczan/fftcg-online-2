@@ -29,7 +29,7 @@ type Card @model @auth(rules: [{ allow: public }]) {
     cost: Int!
     elements: [FFTCGCardElement!]!
     cardType: String!
-    jobs: [String!]!
+    jobs: [CardJobConnection!]! @connection(keyName: "byCard", fields: ["id"])
     cardCategories: [CardCategoryConnection!]! @connection(keyName: "byCard", fields: ["id"])
     powerLevel: Int!
     effectText: String!
@@ -67,7 +67,21 @@ type CardElement @model @auth(rules: [{ allow: public }]) {
     icon: String!
 }
 
+type CardJobConnection
+    @model(queries: null)
+    @auth(rules: [{ allow: public }])
+    @key(name:"byCard", fields: ["cardID","jobID"])
+    @key(name:"byJob", fields: ["jobID","cardID"]) {
+
+    id: ID!
+    cardID: ID!
+    jobID: ID!
+    card: Card! @connection(fields: ["cardID"])
+    job: CardJob! @connection(fields: ["jobID"])
+}
+
 type CardJob @model @auth(rules: [{ allow: public }]) {
     id: ID!
     name: String!
+    cards: [CardJobConnection] @connection(keyName: "byJob", fields: ["id"])
 }

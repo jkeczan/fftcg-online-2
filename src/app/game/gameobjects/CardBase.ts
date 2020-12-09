@@ -15,9 +15,6 @@ export interface ICardConfig {
 }
 
 export default class CardBase extends Container {
-    private _name: string;
-    private _scene: Scene;
-    private _depth: number;
     private _spriteCard: Sprite;
     private _spriteImage: Sprite;
     private _spriteImageBack: Sprite;
@@ -88,30 +85,6 @@ export default class CardBase extends Container {
 
     get eigthHeight(): number {
         return this.height / 8;
-    }
-
-    get name(): string {
-        return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
-    }
-
-    get scene(): Phaser.Scene {
-        return this._scene;
-    }
-
-    set scene(value: Phaser.Scene) {
-        this._scene = value;
-    }
-
-    get depth(): number {
-        return this._depth;
-    }
-
-    set depth(value: number) {
-        this._depth = value;
     }
 
     get spriteCard(): Phaser.GameObjects.Sprite {

@@ -15,7 +15,6 @@ export type CreateCardInput = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: Array<string>;
   powerLevel: number;
   effectText: string;
   isExBurst: boolean;
@@ -49,7 +48,6 @@ export type ModelCardConditionInput = {
   cost?: ModelIntInput | null;
   elements?: ModelFFTCGCardElementListInput | null;
   cardType?: ModelStringInput | null;
-  jobs?: ModelStringInput | null;
   powerLevel?: ModelIntInput | null;
   effectText?: ModelStringInput | null;
   isExBurst?: ModelBooleanInput | null;
@@ -139,7 +137,6 @@ export type UpdateCardInput = {
   cost?: number | null;
   elements?: Array<FFTCGCardElement> | null;
   cardType?: string | null;
-  jobs?: Array<string> | null;
   powerLevel?: number | null;
   effectText?: string | null;
   isExBurst?: boolean | null;
@@ -239,6 +236,30 @@ export type DeleteCardElementInput = {
   id?: string | null;
 };
 
+export type CreateCardJobConnectionInput = {
+  id?: string | null;
+  cardID: string;
+  jobID: string;
+};
+
+export type ModelCardJobConnectionConditionInput = {
+  cardID?: ModelIDInput | null;
+  jobID?: ModelIDInput | null;
+  and?: Array<ModelCardJobConnectionConditionInput | null> | null;
+  or?: Array<ModelCardJobConnectionConditionInput | null> | null;
+  not?: ModelCardJobConnectionConditionInput | null;
+};
+
+export type UpdateCardJobConnectionInput = {
+  id: string;
+  cardID?: string | null;
+  jobID?: string | null;
+};
+
+export type DeleteCardJobConnectionInput = {
+  id?: string | null;
+};
+
 export type CreateCardJobInput = {
   id?: string | null;
   name: string;
@@ -266,7 +287,6 @@ export type ModelCardFilterInput = {
   cost?: ModelIntInput | null;
   elements?: ModelFFTCGCardElementListInput | null;
   cardType?: ModelStringInput | null;
-  jobs?: ModelStringInput | null;
   powerLevel?: ModelIntInput | null;
   effectText?: ModelStringInput | null;
   isExBurst?: ModelBooleanInput | null;
@@ -312,14 +332,13 @@ export type CreateCardMutation = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: Array<string>;
-  cardCategories: {
-    __typename: "ModelCardCategoryConnectionConnection";
+  jobs: {
+    __typename: "ModelCardJobConnectionConnection";
     items: Array<{
-      __typename: "CardCategoryConnection";
+      __typename: "CardJobConnection";
       id: string;
       cardID: string;
-      categoryID: string;
+      jobID: string;
       card: {
         __typename: "Card";
         id: string;
@@ -327,7 +346,43 @@ export type CreateCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -342,7 +397,154 @@ export type CreateCardMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  cardCategories: {
+    __typename: "ModelCardCategoryConnectionConnection";
+    items: Array<{
+      __typename: "CardCategoryConnection";
+      id: string;
+      cardID: string;
+      categoryID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -395,7 +597,6 @@ export type CreateCardMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -446,14 +647,13 @@ export type UpdateCardMutation = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: Array<string>;
-  cardCategories: {
-    __typename: "ModelCardCategoryConnectionConnection";
+  jobs: {
+    __typename: "ModelCardJobConnectionConnection";
     items: Array<{
-      __typename: "CardCategoryConnection";
+      __typename: "CardJobConnection";
       id: string;
       cardID: string;
-      categoryID: string;
+      jobID: string;
       card: {
         __typename: "Card";
         id: string;
@@ -461,7 +661,43 @@ export type UpdateCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -476,7 +712,154 @@ export type UpdateCardMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  cardCategories: {
+    __typename: "ModelCardCategoryConnectionConnection";
+    items: Array<{
+      __typename: "CardCategoryConnection";
+      id: string;
+      cardID: string;
+      categoryID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -529,7 +912,6 @@ export type UpdateCardMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -580,14 +962,13 @@ export type DeleteCardMutation = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: Array<string>;
-  cardCategories: {
-    __typename: "ModelCardCategoryConnectionConnection";
+  jobs: {
+    __typename: "ModelCardJobConnectionConnection";
     items: Array<{
-      __typename: "CardCategoryConnection";
+      __typename: "CardJobConnection";
       id: string;
       cardID: string;
-      categoryID: string;
+      jobID: string;
       card: {
         __typename: "Card";
         id: string;
@@ -595,7 +976,43 @@ export type DeleteCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -610,7 +1027,154 @@ export type DeleteCardMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  cardCategories: {
+    __typename: "ModelCardCategoryConnectionConnection";
+    items: Array<{
+      __typename: "CardCategoryConnection";
+      id: string;
+      cardID: string;
+      categoryID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -663,7 +1227,6 @@ export type DeleteCardMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -719,7 +1282,79 @@ export type CreateCardCategoryConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: Array<string>;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     cardCategories: {
       __typename: "ModelCardCategoryConnectionConnection";
       items: Array<{
@@ -734,7 +1369,18 @@ export type CreateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -811,7 +1457,18 @@ export type CreateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -878,7 +1535,79 @@ export type UpdateCardCategoryConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: Array<string>;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     cardCategories: {
       __typename: "ModelCardCategoryConnectionConnection";
       items: Array<{
@@ -893,7 +1622,18 @@ export type UpdateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -970,7 +1710,18 @@ export type UpdateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -1037,7 +1788,79 @@ export type DeleteCardCategoryConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: Array<string>;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     cardCategories: {
       __typename: "ModelCardCategoryConnectionConnection";
       items: Array<{
@@ -1052,7 +1875,18 @@ export type DeleteCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -1129,7 +1963,18 @@ export type DeleteCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -1202,7 +2047,43 @@ export type CreateCardCategoryMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -1217,7 +2098,6 @@ export type CreateCardCategoryMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1270,7 +2150,6 @@ export type CreateCardCategoryMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1324,7 +2203,43 @@ export type UpdateCardCategoryMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -1339,7 +2254,6 @@ export type UpdateCardCategoryMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1392,7 +2306,6 @@ export type UpdateCardCategoryMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1446,7 +2359,43 @@ export type DeleteCardCategoryMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -1461,7 +2410,6 @@ export type DeleteCardCategoryMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1514,7 +2462,6 @@ export type DeleteCardCategoryMutation = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1577,45 +2524,776 @@ export type DeleteCardElementMutation = {
   updatedAt: string;
 };
 
+export type CreateCardJobConnectionMutation = {
+  __typename: "CardJobConnection";
+  id: string;
+  cardID: string;
+  jobID: string;
+  card: {
+    __typename: "Card";
+    id: string;
+    name: string;
+    cost: number;
+    elements: Array<FFTCGCardElement>;
+    cardType: string;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    cardCategories: {
+      __typename: "ModelCardCategoryConnectionConnection";
+      items: Array<{
+        __typename: "CardCategoryConnection";
+        id: string;
+        cardID: string;
+        categoryID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        category: {
+          __typename: "CardCategory";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    powerLevel: number;
+    effectText: string;
+    isExBurst: boolean;
+    rarity: FFTCGCardRarity;
+    isMultiPlay: boolean;
+    serialNumber: string;
+    imageSource: string;
+    cardHash: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  job: {
+    __typename: "CardJob";
+    id: string;
+    name: string;
+    cards: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateCardJobConnectionMutation = {
+  __typename: "CardJobConnection";
+  id: string;
+  cardID: string;
+  jobID: string;
+  card: {
+    __typename: "Card";
+    id: string;
+    name: string;
+    cost: number;
+    elements: Array<FFTCGCardElement>;
+    cardType: string;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    cardCategories: {
+      __typename: "ModelCardCategoryConnectionConnection";
+      items: Array<{
+        __typename: "CardCategoryConnection";
+        id: string;
+        cardID: string;
+        categoryID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        category: {
+          __typename: "CardCategory";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    powerLevel: number;
+    effectText: string;
+    isExBurst: boolean;
+    rarity: FFTCGCardRarity;
+    isMultiPlay: boolean;
+    serialNumber: string;
+    imageSource: string;
+    cardHash: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  job: {
+    __typename: "CardJob";
+    id: string;
+    name: string;
+    cards: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteCardJobConnectionMutation = {
+  __typename: "CardJobConnection";
+  id: string;
+  cardID: string;
+  jobID: string;
+  card: {
+    __typename: "Card";
+    id: string;
+    name: string;
+    cost: number;
+    elements: Array<FFTCGCardElement>;
+    cardType: string;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    cardCategories: {
+      __typename: "ModelCardCategoryConnectionConnection";
+      items: Array<{
+        __typename: "CardCategoryConnection";
+        id: string;
+        cardID: string;
+        categoryID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        category: {
+          __typename: "CardCategory";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    powerLevel: number;
+    effectText: string;
+    isExBurst: boolean;
+    rarity: FFTCGCardRarity;
+    isMultiPlay: boolean;
+    serialNumber: string;
+    imageSource: string;
+    cardHash: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  job: {
+    __typename: "CardJob";
+    id: string;
+    name: string;
+    cards: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type CreateCardJobMutation = {
   __typename: "CardJob";
   id: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type UpdateCardJobMutation = {
-  __typename: "CardJob";
-  id: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type DeleteCardJobMutation = {
-  __typename: "CardJob";
-  id: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type GetCardQuery = {
-  __typename: "Card";
-  id: string;
-  name: string;
-  cost: number;
-  elements: Array<FFTCGCardElement>;
-  cardType: string;
-  jobs: Array<string>;
-  cardCategories: {
-    __typename: "ModelCardCategoryConnectionConnection";
+  cards: {
+    __typename: "ModelCardJobConnectionConnection";
     items: Array<{
-      __typename: "CardCategoryConnection";
+      __typename: "CardJobConnection";
       id: string;
       cardID: string;
-      categoryID: string;
+      jobID: string;
       card: {
         __typename: "Card";
         id: string;
@@ -1623,7 +3301,43 @@ export type GetCardQuery = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -1638,7 +3352,625 @@ export type GetCardQuery = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateCardJobMutation = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+  cards: {
+    __typename: "ModelCardJobConnectionConnection";
+    items: Array<{
+      __typename: "CardJobConnection";
+      id: string;
+      cardID: string;
+      jobID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteCardJobMutation = {
+  __typename: "CardJob";
+  id: string;
+  name: string;
+  cards: {
+    __typename: "ModelCardJobConnectionConnection";
+    items: Array<{
+      __typename: "CardJobConnection";
+      id: string;
+      cardID: string;
+      jobID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GetCardQuery = {
+  __typename: "Card";
+  id: string;
+  name: string;
+  cost: number;
+  elements: Array<FFTCGCardElement>;
+  cardType: string;
+  jobs: {
+    __typename: "ModelCardJobConnectionConnection";
+    items: Array<{
+      __typename: "CardJobConnection";
+      id: string;
+      cardID: string;
+      jobID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  cardCategories: {
+    __typename: "ModelCardCategoryConnectionConnection";
+    items: Array<{
+      __typename: "CardCategoryConnection";
+      id: string;
+      cardID: string;
+      categoryID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1691,7 +4023,6 @@ export type GetCardQuery = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1744,7 +4075,79 @@ export type ListCardsQuery = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: Array<string>;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     cardCategories: {
       __typename: "ModelCardCategoryConnectionConnection";
       items: Array<{
@@ -1759,7 +4162,18 @@ export type ListCardsQuery = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -1839,7 +4253,43 @@ export type GetCardCategoryQuery = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -1854,7 +4304,6 @@ export type GetCardCategoryQuery = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1907,7 +4356,6 @@ export type GetCardCategoryQuery = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -1963,7 +4411,18 @@ export type ListCardCategorysQuery = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -2043,37 +4502,13 @@ export type GetCardJobQuery = {
   __typename: "CardJob";
   id: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type ListCardJobsQuery = {
-  __typename: "ModelCardJobConnection";
-  items: Array<{
-    __typename: "CardJob";
-    id: string;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-  } | null> | null;
-  nextToken: string | null;
-};
-
-export type OnCreateCardSubscription = {
-  __typename: "Card";
-  id: string;
-  name: string;
-  cost: number;
-  elements: Array<FFTCGCardElement>;
-  cardType: string;
-  jobs: Array<string>;
-  cardCategories: {
-    __typename: "ModelCardCategoryConnectionConnection";
+  cards: {
+    __typename: "ModelCardJobConnectionConnection";
     items: Array<{
-      __typename: "CardCategoryConnection";
+      __typename: "CardJobConnection";
       id: string;
       cardID: string;
-      categoryID: string;
+      jobID: string;
       card: {
         __typename: "Card";
         id: string;
@@ -2081,7 +4516,43 @@ export type OnCreateCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -2096,7 +4567,398 @@ export type OnCreateCardSubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListCardJobsQuery = {
+  __typename: "ModelCardJobConnection";
+  items: Array<{
+    __typename: "CardJob";
+    id: string;
+    name: string;
+    cards: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type OnCreateCardSubscription = {
+  __typename: "Card";
+  id: string;
+  name: string;
+  cost: number;
+  elements: Array<FFTCGCardElement>;
+  cardType: string;
+  jobs: {
+    __typename: "ModelCardJobConnectionConnection";
+    items: Array<{
+      __typename: "CardJobConnection";
+      id: string;
+      cardID: string;
+      jobID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  cardCategories: {
+    __typename: "ModelCardCategoryConnectionConnection";
+    items: Array<{
+      __typename: "CardCategoryConnection";
+      id: string;
+      cardID: string;
+      categoryID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -2149,7 +5011,6 @@ export type OnCreateCardSubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -2200,14 +5061,13 @@ export type OnUpdateCardSubscription = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: Array<string>;
-  cardCategories: {
-    __typename: "ModelCardCategoryConnectionConnection";
+  jobs: {
+    __typename: "ModelCardJobConnectionConnection";
     items: Array<{
-      __typename: "CardCategoryConnection";
+      __typename: "CardJobConnection";
       id: string;
       cardID: string;
-      categoryID: string;
+      jobID: string;
       card: {
         __typename: "Card";
         id: string;
@@ -2215,7 +5075,43 @@ export type OnUpdateCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -2230,7 +5126,154 @@ export type OnUpdateCardSubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  cardCategories: {
+    __typename: "ModelCardCategoryConnectionConnection";
+    items: Array<{
+      __typename: "CardCategoryConnection";
+      id: string;
+      cardID: string;
+      categoryID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -2283,7 +5326,6 @@ export type OnUpdateCardSubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -2334,14 +5376,13 @@ export type OnDeleteCardSubscription = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: Array<string>;
-  cardCategories: {
-    __typename: "ModelCardCategoryConnectionConnection";
+  jobs: {
+    __typename: "ModelCardJobConnectionConnection";
     items: Array<{
-      __typename: "CardCategoryConnection";
+      __typename: "CardJobConnection";
       id: string;
       cardID: string;
-      categoryID: string;
+      jobID: string;
       card: {
         __typename: "Card";
         id: string;
@@ -2349,7 +5390,43 @@ export type OnDeleteCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -2364,7 +5441,154 @@ export type OnDeleteCardSubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  cardCategories: {
+    __typename: "ModelCardCategoryConnectionConnection";
+    items: Array<{
+      __typename: "CardCategoryConnection";
+      id: string;
+      cardID: string;
+      categoryID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -2417,7 +5641,6 @@ export type OnDeleteCardSubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -2473,7 +5696,79 @@ export type OnCreateCardCategoryConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: Array<string>;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     cardCategories: {
       __typename: "ModelCardCategoryConnectionConnection";
       items: Array<{
@@ -2488,7 +5783,18 @@ export type OnCreateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -2565,7 +5871,18 @@ export type OnCreateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -2632,7 +5949,79 @@ export type OnUpdateCardCategoryConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: Array<string>;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     cardCategories: {
       __typename: "ModelCardCategoryConnectionConnection";
       items: Array<{
@@ -2647,7 +6036,18 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -2724,7 +6124,18 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -2791,7 +6202,79 @@ export type OnDeleteCardCategoryConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: Array<string>;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
     cardCategories: {
       __typename: "ModelCardCategoryConnectionConnection";
       items: Array<{
@@ -2806,7 +6289,18 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -2883,7 +6377,18 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          jobs: Array<string>;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
           cardCategories: {
             __typename: "ModelCardCategoryConnectionConnection";
             items: Array<{
@@ -2956,7 +6461,43 @@ export type OnCreateCardCategorySubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -2971,7 +6512,6 @@ export type OnCreateCardCategorySubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -3024,7 +6564,6 @@ export type OnCreateCardCategorySubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -3078,7 +6617,43 @@ export type OnUpdateCardCategorySubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -3093,7 +6668,6 @@ export type OnUpdateCardCategorySubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -3146,7 +6720,6 @@ export type OnUpdateCardCategorySubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -3200,7 +6773,43 @@ export type OnDeleteCardCategorySubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: Array<string>;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
         cardCategories: {
           __typename: "ModelCardCategoryConnectionConnection";
           items: Array<{
@@ -3215,7 +6824,6 @@ export type OnDeleteCardCategorySubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -3268,7 +6876,6 @@ export type OnDeleteCardCategorySubscription = {
               cost: number;
               elements: Array<FFTCGCardElement>;
               cardType: string;
-              jobs: Array<string>;
               powerLevel: number;
               effectText: string;
               isExBurst: boolean;
@@ -3331,10 +6938,917 @@ export type OnDeleteCardElementSubscription = {
   updatedAt: string;
 };
 
+export type OnCreateCardJobConnectionSubscription = {
+  __typename: "CardJobConnection";
+  id: string;
+  cardID: string;
+  jobID: string;
+  card: {
+    __typename: "Card";
+    id: string;
+    name: string;
+    cost: number;
+    elements: Array<FFTCGCardElement>;
+    cardType: string;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    cardCategories: {
+      __typename: "ModelCardCategoryConnectionConnection";
+      items: Array<{
+        __typename: "CardCategoryConnection";
+        id: string;
+        cardID: string;
+        categoryID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        category: {
+          __typename: "CardCategory";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    powerLevel: number;
+    effectText: string;
+    isExBurst: boolean;
+    rarity: FFTCGCardRarity;
+    isMultiPlay: boolean;
+    serialNumber: string;
+    imageSource: string;
+    cardHash: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  job: {
+    __typename: "CardJob";
+    id: string;
+    name: string;
+    cards: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateCardJobConnectionSubscription = {
+  __typename: "CardJobConnection";
+  id: string;
+  cardID: string;
+  jobID: string;
+  card: {
+    __typename: "Card";
+    id: string;
+    name: string;
+    cost: number;
+    elements: Array<FFTCGCardElement>;
+    cardType: string;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    cardCategories: {
+      __typename: "ModelCardCategoryConnectionConnection";
+      items: Array<{
+        __typename: "CardCategoryConnection";
+        id: string;
+        cardID: string;
+        categoryID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        category: {
+          __typename: "CardCategory";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    powerLevel: number;
+    effectText: string;
+    isExBurst: boolean;
+    rarity: FFTCGCardRarity;
+    isMultiPlay: boolean;
+    serialNumber: string;
+    imageSource: string;
+    cardHash: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  job: {
+    __typename: "CardJob";
+    id: string;
+    name: string;
+    cards: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteCardJobConnectionSubscription = {
+  __typename: "CardJobConnection";
+  id: string;
+  cardID: string;
+  jobID: string;
+  card: {
+    __typename: "Card";
+    id: string;
+    name: string;
+    cost: number;
+    elements: Array<FFTCGCardElement>;
+    cardType: string;
+    jobs: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    cardCategories: {
+      __typename: "ModelCardCategoryConnectionConnection";
+      items: Array<{
+        __typename: "CardCategoryConnection";
+        id: string;
+        cardID: string;
+        categoryID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        category: {
+          __typename: "CardCategory";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    powerLevel: number;
+    effectText: string;
+    isExBurst: boolean;
+    rarity: FFTCGCardRarity;
+    isMultiPlay: boolean;
+    serialNumber: string;
+    imageSource: string;
+    cardHash: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  job: {
+    __typename: "CardJob";
+    id: string;
+    name: string;
+    cards: {
+      __typename: "ModelCardJobConnectionConnection";
+      items: Array<{
+        __typename: "CardJobConnection";
+        id: string;
+        cardID: string;
+        jobID: string;
+        card: {
+          __typename: "Card";
+          id: string;
+          name: string;
+          cost: number;
+          elements: Array<FFTCGCardElement>;
+          cardType: string;
+          jobs: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          cardCategories: {
+            __typename: "ModelCardCategoryConnectionConnection";
+            items: Array<{
+              __typename: "CardCategoryConnection";
+              id: string;
+              cardID: string;
+              categoryID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          powerLevel: number;
+          effectText: string;
+          isExBurst: boolean;
+          rarity: FFTCGCardRarity;
+          isMultiPlay: boolean;
+          serialNumber: string;
+          imageSource: string;
+          cardHash: string;
+          createdAt: string;
+          updatedAt: string;
+        };
+        job: {
+          __typename: "CardJob";
+          id: string;
+          name: string;
+          cards: {
+            __typename: "ModelCardJobConnectionConnection";
+            items: Array<{
+              __typename: "CardJobConnection";
+              id: string;
+              cardID: string;
+              jobID: string;
+              createdAt: string;
+              updatedAt: string;
+            } | null> | null;
+            nextToken: string | null;
+          } | null;
+          createdAt: string;
+          updatedAt: string;
+        };
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type OnCreateCardJobSubscription = {
   __typename: "CardJob";
   id: string;
   name: string;
+  cards: {
+    __typename: "ModelCardJobConnectionConnection";
+    items: Array<{
+      __typename: "CardJobConnection";
+      id: string;
+      cardID: string;
+      jobID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3343,6 +7857,154 @@ export type OnUpdateCardJobSubscription = {
   __typename: "CardJob";
   id: string;
   name: string;
+  cards: {
+    __typename: "ModelCardJobConnectionConnection";
+    items: Array<{
+      __typename: "CardJobConnection";
+      id: string;
+      cardID: string;
+      jobID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3351,6 +8013,154 @@ export type OnDeleteCardJobSubscription = {
   __typename: "CardJob";
   id: string;
   name: string;
+  cards: {
+    __typename: "ModelCardJobConnectionConnection";
+    items: Array<{
+      __typename: "CardJobConnection";
+      id: string;
+      cardID: string;
+      jobID: string;
+      card: {
+        __typename: "Card";
+        id: string;
+        name: string;
+        cost: number;
+        elements: Array<FFTCGCardElement>;
+        cardType: string;
+        jobs: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        cardCategories: {
+          __typename: "ModelCardCategoryConnectionConnection";
+          items: Array<{
+            __typename: "CardCategoryConnection";
+            id: string;
+            cardID: string;
+            categoryID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            category: {
+              __typename: "CardCategory";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        powerLevel: number;
+        effectText: string;
+        isExBurst: boolean;
+        rarity: FFTCGCardRarity;
+        isMultiPlay: boolean;
+        serialNumber: string;
+        imageSource: string;
+        cardHash: string;
+        createdAt: string;
+        updatedAt: string;
+      };
+      job: {
+        __typename: "CardJob";
+        id: string;
+        name: string;
+        cards: {
+          __typename: "ModelCardJobConnectionConnection";
+          items: Array<{
+            __typename: "CardJobConnection";
+            id: string;
+            cardID: string;
+            jobID: string;
+            card: {
+              __typename: "Card";
+              id: string;
+              name: string;
+              cost: number;
+              elements: Array<FFTCGCardElement>;
+              cardType: string;
+              powerLevel: number;
+              effectText: string;
+              isExBurst: boolean;
+              rarity: FFTCGCardRarity;
+              isMultiPlay: boolean;
+              serialNumber: string;
+              imageSource: string;
+              cardHash: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            job: {
+              __typename: "CardJob";
+              id: string;
+              name: string;
+              createdAt: string;
+              updatedAt: string;
+            };
+            createdAt: string;
+            updatedAt: string;
+          } | null> | null;
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+      createdAt: string;
+      updatedAt: string;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3371,14 +8181,13 @@ export class APIService {
           cost
           elements
           cardType
-          jobs
-          cardCategories {
+          jobs {
             __typename
             items {
               __typename
               id
               cardID
-              categoryID
+              jobID
               card {
                 __typename
                 id
@@ -3386,7 +8195,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -3401,7 +8246,154 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              categoryID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
                       powerLevel
                       effectText
                       isExBurst
@@ -3454,7 +8446,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -3521,14 +8512,13 @@ export class APIService {
           cost
           elements
           cardType
-          jobs
-          cardCategories {
+          jobs {
             __typename
             items {
               __typename
               id
               cardID
-              categoryID
+              jobID
               card {
                 __typename
                 id
@@ -3536,7 +8526,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -3551,7 +8577,154 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              categoryID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
                       powerLevel
                       effectText
                       isExBurst
@@ -3604,7 +8777,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -3671,14 +8843,13 @@ export class APIService {
           cost
           elements
           cardType
-          jobs
-          cardCategories {
+          jobs {
             __typename
             items {
               __typename
               id
               cardID
-              categoryID
+              jobID
               card {
                 __typename
                 id
@@ -3686,7 +8857,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -3701,7 +8908,154 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              categoryID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
                       powerLevel
                       effectText
                       isExBurst
@@ -3754,7 +9108,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -3826,7 +9179,79 @@ export class APIService {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               __typename
               items {
@@ -3841,7 +9266,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -3918,7 +9354,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -4003,7 +9450,79 @@ export class APIService {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               __typename
               items {
@@ -4018,7 +9537,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -4095,7 +9625,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -4180,7 +9721,79 @@ export class APIService {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               __typename
               items {
@@ -4195,7 +9808,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -4272,7 +9896,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -4363,7 +9998,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -4378,7 +10049,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -4431,7 +10101,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -4501,7 +10170,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -4516,7 +10221,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -4569,7 +10273,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -4639,7 +10342,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -4654,7 +10393,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -4707,7 +10445,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -4829,6 +10566,819 @@ export class APIService {
     )) as any;
     return <DeleteCardElementMutation>response.data.deleteCardElement;
   }
+  async CreateCardJobConnection(
+    input: CreateCardJobConnectionInput,
+    condition?: ModelCardJobConnectionConditionInput
+  ): Promise<CreateCardJobConnectionMutation> {
+    const statement = `mutation CreateCardJobConnection($input: CreateCardJobConnectionInput!, $condition: ModelCardJobConnectionConditionInput) {
+        createCardJobConnection(input: $input, condition: $condition) {
+          __typename
+          id
+          cardID
+          jobID
+          card {
+            __typename
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                categoryID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                category {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            __typename
+            id
+            name
+            cards {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateCardJobConnectionMutation>(
+      response.data.createCardJobConnection
+    );
+  }
+  async UpdateCardJobConnection(
+    input: UpdateCardJobConnectionInput,
+    condition?: ModelCardJobConnectionConditionInput
+  ): Promise<UpdateCardJobConnectionMutation> {
+    const statement = `mutation UpdateCardJobConnection($input: UpdateCardJobConnectionInput!, $condition: ModelCardJobConnectionConditionInput) {
+        updateCardJobConnection(input: $input, condition: $condition) {
+          __typename
+          id
+          cardID
+          jobID
+          card {
+            __typename
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                categoryID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                category {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            __typename
+            id
+            name
+            cards {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateCardJobConnectionMutation>(
+      response.data.updateCardJobConnection
+    );
+  }
+  async DeleteCardJobConnection(
+    input: DeleteCardJobConnectionInput,
+    condition?: ModelCardJobConnectionConditionInput
+  ): Promise<DeleteCardJobConnectionMutation> {
+    const statement = `mutation DeleteCardJobConnection($input: DeleteCardJobConnectionInput!, $condition: ModelCardJobConnectionConditionInput) {
+        deleteCardJobConnection(input: $input, condition: $condition) {
+          __typename
+          id
+          cardID
+          jobID
+          card {
+            __typename
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                categoryID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                category {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            __typename
+            id
+            name
+            cards {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteCardJobConnectionMutation>(
+      response.data.deleteCardJobConnection
+    );
+  }
   async CreateCardJob(
     input: CreateCardJobInput,
     condition?: ModelCardJobConditionInput
@@ -4838,6 +11388,154 @@ export class APIService {
           __typename
           id
           name
+          cards {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              jobID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -4862,6 +11560,154 @@ export class APIService {
           __typename
           id
           name
+          cards {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              jobID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -4886,6 +11732,154 @@ export class APIService {
           __typename
           id
           name
+          cards {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              jobID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -4910,14 +11904,13 @@ export class APIService {
           cost
           elements
           cardType
-          jobs
-          cardCategories {
+          jobs {
             __typename
             items {
               __typename
               id
               cardID
-              categoryID
+              jobID
               card {
                 __typename
                 id
@@ -4925,7 +11918,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -4940,7 +11969,154 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              categoryID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
                       powerLevel
                       effectText
                       isExBurst
@@ -4993,7 +12169,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -5060,7 +12235,79 @@ export class APIService {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               __typename
               items {
@@ -5075,7 +12322,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -5172,7 +12430,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -5187,7 +12481,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -5240,7 +12533,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -5310,7 +12602,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -5438,6 +12741,154 @@ export class APIService {
           __typename
           id
           name
+          cards {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              jobID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -5462,6 +12913,79 @@ export class APIService {
             __typename
             id
             name
+            cards {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -5495,14 +13019,13 @@ export class APIService {
           cost
           elements
           cardType
-          jobs
-          cardCategories {
+          jobs {
             __typename
             items {
               __typename
               id
               cardID
-              categoryID
+              jobID
               card {
                 __typename
                 id
@@ -5510,7 +13033,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -5525,7 +13084,154 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              categoryID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
                       powerLevel
                       effectText
                       isExBurst
@@ -5578,7 +13284,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -5637,14 +13342,13 @@ export class APIService {
           cost
           elements
           cardType
-          jobs
-          cardCategories {
+          jobs {
             __typename
             items {
               __typename
               id
               cardID
-              categoryID
+              jobID
               card {
                 __typename
                 id
@@ -5652,7 +13356,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -5667,7 +13407,154 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              categoryID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
                       powerLevel
                       effectText
                       isExBurst
@@ -5720,7 +13607,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -5779,14 +13665,13 @@ export class APIService {
           cost
           elements
           cardType
-          jobs
-          cardCategories {
+          jobs {
             __typename
             items {
               __typename
               id
               cardID
-              categoryID
+              jobID
               card {
                 __typename
                 id
@@ -5794,7 +13679,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -5809,7 +13730,154 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              categoryID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
                       powerLevel
                       effectText
                       isExBurst
@@ -5862,7 +13930,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -5926,7 +13993,79 @@ export class APIService {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               __typename
               items {
@@ -5941,7 +14080,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -6018,7 +14168,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -6095,7 +14256,79 @@ export class APIService {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               __typename
               items {
@@ -6110,7 +14343,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -6187,7 +14431,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -6264,7 +14519,79 @@ export class APIService {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               __typename
               items {
@@ -6279,7 +14606,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -6356,7 +14694,18 @@ export class APIService {
                   cost
                   elements
                   cardType
-                  jobs
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
                   cardCategories {
                     __typename
                     items {
@@ -6439,7 +14788,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -6454,7 +14839,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -6507,7 +14891,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -6569,7 +14952,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -6584,7 +15003,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -6637,7 +15055,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -6699,7 +15116,43 @@ export class APIService {
                 cost
                 elements
                 cardType
-                jobs
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
                 cardCategories {
                   __typename
                   items {
@@ -6714,7 +15167,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -6767,7 +15219,6 @@ export class APIService {
                       cost
                       elements
                       cardType
-                      jobs
                       powerLevel
                       effectText
                       isExBurst
@@ -6857,6 +15308,789 @@ export class APIService {
     )
   ) as Observable<SubscriptionResponse<OnDeleteCardElementSubscription>>;
 
+  OnCreateCardJobConnectionListener: Observable<
+    SubscriptionResponse<OnCreateCardJobConnectionSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateCardJobConnection {
+        onCreateCardJobConnection {
+          __typename
+          id
+          cardID
+          jobID
+          card {
+            __typename
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                categoryID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                category {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            __typename
+            id
+            name
+            cards {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateCardJobConnectionSubscription>>;
+
+  OnUpdateCardJobConnectionListener: Observable<
+    SubscriptionResponse<OnUpdateCardJobConnectionSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateCardJobConnection {
+        onUpdateCardJobConnection {
+          __typename
+          id
+          cardID
+          jobID
+          card {
+            __typename
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                categoryID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                category {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            __typename
+            id
+            name
+            cards {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateCardJobConnectionSubscription>>;
+
+  OnDeleteCardJobConnectionListener: Observable<
+    SubscriptionResponse<OnDeleteCardJobConnectionSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteCardJobConnection {
+        onDeleteCardJobConnection {
+          __typename
+          id
+          cardID
+          jobID
+          card {
+            __typename
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                categoryID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                category {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            __typename
+            id
+            name
+            cards {
+              __typename
+              items {
+                __typename
+                id
+                cardID
+                jobID
+                card {
+                  __typename
+                  id
+                  name
+                  cost
+                  elements
+                  cardType
+                  jobs {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  cardCategories {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      categoryID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  powerLevel
+                  effectText
+                  isExBurst
+                  rarity
+                  isMultiPlay
+                  serialNumber
+                  imageSource
+                  cardHash
+                  createdAt
+                  updatedAt
+                }
+                job {
+                  __typename
+                  id
+                  name
+                  cards {
+                    __typename
+                    items {
+                      __typename
+                      id
+                      cardID
+                      jobID
+                      createdAt
+                      updatedAt
+                    }
+                    nextToken
+                  }
+                  createdAt
+                  updatedAt
+                }
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteCardJobConnectionSubscription>>;
+
   OnCreateCardJobListener: Observable<
     SubscriptionResponse<OnCreateCardJobSubscription>
   > = API.graphql(
@@ -6866,6 +16100,154 @@ export class APIService {
           __typename
           id
           name
+          cards {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              jobID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -6882,6 +16264,154 @@ export class APIService {
           __typename
           id
           name
+          cards {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              jobID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -6898,6 +16428,154 @@ export class APIService {
           __typename
           id
           name
+          cards {
+            __typename
+            items {
+              __typename
+              id
+              cardID
+              jobID
+              card {
+                __typename
+                id
+                name
+                cost
+                elements
+                cardType
+                jobs {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                cardCategories {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    categoryID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    category {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                __typename
+                id
+                name
+                cards {
+                  __typename
+                  items {
+                    __typename
+                    id
+                    cardID
+                    jobID
+                    card {
+                      __typename
+                      id
+                      name
+                      cost
+                      elements
+                      cardType
+                      powerLevel
+                      effectText
+                      isExBurst
+                      rarity
+                      isMultiPlay
+                      serialNumber
+                      imageSource
+                      cardHash
+                      createdAt
+                      updatedAt
+                    }
+                    job {
+                      __typename
+                      id
+                      name
+                      createdAt
+                      updatedAt
+                    }
+                    createdAt
+                    updatedAt
+                  }
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }

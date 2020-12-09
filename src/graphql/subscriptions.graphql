@@ -6,19 +6,50 @@ subscription OnCreateCard {
     cost
     elements
     cardType
-    jobs
-    cardCategories {
+    jobs {
       items {
         id
         cardID
-        categoryID
+        jobID
         card {
           id
           name
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -30,7 +61,138 @@ subscription OnCreateCard {
                 cost
                 elements
                 cardType
-                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
                 powerLevel
                 effectText
                 isExBurst
@@ -78,7 +240,6 @@ subscription OnCreateCard {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -128,19 +289,50 @@ subscription OnUpdateCard {
     cost
     elements
     cardType
-    jobs
-    cardCategories {
+    jobs {
       items {
         id
         cardID
-        categoryID
+        jobID
         card {
           id
           name
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -152,7 +344,138 @@ subscription OnUpdateCard {
                 cost
                 elements
                 cardType
-                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
                 powerLevel
                 effectText
                 isExBurst
@@ -200,7 +523,6 @@ subscription OnUpdateCard {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -250,19 +572,50 @@ subscription OnDeleteCard {
     cost
     elements
     cardType
-    jobs
-    cardCategories {
+    jobs {
       items {
         id
         cardID
-        categoryID
+        jobID
         card {
           id
           name
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -274,7 +627,138 @@ subscription OnDeleteCard {
                 cost
                 elements
                 cardType
-                jobs
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    cardCategories {
+      items {
+        id
+        cardID
+        categoryID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
                 powerLevel
                 effectText
                 isExBurst
@@ -322,7 +806,6 @@ subscription OnDeleteCard {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -376,7 +859,69 @@ subscription OnCreateCardCategoryConnection {
       cost
       elements
       cardType
-      jobs
+      jobs {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       cardCategories {
         items {
           id
@@ -388,7 +933,16 @@ subscription OnCreateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -456,7 +1010,16 @@ subscription OnCreateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -517,7 +1080,69 @@ subscription OnUpdateCardCategoryConnection {
       cost
       elements
       cardType
-      jobs
+      jobs {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       cardCategories {
         items {
           id
@@ -529,7 +1154,16 @@ subscription OnUpdateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -597,7 +1231,16 @@ subscription OnUpdateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -658,7 +1301,69 @@ subscription OnDeleteCardCategoryConnection {
       cost
       elements
       cardType
-      jobs
+      jobs {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       cardCategories {
         items {
           id
@@ -670,7 +1375,16 @@ subscription OnDeleteCardCategoryConnection {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -738,7 +1452,16 @@ subscription OnDeleteCardCategoryConnection {
             cost
             elements
             cardType
-            jobs
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
             cardCategories {
               items {
                 id
@@ -803,7 +1526,39 @@ subscription OnCreateCardCategory {
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -815,7 +1570,6 @@ subscription OnCreateCardCategory {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -863,7 +1617,6 @@ subscription OnCreateCardCategory {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -913,7 +1666,39 @@ subscription OnUpdateCardCategory {
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -925,7 +1710,6 @@ subscription OnUpdateCardCategory {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -973,7 +1757,6 @@ subscription OnUpdateCardCategory {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -1023,7 +1806,39 @@ subscription OnDeleteCardCategory {
           cost
           elements
           cardType
-          jobs
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           cardCategories {
             items {
               id
@@ -1035,7 +1850,6 @@ subscription OnDeleteCardCategory {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -1083,7 +1897,6 @@ subscription OnDeleteCardCategory {
                 cost
                 elements
                 cardType
-                jobs
                 powerLevel
                 effectText
                 isExBurst
@@ -1145,10 +1958,805 @@ subscription OnDeleteCardElement {
     updatedAt
   }
 }
+subscription OnCreateCardJobConnection {
+  onCreateCardJobConnection {
+    id
+    cardID
+    jobID
+    card {
+      id
+      name
+      cost
+      elements
+      cardType
+      jobs {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      cardCategories {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      powerLevel
+      effectText
+      isExBurst
+      rarity
+      isMultiPlay
+      serialNumber
+      imageSource
+      cardHash
+      createdAt
+      updatedAt
+    }
+    job {
+      id
+      name
+      cards {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCardJobConnection {
+  onUpdateCardJobConnection {
+    id
+    cardID
+    jobID
+    card {
+      id
+      name
+      cost
+      elements
+      cardType
+      jobs {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      cardCategories {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      powerLevel
+      effectText
+      isExBurst
+      rarity
+      isMultiPlay
+      serialNumber
+      imageSource
+      cardHash
+      createdAt
+      updatedAt
+    }
+    job {
+      id
+      name
+      cards {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCardJobConnection {
+  onDeleteCardJobConnection {
+    id
+    cardID
+    jobID
+    card {
+      id
+      name
+      cost
+      elements
+      cardType
+      jobs {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      cardCategories {
+        items {
+          id
+          cardID
+          categoryID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          category {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      powerLevel
+      effectText
+      isExBurst
+      rarity
+      isMultiPlay
+      serialNumber
+      imageSource
+      cardHash
+      createdAt
+      updatedAt
+    }
+    job {
+      id
+      name
+      cards {
+        items {
+          id
+          cardID
+          jobID
+          card {
+            id
+            name
+            cost
+            elements
+            cardType
+            jobs {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            cardCategories {
+              items {
+                id
+                cardID
+                categoryID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            powerLevel
+            effectText
+            isExBurst
+            rarity
+            isMultiPlay
+            serialNumber
+            imageSource
+            cardHash
+            createdAt
+            updatedAt
+          }
+          job {
+            id
+            name
+            cards {
+              items {
+                id
+                cardID
+                jobID
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateCardJob {
   onCreateCardJob {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        jobID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -1157,6 +2765,138 @@ subscription OnUpdateCardJob {
   onUpdateCardJob {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        jobID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
@@ -1165,6 +2905,138 @@ subscription OnDeleteCardJob {
   onDeleteCardJob {
     id
     name
+    cards {
+      items {
+        id
+        cardID
+        jobID
+        card {
+          id
+          name
+          cost
+          elements
+          cardType
+          jobs {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          cardCategories {
+            items {
+              id
+              cardID
+              categoryID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              category {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          powerLevel
+          effectText
+          isExBurst
+          rarity
+          isMultiPlay
+          serialNumber
+          imageSource
+          cardHash
+          createdAt
+          updatedAt
+        }
+        job {
+          id
+          name
+          cards {
+            items {
+              id
+              cardID
+              jobID
+              card {
+                id
+                name
+                cost
+                elements
+                cardType
+                powerLevel
+                effectText
+                isExBurst
+                rarity
+                isMultiPlay
+                serialNumber
+                imageSource
+                cardHash
+                createdAt
+                updatedAt
+              }
+              job {
+                id
+                name
+                createdAt
+                updatedAt
+              }
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
     createdAt
     updatedAt
   }
