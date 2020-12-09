@@ -137,6 +137,7 @@ export class CardUploaderPage implements OnInit {
         try {
             await this.cardService.createCard(this.cardForm.value, this.image);
             await (await this.toastController.create({message: 'Card Created Successfully'})).present();
+            this.cardForm.reset();
         } catch (err) {
             console.log(err);
             await (await this.toastController.create({message: 'Card Created Failed'})).present();
@@ -147,6 +148,7 @@ export class CardUploaderPage implements OnInit {
         try {
             await this.api.CreateCardCategory(this.cardCategoryForm.value);
             await (await this.toastController.create({message: 'Category Created Successfully'})).present();
+            this.cardCategoryForm.reset();
         } catch (err) {
             console.log(err);
             await (await this.toastController.create({message: 'Category Created Failed'})).present();
@@ -157,6 +159,7 @@ export class CardUploaderPage implements OnInit {
         try {
             await this.api.CreateCardJob(this.jobForm.value);
             await (await this.toastController.create({message: 'Job Created Successfully'})).present();
+            this.jobForm.reset();
         } catch (err) {
             console.log(err);
             await (await this.toastController.create({message: 'Job Created Failed Failed'})).present();

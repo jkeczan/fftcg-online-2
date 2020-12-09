@@ -6,7 +6,7 @@ import {UnauthGuard} from './guards/unauth.guard';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'home',
         pathMatch: 'full'
     },
     {
@@ -20,18 +20,23 @@ const routes: Routes = [
     },
     {
         path: 'card-uploader',
-        loadChildren: () => import('./card-uploader/card-uploader.module').then(m => m.CardUploaderPageModule)
+        loadChildren: () => import('./card-uploader/card-uploader.module').then(m => m.CardUploaderPageModule),
+        canActivate: [AuthGuard]
     },
     {
         path: 'login',
         loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
         canActivate: [UnauthGuard]
+    },
+    {
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
     }
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
+        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy'})
     ],
     exports: [RouterModule]
 })

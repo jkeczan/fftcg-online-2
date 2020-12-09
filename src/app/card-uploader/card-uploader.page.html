@@ -1,5 +1,8 @@
 <ion-header>
     <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
         <ion-title>Card Uploader</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="addCard()">Add</ion-button>
@@ -8,7 +11,6 @@
 </ion-header>
 
 <ion-content>
-
     <form *ngIf="cardForm" [formGroup]="cardForm">
         <ion-grid>
             <ion-row>
@@ -58,7 +60,8 @@
                         <ion-list>
                             <ion-item>
                                 <ion-label>Elements</ion-label>
-                                <ion-select formControlName="elements" multiple="true" style="width: 400px; text-align: right">
+                                <ion-select formControlName="elements" multiple="true"
+                                            style="width: 400px; text-align: right">
                                     <ion-select-option *ngFor="let element of elements" [value]="element">
                                         {{element}}
                                     </ion-select-option>
@@ -75,7 +78,7 @@
                             <ion-item>
                                 <ion-label>Jobs</ion-label>
                                 <ion-select formControlName="jobs" multiple="true" style="width: 400px">
-                                    <ion-select-option *ngFor="let job of jobs" [value]="job.id">
+                                    <ion-select-option *ngFor="let job of jobs" [value]="job">
                                         {{job.name}}
                                     </ion-select-option>
                                 </ion-select>
@@ -194,7 +197,7 @@
                     <td>{{card.name}}</td>
                     <td>{{card.serialNumber}}</td>
                     <td><span *ngFor="let element of card.elements">
-                        <img src="../../assets/icon/crystals/{{element}}_Crystal.png" />
+                        <img src="../../assets/icon/crystals/{{element}}_Crystal.png"/>
                         {{element}}&nbsp;</span>
                     </td>
                     <td>{{card.rarity}}</td>

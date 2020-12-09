@@ -11,6 +11,18 @@ import {AppRoutingModule} from './app-routing.module';
 
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
+import {environment} from '../environments/environment';
+
+function updateConfigForEnvironment() {
+    const redirectFixes = awsconfig.oauth.redirectSignIn.split(',');
+    if (environment.production) {
+        awsconfig.oauth.redirectSignIn = redirectFixes[1];
+    } else {
+        awsconfig.oauth.redirectSignIn = redirectFixes[0];
+    }
+}
+
+updateConfigForEnvironment();
 
 Amplify.configure(awsconfig);
 

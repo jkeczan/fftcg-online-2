@@ -1,21 +1,26 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
-import {AuthService} from '../services/auth.service';
-import {AuthGuard} from './auth.guard';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {Auth} from 'aws-amplify';
 
 @Injectable({
     providedIn: 'root'
 })
-export class UnauthGuard extends AuthGuard implements CanActivate {
+export class UnauthGuard implements CanActivate {
 
-    constructor(protected authService: AuthService) {
-        super(authService);
+    constructor(private router: Router) {
     }
 
     async canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Promise<boolean> {
-        console.log('Unauth Guard: ', this.authState);
-        return !this.authState;
+        console.log('Unauth');
+        return Auth.currentAuthenticatedUser()
+            .then(() => {
+                this.router.navigate(['game']);
+                return false;
+            })
+            .catch(() => {
+                return true;
+            });
     }
 }
