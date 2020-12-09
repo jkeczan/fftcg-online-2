@@ -53,5 +53,5 @@
   "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}}]",
   "userPoolGroupList": [],
   "dependsOn": [],
-  "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://localhost:8100/\",\"https://fftcg.online/\"],\"LogoutURLs\":[\"https://localhost:8100/\",\"https://fftcg.online/\"]}"
+  "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://localhost:8100/\",\"https://www.fftcg.online/\"],\"LogoutURLs\":[\"https://localhost:8100/\",\"https://www.fftcg.online/\"]}"
 }
