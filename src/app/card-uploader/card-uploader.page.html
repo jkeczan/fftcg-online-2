@@ -69,7 +69,8 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label>Categories</ion-label>
-                                <ion-select formControlName="cardCategories" multiple="true" style="width: 400px">
+                                <ion-select formControlName="cardCategories" multiple="true"
+                                            style="width: 400px; text-align: right">
                                     <ion-select-option *ngFor="let category of categories" [value]="category">
                                         {{category.name}}
                                     </ion-select-option>
@@ -77,7 +78,8 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label>Jobs</ion-label>
-                                <ion-select formControlName="jobs" multiple="true" style="width: 400px">
+                                <ion-select formControlName="jobs" multiple="true"
+                                            style="width: 400px; text-align: right">
                                     <ion-select-option *ngFor="let job of jobs" [value]="job">
                                         {{job.name}}
                                     </ion-select-option>
@@ -186,7 +188,8 @@
                     <th>Rarity</th>
                     <th>Cost</th>
                     <th>Power</th>
-                    <th>Category</th>
+                    <th>Category(s)</th>
+                    <th>Job(s)</th>
                     <th>IsMultiPlay</th>
                     <th>IsEXBurst</th>
                     <th></th>
@@ -207,6 +210,9 @@
                         <span *ngFor="let item of card.cardCategories.items">{{item.category.name}}&nbsp;</span>
                     </td>
                     <td>
+                        <span *ngFor="let item of card.jobs.items">{{item.job.name}}&nbsp;</span>
+                    </td>
+                    <td>
                         <ion-icon *ngIf="card.isMultiPlay" name="checkmark-outline"
                                   class="ion-color-primary"></ion-icon>
                     </td>
@@ -214,7 +220,10 @@
                         <ion-icon *ngIf="card.isExBurst" name="checkmark-outline" class="ion-color-primary"></ion-icon>
                     </td>
                     <td>
-                        <ion-button fill="clear">View Image</ion-button>
+                        <ion-buttons>
+                            <ion-button color="primary">View Image</ion-button>
+                            <ion-button color="danger" (click)="deleteCard(card)">Delete</ion-button>
+                        </ion-buttons>
                     </td>
                 </tr>
                 </tbody>

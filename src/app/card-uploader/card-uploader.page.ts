@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {APIService} from '../services/api.service';
-import {ToastController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {CardCategoryService} from '../services/card-category.service';
 import {CardJobService} from '../services/card-job.service';
 import {CardService} from '../services/card.service';
@@ -51,7 +51,8 @@ export class CardUploaderPage implements OnInit {
 
     constructor(private formBuilder: FormBuilder, private api: APIService,
                 private toastController: ToastController, private cardCategoryService: CardCategoryService,
-                private cardJobService: CardJobService, private cardService: CardService) {
+                private cardJobService: CardJobService, private cardService: CardService,
+                private alertController: AlertController) {
     }
 
     async ngOnInit() {
@@ -163,6 +164,34 @@ export class CardUploaderPage implements OnInit {
         } catch (err) {
             console.log(err);
             await (await this.toastController.create({message: 'Job Created Failed Failed'})).present();
+        }
+    }
+
+    async deleteCard(card) {
+        const confirm = await this.alertController.create({
+            header: 'Confirm!',
+            message: `Are you sure you want to delete ${card.name}`,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('Confirm Cancel: blah');
+                    }
+                }, {
+                    text: 'Okay',
+                    handler: () => {
+                        console.log('Confirm Okay');
+                    }
+                }
+            ]
+        });
+        await confirm.present();
+        const data = await confirm.onDidDismiss();
+        if (!data.role) {
+            await this.api.DeleteCard({id: card.id});
+            await (await this.toastController.create({message: 'Job Created Successfully'})).present();
         }
     }
 }

@@ -19,12 +19,15 @@ export class CardService {
 
         if (uploadedCardImage) {
             const categories = newCard.cardCategories;
+            const jobs = newCard.jobs;
             delete newCard.cardCategories;
+            delete newCard.jobs;
 
             newCard.cardHash = uuid4();
             newCard.imageSource = newCard.serialNumber;
             mutation = await this.api.CreateCard(newCard);
             await this.linkCardCategories(mutation.id, categories);
+            await this.linkCardJobs(mutation.id, jobs);
         }
         return mutation;
     }
@@ -36,6 +39,17 @@ export class CardService {
                     cardID,
                     categoryID: category.id
                 });
+        }
+    }
+
+    async linkCardJobs(cardID: string, jobs) {
+        for (const job of jobs) {
+            await this.api.CreateCardJobConnection(
+                {
+                    cardID,
+                    jobID: job.id
+                }
+            );
         }
     }
 
