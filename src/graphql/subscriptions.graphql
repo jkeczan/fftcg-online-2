@@ -1,4 +1,28 @@
 # this is an auto generated file. This will be overwritten
+subscription OnCreateCardDesigner {
+  onCreateCardDesigner {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateCardDesigner {
+  onUpdateCardDesigner {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteCardDesigner {
+  onDeleteCardDesigner {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateCard {
   onCreateCard {
     id
@@ -18,69 +42,9 @@ subscription OnCreateCard {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -104,36 +68,6 @@ subscription OnCreateCard {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -156,69 +90,9 @@ subscription OnCreateCard {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -242,36 +116,6 @@ subscription OnCreateCard {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -319,69 +163,9 @@ subscription OnUpdateCard {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -405,36 +189,6 @@ subscription OnUpdateCard {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -457,69 +211,9 @@ subscription OnUpdateCard {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -543,36 +237,6 @@ subscription OnUpdateCard {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -620,69 +284,9 @@ subscription OnDeleteCard {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -706,36 +310,6 @@ subscription OnDeleteCard {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -758,69 +332,9 @@ subscription OnDeleteCard {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -844,36 +358,6 @@ subscription OnDeleteCard {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -924,26 +408,6 @@ subscription OnCreateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -952,28 +416,12 @@ subscription OnCreateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -993,26 +441,6 @@ subscription OnCreateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1021,28 +449,12 @@ subscription OnCreateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1082,26 +494,6 @@ subscription OnCreateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1110,28 +502,12 @@ subscription OnCreateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1169,26 +545,6 @@ subscription OnUpdateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1197,28 +553,12 @@ subscription OnUpdateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1238,26 +578,6 @@ subscription OnUpdateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1266,28 +586,12 @@ subscription OnUpdateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1327,26 +631,6 @@ subscription OnUpdateCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1355,28 +639,12 @@ subscription OnUpdateCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1414,26 +682,6 @@ subscription OnDeleteCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1442,28 +690,12 @@ subscription OnDeleteCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1483,26 +715,6 @@ subscription OnDeleteCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1511,28 +723,12 @@ subscription OnDeleteCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1572,26 +768,6 @@ subscription OnDeleteCardCategoryConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1600,28 +776,12 @@ subscription OnDeleteCardCategoryConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1653,69 +813,9 @@ subscription OnCreateCardCategory {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -1739,36 +839,6 @@ subscription OnCreateCardCategory {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -1799,69 +869,9 @@ subscription OnUpdateCardCategory {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -1885,36 +895,6 @@ subscription OnUpdateCardCategory {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -1945,69 +925,9 @@ subscription OnDeleteCardCategory {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -2031,36 +951,6 @@ subscription OnDeleteCardCategory {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -2102,30 +992,6 @@ subscription OnDeleteCardElement {
     updatedAt
   }
 }
-subscription OnCreateCardDesigner {
-  onCreateCardDesigner {
-    id
-    name
-    createdAt
-    updatedAt
-  }
-}
-subscription OnUpdateCardDesigner {
-  onUpdateCardDesigner {
-    id
-    name
-    createdAt
-    updatedAt
-  }
-}
-subscription OnDeleteCardDesigner {
-  onDeleteCardDesigner {
-    id
-    name
-    createdAt
-    updatedAt
-  }
-}
 subscription OnCreateCardJobConnection {
   onCreateCardJobConnection {
     id
@@ -2148,26 +1014,6 @@ subscription OnCreateCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2176,28 +1022,12 @@ subscription OnCreateCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2217,26 +1047,6 @@ subscription OnCreateCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2245,28 +1055,12 @@ subscription OnCreateCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2306,26 +1100,6 @@ subscription OnCreateCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2334,28 +1108,12 @@ subscription OnCreateCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2393,26 +1151,6 @@ subscription OnUpdateCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2421,28 +1159,12 @@ subscription OnUpdateCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2462,26 +1184,6 @@ subscription OnUpdateCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2490,28 +1192,12 @@ subscription OnUpdateCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2551,26 +1237,6 @@ subscription OnUpdateCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2579,28 +1245,12 @@ subscription OnUpdateCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2638,26 +1288,6 @@ subscription OnDeleteCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2666,28 +1296,12 @@ subscription OnDeleteCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2707,26 +1321,6 @@ subscription OnDeleteCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2735,28 +1329,12 @@ subscription OnDeleteCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2796,26 +1374,6 @@ subscription OnDeleteCardJobConnection {
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2824,28 +1382,12 @@ subscription OnDeleteCardJobConnection {
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2877,69 +1419,9 @@ subscription OnCreateCardJob {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -2963,36 +1445,6 @@ subscription OnCreateCardJob {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -3023,69 +1475,9 @@ subscription OnUpdateCardJob {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -3109,36 +1501,6 @@ subscription OnUpdateCardJob {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -3169,69 +1531,9 @@ subscription OnDeleteCardJob {
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -3255,36 +1557,6 @@ subscription OnDeleteCardJob {
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt

@@ -23,6 +23,11 @@ enum FFTCGCardRarity {
     LEGEND
 }
 
+type CardDesigner @model @auth(rules: [{ allow: public }]) {
+    id: ID!
+    name: String!
+}
+
 type Card @model @auth(rules: [{ allow: public }]) {
     id: ID!
     name: String!
@@ -40,7 +45,7 @@ type Card @model @auth(rules: [{ allow: public }]) {
     serialNumber: String!
     imageSource: String!
     cardHash: String!
-    cardDesigner: CardDesigner!
+    cardDesigner: CardDesigner! @connection
 }
 
 type CardCategoryConnection
@@ -66,11 +71,6 @@ type CardElement @model @auth(rules: [{ allow: public }]) {
     id: ID!
     name: String!
     icon: String!
-}
-
-type CardDesigner @model @auth(rules: [{ allow: public }]) {
-    id: ID!
-    name: String!
 }
 
 type CardJobConnection

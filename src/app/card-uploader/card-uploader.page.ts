@@ -74,7 +74,7 @@ export class CardUploaderPage implements OnInit {
             rarity: [null, Validators.required],
             isMultiPlay: [false, Validators.required],
             imageSource: [null, Validators.required],
-            cardDesigner: [null, Validators.required]
+            cardCardDesignerId: [null, Validators.required]
         });
 
         this.cardCategoryForm = this.formBuilder.group({

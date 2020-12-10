@@ -1,4 +1,37 @@
 # this is an auto generated file. This will be overwritten
+mutation CreateCardDesigner(
+  $input: CreateCardDesignerInput!
+  $condition: ModelCardDesignerConditionInput
+) {
+  createCardDesigner(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateCardDesigner(
+  $input: UpdateCardDesignerInput!
+  $condition: ModelCardDesignerConditionInput
+) {
+  updateCardDesigner(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteCardDesigner(
+  $input: DeleteCardDesignerInput!
+  $condition: ModelCardDesignerConditionInput
+) {
+  deleteCardDesigner(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
 mutation CreateCard(
   $input: CreateCardInput!
   $condition: ModelCardConditionInput
@@ -21,69 +54,9 @@ mutation CreateCard(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -107,36 +80,6 @@ mutation CreateCard(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -159,69 +102,9 @@ mutation CreateCard(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -245,36 +128,6 @@ mutation CreateCard(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -325,69 +178,9 @@ mutation UpdateCard(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -411,36 +204,6 @@ mutation UpdateCard(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -463,69 +226,9 @@ mutation UpdateCard(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -549,36 +252,6 @@ mutation UpdateCard(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -629,69 +302,9 @@ mutation DeleteCard(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -715,36 +328,6 @@ mutation DeleteCard(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -767,69 +350,9 @@ mutation DeleteCard(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -853,36 +376,6 @@ mutation DeleteCard(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -936,26 +429,6 @@ mutation CreateCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -964,28 +437,12 @@ mutation CreateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1005,26 +462,6 @@ mutation CreateCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1033,28 +470,12 @@ mutation CreateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1094,26 +515,6 @@ mutation CreateCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1122,28 +523,12 @@ mutation CreateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1184,26 +569,6 @@ mutation UpdateCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1212,28 +577,12 @@ mutation UpdateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1253,26 +602,6 @@ mutation UpdateCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1281,28 +610,12 @@ mutation UpdateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1342,26 +655,6 @@ mutation UpdateCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1370,28 +663,12 @@ mutation UpdateCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1432,26 +709,6 @@ mutation DeleteCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1460,28 +717,12 @@ mutation DeleteCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1501,26 +742,6 @@ mutation DeleteCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1529,28 +750,12 @@ mutation DeleteCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1590,26 +795,6 @@ mutation DeleteCardCategoryConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -1618,28 +803,12 @@ mutation DeleteCardCategoryConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -1674,69 +843,9 @@ mutation CreateCardCategory(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -1760,36 +869,6 @@ mutation CreateCardCategory(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -1823,69 +902,9 @@ mutation UpdateCardCategory(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -1909,36 +928,6 @@ mutation UpdateCardCategory(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -1972,69 +961,9 @@ mutation DeleteCardCategory(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -2058,36 +987,6 @@ mutation DeleteCardCategory(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -2138,39 +1037,6 @@ mutation DeleteCardElement(
     updatedAt
   }
 }
-mutation CreateCardDesigner(
-  $input: CreateCardDesignerInput!
-  $condition: ModelCardDesignerConditionInput
-) {
-  createCardDesigner(input: $input, condition: $condition) {
-    id
-    name
-    createdAt
-    updatedAt
-  }
-}
-mutation UpdateCardDesigner(
-  $input: UpdateCardDesignerInput!
-  $condition: ModelCardDesignerConditionInput
-) {
-  updateCardDesigner(input: $input, condition: $condition) {
-    id
-    name
-    createdAt
-    updatedAt
-  }
-}
-mutation DeleteCardDesigner(
-  $input: DeleteCardDesignerInput!
-  $condition: ModelCardDesignerConditionInput
-) {
-  deleteCardDesigner(input: $input, condition: $condition) {
-    id
-    name
-    createdAt
-    updatedAt
-  }
-}
 mutation CreateCardJobConnection(
   $input: CreateCardJobConnectionInput!
   $condition: ModelCardJobConnectionConditionInput
@@ -2196,26 +1062,6 @@ mutation CreateCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2224,28 +1070,12 @@ mutation CreateCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2265,26 +1095,6 @@ mutation CreateCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2293,28 +1103,12 @@ mutation CreateCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2354,26 +1148,6 @@ mutation CreateCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2382,28 +1156,12 @@ mutation CreateCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2444,26 +1202,6 @@ mutation UpdateCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2472,28 +1210,12 @@ mutation UpdateCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2513,26 +1235,6 @@ mutation UpdateCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2541,28 +1243,12 @@ mutation UpdateCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2602,26 +1288,6 @@ mutation UpdateCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2630,28 +1296,12 @@ mutation UpdateCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2692,26 +1342,6 @@ mutation DeleteCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2720,28 +1350,12 @@ mutation DeleteCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2761,26 +1375,6 @@ mutation DeleteCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2789,28 +1383,12 @@ mutation DeleteCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           category {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2850,26 +1428,6 @@ mutation DeleteCardJobConnection(
             cost
             elements
             cardType
-            jobs {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
-            cardCategories {
-              items {
-                id
-                cardID
-                categoryID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             powerLevel
             effectText
             isExBurst
@@ -2878,28 +1436,12 @@ mutation DeleteCardJobConnection(
             serialNumber
             imageSource
             cardHash
-            cardDesigner {
-              id
-              name
-              createdAt
-              updatedAt
-            }
             createdAt
             updatedAt
           }
           job {
             id
             name
-            cards {
-              items {
-                id
-                cardID
-                jobID
-                createdAt
-                updatedAt
-              }
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -2934,69 +1476,9 @@ mutation CreateCardJob(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -3020,36 +1502,6 @@ mutation CreateCardJob(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -3083,69 +1535,9 @@ mutation UpdateCardJob(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -3169,36 +1561,6 @@ mutation UpdateCardJob(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt
@@ -3232,69 +1594,9 @@ mutation DeleteCardJob(
           elements
           cardType
           jobs {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           cardCategories {
-            items {
-              id
-              cardID
-              categoryID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              category {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           powerLevel
@@ -3318,36 +1620,6 @@ mutation DeleteCardJob(
           id
           name
           cards {
-            items {
-              id
-              cardID
-              jobID
-              card {
-                id
-                name
-                cost
-                elements
-                cardType
-                powerLevel
-                effectText
-                isExBurst
-                rarity
-                isMultiPlay
-                serialNumber
-                imageSource
-                cardHash
-                createdAt
-                updatedAt
-              }
-              job {
-                id
-                name
-                createdAt
-                updatedAt
-              }
-              createdAt
-              updatedAt
-            }
             nextToken
           }
           createdAt

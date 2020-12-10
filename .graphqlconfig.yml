@@ -10,7 +10,7 @@ projects:
         codeGenTarget: angular
         generatedFileName: src/app/services/api.service.ts
         docsFilePath: src/graphql
-        maxDepth: 7
+        maxDepth: 5
 extensions:
   amplify:
     version: 3

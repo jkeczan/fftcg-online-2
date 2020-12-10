@@ -103,8 +103,8 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label>Character Designer</ion-label>
-                                <ion-select formControlName="cardDesigner">
-                                    <ion-select-option *ngFor="let designer of designers" [value]="designer">
+                                <ion-select formControlName="cardCardDesignerId">
+                                    <ion-select-option *ngFor="let designer of designers" [value]="designer.id">
                                         {{designer.name}}
                                     </ion-select-option>
                                 </ion-select>
@@ -210,6 +210,7 @@
             <table class="styled-table">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Serial</th>
                     <th>Element(s)</th>
@@ -218,6 +219,7 @@
                     <th>Power</th>
                     <th>Category(s)</th>
                     <th>Job(s)</th>
+                    <th>Card Designer</th>
                     <th>IsMultiPlay</th>
                     <th>IsEXBurst</th>
                     <th></th>
@@ -225,10 +227,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let card of cards">
+
+                    <td><img src="{{card.serialNumber | imageUrl | async}}"></td>
                     <td>{{card.name}}</td>
                     <td>{{card.serialNumber}}</td>
                     <td><span *ngFor="let element of card.elements">
-                        <img src="../../assets/icon/crystals/{{element}}_Crystal.png"/>
+                        <img class="crystal" src="../../assets/icon/crystals/{{element}}_Crystal.png"/>
                         {{element}}&nbsp;</span>
                     </td>
                     <td>{{card.rarity}}</td>
@@ -241,15 +245,17 @@
                         <span *ngFor="let item of card.jobs.items">{{item.job.name}}&nbsp;</span>
                     </td>
                     <td>
+                        {{card.cardDesigner.name}}
+                    </td>
+                    <td>
                         <ion-icon *ngIf="card.isMultiPlay" name="checkmark-outline"
                                   class="ion-color-primary"></ion-icon>
                     </td>
                     <td>
                         <ion-icon *ngIf="card.isExBurst" name="checkmark-outline" class="ion-color-primary"></ion-icon>
                     </td>
-                    <td>
+                    <td class="ion-text-right">
                         <ion-buttons>
-                            <ion-button color="primary">View Image</ion-button>
                             <ion-button color="danger" (click)="deleteCard(card)">Delete</ion-button>
                         </ion-buttons>
                     </td>

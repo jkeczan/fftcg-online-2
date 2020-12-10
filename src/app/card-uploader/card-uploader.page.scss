@@ -23,6 +23,14 @@
   border-bottom: 1px solid #dddddd;
 }
 
+.styled-table tbody tr td img {
+  width: 64px;
+}
+
+.styled-table tbody tr td img.crystal {
+  width: 16px;
+}
+
 .styled-table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }

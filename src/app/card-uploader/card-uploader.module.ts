@@ -8,6 +8,8 @@ import {CardUploaderPageRoutingModule} from './card-uploader-routing.module';
 
 import {CardUploaderPage} from './card-uploader.page';
 import {AmplifyUIAngularModule} from '@aws-amplify/ui-angular';
+import {AppModule} from '../app.module';
+import {ImageUrlPipe} from '../pipes/image-url.pipe';
 
 @NgModule({
     imports: [
@@ -18,7 +20,7 @@ import {AmplifyUIAngularModule} from '@aws-amplify/ui-angular';
         CardUploaderPageRoutingModule,
         AmplifyUIAngularModule
     ],
-    declarations: [CardUploaderPage]
+    declarations: [CardUploaderPage, ImageUrlPipe]
 })
 export class CardUploaderPageModule {
 }
