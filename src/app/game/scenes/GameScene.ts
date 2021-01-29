@@ -176,21 +176,11 @@ export default class GameScene extends Scene {
                 ondragend: (pointer, gameObject, dropped, gameZone) => {
                     console.log('End Drag');
                 },
-                ondropped: (pointer: Pointer, gameObject: CardDraggable, dropZone: GameZone) => {
-                    const currentZone = gameObject.getData('currentZone');
-                    this.gameManager.moveCard(gameObject, this.getZone(currentZone), dropZone);
+                ondropped: (pointer: Pointer, gameObject: FFTCGCard, dropZone: GameZone) => {
+                    const currentZoneKey = gameObject.getData('currentZone');
+                    const currentZone = this.getZone(currentZoneKey);
+                    this.gameManager.moveCard(gameObject, currentZone, dropZone);
 
-                    if (dropZone.shouldBeShown()) {
-                        gameObject.flipForward();
-                    } else {
-                        gameObject.flipBack();
-                    }
-
-                    if (dropZone.shouldBeSideways()) {
-                        gameObject.tap();
-                    } else {
-                        gameObject.untap();
-                    }
                 },
                 id: card.card.serial_number,
                 cost: card.card.cost,
@@ -206,6 +196,7 @@ export default class GameScene extends Scene {
                 isMultiPlay: card.card.is_multi_playable,
             });
 
+            newCard.setData('currentZone', 'Deck');
             deck.push(newCard);
         }
 

@@ -2,6 +2,7 @@ import {Scene} from 'phaser';
 import {GameZone} from '../gameobjects/GameZone';
 import CardDraggable from '../gameobjects/CardDraggable';
 import ZoneManager from './ZoneManager';
+import FFTCGCard from '../gameobjects/FftcgCard';
 
 export default class GameManager {
     private _scene: Scene;
@@ -10,7 +11,7 @@ export default class GameManager {
         this.scene = scene;
     }
 
-    moveCard(card: CardDraggable, fromGameZone: GameZone, toGameZone: GameZone): void {
+    moveCard(card: FFTCGCard, fromGameZone: GameZone, toGameZone: GameZone): void {
         if (ZoneManager.isSameZone(fromGameZone, toGameZone)) {
             card.snapBack();
             return;
@@ -20,6 +21,7 @@ export default class GameManager {
         }
 
         toGameZone.addCard(card);
+        toGameZone.onDropped(card);
         card.setData('currentZone', toGameZone.name);
     }
 

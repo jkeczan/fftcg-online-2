@@ -5,6 +5,7 @@ import CardDraggable from './CardDraggable';
 import {Scene} from 'phaser';
 import {ICardGameZone} from './PlayerDeck';
 import {Observable, Subject} from 'rxjs';
+import FFTCGCard from './FftcgCard';
 
 export interface IGameZoneConfig {
     scene: Scene;
@@ -138,5 +139,19 @@ export class GameZone extends Zone implements ICardGameZone {
 
     shouldStack(): boolean {
         return false;
+    }
+
+    onDropped(card: FFTCGCard) {
+        if (this.shouldBeShown()) {
+            card.flipForward();
+        } else {
+            card.flipBack();
+        }
+
+        if (this.shouldBeSideways()) {
+            card.tap();
+        } else {
+            card.untap();
+        }
     }
 }
