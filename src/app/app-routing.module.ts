@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './guards/auth.guard';
 import {UnauthGuard} from './guards/unauth.guard';
+import {GameResovlerService} from "./resolvers/game-resovler.service";
 
 const routes: Routes = [
     {
@@ -31,7 +32,19 @@ const routes: Routes = [
     {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-    }
+    },
+  {
+    path: 'two-player-game',
+    loadChildren: () => import('./pages/two-player-game/two-player-game.module').then( m => m.TwoPlayerGamePageModule)
+  },
+  {
+    path: 'game-lobby',
+    loadChildren: () => import('./pages/game-lobby/game-lobby.module').then( m => m.GameLobbyPageModule),
+      resolve: {
+        games: GameResovlerService
+      }
+  }
+
 ];
 
 @NgModule({

@@ -49,10 +49,10 @@ type Card @model @auth(rules: [{ allow: public }]) {
 }
 
 type CardCategoryConnection
-    @model(queries: null)
-    @auth(rules: [{ allow: public }])
-    @key(name:"byCard", fields: ["cardID","categoryID"])
-    @key(name:"byCategory", fields: ["categoryID","cardID"]) {
+@model(queries: null)
+@auth(rules: [{ allow: public }])
+@key(name:"byCard", fields: ["cardID","categoryID"])
+@key(name:"byCategory", fields: ["categoryID","cardID"]) {
 
     id: ID!
     cardID: ID!
@@ -74,10 +74,10 @@ type CardElement @model @auth(rules: [{ allow: public }]) {
 }
 
 type CardJobConnection
-    @model(queries: null)
-    @auth(rules: [{ allow: public }])
-    @key(name:"byCard", fields: ["cardID","jobID"])
-    @key(name:"byJob", fields: ["jobID","cardID"]) {
+@model(queries: null)
+@auth(rules: [{ allow: public }])
+@key(name:"byCard", fields: ["cardID","jobID"])
+@key(name:"byJob", fields: ["jobID","cardID"]) {
 
     id: ID!
     cardID: ID!

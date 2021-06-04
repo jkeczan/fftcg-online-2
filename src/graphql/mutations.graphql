@@ -1634,3 +1634,87 @@ mutation DeleteCardJob(
     updatedAt
   }
 }
+mutation CreateGame(
+  $input: CreateGameInput!
+  $condition: ModelGameConditionInput
+) {
+  createGame(input: $input, condition: $condition) {
+    id
+    game_name
+    game_status
+    game_format
+    createdOn
+    updatedOn
+    player1 {
+      name
+      sub_id
+    }
+    player2 {
+      name
+      sub_id
+    }
+    gameState {
+      game_state_id
+      player_turn
+      current_phase
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateGame(
+  $input: UpdateGameInput!
+  $condition: ModelGameConditionInput
+) {
+  updateGame(input: $input, condition: $condition) {
+    id
+    game_name
+    game_status
+    game_format
+    createdOn
+    updatedOn
+    player1 {
+      name
+      sub_id
+    }
+    player2 {
+      name
+      sub_id
+    }
+    gameState {
+      game_state_id
+      player_turn
+      current_phase
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteGame(
+  $input: DeleteGameInput!
+  $condition: ModelGameConditionInput
+) {
+  deleteGame(input: $input, condition: $condition) {
+    id
+    game_name
+    game_status
+    game_format
+    createdOn
+    updatedOn
+    player1 {
+      name
+      sub_id
+    }
+    player2 {
+      name
+      sub_id
+    }
+    gameState {
+      game_state_id
+      player_turn
+      current_phase
+    }
+    createdAt
+    updatedAt
+  }
+}

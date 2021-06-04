@@ -1,0 +1,47 @@
+enum GameFormat {
+    Standard
+    Title
+    L6
+    L3
+    BossFight
+}
+
+enum GameStatus {
+    AWAITING_PLAYER
+    PLAYER_JOIN
+    GAME_STARTED
+    GAME_ENDED
+}
+
+enum PlayerTurn {
+    PlayerOne
+    PlayerTwo
+}
+
+enum GamePhase {
+    ACTIVE
+    DRAW
+    MAINPHASE1
+    ATTACK
+    MAINPHASE2
+    END
+}
+
+type Game @model @auth(rules: [{ allow: public }]) {
+    id: ID!
+    game_name: String!
+    game_status: GameStatus!
+    game_format: GameFormat!
+    createdOn: AWSDateTime!
+    updatedOn: AWSDateTime
+    player1: Player!
+    player2: Player
+    gameState: GameState
+}
+
+type GameState {
+    game_state_id: ID!
+    player_turn: PlayerTurn
+    current_phase: GamePhase!
+}
+

@@ -1571,3 +1571,78 @@ subscription OnDeleteCardJob {
     updatedAt
   }
 }
+subscription OnCreateGame {
+  onCreateGame {
+    id
+    game_name
+    game_status
+    game_format
+    createdOn
+    updatedOn
+    player1 {
+      name
+      sub_id
+    }
+    player2 {
+      name
+      sub_id
+    }
+    gameState {
+      game_state_id
+      player_turn
+      current_phase
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateGame {
+  onUpdateGame {
+    id
+    game_name
+    game_status
+    game_format
+    createdOn
+    updatedOn
+    player1 {
+      name
+      sub_id
+    }
+    player2 {
+      name
+      sub_id
+    }
+    gameState {
+      game_state_id
+      player_turn
+      current_phase
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteGame {
+  onDeleteGame {
+    id
+    game_name
+    game_status
+    game_format
+    createdOn
+    updatedOn
+    player1 {
+      name
+      sub_id
+    }
+    player2 {
+      name
+      sub_id
+    }
+    gameState {
+      game_state_id
+      player_turn
+      current_phase
+    }
+    createdAt
+    updatedAt
+  }
+}

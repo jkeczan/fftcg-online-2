@@ -60,6 +60,14 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
+export type CardDesigner = {
+  __typename: "CardDesigner";
+  id?: string;
+  name?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export type UpdateCardDesignerInput = {
   id: string;
   name?: string | null;
@@ -151,6 +159,80 @@ export type ModelBooleanInput = {
 export type ModelFFTCGCardRarityInput = {
   eq?: FFTCGCardRarity | null;
   ne?: FFTCGCardRarity | null;
+};
+
+export type Card = {
+  __typename: "Card";
+  id?: string;
+  name?: string;
+  cost?: number;
+  elements?: Array<FFTCGCardElement>;
+  cardType?: string;
+  jobs?: ModelCardJobConnectionConnection;
+  cardCategories?: ModelCardCategoryConnectionConnection;
+  powerLevel?: number;
+  effectText?: string;
+  isExBurst?: boolean;
+  rarity?: FFTCGCardRarity;
+  isMultiPlay?: boolean;
+  serialNumber?: string;
+  imageSource?: string;
+  cardHash?: string;
+  cardDesigner?: CardDesigner;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type ModelCardJobConnectionConnection = {
+  __typename: "ModelCardJobConnectionConnection";
+  items?: Array<CardJobConnection | null> | null;
+  nextToken?: string | null;
+};
+
+export type CardJobConnection = {
+  __typename: "CardJobConnection";
+  id?: string;
+  cardID?: string;
+  jobID?: string;
+  card?: Card;
+  job?: CardJob;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type CardJob = {
+  __typename: "CardJob";
+  id?: string;
+  name?: string;
+  cards?: ModelCardJobConnectionConnection;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type ModelCardCategoryConnectionConnection = {
+  __typename: "ModelCardCategoryConnectionConnection";
+  items?: Array<CardCategoryConnection | null> | null;
+  nextToken?: string | null;
+};
+
+export type CardCategoryConnection = {
+  __typename: "CardCategoryConnection";
+  id?: string;
+  cardID?: string;
+  categoryID?: string;
+  card?: Card;
+  category?: CardCategory;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type CardCategory = {
+  __typename: "CardCategory";
+  id?: string;
+  name?: string;
+  cards?: ModelCardCategoryConnectionConnection;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type UpdateCardInput = {
@@ -249,6 +331,15 @@ export type ModelCardElementConditionInput = {
   not?: ModelCardElementConditionInput | null;
 };
 
+export type CardElement = {
+  __typename: "CardElement";
+  id?: string;
+  name?: string;
+  icon?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export type UpdateCardElementInput = {
   id: string;
   name?: string | null;
@@ -304,12 +395,135 @@ export type DeleteCardJobInput = {
   id?: string | null;
 };
 
+export type CreateGameInput = {
+  id?: string | null;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: PlayerInput;
+  player2?: PlayerInput | null;
+  gameState?: GameStateInput | null;
+};
+
+export enum GameStatus {
+  AWAITING_PLAYER = "AWAITING_PLAYER",
+  PLAYER_JOIN = "PLAYER_JOIN",
+  GAME_STARTED = "GAME_STARTED",
+  GAME_ENDED = "GAME_ENDED"
+}
+
+export enum GameFormat {
+  Standard = "Standard",
+  Title = "Title",
+  L6 = "L6",
+  L3 = "L3",
+  BossFight = "BossFight"
+}
+
+export type PlayerInput = {
+  name: string;
+  sub_id: string;
+};
+
+export type GameStateInput = {
+  game_state_id: string;
+  player_turn?: PlayerTurn | null;
+  current_phase: GamePhase;
+};
+
+export enum PlayerTurn {
+  PlayerOne = "PlayerOne",
+  PlayerTwo = "PlayerTwo"
+}
+
+export enum GamePhase {
+  ACTIVE = "ACTIVE",
+  DRAW = "DRAW",
+  MAINPHASE1 = "MAINPHASE1",
+  ATTACK = "ATTACK",
+  MAINPHASE2 = "MAINPHASE2",
+  END = "END"
+}
+
+export type ModelGameConditionInput = {
+  game_name?: ModelStringInput | null;
+  game_status?: ModelGameStatusInput | null;
+  game_format?: ModelGameFormatInput | null;
+  createdOn?: ModelStringInput | null;
+  updatedOn?: ModelStringInput | null;
+  and?: Array<ModelGameConditionInput | null> | null;
+  or?: Array<ModelGameConditionInput | null> | null;
+  not?: ModelGameConditionInput | null;
+};
+
+export type ModelGameStatusInput = {
+  eq?: GameStatus | null;
+  ne?: GameStatus | null;
+};
+
+export type ModelGameFormatInput = {
+  eq?: GameFormat | null;
+  ne?: GameFormat | null;
+};
+
+export type Game = {
+  __typename: "Game";
+  id?: string;
+  game_name?: string;
+  game_status?: GameStatus;
+  game_format?: GameFormat;
+  createdOn?: string;
+  updatedOn?: string | null;
+  player1?: Player;
+  player2?: Player;
+  gameState?: GameState;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type Player = {
+  __typename: "Player";
+  name?: string;
+  sub_id?: string;
+};
+
+export type GameState = {
+  __typename: "GameState";
+  game_state_id?: string;
+  player_turn?: PlayerTurn | null;
+  current_phase?: GamePhase;
+};
+
+export type UpdateGameInput = {
+  id: string;
+  game_name?: string | null;
+  game_status?: GameStatus | null;
+  game_format?: GameFormat | null;
+  createdOn?: string | null;
+  updatedOn?: string | null;
+  player1?: PlayerInput | null;
+  player2?: PlayerInput | null;
+  gameState?: GameStateInput | null;
+};
+
+export type DeleteGameInput = {
+  id?: string | null;
+};
+
 export type ModelCardDesignerFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   and?: Array<ModelCardDesignerFilterInput | null> | null;
   or?: Array<ModelCardDesignerFilterInput | null> | null;
   not?: ModelCardDesignerFilterInput | null;
+};
+
+export type ModelCardDesignerConnection = {
+  __typename: "ModelCardDesignerConnection";
+  items?: Array<CardDesigner | null> | null;
+  nextToken?: string | null;
 };
 
 export type ModelCardFilterInput = {
@@ -331,12 +545,24 @@ export type ModelCardFilterInput = {
   not?: ModelCardFilterInput | null;
 };
 
+export type ModelCardConnection = {
+  __typename: "ModelCardConnection";
+  items?: Array<Card | null> | null;
+  nextToken?: string | null;
+};
+
 export type ModelCardCategoryFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   and?: Array<ModelCardCategoryFilterInput | null> | null;
   or?: Array<ModelCardCategoryFilterInput | null> | null;
   not?: ModelCardCategoryFilterInput | null;
+};
+
+export type ModelCardCategoryConnection = {
+  __typename: "ModelCardCategoryConnection";
+  items?: Array<CardCategory | null> | null;
+  nextToken?: string | null;
 };
 
 export type ModelCardElementFilterInput = {
@@ -348,12 +574,42 @@ export type ModelCardElementFilterInput = {
   not?: ModelCardElementFilterInput | null;
 };
 
+export type ModelCardElementConnection = {
+  __typename: "ModelCardElementConnection";
+  items?: Array<CardElement | null> | null;
+  nextToken?: string | null;
+};
+
 export type ModelCardJobFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   and?: Array<ModelCardJobFilterInput | null> | null;
   or?: Array<ModelCardJobFilterInput | null> | null;
   not?: ModelCardJobFilterInput | null;
+};
+
+export type ModelCardJobConnection = {
+  __typename: "ModelCardJobConnection";
+  items?: Array<CardJob | null> | null;
+  nextToken?: string | null;
+};
+
+export type ModelGameFilterInput = {
+  id?: ModelIDInput | null;
+  game_name?: ModelStringInput | null;
+  game_status?: ModelGameStatusInput | null;
+  game_format?: ModelGameFormatInput | null;
+  createdOn?: ModelStringInput | null;
+  updatedOn?: ModelStringInput | null;
+  and?: Array<ModelGameFilterInput | null> | null;
+  or?: Array<ModelGameFilterInput | null> | null;
+  not?: ModelGameFilterInput | null;
+};
+
+export type ModelGameConnection = {
+  __typename: "ModelGameConnection";
+  items?: Array<Game | null> | null;
+  nextToken?: string | null;
 };
 
 export type CreateCardDesignerMutation = {
@@ -387,9 +643,9 @@ export type CreateCardMutation = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: {
+  jobs?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -401,13 +657,13 @@ export type CreateCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -431,9 +687,9 @@ export type CreateCardMutation = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -441,11 +697,11 @@ export type CreateCardMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
-  cardCategories: {
+  cardCategories?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -457,13 +713,13 @@ export type CreateCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -487,9 +743,9 @@ export type CreateCardMutation = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -497,7 +753,7 @@ export type CreateCardMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   powerLevel: number;
   effectText: string;
@@ -525,9 +781,9 @@ export type UpdateCardMutation = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: {
+  jobs?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -539,13 +795,13 @@ export type UpdateCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -569,9 +825,9 @@ export type UpdateCardMutation = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -579,11 +835,11 @@ export type UpdateCardMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
-  cardCategories: {
+  cardCategories?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -595,13 +851,13 @@ export type UpdateCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -625,9 +881,9 @@ export type UpdateCardMutation = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -635,7 +891,7 @@ export type UpdateCardMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   powerLevel: number;
   effectText: string;
@@ -663,9 +919,9 @@ export type DeleteCardMutation = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: {
+  jobs?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -677,13 +933,13 @@ export type DeleteCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -707,9 +963,9 @@ export type DeleteCardMutation = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -717,11 +973,11 @@ export type DeleteCardMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
-  cardCategories: {
+  cardCategories?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -733,13 +989,13 @@ export type DeleteCardMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -763,9 +1019,9 @@ export type DeleteCardMutation = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -773,7 +1029,7 @@ export type DeleteCardMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   powerLevel: number;
   effectText: string;
@@ -806,9 +1062,9 @@ export type CreateCardCategoryConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -841,11 +1097,11 @@ export type CreateCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -878,7 +1134,7 @@ export type CreateCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -902,9 +1158,9 @@ export type CreateCardCategoryConnectionMutation = {
     __typename: "CardCategory";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -937,7 +1193,7 @@ export type CreateCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -958,9 +1214,9 @@ export type UpdateCardCategoryConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -993,11 +1249,11 @@ export type UpdateCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -1030,7 +1286,7 @@ export type UpdateCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -1054,9 +1310,9 @@ export type UpdateCardCategoryConnectionMutation = {
     __typename: "CardCategory";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -1089,7 +1345,7 @@ export type UpdateCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -1110,9 +1366,9 @@ export type DeleteCardCategoryConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -1145,11 +1401,11 @@ export type DeleteCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -1182,7 +1438,7 @@ export type DeleteCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -1206,9 +1462,9 @@ export type DeleteCardCategoryConnectionMutation = {
     __typename: "CardCategory";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -1241,7 +1497,7 @@ export type DeleteCardCategoryConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -1254,9 +1510,9 @@ export type CreateCardCategoryMutation = {
   __typename: "CardCategory";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -1268,13 +1524,13 @@ export type CreateCardCategoryMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -1298,9 +1554,9 @@ export type CreateCardCategoryMutation = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -1308,7 +1564,7 @@ export type CreateCardCategoryMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -1318,9 +1574,9 @@ export type UpdateCardCategoryMutation = {
   __typename: "CardCategory";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -1332,13 +1588,13 @@ export type UpdateCardCategoryMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -1362,9 +1618,9 @@ export type UpdateCardCategoryMutation = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -1372,7 +1628,7 @@ export type UpdateCardCategoryMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -1382,9 +1638,9 @@ export type DeleteCardCategoryMutation = {
   __typename: "CardCategory";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -1396,13 +1652,13 @@ export type DeleteCardCategoryMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -1426,9 +1682,9 @@ export type DeleteCardCategoryMutation = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -1436,7 +1692,7 @@ export type DeleteCardCategoryMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -1481,9 +1737,9 @@ export type CreateCardJobConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -1516,11 +1772,11 @@ export type CreateCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -1553,7 +1809,7 @@ export type CreateCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -1577,9 +1833,9 @@ export type CreateCardJobConnectionMutation = {
     __typename: "CardJob";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -1612,7 +1868,7 @@ export type CreateCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -1633,9 +1889,9 @@ export type UpdateCardJobConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -1668,11 +1924,11 @@ export type UpdateCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -1705,7 +1961,7 @@ export type UpdateCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -1729,9 +1985,9 @@ export type UpdateCardJobConnectionMutation = {
     __typename: "CardJob";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -1764,7 +2020,7 @@ export type UpdateCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -1785,9 +2041,9 @@ export type DeleteCardJobConnectionMutation = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -1820,11 +2076,11 @@ export type DeleteCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -1857,7 +2113,7 @@ export type DeleteCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -1881,9 +2137,9 @@ export type DeleteCardJobConnectionMutation = {
     __typename: "CardJob";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -1916,7 +2172,7 @@ export type DeleteCardJobConnectionMutation = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -1929,9 +2185,9 @@ export type CreateCardJobMutation = {
   __typename: "CardJob";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -1943,13 +2199,13 @@ export type CreateCardJobMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -1973,9 +2229,9 @@ export type CreateCardJobMutation = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -1983,7 +2239,7 @@ export type CreateCardJobMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -1993,9 +2249,9 @@ export type UpdateCardJobMutation = {
   __typename: "CardJob";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -2007,13 +2263,13 @@ export type UpdateCardJobMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2037,9 +2293,9 @@ export type UpdateCardJobMutation = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2047,7 +2303,7 @@ export type UpdateCardJobMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -2057,9 +2313,9 @@ export type DeleteCardJobMutation = {
   __typename: "CardJob";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -2071,13 +2327,13 @@ export type DeleteCardJobMutation = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2101,9 +2357,9 @@ export type DeleteCardJobMutation = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2111,7 +2367,91 @@ export type DeleteCardJobMutation = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateGameMutation = {
+  __typename: "Game";
+  id: string;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  };
+  player2?: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  } | null;
+  gameState?: {
+    __typename: "GameState";
+    game_state_id: string;
+    player_turn?: PlayerTurn | null;
+    current_phase: GamePhase;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UpdateGameMutation = {
+  __typename: "Game";
+  id: string;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  };
+  player2?: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  } | null;
+  gameState?: {
+    __typename: "GameState";
+    game_state_id: string;
+    player_turn?: PlayerTurn | null;
+    current_phase: GamePhase;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeleteGameMutation = {
+  __typename: "Game";
+  id: string;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  };
+  player2?: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  } | null;
+  gameState?: {
+    __typename: "GameState";
+    game_state_id: string;
+    player_turn?: PlayerTurn | null;
+    current_phase: GamePhase;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -2127,14 +2467,14 @@ export type GetCardDesignerQuery = {
 
 export type ListCardDesignersQuery = {
   __typename: "ModelCardDesignerConnection";
-  items: Array<{
+  items?: Array<{
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  nextToken: string | null;
+  nextToken?: string | null;
 };
 
 export type GetCardQuery = {
@@ -2144,9 +2484,9 @@ export type GetCardQuery = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: {
+  jobs?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -2158,13 +2498,13 @@ export type GetCardQuery = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2188,9 +2528,9 @@ export type GetCardQuery = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2198,11 +2538,11 @@ export type GetCardQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
-  cardCategories: {
+  cardCategories?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -2214,13 +2554,13 @@ export type GetCardQuery = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2244,9 +2584,9 @@ export type GetCardQuery = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2254,7 +2594,7 @@ export type GetCardQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   powerLevel: number;
   effectText: string;
@@ -2277,16 +2617,16 @@ export type GetCardQuery = {
 
 export type ListCardsQuery = {
   __typename: "ModelCardConnection";
-  items: Array<{
+  items?: Array<{
     __typename: "Card";
     id: string;
     name: string;
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -2319,11 +2659,11 @@ export type ListCardsQuery = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -2356,7 +2696,7 @@ export type ListCardsQuery = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -2376,16 +2716,16 @@ export type ListCardsQuery = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  nextToken: string | null;
+  nextToken?: string | null;
 };
 
 export type GetCardCategoryQuery = {
   __typename: "CardCategory";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -2397,13 +2737,13 @@ export type GetCardCategoryQuery = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2427,9 +2767,9 @@ export type GetCardCategoryQuery = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2437,7 +2777,7 @@ export type GetCardCategoryQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -2445,13 +2785,13 @@ export type GetCardCategoryQuery = {
 
 export type ListCardCategorysQuery = {
   __typename: "ModelCardCategoryConnection";
-  items: Array<{
+  items?: Array<{
     __typename: "CardCategory";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -2484,12 +2824,12 @@ export type ListCardCategorysQuery = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  nextToken: string | null;
+  nextToken?: string | null;
 };
 
 export type GetCardElementQuery = {
@@ -2503,7 +2843,7 @@ export type GetCardElementQuery = {
 
 export type ListCardElementsQuery = {
   __typename: "ModelCardElementConnection";
-  items: Array<{
+  items?: Array<{
     __typename: "CardElement";
     id: string;
     name: string;
@@ -2511,16 +2851,16 @@ export type ListCardElementsQuery = {
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  nextToken: string | null;
+  nextToken?: string | null;
 };
 
 export type GetCardJobQuery = {
   __typename: "CardJob";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -2532,13 +2872,13 @@ export type GetCardJobQuery = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2562,9 +2902,9 @@ export type GetCardJobQuery = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2572,7 +2912,7 @@ export type GetCardJobQuery = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -2580,13 +2920,13 @@ export type GetCardJobQuery = {
 
 export type ListCardJobsQuery = {
   __typename: "ModelCardJobConnection";
-  items: Array<{
+  items?: Array<{
     __typename: "CardJob";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -2619,12 +2959,72 @@ export type ListCardJobsQuery = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
-  nextToken: string | null;
+  nextToken?: string | null;
+};
+
+export type GetGameQuery = {
+  __typename: "Game";
+  id: string;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  };
+  player2?: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  } | null;
+  gameState?: {
+    __typename: "GameState";
+    game_state_id: string;
+    player_turn?: PlayerTurn | null;
+    current_phase: GamePhase;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ListGamesQuery = {
+  __typename: "ModelGameConnection";
+  items?: Array<{
+    __typename: "Game";
+    id: string;
+    game_name: string;
+    game_status: GameStatus;
+    game_format: GameFormat;
+    createdOn: string;
+    updatedOn?: string | null;
+    player1: {
+      __typename: "Player";
+      name: string;
+      sub_id: string;
+    };
+    player2?: {
+      __typename: "Player";
+      name: string;
+      sub_id: string;
+    } | null;
+    gameState?: {
+      __typename: "GameState";
+      game_state_id: string;
+      player_turn?: PlayerTurn | null;
+      current_phase: GamePhase;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+  } | null> | null;
+  nextToken?: string | null;
 };
 
 export type OnCreateCardDesignerSubscription = {
@@ -2658,9 +3058,9 @@ export type OnCreateCardSubscription = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: {
+  jobs?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -2672,13 +3072,13 @@ export type OnCreateCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2702,9 +3102,9 @@ export type OnCreateCardSubscription = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2712,11 +3112,11 @@ export type OnCreateCardSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
-  cardCategories: {
+  cardCategories?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -2728,13 +3128,13 @@ export type OnCreateCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2758,9 +3158,9 @@ export type OnCreateCardSubscription = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2768,7 +3168,7 @@ export type OnCreateCardSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   powerLevel: number;
   effectText: string;
@@ -2796,9 +3196,9 @@ export type OnUpdateCardSubscription = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: {
+  jobs?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -2810,13 +3210,13 @@ export type OnUpdateCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2840,9 +3240,9 @@ export type OnUpdateCardSubscription = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2850,11 +3250,11 @@ export type OnUpdateCardSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
-  cardCategories: {
+  cardCategories?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -2866,13 +3266,13 @@ export type OnUpdateCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2896,9 +3296,9 @@ export type OnUpdateCardSubscription = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2906,7 +3306,7 @@ export type OnUpdateCardSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   powerLevel: number;
   effectText: string;
@@ -2934,9 +3334,9 @@ export type OnDeleteCardSubscription = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  jobs: {
+  jobs?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -2948,13 +3348,13 @@ export type OnDeleteCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -2978,9 +3378,9 @@ export type OnDeleteCardSubscription = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -2988,11 +3388,11 @@ export type OnDeleteCardSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
-  cardCategories: {
+  cardCategories?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -3004,13 +3404,13 @@ export type OnDeleteCardSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -3034,9 +3434,9 @@ export type OnDeleteCardSubscription = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -3044,7 +3444,7 @@ export type OnDeleteCardSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   powerLevel: number;
   effectText: string;
@@ -3077,9 +3477,9 @@ export type OnCreateCardCategoryConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -3112,11 +3512,11 @@ export type OnCreateCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3149,7 +3549,7 @@ export type OnCreateCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -3173,9 +3573,9 @@ export type OnCreateCardCategoryConnectionSubscription = {
     __typename: "CardCategory";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3208,7 +3608,7 @@ export type OnCreateCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -3229,9 +3629,9 @@ export type OnUpdateCardCategoryConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -3264,11 +3664,11 @@ export type OnUpdateCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3301,7 +3701,7 @@ export type OnUpdateCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -3325,9 +3725,9 @@ export type OnUpdateCardCategoryConnectionSubscription = {
     __typename: "CardCategory";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3360,7 +3760,7 @@ export type OnUpdateCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -3381,9 +3781,9 @@ export type OnDeleteCardCategoryConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -3416,11 +3816,11 @@ export type OnDeleteCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3453,7 +3853,7 @@ export type OnDeleteCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -3477,9 +3877,9 @@ export type OnDeleteCardCategoryConnectionSubscription = {
     __typename: "CardCategory";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3512,7 +3912,7 @@ export type OnDeleteCardCategoryConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -3525,9 +3925,9 @@ export type OnCreateCardCategorySubscription = {
   __typename: "CardCategory";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -3539,13 +3939,13 @@ export type OnCreateCardCategorySubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -3569,9 +3969,9 @@ export type OnCreateCardCategorySubscription = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -3579,7 +3979,7 @@ export type OnCreateCardCategorySubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -3589,9 +3989,9 @@ export type OnUpdateCardCategorySubscription = {
   __typename: "CardCategory";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -3603,13 +4003,13 @@ export type OnUpdateCardCategorySubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -3633,9 +4033,9 @@ export type OnUpdateCardCategorySubscription = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -3643,7 +4043,7 @@ export type OnUpdateCardCategorySubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -3653,9 +4053,9 @@ export type OnDeleteCardCategorySubscription = {
   __typename: "CardCategory";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardCategoryConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardCategoryConnection";
       id: string;
       cardID: string;
@@ -3667,13 +4067,13 @@ export type OnDeleteCardCategorySubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -3697,9 +4097,9 @@ export type OnDeleteCardCategorySubscription = {
         __typename: "CardCategory";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -3707,7 +4107,7 @@ export type OnDeleteCardCategorySubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -3752,9 +4152,9 @@ export type OnCreateCardJobConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -3787,11 +4187,11 @@ export type OnCreateCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3824,7 +4224,7 @@ export type OnCreateCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -3848,9 +4248,9 @@ export type OnCreateCardJobConnectionSubscription = {
     __typename: "CardJob";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -3883,7 +4283,7 @@ export type OnCreateCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -3904,9 +4304,9 @@ export type OnUpdateCardJobConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -3939,11 +4339,11 @@ export type OnUpdateCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -3976,7 +4376,7 @@ export type OnUpdateCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -4000,9 +4400,9 @@ export type OnUpdateCardJobConnectionSubscription = {
     __typename: "CardJob";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -4035,7 +4435,7 @@ export type OnUpdateCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -4056,9 +4456,9 @@ export type OnDeleteCardJobConnectionSubscription = {
     cost: number;
     elements: Array<FFTCGCardElement>;
     cardType: string;
-    jobs: {
+    jobs?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -4091,11 +4491,11 @@ export type OnDeleteCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
-    cardCategories: {
+    cardCategories?: {
       __typename: "ModelCardCategoryConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardCategoryConnection";
         id: string;
         cardID: string;
@@ -4128,7 +4528,7 @@ export type OnDeleteCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     powerLevel: number;
     effectText: string;
@@ -4152,9 +4552,9 @@ export type OnDeleteCardJobConnectionSubscription = {
     __typename: "CardJob";
     id: string;
     name: string;
-    cards: {
+    cards?: {
       __typename: "ModelCardJobConnectionConnection";
-      items: Array<{
+      items?: Array<{
         __typename: "CardJobConnection";
         id: string;
         cardID: string;
@@ -4187,7 +4587,7 @@ export type OnDeleteCardJobConnectionSubscription = {
         createdAt: string;
         updatedAt: string;
       } | null> | null;
-      nextToken: string | null;
+      nextToken?: string | null;
     } | null;
     createdAt: string;
     updatedAt: string;
@@ -4200,9 +4600,9 @@ export type OnCreateCardJobSubscription = {
   __typename: "CardJob";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -4214,13 +4614,13 @@ export type OnCreateCardJobSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -4244,9 +4644,9 @@ export type OnCreateCardJobSubscription = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -4254,7 +4654,7 @@ export type OnCreateCardJobSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -4264,9 +4664,9 @@ export type OnUpdateCardJobSubscription = {
   __typename: "CardJob";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -4278,13 +4678,13 @@ export type OnUpdateCardJobSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -4308,9 +4708,9 @@ export type OnUpdateCardJobSubscription = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -4318,7 +4718,7 @@ export type OnUpdateCardJobSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -4328,9 +4728,9 @@ export type OnDeleteCardJobSubscription = {
   __typename: "CardJob";
   id: string;
   name: string;
-  cards: {
+  cards?: {
     __typename: "ModelCardJobConnectionConnection";
-    items: Array<{
+    items?: Array<{
       __typename: "CardJobConnection";
       id: string;
       cardID: string;
@@ -4342,13 +4742,13 @@ export type OnDeleteCardJobSubscription = {
         cost: number;
         elements: Array<FFTCGCardElement>;
         cardType: string;
-        jobs: {
+        jobs?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
-        cardCategories: {
+        cardCategories?: {
           __typename: "ModelCardCategoryConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         powerLevel: number;
         effectText: string;
@@ -4372,9 +4772,9 @@ export type OnDeleteCardJobSubscription = {
         __typename: "CardJob";
         id: string;
         name: string;
-        cards: {
+        cards?: {
           __typename: "ModelCardJobConnectionConnection";
-          nextToken: string | null;
+          nextToken?: string | null;
         } | null;
         createdAt: string;
         updatedAt: string;
@@ -4382,7 +4782,91 @@ export type OnDeleteCardJobSubscription = {
       createdAt: string;
       updatedAt: string;
     } | null> | null;
-    nextToken: string | null;
+    nextToken?: string | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnCreateGameSubscription = {
+  __typename: "Game";
+  id: string;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  };
+  player2?: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  } | null;
+  gameState?: {
+    __typename: "GameState";
+    game_state_id: string;
+    player_turn?: PlayerTurn | null;
+    current_phase: GamePhase;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnUpdateGameSubscription = {
+  __typename: "Game";
+  id: string;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  };
+  player2?: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  } | null;
+  gameState?: {
+    __typename: "GameState";
+    game_state_id: string;
+    player_turn?: PlayerTurn | null;
+    current_phase: GamePhase;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OnDeleteGameSubscription = {
+  __typename: "Game";
+  id: string;
+  game_name: string;
+  game_status: GameStatus;
+  game_format: GameFormat;
+  createdOn: string;
+  updatedOn?: string | null;
+  player1: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  };
+  player2?: {
+    __typename: "Player";
+    name: string;
+    sub_id: string;
+  } | null;
+  gameState?: {
+    __typename: "GameState";
+    game_state_id: string;
+    player_turn?: PlayerTurn | null;
+    current_phase: GamePhase;
   } | null;
   createdAt: string;
   updatedAt: string;
@@ -6501,6 +6985,138 @@ export class APIService {
     )) as any;
     return <DeleteCardJobMutation>response.data.deleteCardJob;
   }
+  async CreateGame(
+    input: CreateGameInput,
+    condition?: ModelGameConditionInput
+  ): Promise<CreateGameMutation> {
+    const statement = `mutation CreateGame($input: CreateGameInput!, $condition: ModelGameConditionInput) {
+        createGame(input: $input, condition: $condition) {
+          __typename
+          id
+          game_name
+          game_status
+          game_format
+          createdOn
+          updatedOn
+          player1 {
+            __typename
+            name
+            sub_id
+          }
+          player2 {
+            __typename
+            name
+            sub_id
+          }
+          gameState {
+            __typename
+            game_state_id
+            player_turn
+            current_phase
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateGameMutation>response.data.createGame;
+  }
+  async UpdateGame(
+    input: UpdateGameInput,
+    condition?: ModelGameConditionInput
+  ): Promise<UpdateGameMutation> {
+    const statement = `mutation UpdateGame($input: UpdateGameInput!, $condition: ModelGameConditionInput) {
+        updateGame(input: $input, condition: $condition) {
+          __typename
+          id
+          game_name
+          game_status
+          game_format
+          createdOn
+          updatedOn
+          player1 {
+            __typename
+            name
+            sub_id
+          }
+          player2 {
+            __typename
+            name
+            sub_id
+          }
+          gameState {
+            __typename
+            game_state_id
+            player_turn
+            current_phase
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateGameMutation>response.data.updateGame;
+  }
+  async DeleteGame(
+    input: DeleteGameInput,
+    condition?: ModelGameConditionInput
+  ): Promise<DeleteGameMutation> {
+    const statement = `mutation DeleteGame($input: DeleteGameInput!, $condition: ModelGameConditionInput) {
+        deleteGame(input: $input, condition: $condition) {
+          __typename
+          id
+          game_name
+          game_status
+          game_format
+          createdOn
+          updatedOn
+          player1 {
+            __typename
+            name
+            sub_id
+          }
+          player2 {
+            __typename
+            name
+            sub_id
+          }
+          gameState {
+            __typename
+            game_state_id
+            player_turn
+            current_phase
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeleteGameMutation>response.data.deleteGame;
+  }
   async GetCardDesigner(id: string): Promise<GetCardDesignerQuery> {
     const statement = `query GetCardDesigner($id: ID!) {
         getCardDesigner(id: $id) {
@@ -7165,6 +7781,97 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListCardJobsQuery>response.data.listCardJobs;
+  }
+  async GetGame(id: string): Promise<GetGameQuery> {
+    const statement = `query GetGame($id: ID!) {
+        getGame(id: $id) {
+          __typename
+          id
+          game_name
+          game_status
+          game_format
+          createdOn
+          updatedOn
+          player1 {
+            __typename
+            name
+            sub_id
+          }
+          player2 {
+            __typename
+            name
+            sub_id
+          }
+          gameState {
+            __typename
+            game_state_id
+            player_turn
+            current_phase
+          }
+          createdAt
+          updatedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetGameQuery>response.data.getGame;
+  }
+  async ListGames(
+    filter?: ModelGameFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListGamesQuery> {
+    const statement = `query ListGames($filter: ModelGameFilterInput, $limit: Int, $nextToken: String) {
+        listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            game_name
+            game_status
+            game_format
+            createdOn
+            updatedOn
+            player1 {
+              __typename
+              name
+              sub_id
+            }
+            player2 {
+              __typename
+              name
+              sub_id
+            }
+            gameState {
+              __typename
+              game_state_id
+              player_turn
+              current_phase
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListGamesQuery>response.data.listGames;
   }
   OnCreateCardDesignerListener: Observable<
     SubscriptionResponse<OnCreateCardDesignerSubscription>
@@ -9100,4 +9807,112 @@ export class APIService {
       }`
     )
   ) as Observable<SubscriptionResponse<OnDeleteCardJobSubscription>>;
+
+  OnCreateGameListener: Observable<
+    SubscriptionResponse<OnCreateGameSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateGame {
+        onCreateGame {
+          __typename
+          id
+          game_name
+          game_status
+          game_format
+          createdOn
+          updatedOn
+          player1 {
+            __typename
+            name
+            sub_id
+          }
+          player2 {
+            __typename
+            name
+            sub_id
+          }
+          gameState {
+            __typename
+            game_state_id
+            player_turn
+            current_phase
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnCreateGameSubscription>>;
+
+  OnUpdateGameListener: Observable<
+    SubscriptionResponse<OnUpdateGameSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdateGame {
+        onUpdateGame {
+          __typename
+          id
+          game_name
+          game_status
+          game_format
+          createdOn
+          updatedOn
+          player1 {
+            __typename
+            name
+            sub_id
+          }
+          player2 {
+            __typename
+            name
+            sub_id
+          }
+          gameState {
+            __typename
+            game_state_id
+            player_turn
+            current_phase
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnUpdateGameSubscription>>;
+
+  OnDeleteGameListener: Observable<
+    SubscriptionResponse<OnDeleteGameSubscription>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeleteGame {
+        onDeleteGame {
+          __typename
+          id
+          game_name
+          game_status
+          game_format
+          createdOn
+          updatedOn
+          player1 {
+            __typename
+            name
+            sub_id
+          }
+          player2 {
+            __typename
+            name
+            sub_id
+          }
+          gameState {
+            __typename
+            game_state_id
+            player_turn
+            current_phase
+          }
+          createdAt
+          updatedAt
+        }
+      }`
+    )
+  ) as Observable<SubscriptionResponse<OnDeleteGameSubscription>>;
 }

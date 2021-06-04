@@ -474,3 +474,60 @@ query ListCardJobs(
     nextToken
   }
 }
+query GetGame($id: ID!) {
+  getGame(id: $id) {
+    id
+    game_name
+    game_status
+    game_format
+    createdOn
+    updatedOn
+    player1 {
+      name
+      sub_id
+    }
+    player2 {
+      name
+      sub_id
+    }
+    gameState {
+      game_state_id
+      player_turn
+      current_phase
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListGames(
+  $filter: ModelGameFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listGames(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      game_name
+      game_status
+      game_format
+      createdOn
+      updatedOn
+      player1 {
+        name
+        sub_id
+      }
+      player2 {
+        name
+        sub_id
+      }
+      gameState {
+        game_state_id
+        player_turn
+        current_phase
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

@@ -1,0 +1,4 @@
+type Player {
+    name: String!
+    sub_id: String!
+}

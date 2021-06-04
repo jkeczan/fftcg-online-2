@@ -18,8 +18,8 @@ export class HomePage implements OnInit {
         this.isLoggedIn = !!await this.authService.getCurrentUser();
     }
 
-    goTo(route: string) {
-        this.router.navigate([route]);
+    async goTo(route: string) {
+        await this.router.navigate([route]);
     }
 
     async logout() {
