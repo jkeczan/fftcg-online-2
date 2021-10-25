@@ -1,0 +1,32 @@
+<ion-card *ngIf="card">
+    <ion-card-header>
+        <ion-card-title class="clearfix">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                         <span *ngFor="let element of card.elements">
+                        <img class="crystal"
+                             src="../../assets/icon/crystals/{{element}}_Crystal.png"/></span>{{card.name}}
+                    </ion-col>
+                    <ion-col>
+                        {{card.cardType}}<span *ngIf="card.cardType === 'Forward'">/{{card.powerLevel}}</span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6">
+                    <img [src]="card.serialNumber | imageUrl | async"/>
+                </ion-col>
+                <ion-col size="6">
+                    <span>{{card.effectText}}</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </ion-card-content>
+</ion-card>

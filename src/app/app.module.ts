@@ -12,6 +12,7 @@ import {AppRoutingModule} from './app-routing.module';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import {environment} from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 function updateConfigForEnvironment() {
     const redirectFixes = awsconfig.oauth.redirectSignIn.split(',');
@@ -32,7 +33,8 @@ Amplify.configure(awsconfig);
     imports: [
         BrowserModule,
         IonicModule.forRoot(),
-        AppRoutingModule
+        AppRoutingModule,
+        BrowserAnimationsModule
     ],
     providers: [
         StatusBar,

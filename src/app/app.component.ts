@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {Router} from '@angular/router';
+import {AuthService} from './services/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -53,7 +55,9 @@ export class AppComponent implements OnInit {
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
-        private statusBar: StatusBar
+        private statusBar: StatusBar,
+        private router: Router,
+        private authService: AuthService
     ) {
         this.initializeApp();
     }
@@ -70,5 +74,13 @@ export class AppComponent implements OnInit {
         if (path !== undefined) {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
+    }
+
+    async goTo(route: string) {
+        await this.router.navigate([route]);
+    }
+
+    async logout() {
+        await this.authService.logout();
     }
 }
