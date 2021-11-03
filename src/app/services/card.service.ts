@@ -3,10 +3,23 @@ import {APIService, CreateCardDesignerMutation, CreateCardMutation, ListCardDesi
 import {Storage} from 'aws-amplify';
 import {uuid4} from '@capacitor/core/dist/esm/util';
 
+export type CardElement = Array<string>;
+
 @Injectable({
     providedIn: 'root'
 })
 export class CardService {
+
+    public elements = [
+        'FIRE',
+        'WIND',
+        'WATER',
+        'EARTH',
+        'LIGHTNING',
+        'ICE',
+        'LIGHT',
+        'DARK'
+    ];
 
     constructor(private api: APIService) {
     }
@@ -26,6 +39,7 @@ export class CardService {
             newCard.cardHash = uuid4();
             newCard.imageSource = newCard.serialNumber;
             mutation = await this.api.CreateCard(newCard);
+
             await this.linkCardCategories(mutation.id, categories);
             await this.linkCardJobs(mutation.id, jobs);
         }
@@ -55,7 +69,9 @@ export class CardService {
 
     async getAllCards() {
         const query: ListCardsQuery = await this.api.ListCards();
-        return query.items;
+        return query.items.sort((cardA, cardB) => {
+            return cardA.serialNumber > cardB.serialNumber ? 1 : -1;
+        });
     }
 
     async getAllCardDesigners() {

@@ -74,7 +74,7 @@ export type UpdateCardDesignerInput = {
 };
 
 export type DeleteCardDesignerInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type CreateCardInput = {
@@ -83,7 +83,7 @@ export type CreateCardInput = {
   cost: number;
   elements: Array<FFTCGCardElement>;
   cardType: string;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -91,7 +91,7 @@ export type CreateCardInput = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardCardDesignerId: string;
+  cardCardDesignerId?: string | null;
 };
 
 export enum FFTCGCardElement {
@@ -170,7 +170,7 @@ export type Card = {
   cardType?: string;
   jobs?: ModelCardJobConnectionConnection;
   cardCategories?: ModelCardCategoryConnectionConnection;
-  powerLevel?: number;
+  powerLevel?: number | null;
   effectText?: string;
   isExBurst?: boolean;
   rarity?: FFTCGCardRarity;
@@ -253,7 +253,7 @@ export type UpdateCardInput = {
 };
 
 export type DeleteCardInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type CreateCardCategoryConnectionInput = {
@@ -293,7 +293,7 @@ export type UpdateCardCategoryConnectionInput = {
 };
 
 export type DeleteCardCategoryConnectionInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type CreateCardCategoryInput = {
@@ -314,7 +314,7 @@ export type UpdateCardCategoryInput = {
 };
 
 export type DeleteCardCategoryInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type CreateCardElementInput = {
@@ -347,7 +347,7 @@ export type UpdateCardElementInput = {
 };
 
 export type DeleteCardElementInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type CreateCardJobConnectionInput = {
@@ -371,7 +371,7 @@ export type UpdateCardJobConnectionInput = {
 };
 
 export type DeleteCardJobConnectionInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type CreateCardJobInput = {
@@ -392,7 +392,7 @@ export type UpdateCardJobInput = {
 };
 
 export type DeleteCardJobInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type CreateGameInput = {
@@ -509,7 +509,7 @@ export type UpdateGameInput = {
 };
 
 export type DeleteGameInput = {
-  id?: string | null;
+  id: string;
 };
 
 export type ModelCardDesignerFilterInput = {
@@ -665,7 +665,7 @@ export type CreateCardMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -673,13 +673,13 @@ export type CreateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -721,7 +721,7 @@ export type CreateCardMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -729,13 +729,13 @@ export type CreateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -755,7 +755,7 @@ export type CreateCardMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -763,13 +763,13 @@ export type CreateCardMutation = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardDesigner: {
+  cardDesigner?: {
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -803,7 +803,7 @@ export type UpdateCardMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -811,13 +811,13 @@ export type UpdateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -859,7 +859,7 @@ export type UpdateCardMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -867,13 +867,13 @@ export type UpdateCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -893,7 +893,7 @@ export type UpdateCardMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -901,13 +901,13 @@ export type UpdateCardMutation = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardDesigner: {
+  cardDesigner?: {
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -941,7 +941,7 @@ export type DeleteCardMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -949,13 +949,13 @@ export type DeleteCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -997,7 +997,7 @@ export type DeleteCardMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -1005,13 +1005,13 @@ export type DeleteCardMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -1031,7 +1031,7 @@ export type DeleteCardMutation = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -1039,13 +1039,13 @@ export type DeleteCardMutation = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardDesigner: {
+  cardDesigner?: {
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -1076,7 +1076,7 @@ export type CreateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1113,7 +1113,7 @@ export type CreateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1136,7 +1136,7 @@ export type CreateCardCategoryConnectionMutation = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -1144,13 +1144,13 @@ export type CreateCardCategoryConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1172,7 +1172,7 @@ export type CreateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1228,7 +1228,7 @@ export type UpdateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1265,7 +1265,7 @@ export type UpdateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1288,7 +1288,7 @@ export type UpdateCardCategoryConnectionMutation = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -1296,13 +1296,13 @@ export type UpdateCardCategoryConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1324,7 +1324,7 @@ export type UpdateCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1380,7 +1380,7 @@ export type DeleteCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1417,7 +1417,7 @@ export type DeleteCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1440,7 +1440,7 @@ export type DeleteCardCategoryConnectionMutation = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -1448,13 +1448,13 @@ export type DeleteCardCategoryConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1476,7 +1476,7 @@ export type DeleteCardCategoryConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1532,7 +1532,7 @@ export type CreateCardCategoryMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -1540,13 +1540,13 @@ export type CreateCardCategoryMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -1596,7 +1596,7 @@ export type UpdateCardCategoryMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -1604,13 +1604,13 @@ export type UpdateCardCategoryMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -1660,7 +1660,7 @@ export type DeleteCardCategoryMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -1668,13 +1668,13 @@ export type DeleteCardCategoryMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -1751,7 +1751,7 @@ export type CreateCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1788,7 +1788,7 @@ export type CreateCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1811,7 +1811,7 @@ export type CreateCardJobConnectionMutation = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -1819,13 +1819,13 @@ export type CreateCardJobConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1847,7 +1847,7 @@ export type CreateCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1903,7 +1903,7 @@ export type UpdateCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1940,7 +1940,7 @@ export type UpdateCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -1963,7 +1963,7 @@ export type UpdateCardJobConnectionMutation = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -1971,13 +1971,13 @@ export type UpdateCardJobConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -1999,7 +1999,7 @@ export type UpdateCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -2055,7 +2055,7 @@ export type DeleteCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -2092,7 +2092,7 @@ export type DeleteCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -2115,7 +2115,7 @@ export type DeleteCardJobConnectionMutation = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -2123,13 +2123,13 @@ export type DeleteCardJobConnectionMutation = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -2151,7 +2151,7 @@ export type DeleteCardJobConnectionMutation = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -2207,7 +2207,7 @@ export type CreateCardJobMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -2215,13 +2215,13 @@ export type CreateCardJobMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -2271,7 +2271,7 @@ export type UpdateCardJobMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -2279,13 +2279,13 @@ export type UpdateCardJobMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -2335,7 +2335,7 @@ export type DeleteCardJobMutation = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -2343,13 +2343,13 @@ export type DeleteCardJobMutation = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -2506,7 +2506,7 @@ export type GetCardQuery = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -2514,13 +2514,13 @@ export type GetCardQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -2562,7 +2562,7 @@ export type GetCardQuery = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -2570,13 +2570,13 @@ export type GetCardQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -2596,7 +2596,7 @@ export type GetCardQuery = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -2604,13 +2604,13 @@ export type GetCardQuery = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardDesigner: {
+  cardDesigner?: {
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -2638,7 +2638,7 @@ export type ListCardsQuery = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -2675,7 +2675,7 @@ export type ListCardsQuery = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -2698,7 +2698,7 @@ export type ListCardsQuery = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -2706,13 +2706,13 @@ export type ListCardsQuery = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   } | null> | null;
@@ -2745,7 +2745,7 @@ export type GetCardCategoryQuery = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -2753,13 +2753,13 @@ export type GetCardCategoryQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -2803,7 +2803,7 @@ export type ListCardCategorysQuery = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -2880,7 +2880,7 @@ export type GetCardJobQuery = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -2888,13 +2888,13 @@ export type GetCardJobQuery = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -2938,7 +2938,7 @@ export type ListCardJobsQuery = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3080,7 +3080,7 @@ export type OnCreateCardSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -3088,13 +3088,13 @@ export type OnCreateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -3136,7 +3136,7 @@ export type OnCreateCardSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -3144,13 +3144,13 @@ export type OnCreateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -3170,7 +3170,7 @@ export type OnCreateCardSubscription = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -3178,13 +3178,13 @@ export type OnCreateCardSubscription = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardDesigner: {
+  cardDesigner?: {
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3218,7 +3218,7 @@ export type OnUpdateCardSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -3226,13 +3226,13 @@ export type OnUpdateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -3274,7 +3274,7 @@ export type OnUpdateCardSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -3282,13 +3282,13 @@ export type OnUpdateCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -3308,7 +3308,7 @@ export type OnUpdateCardSubscription = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -3316,13 +3316,13 @@ export type OnUpdateCardSubscription = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardDesigner: {
+  cardDesigner?: {
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3356,7 +3356,7 @@ export type OnDeleteCardSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -3364,13 +3364,13 @@ export type OnDeleteCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -3412,7 +3412,7 @@ export type OnDeleteCardSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -3420,13 +3420,13 @@ export type OnDeleteCardSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -3446,7 +3446,7 @@ export type OnDeleteCardSubscription = {
     } | null> | null;
     nextToken?: string | null;
   } | null;
-  powerLevel: number;
+  powerLevel?: number | null;
   effectText: string;
   isExBurst: boolean;
   rarity: FFTCGCardRarity;
@@ -3454,13 +3454,13 @@ export type OnDeleteCardSubscription = {
   serialNumber: string;
   imageSource: string;
   cardHash: string;
-  cardDesigner: {
+  cardDesigner?: {
     __typename: "CardDesigner";
     id: string;
     name: string;
     createdAt: string;
     updatedAt: string;
-  };
+  } | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -3491,7 +3491,7 @@ export type OnCreateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3528,7 +3528,7 @@ export type OnCreateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3551,7 +3551,7 @@ export type OnCreateCardCategoryConnectionSubscription = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -3559,13 +3559,13 @@ export type OnCreateCardCategoryConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -3587,7 +3587,7 @@ export type OnCreateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3643,7 +3643,7 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3680,7 +3680,7 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3703,7 +3703,7 @@ export type OnUpdateCardCategoryConnectionSubscription = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -3711,13 +3711,13 @@ export type OnUpdateCardCategoryConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -3739,7 +3739,7 @@ export type OnUpdateCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3795,7 +3795,7 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3832,7 +3832,7 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3855,7 +3855,7 @@ export type OnDeleteCardCategoryConnectionSubscription = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -3863,13 +3863,13 @@ export type OnDeleteCardCategoryConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -3891,7 +3891,7 @@ export type OnDeleteCardCategoryConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -3947,7 +3947,7 @@ export type OnCreateCardCategorySubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -3955,13 +3955,13 @@ export type OnCreateCardCategorySubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -4011,7 +4011,7 @@ export type OnUpdateCardCategorySubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -4019,13 +4019,13 @@ export type OnUpdateCardCategorySubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -4075,7 +4075,7 @@ export type OnDeleteCardCategorySubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -4083,13 +4083,13 @@ export type OnDeleteCardCategorySubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -4166,7 +4166,7 @@ export type OnCreateCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4203,7 +4203,7 @@ export type OnCreateCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4226,7 +4226,7 @@ export type OnCreateCardJobConnectionSubscription = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -4234,13 +4234,13 @@ export type OnCreateCardJobConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -4262,7 +4262,7 @@ export type OnCreateCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4318,7 +4318,7 @@ export type OnUpdateCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4355,7 +4355,7 @@ export type OnUpdateCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4378,7 +4378,7 @@ export type OnUpdateCardJobConnectionSubscription = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -4386,13 +4386,13 @@ export type OnUpdateCardJobConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -4414,7 +4414,7 @@ export type OnUpdateCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4470,7 +4470,7 @@ export type OnDeleteCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4507,7 +4507,7 @@ export type OnDeleteCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4530,7 +4530,7 @@ export type OnDeleteCardJobConnectionSubscription = {
       } | null> | null;
       nextToken?: string | null;
     } | null;
-    powerLevel: number;
+    powerLevel?: number | null;
     effectText: string;
     isExBurst: boolean;
     rarity: FFTCGCardRarity;
@@ -4538,13 +4538,13 @@ export type OnDeleteCardJobConnectionSubscription = {
     serialNumber: string;
     imageSource: string;
     cardHash: string;
-    cardDesigner: {
+    cardDesigner?: {
       __typename: "CardDesigner";
       id: string;
       name: string;
       createdAt: string;
       updatedAt: string;
-    };
+    } | null;
     createdAt: string;
     updatedAt: string;
   };
@@ -4566,7 +4566,7 @@ export type OnDeleteCardJobConnectionSubscription = {
           cost: number;
           elements: Array<FFTCGCardElement>;
           cardType: string;
-          powerLevel: number;
+          powerLevel?: number | null;
           effectText: string;
           isExBurst: boolean;
           rarity: FFTCGCardRarity;
@@ -4622,7 +4622,7 @@ export type OnCreateCardJobSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -4630,13 +4630,13 @@ export type OnCreateCardJobSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -4686,7 +4686,7 @@ export type OnUpdateCardJobSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -4694,13 +4694,13 @@ export type OnUpdateCardJobSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };
@@ -4750,7 +4750,7 @@ export type OnDeleteCardJobSubscription = {
           __typename: "ModelCardCategoryConnectionConnection";
           nextToken?: string | null;
         } | null;
-        powerLevel: number;
+        powerLevel?: number | null;
         effectText: string;
         isExBurst: boolean;
         rarity: FFTCGCardRarity;
@@ -4758,13 +4758,13 @@ export type OnDeleteCardJobSubscription = {
         serialNumber: string;
         imageSource: string;
         cardHash: string;
-        cardDesigner: {
+        cardDesigner?: {
           __typename: "CardDesigner";
           id: string;
           name: string;
           createdAt: string;
           updatedAt: string;
-        };
+        } | null;
         createdAt: string;
         updatedAt: string;
       };

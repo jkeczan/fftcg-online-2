@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CreateGameInput, Game} from "../../services/api.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ModalController, ToastController} from "@ionic/angular";
-import {GamesService} from "../../services/games.service";
+import {CreateGameInput, Game} from '../../services/api.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ModalController} from '@ionic/angular';
+import {GamesService} from '../../services/games.service';
 
 @Component({
     selector: 'app-new-game-form',

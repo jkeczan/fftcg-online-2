@@ -7,7 +7,7 @@ import {AuthService} from "./auth.service";
 })
 export class GamesService {
 
-    constructor(private apiService: APIService, private authService: AuthService) {
+    constructor(private apiService: APIService) {
     }
 
     getOpenGames() {

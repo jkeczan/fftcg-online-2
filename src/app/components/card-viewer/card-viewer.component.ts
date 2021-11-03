@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Card} from '../../services/api.service';
-import {FFTCGCardType} from '../../game/gameobjects/FftcgCard';
 
 @Component({
     selector: 'app-card-viewer',
@@ -19,19 +18,19 @@ export class CardViewerComponent implements OnInit {
     }
 
     isForward() {
-        return this.card ? this.card.cardType === FFTCGCardType.Forward : null;
+        // return this.card ? this.card.cardType === FFTCGCardType.Forward : null;
     }
 
     isBackup() {
-        return this.card ? this.card.cardType === FFTCGCardType.Backup : null;
+        // return this.card ? this.card.cardType === FFTCGCardType.Backup : null;
     }
 
     isMonster() {
-        return this.card ? this.card.cardType === FFTCGCardType.Monster : null;
+        // return this.card ? this.card.cardType === FFTCGCardType.Monster : null;
     }
 
     isSummon() {
-        return this.card ? this.card.cardType === FFTCGCardType.Summon : null;
+        // return this.card ? this.card.cardType === FFTCGCardType.Summon : null;
     }
 
 }

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TwoPlayerGamePage } from './two-player-game.page';
+import { ElementPickerComponent } from './element-picker.component';
 
-describe('TwoPlayerGamePage', () => {
-  let component: TwoPlayerGamePage;
-  let fixture: ComponentFixture<TwoPlayerGamePage>;
+describe('ElementPickerComponent', () => {
+  let component: ElementPickerComponent;
+  let fixture: ComponentFixture<ElementPickerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TwoPlayerGamePage ],
+      declarations: [ ElementPickerComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TwoPlayerGamePage);
+    fixture = TestBed.createComponent(ElementPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

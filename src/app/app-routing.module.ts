@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from './guards/auth.guard';
+import {PreloadAllModules, PreloadingStrategy, RouterModule, Routes} from '@angular/router';
 import {UnauthGuard} from './guards/unauth.guard';
 import {CardsResolver} from './resolvers/cards.resolver';
-import {GameResovlerService} from './resolvers/game-resovler.service';
+import {CardElementsResolver} from './resolvers/card-elements.resolver';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
 
@@ -14,30 +14,31 @@ const routes: Routes = [
     // },
     {
         path: 'card-uploader',
-        loadChildren: () => import('./card-uploader/card-uploader.module').then(m => m.CardUploaderPageModule),
+        loadChildren: () => import('./modules/card-uploader/card-uploader.module').then(m => m.CardUploaderPageModule),
         canActivate: [AuthGuard]
     },
     {
         path: 'login',
-        loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
+        loadChildren: () => import('./modules/login/login.module').then(m => m.LoginPageModule),
         canActivate: [UnauthGuard]
     },
     {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+        loadChildren: () => import('./modules/home/home.module').then(m => m.HomePageModule)
     },
-    {
-        path: 'game-lobby',
-        loadChildren: () => import('./pages/game-lobby/game-lobby.module').then(m => m.GameLobbyPageModule),
-        resolve: {
-            games: GameResovlerService
-        }
-    },
+    // {
+    //     path: 'game-lobby',
+    //     loadChildren: () => import('./pages/game-lobby/game-lobby.module').then(m => m.GameLobbyPageModule),
+    //     resolve: {
+    //         games: GameResovlerService
+    //     }
+    // },
     {
         path: 'browser',
-        loadChildren: () => import('./pages/card-browser/card-browser.module').then(m => m.CardBrowserPageModule),
+        loadChildren: () => import('./modules/card-browser/card-browser.module').then(m => m.CardBrowserPageModule),
         resolve: {
-            cards: CardsResolver
+            cards: CardsResolver,
+            elements: CardElementsResolver
         }
     },
     {
@@ -51,7 +52,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
     ],
     exports: [RouterModule]
 })

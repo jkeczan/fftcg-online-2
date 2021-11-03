@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {APIService} from '../services/api.service';
+import {APIService, Card} from '../../services/api.service';
 import {AlertController, ToastController} from '@ionic/angular';
-import {CardCategoryService} from '../services/card-category.service';
-import {CardJobService} from '../services/card-job.service';
-import {CardService} from '../services/card.service';
+import {CardCategoryService} from '../../services/card-category.service';
+import {CardJobService} from '../../services/card-job.service';
+import {CardService} from '../../services/card.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-card-uploader',
@@ -42,15 +44,30 @@ export class CardUploaderPage implements OnInit {
     ];
 
     public categories = [];
-
     public jobs = [];
-
     public designers = [];
-
     public cards: Array<any> = [];
-
     public imageSrc = '';
     public image;
+    public cardsDatasource: MatTableDataSource<Card>;
+
+    public displayedColumns = [
+        'cardImage',
+        'name',
+        'serialNumber',
+        'elements',
+        'rarity',
+        'cost',
+        'powerLevel',
+        'categories',
+        'jobs',
+        'cardDesigner',
+        'isMultiPlay',
+        'isExBurst',
+        'actions'
+    ];
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private formBuilder: FormBuilder, private api: APIService,
                 private toastController: ToastController, private cardCategoryService: CardCategoryService,
@@ -146,6 +163,8 @@ export class CardUploaderPage implements OnInit {
 
     async getCards() {
         this.cards = await this.cardService.getAllCards();
+        this.cardsDatasource = new MatTableDataSource<Card>(this.cards);
+        this.cardsDatasource.paginator = this.paginator;
     }
 
     async getCardDesigners() {

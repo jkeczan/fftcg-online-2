@@ -1,15 +1,13 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {IonicModule} from '@ionic/angular';
-
 import {CardUploaderPageRoutingModule} from './card-uploader-routing.module';
-
 import {CardUploaderPage} from './card-uploader.page';
 import {AmplifyUIAngularModule} from '@aws-amplify/ui-angular';
-import {AppModule} from '../app.module';
-import {ImageUrlPipe} from '../pipes/image-url.pipe';
+import {FFTCGCommonModule} from '../common/FFTCGCommon.module';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
     imports: [
@@ -18,9 +16,12 @@ import {ImageUrlPipe} from '../pipes/image-url.pipe';
         ReactiveFormsModule,
         IonicModule,
         CardUploaderPageRoutingModule,
-        AmplifyUIAngularModule
+        AmplifyUIAngularModule,
+        FFTCGCommonModule,
+        MatTableModule,
+        MatPaginatorModule
     ],
-    declarations: [CardUploaderPage, ImageUrlPipe]
+    declarations: [CardUploaderPage]
 })
 export class CardUploaderPageModule {
 }

@@ -13,20 +13,20 @@ export class GameLobbyPage implements OnInit {
 
   public games: Array<Game>;
 
-  constructor(private activatedRoute: ActivatedRoute, private modalController: ModalController, private apiService: APIService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.games = this.activatedRoute.snapshot.data.games.items;
-    this.apiService.OnCreateGameListener.subscribe((newGame) => {
-      this.games.push(newGame.value.data);
-    });
+    // this.games = this.activatedRoute.snapshot.data.games.items;
+    // this.apiService.OnCreateGameListener.subscribe((newGame) => {
+    //   this.games.push(newGame.value.data);
+    // });
   }
 
   async createGame() {
-    const gameForm = await this.modalController.create({
-      component: NewGameFormComponent
-    });
-
-    await gameForm.present();
+    // const gameForm = await this.modalController.create({
+    //   component: NewGameFormComponent
+    // });
+    //
+    // await gameForm.present();
   }
 }
