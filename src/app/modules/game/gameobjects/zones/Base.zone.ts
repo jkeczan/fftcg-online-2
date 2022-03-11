@@ -37,6 +37,8 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.createCardCount();
         this.createLabel();
         this.setupEvents();
+
+
     }
 
     setupEvents() {
@@ -105,9 +107,23 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         });
     }
 
-    alignCardsInZone(card: CardDraggable) {
-        card.x = this.x;
-        card.y = this.y;
+    alignCardsInZone(newCard: CardDraggable) {
+        for (let i = 0; i < this.cards.length; i++) {
+            const card = this.cards[i];
+            // card.setPosition(this.xTranslateOnDrop(card, i), this.yTranslateOnDrop(card, i));
+            const tween = this.scene.add.tween({
+                targets: [card],
+                ease: 'Cubic',
+                duration: 500,
+                x: this.xTranslateOnDrop(card, i),
+                y: this.yTranslateOnDrop(card, i),
+                onComplete: this.onCardAdded(card)
+            });
+        }
+    }
+
+    onCardAdded(card: FFTCGCard) {
+
     }
 
     createLabel(): void {
@@ -119,6 +135,17 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
 
         this.scene.add.existing(label);
         this.label = label;
+    }
+
+    xTranslateOnDrop(card: CardDraggable, index: number) {
+        const centerIndex = (this.cards.length - 1) / 2;
+        const shiftDirection = index < centerIndex ? -1 : 1;
+        const shifts = Math.abs(centerIndex - index);
+        return this.x + (shifts * shiftDirection * (card.width));
+    }
+
+    yTranslateOnDrop(card: CardDraggable, index: number) {
+        return this.y;
     }
 
     shouldBeShown(): boolean {

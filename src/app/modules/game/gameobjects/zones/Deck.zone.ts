@@ -29,7 +29,8 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone(newCard: CardDraggable) {
-        super.alignCardsInZone(newCard);
+        newCard.x = this.x;
+        newCard.y = this.y;
     }
 
     shouldBeShown(): boolean {

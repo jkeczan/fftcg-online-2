@@ -21,23 +21,6 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         super.addCard(card);
     }
 
-    alignCardsInZone(newCard: CardDraggable) {
-        super.alignCardsInZone(newCard);
-
-        for (let i = 0; i < this.cards.length; i++) {
-            const card = this.cards[i];
-            // card.setPosition(this.xTranslateOnDrop(card, i), this.yTranslateOnDrop(card, i));
-            const tween = this.scene.add.tween({
-                targets: [card],
-                ease: 'Cubic',
-                duration: 500,
-                x: this.xTranslateOnDrop(card, i),
-                y: this.yTranslateOnDrop(card, i),
-                onComplete: this.onCardAdded(card)
-            });
-        }
-    }
-
     onCardAdded(card: FFTCGCard) {
         this.orientCard(card);
     }
@@ -47,14 +30,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         card.untap();
     }
 
-    xTranslateOnDrop(card: CardDraggable, index: number) {
-        const centerIndex = (this.cards.length - 1) / 2;
-        const shiftDirection = index < centerIndex ? -1 : 1;
-        const shifts = Math.abs(centerIndex - index);
-        return this.x + (shifts * shiftDirection * (card.width));
-    }
-
-    yTranslateOnDrop(card: CardDraggable, index: number) {
+    yTranslateOnDrop(card: CardDraggable, index: number): number {
         const centerIndex = (this.cards.length - 1) / 2;
         const shifts = Math.abs(centerIndex - index);
 
