@@ -1,8 +1,9 @@
-import {GameZone, IGameZoneConfig} from './GameZone';
-import {ICardGameZone} from './PlayerDeck';
-import CardDraggable from './CardDraggable';
+import {BaseZone, IGameZoneConfig} from './Base.zone';
+import {ICardGameZone} from './Deck.zone';
+import CardDraggable from '../CardDraggable';
+import FFTCGCard from '../FftcgCard';
 
-export default class PlayerDamageZone extends GameZone implements ICardGameZone {
+export default class DamageZone extends BaseZone implements ICardGameZone {
     constructor(config: IGameZoneConfig) {
         super(config);
     }
@@ -26,5 +27,8 @@ export default class PlayerDamageZone extends GameZone implements ICardGameZone 
 
     shouldStack(): boolean {
         return false;
+    }
+
+    orientCard(card: FFTCGCard): void {
     }
 }

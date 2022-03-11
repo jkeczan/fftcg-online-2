@@ -1,11 +1,11 @@
 import Zone = Phaser.GameObjects.Zone;
 import Graphics = Phaser.GameObjects.Graphics;
 import Text = Phaser.GameObjects.Text;
-import CardDraggable from './CardDraggable';
+import CardDraggable from '../CardDraggable';
 import {Scene} from 'phaser';
-import {ICardGameZone} from './PlayerDeck';
+import {ICardGameZone} from './Deck.zone';
 import {Observable, Subject} from 'rxjs';
-import FFTCGCard from './FftcgCard';
+import FFTCGCard from '../FftcgCard';
 
 export interface IGameZoneConfig {
     scene: Scene;
@@ -14,10 +14,11 @@ export interface IGameZoneConfig {
     y: number;
     width: number;
     height: number;
+    borderColor?: number;
 }
 
-export class GameZone extends Zone implements ICardGameZone {
-    public cards: Array<CardDraggable>;
+export abstract class BaseZone extends Zone implements ICardGameZone {
+    public cards: Array<FFTCGCard>;
     public name: string;
     protected cardCount: Text;
     protected label: Text;
@@ -26,17 +27,16 @@ export class GameZone extends Zone implements ICardGameZone {
     protected removeCardEvent: Subject<CardDraggable>;
     protected $removeCardEvent: Observable<CardDraggable>;
 
-    constructor(config: IGameZoneConfig) {
+    protected constructor(config: IGameZoneConfig) {
         super(config.scene, config.x, config.y, config.width, config.height);
         this.name = config.name;
         this.cards = [];
         this.scene.add.existing(this);
         this.setRectangleDropZone(this.width, this.height);
-        this.createBorder();
+        this.createBorder(config.borderColor);
         this.createCardCount();
         this.createLabel();
         this.setupEvents();
-        this.setupListeners();
     }
 
     setupEvents() {
@@ -58,10 +58,10 @@ export class GameZone extends Zone implements ICardGameZone {
         });
     }
 
-    createBorder(): Graphics {
+    createBorder(color: number = 0x3e3e3e): Graphics {
         const border = new Graphics(this.scene);
         this.scene.add.existing(border);
-        border.lineStyle(10, 0x3e3e3e, .5);
+        border.lineStyle(10, color, .5);
 
         border.strokeRect(this.x - this.input.hitArea.width / 2,
             this.y - this.input.hitArea.height / 2,
@@ -81,18 +81,14 @@ export class GameZone extends Zone implements ICardGameZone {
         this.cardCount = cardCounter;
     }
 
-    addCard(card: CardDraggable) {
+    addCard(card: FFTCGCard) {
+        console.log('Add Card');
         if (!this.cards) {
             this.cards = [];
         }
 
-        if (this.findCard(card)) {
-            return;
-        }
-
         this.cards.push(card);
-        card.updateGamePosition(this.x, this.y);
-        this.addCardEvent.next(card);
+        this.alignCardsInZone(card);
     }
 
     removeCard(cardToRemove: CardDraggable) {
@@ -103,19 +99,15 @@ export class GameZone extends Zone implements ICardGameZone {
         this.removeCardEvent.next(cardToRemove);
     }
 
-    findCard(cardToFind: CardDraggable): CardDraggable {
-        return this.cards.find((card) => {
-            return cardToFind.name === card.name;
+    findCard(cardToFind: FFTCGCard): FFTCGCard {
+        return this.cards.find((card: FFTCGCard) => {
+            return cardToFind.gameCardID === card.gameCardID;
         });
     }
 
     alignCardsInZone(card: CardDraggable) {
-        const tween = this.scene.add.tween({
-            targets: [card],
-            ease: 'Cubic',
-            duration: 500,
-            x: this.x - (this.width / 2) + (card.halfWidth * this.cards.length)
-        });
+        card.x = this.x;
+        card.y = this.y;
     }
 
     createLabel(): void {
@@ -142,16 +134,13 @@ export class GameZone extends Zone implements ICardGameZone {
     }
 
     onDropped(card: FFTCGCard) {
-        if (this.shouldBeShown()) {
-            card.flipForward();
-        } else {
-            card.flipBack();
-        }
 
-        if (this.shouldBeSideways()) {
-            card.tap();
-        } else {
-            card.untap();
-        }
+    }
+
+    onReceivedCardDrop(card: CardDraggable) {
+
+    }
+
+    orientCard(card: FFTCGCard): void {
     }
 }

@@ -1,8 +1,8 @@
-import {GameZone, IGameZoneConfig} from './GameZone';
-import {ICardGameZone} from './PlayerDeck';
-import FFTCGCard from './FftcgCard';
+import {BaseZone, IGameZoneConfig} from './Base.zone';
+import {ICardGameZone} from './Deck.zone';
+import FFTCGCard from '../FftcgCard';
 
-export default class PlayerBreakZone extends GameZone implements ICardGameZone {
+export default class BreakZone extends BaseZone implements ICardGameZone {
     constructor(config: IGameZoneConfig) {
         super(config);
     }

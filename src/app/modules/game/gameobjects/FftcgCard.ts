@@ -26,6 +26,7 @@ export enum FFTCGCardRarity {
 }
 
 export interface IFFTCGCard extends ICardDraggableConfig{
+    gameCardID: string;
     id: string;
     cost: number;
     elements: Array<string>;
@@ -41,6 +42,7 @@ export interface IFFTCGCard extends ICardDraggableConfig{
 }
 
 export default class FFTCGCard extends CardDraggable {
+    private _gameCardID: string;
     private _id: string;
     private _cost: number;
     private _element: Array<FFTCGCardElement>;
@@ -57,6 +59,10 @@ export default class FFTCGCard extends CardDraggable {
     constructor(data: IFFTCGCard) {
         super(data);
         this.isExBurst = data.isExBurst;
+    }
+
+    freeze() {
+        this.rotateCard(180);
     }
 
     get id(): string {
@@ -153,5 +159,13 @@ export default class FFTCGCard extends CardDraggable {
 
     set isMultiPlay(value: boolean) {
         this._isMultiPlay = value;
+    }
+
+    get gameCardID(): string {
+        return this._gameCardID;
+    }
+
+    set gameCardID(value: string) {
+        this._gameCardID = value;
     }
 }

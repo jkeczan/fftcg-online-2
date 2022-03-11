@@ -4,14 +4,15 @@ import {UnauthGuard} from './guards/unauth.guard';
 import {CardsResolver} from './resolvers/cards.resolver';
 import {CardElementsResolver} from './resolvers/card-elements.resolver';
 import {AuthGuard} from './guards/auth.guard';
+import {CardJobsResolver} from './resolvers/card-job.resolver';
+import {CardCategoriesResolver} from './resolvers/card-categories.resolver';
 
 const routes: Routes = [
 
-    // {
-    //     path: 'game',
-    //     loadChildren: () => import('./game/game.module').then(m => m.GamePageModule),
-    //     canActivate: [AuthGuard]
-    // },
+    {
+        path: 'game',
+        loadChildren: () => import('./modules/game/game.module').then(m => m.GamePageModule)
+    },
     {
         path: 'card-uploader',
         loadChildren: () => import('./modules/card-uploader/card-uploader.module').then(m => m.CardUploaderPageModule),
@@ -38,7 +39,9 @@ const routes: Routes = [
         loadChildren: () => import('./modules/card-browser/card-browser.module').then(m => m.CardBrowserPageModule),
         resolve: {
             cards: CardsResolver,
-            elements: CardElementsResolver
+            elements: CardElementsResolver,
+            jobs: CardJobsResolver,
+            categories: CardCategoriesResolver
         }
     },
     {

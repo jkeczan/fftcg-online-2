@@ -7,6 +7,7 @@ import {CardJobService} from '../../services/card-job.service';
 import {CardService} from '../../services/card.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {AlertOptions} from '@capacitor/core';
 
 @Component({
     selector: 'app-card-uploader',
@@ -66,6 +67,10 @@ export class CardUploaderPage implements OnInit {
         'isExBurst',
         'actions'
     ];
+
+    alertOptions: any = {
+        cssClass: 'alert-half-width'
+    };
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 

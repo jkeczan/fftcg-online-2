@@ -60,7 +60,7 @@
                         <ion-list>
                             <ion-item>
                                 <ion-label>Elements</ion-label>
-                                <ion-select formControlName="elements" multiple="true"
+                                <ion-select formControlName="elements" multiple="true" [interfaceOptions]="alertOptions"
                                             style="width: 400px; text-align: right">
                                     <ion-select-option *ngFor="let element of elements" [value]="element">
                                         {{element}}
@@ -70,7 +70,7 @@
                             <ion-item>
                                 <ion-label>Categories</ion-label>
                                 <ion-select formControlName="cardCategories" multiple="true"
-                                            style="width: 400px; text-align: right">
+                                            style="width: 400px; text-align: right" [interfaceOptions]="alertOptions">
                                     <ion-select-option *ngFor="let category of categories" [value]="category">
                                         {{category.name}}
                                     </ion-select-option>
@@ -79,7 +79,7 @@
                             <ion-item>
                                 <ion-label>Jobs</ion-label>
                                 <ion-select formControlName="jobs" multiple="true"
-                                            style="width: 400px; text-align: right">
+                                            style="width: 400px; text-align: right" [interfaceOptions]="alertOptions" >
                                     <ion-select-option *ngFor="let job of jobs" [value]="job">
                                         {{job.name}}
                                     </ion-select-option>
@@ -87,7 +87,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label>Card Type</ion-label>
-                                <ion-select formControlName="cardType">
+                                <ion-select formControlName="cardType" interface="popover">
                                     <ion-select-option *ngFor="let cardType of cardTypes" [value]="cardType">
                                         {{cardType}}
                                     </ion-select-option>
@@ -95,7 +95,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label>Card Rarity</ion-label>
-                                <ion-select formControlName="rarity">
+                                <ion-select formControlName="rarity" interface="popover">
                                     <ion-select-option *ngFor="let rarity of rarities" [value]="rarity">
                                         {{rarity}}
                                     </ion-select-option>
@@ -103,7 +103,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label>Character Designer</ion-label>
-                                <ion-select formControlName="cardCardDesignerId">
+                                <ion-select formControlName="cardCardDesignerId" interface="popover">
                                     <ion-select-option *ngFor="let designer of designers" [value]="designer.id">
                                         {{designer.name}}
                                     </ion-select-option>
@@ -302,7 +302,7 @@
                 <ng-container matColumnDef="jobs">
                     <th mat-header-cell *matHeaderCellDef>Job(s)</th>
                     <td mat-cell *matCellDef="let element">
-                        <div *ngIf="element.jobs.items.length > 0">
+                        <div *ngIf="element.jobs?.items?.length > 0">
                             <span *ngFor="let item of element.jobs.items">{{item.job.name}}&nbsp;</span>
                         </div>
                     </td>

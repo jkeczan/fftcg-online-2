@@ -4,7 +4,11 @@ img {
 
 .img-container {
   width: 180px;
+  border-radius: 5px;
+}
 
+.img-container img.card {
+  border-radius: 7px;
 }
 
 img.crystal {

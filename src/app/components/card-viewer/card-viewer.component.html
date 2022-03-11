@@ -3,13 +3,13 @@
         <ion-card-title class="clearfix">
             <ion-grid>
                 <ion-row>
-                    <ion-col>
+                    <ion-col sizeXl="4" sizeLg="4" sizeMd="6" sizeSm="12" sizeXs="12">
                          <span *ngFor="let element of card.elements">
                         <img class="crystal"
                              src="../../assets/icon/crystals/{{element}}_Crystal.png"/></span>{{card.name}}
                     </ion-col>
-                    <ion-col>
-                        {{card.cardType}}<span *ngIf="card.cardType === 'Forward'">/{{card.powerLevel}}</span>
+                    <ion-col  sizeXl="8" sizeLg="8" sizeMd="6" sizeSm="12" sizeXs="12" class="ion-text-right">
+                        {{card.serialNumber}}
                     </ion-col>
                 </ion-row>
             </ion-grid>
@@ -18,13 +18,53 @@
     <ion-card-content>
         <ion-grid>
             <ion-row>
-                <ion-col size="6">
+                <ion-col size="4">
                     <div class="img-container">
-                        <img [src]="card.serialNumber | imageUrl | async" />
+                        <img class="card" [src]="card.serialNumber | imageUrl | async"/>
                     </div>
                 </ion-col>
-                <ion-col size="6">
-                    <div>{{card.effectText}}</div>
+                <ion-col size="8">
+                    <ion-list lines="none" class="ion-no-padding ion-no-margin">
+                        <ion-item>
+                            <ion-label>
+                                Rarity
+                            </ion-label>
+                            <div slot="end">
+                                <span>{{card.rarity}}</span>
+                            </div>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>
+                                Job(s)
+                            </ion-label>
+                            <div slot="end">
+                                <span *ngFor="let job of card.jobs.items">&nbsp;{{job.job.name}}</span>
+                            </div>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>
+                                Categories
+                            </ion-label>
+                            <div slot="end">
+                                <span *ngFor="let category of card.cardCategories.items">&nbsp;{{category.category.name}}</span>
+                            </div>
+                        </ion-item>
+                        <ion-item *ngIf="card.cardDesigner?.id">
+                            <ion-label>
+                                Artist
+                            </ion-label>
+                            <div slot="end">
+                                <span>{{card.cardDesigner.name}}</span>
+                            </div>
+                        </ion-item>
+                        <ion-item *ngIf="card.cardDesigner?.id">
+                            <ion-label>
+                                Effect
+                            </ion-label>
+                            <div>{{card.effectText}}</div>
+                        </ion-item>
+                    </ion-list>
+
                 </ion-col>
             </ion-row>
         </ion-grid>

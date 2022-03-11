@@ -13,7 +13,6 @@ export class UnauthGuard implements CanActivate {
     async canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Promise<boolean> {
-        console.log('Unauth');
         return Auth.currentAuthenticatedUser()
             .then(() => {
                 this.router.navigate(['game']);

@@ -1,7 +1,7 @@
-import {GameZone} from './GameZone';
-import {ICardGameZone} from './PlayerDeck';
+import {BaseZone} from './Base.zone';
+import {ICardGameZone} from './Deck.zone';
 
-export default class PlayerBackupField extends GameZone implements ICardGameZone {
+export default class BackupZone extends BaseZone implements ICardGameZone {
     constructor(data) {
         super(data);
     }

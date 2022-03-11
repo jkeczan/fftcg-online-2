@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate {
     async canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Promise<boolean> {
-        console.log('Auth Guard: ', this.authState);
         return Auth.currentAuthenticatedUser().then(() => {
             return true;
         }).catch(() => {
