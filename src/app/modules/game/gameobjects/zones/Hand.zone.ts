@@ -5,6 +5,8 @@ import FFTCGCard from '../FftcgCard';
 
 
 export default class HandZone extends BaseZone implements ICardGameZone {
+    protected cardScale = 1.4;
+
     constructor(config: IGameZoneConfig) {
         super(config);
     }
@@ -22,7 +24,15 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     }
 
     onCardAdded(card: FFTCGCard) {
+        super.onCardAdded(card);
+
         this.orientCard(card);
+        card.activateHandHoverMode();
+    }
+
+    onCardRemoved(card: FFTCGCard) {
+        super.onCardRemoved(card);
+        card.deactivateHandHoverMode();
     }
 
     orientCard(card: FFTCGCard) {
@@ -34,31 +44,10 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         const centerIndex = (this.cards.length - 1) / 2;
         const shifts = Math.abs(centerIndex - index);
 
-        return this.y + (shifts * 10);
-    }
-
-    angleTranslateOnDrop(card: CardDraggable, index: number) {
-        const centerIndex = (this.cards.length - 1) / 2;
-        const shifts = Math.abs(centerIndex - index);
-        const shiftDirection = index < centerIndex ? -1 : 1;
-
-        return card.angle + (shifts * 3 / 2) * shiftDirection;
-    }
-
-    onDropped(card: FFTCGCard) {
-        super.onDropped(card);
-
-        if (this.shouldBeShown()) {
-            card.flipForward();
-        } else {
-            card.flipBack();
-        }
+        return this.y + (shifts * 25);
     }
 
     shouldBeSideways(): boolean {
         return false;
-    }
-
-    onReceivedCardDrop(card: CardDraggable) {
     }
 }

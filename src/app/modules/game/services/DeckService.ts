@@ -21,7 +21,7 @@ export default class DeckService {
                 {
                     card: {
                         category: 'XI',
-                        is_ex_burst: false,
+                        is_ex_burst: true,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
@@ -54,7 +54,7 @@ export default class DeckService {
                 {
                     card: {
                         category: 'XI',
-                        is_ex_burst: false,
+                        is_ex_burst: true,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
@@ -87,7 +87,7 @@ export default class DeckService {
                 {
                     card: {
                         category: 'XI',
-                        is_ex_burst: false,
+                        is_ex_burst: true,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
@@ -120,7 +120,7 @@ export default class DeckService {
                 {
                     card: {
                         category: 'XI',
-                        is_ex_burst: false,
+                        is_ex_burst: true,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
@@ -153,7 +153,7 @@ export default class DeckService {
                 {
                     card: {
                         category: 'XI',
-                        is_ex_burst: false,
+                        is_ex_burst: true,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],

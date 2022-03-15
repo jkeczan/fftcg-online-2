@@ -59,6 +59,7 @@ export default class FFTCGCard extends CardDraggable {
     constructor(data: IFFTCGCard) {
         super(data);
         this.isExBurst = data.isExBurst;
+        this.gameCardID = data.gameCardID;
     }
 
     freeze() {

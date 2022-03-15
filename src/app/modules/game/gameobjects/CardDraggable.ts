@@ -1,10 +1,10 @@
 import CardBase, {ICardConfig} from './CardBase';
 import {BaseZone} from './zones/Base.zone';
 import Tween = Phaser.Tweens.Tween;
-import POINTER_OVER = Phaser.Input.Events.POINTER_OVER;
-import POINTER_OUT = Phaser.Input.Events.POINTER_OUT;
 import Pointer = Phaser.Input.Pointer;
 import Rectangle = Phaser.Geom.Rectangle;
+import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
+import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
 
 export interface ICardDraggableConfig extends ICardConfig {
     ondragend?: (pointer: Pointer, gameObject: CardDraggable, dropped: boolean, dropZone?: BaseZone) => void;
@@ -23,6 +23,7 @@ export default class CardDraggable extends CardBase {
     private isHandHovered: boolean;
     private hoverActive: boolean;
     private _tapped: boolean;
+    private hoverTween: Tween;
 
     constructor(data: ICardDraggableConfig) {
         super(data);
@@ -34,48 +35,52 @@ export default class CardDraggable extends CardBase {
         this._onDragEnd = ondragend;
         this._onDropped = ondropped;
         this.hoverActive = true;
-        // this.setSize(this.spriteImage.width, this.spriteImage.height);
-        const hitArea = new Rectangle(this.centerOriginX, this.centerOriginY, this.width, this.height);
         this.setInteractive();
         this.scene.input.setDraggable(this);
     }
 
     onHover() {
-        console.log('Hovered');
+        if (!this.isHandHovered) {
+            this.isHandHovered = true;
+            this.hoverTween = this.scene.add.tween({
+                targets: [this],
+                ease: 'Cubic',
+                duration: 250,
+                y: this.y - 125
+            });
+        }
     }
 
     onHoverOut() {
-        console.log('Hover Out');
+        if (this.isHandHovered) {
+            this.isHandHovered = false;
+            this.scene.add.tween({
+                targets: [this],
+                ease: 'Cubic',
+                duration: 250,
+                delay: 125,
+                y: this.y + 125
+            });
+        }
     }
 
     activateHandHoverMode() {
-        this.on(POINTER_OVER, () => {
-            if (!this.isHandHovered) {
-                this.isHandHovered = true;
-                this.scene.add.tween({
-                    targets: [this],
-                    ease: 'Cubic',
-                    duration: 500,
-                    y: this.y - 75
-                });
-            }
+        this.on(GAMEOBJECT_POINTER_OVER, () => {
+            this.onHover();
         });
-        this.on(POINTER_OUT, () => {
-            if (this.isHandHovered) {
-                this.isHandHovered = false;
-                this.scene.add.tween({
-                    targets: [this],
-                    ease: 'Cubic',
-                    duration: 500,
-                    y: this.y + 75
-                });
-            }
+        this.on(GAMEOBJECT_POINTER_OUT, () => {
+            this.onHoverOut();
         });
     }
 
+    setStartDragPosition() {
+        this.originalX = this.x;
+        this.originalY = this.y;
+    }
+
     deactivateHandHoverMode() {
-        this.off(POINTER_OVER);
-        this.off(POINTER_OUT);
+        this.off(GAMEOBJECT_POINTER_OVER);
+        this.off(GAMEOBJECT_POINTER_OUT);
     }
 
     public snapBack(): void {
@@ -95,12 +100,10 @@ export default class CardDraggable extends CardBase {
 
     public updateGamePosition(x?: number, y?: number) {
         if (x) {
-            this.originalX = parseInt(this.x.toString(), 2);
             this.x = x;
         }
 
         if (y) {
-            this.originalY = parseInt(this.y.toString(), 2);
             this.y = y;
         }
     }

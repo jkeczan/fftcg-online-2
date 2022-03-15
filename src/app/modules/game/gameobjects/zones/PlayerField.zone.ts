@@ -22,8 +22,8 @@ export default class PlayerFieldZone extends Container {
         const forwardZone = new ForwardZone({
             scene,
             x,
-            y: y - ZONE_LAYOUT_SPECS.HEIGHT / 2,
-            name: 'Forward Zone',
+            y: y - height / 4,
+            name: 'Forward',
             width: width * .95,
             height: height * .4,
             borderColor: 0x0000ff
@@ -31,8 +31,8 @@ export default class PlayerFieldZone extends Container {
         const backupZone = new BackupZone({
             scene,
             x,
-            y: y + ZONE_LAYOUT_SPECS.HEIGHT / 2,
-            name: 'Backup Zone',
+            y: y + height / 4,
+            name: 'Backup',
             width: width * .95,
             height: height * .4,
             borderColor: 0x00ff00
@@ -45,13 +45,12 @@ export default class PlayerFieldZone extends Container {
         this.height = height;
 
         this.forwardZone = forwardZone;
-        // this.backupZone = backupZone;
+        this.backupZone = backupZone;
         this.border = border;
 
         this.createBorder();
 
         this.scene.add.existing(this);
-
     }
 
     createBorder(color: number = 0xA020F0) {

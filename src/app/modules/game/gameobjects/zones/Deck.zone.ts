@@ -1,5 +1,4 @@
 import {BaseZone, IGameZoneConfig} from './Base.zone';
-import CardDraggable from '../CardDraggable';
 import FFTCGCard from '../FftcgCard';
 
 export interface ICardGameZone {
@@ -13,6 +12,8 @@ export interface ICardGameZone {
 }
 
 export default class DeckZone extends BaseZone implements ICardGameZone {
+    protected cardScale = .5;
+
     constructor(config: IGameZoneConfig) {
         super(config);
 
@@ -21,16 +22,24 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
 
     orientCard(card: FFTCGCard) {
         card.flipBack();
+        card.untap();
+    }
+
+    onCardAdded(card: FFTCGCard) {
+        super.onCardAdded(card);
+        this.orientCard(card);
     }
 
     addCard(card: FFTCGCard) {
         super.addCard(card);
-        this.orientCard(card);
+        this.onCardAdded(card);
     }
 
-    alignCardsInZone(newCard: CardDraggable) {
-        newCard.x = this.x;
-        newCard.y = this.y;
+    alignCardsInZone() {
+        for (const card of this.cards) {
+            card.x = this.x;
+            card.y = this.y;
+        }
     }
 
     shouldBeShown(): boolean {

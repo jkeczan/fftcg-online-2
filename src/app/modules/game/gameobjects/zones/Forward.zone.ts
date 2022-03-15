@@ -17,9 +17,18 @@ export default class ForwardZone extends BaseZone implements ICardGameZone {
 
     onCardAdded(card: FFTCGCard) {
         this.orientCard(card);
+        card.crop();
     }
 
     shouldBeShown(): boolean {
         return true;
+    }
+
+    shouldBeSideways(): boolean {
+        return false;
+    }
+
+    shouldStack(): boolean {
+        return false;
     }
 }
