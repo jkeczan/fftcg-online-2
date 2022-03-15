@@ -39,7 +39,7 @@ export default class DamageZone extends BaseZone implements ICardGameZone {
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
         this.orientCard(card);
-        this.playEXBurst(card);
+        // this.playEXBurst(card);
     }
 
     playEXBurst(card: FFTCGCard) {
