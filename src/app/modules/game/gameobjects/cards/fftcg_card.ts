@@ -1,4 +1,5 @@
-import CardDraggable, {ICardDraggableConfig} from './card_draggable';
+import CardDraggable from './card_draggable';
+import {ICardConfig} from './card_base';
 
 export enum FFTCGCardType {
     Forward = 'forward',
@@ -25,7 +26,7 @@ export enum FFTCGCardRarity {
     LEGEND = 'Legend'
 }
 
-export interface IFFTCGCard extends ICardDraggableConfig{
+export interface IFFTCGCard extends ICardConfig {
     gameCardID: string;
     id: string;
     cost: number;

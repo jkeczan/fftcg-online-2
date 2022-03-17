@@ -5,15 +5,8 @@ import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterMana
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import CardDraggable from '../cards/card_draggable';
 import {Scene} from 'phaser';
-import {ICardGameZone} from './deck.zone';
-import {Observable, Subject} from 'rxjs';
 import FFTCGCard from '../cards/fftcg_card';
-
-declare global {
-    interface Window {
-        Player: any;
-    }
-}
+import CubicBezier = Phaser.Curves.CubicBezier;
 
 export interface IGameZoneConfig {
     scene: Scene;
@@ -26,6 +19,18 @@ export interface IGameZoneConfig {
     opponent: boolean;
 }
 
+export interface ICardGameZone {
+    shouldBeShown(): boolean;
+
+    shouldStack(): boolean;
+
+    shouldBeSideways(): boolean;
+
+    orientCard(card: FFTCGCard): void;
+
+    updateCardScale(card: FFTCGCard): void;
+}
+
 export abstract class BaseZone extends Zone implements ICardGameZone {
     public cards: Array<FFTCGCard>;
     public name: string;
@@ -35,10 +40,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     protected highlightedBorder: Graphics;
     private _emitterManager: ParticleEmitterManager;
     private _borderParticleEffect: ParticleEmitter;
-    protected addCardEvent: Subject<CardDraggable>;
-    protected $addCardEvent: Observable<CardDraggable>;
-    protected removeCardEvent: Subject<CardDraggable>;
-    protected $removeCardEvent: Observable<CardDraggable>;
     protected cardScale = 1;
     protected inverted: boolean;
 
@@ -51,28 +52,8 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.createBorder(config.borderColor);
         this.createCardCount();
         this.createLabel();
-        this.setupEvents();
 
         this.inverted = config.opponent;
-    }
-
-    setupEvents() {
-        this.addCardEvent = new Subject<CardDraggable>();
-        this.$addCardEvent = this.addCardEvent.asObservable();
-        this.removeCardEvent = new Subject<CardDraggable>();
-        this.$removeCardEvent = this.removeCardEvent.asObservable();
-    }
-
-    setupListeners() {
-        this.$addCardEvent.subscribe((card: CardDraggable) => {
-            this.alignCardsInZone();
-            this.cardCount.text = this.cards.length.toString();
-        });
-
-        this.$removeCardEvent.subscribe((card: CardDraggable) => {
-            this.alignCardsInZone();
-            this.cardCount.text = this.cards.length.toString();
-        });
     }
 
     createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {
@@ -105,7 +86,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         }
 
         this.cards.push(card);
-        this.alignCardsInZone();
         this.onCardAdded(card);
     }
 
@@ -127,21 +107,24 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     alignCardsInZone() {
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
-            // card.setPosition(this.xTranslateOnDrop(card, i), this.yTranslateOnDrop(card, i));
-            const tween = this.scene.add.tween({
+            this.scene.add.tween({
                 targets: [card],
-                ease: 'Cubic',
+                ease: 'Sine',
                 duration: 500,
                 x: this.xTranslateOnDrop(card, i),
-                y: this.yTranslateOnDrop(card, i),
-                onComplete: this.onCardAdded(card)
+                y: this.yTranslateOnDrop(card, i)
             });
         }
     }
 
     onCardAdded(card: FFTCGCard) {
-        card.setCardScale(this.cardScale);
+        this.alignCardsInZone();
+        this.updateCardScale(card);
         this.orientCard(card);
+    }
+
+    updateCardScale(card: FFTCGCard) {
+        card.setCardScale(this.cardScale);
     }
 
     onCardRemoved(card: FFTCGCard) {
@@ -177,7 +160,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         const shiftDirection = index < centerIndex ? -1 : 1;
         const shifts = Math.abs(centerIndex - index);
         const angle = (shifts * shiftDirection * 7);
-        console.log('New Angle: ', angle);
 
         if (index === centerIndex) {
             return 0;
@@ -222,11 +204,10 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     onDropped(card: FFTCGCard) {
-
+        this.addCard(card);
     }
 
     orientCard(card: FFTCGCard): void {
-        console.log('Orient');
     }
 
     highlightZoneParticleEffect() {

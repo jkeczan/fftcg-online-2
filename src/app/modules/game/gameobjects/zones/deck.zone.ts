@@ -1,15 +1,5 @@
-import {BaseZone, IGameZoneConfig} from './base.zone';
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
-
-export interface ICardGameZone {
-    shouldBeShown(): boolean;
-
-    shouldStack(): boolean;
-
-    shouldBeSideways(): boolean;
-
-    orientCard(card: FFTCGCard): void;
-}
 
 export default class DeckZone extends BaseZone implements ICardGameZone {
     protected cardScale = .5;
@@ -22,7 +12,12 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
 
     orientCard(card: FFTCGCard) {
         card.flipBack();
-        card.untap();
+
+        if (this.inverted) {
+            card.rotateCard(180);
+        } else {
+            card.rotateCard(0);
+        }
     }
 
     onCardAdded(card: FFTCGCard) {

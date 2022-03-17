@@ -1,14 +1,7 @@
 import CardBase, {ICardConfig} from './card_base';
-import {BaseZone} from '../zones/base.zone';
 import Tween = Phaser.Tweens.Tween;
-import Pointer = Phaser.Input.Pointer;
 import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
 import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
-
-export interface ICardDraggableConfig extends ICardConfig {
-    ondragend?: (pointer: Pointer, gameObject: CardDraggable, dropped: boolean, dropZone?: BaseZone) => void;
-    ondropped: (pointer: Pointer, gameObject: CardDraggable, dropZone: BaseZone) => void;
-}
 
 // tslint:disable-next-line:component-class-suffix
 export default class CardDraggable extends CardBase {
@@ -16,43 +9,45 @@ export default class CardDraggable extends CardBase {
     private _originalY: number;
     private _draggable: boolean;
     private _dragging: boolean;
-    private _onDragEnd: (pointer, gameObject, dropped, dropZone) => void;
-    private _onDropped: (pointer, gameObject, gameZone) => void;
     private _tapped: boolean;
     private isHandHovered: boolean;
     private hoverActive: boolean;
 
     private hoverTween: Tween;
 
-    constructor(data: ICardDraggableConfig) {
+    constructor(data: ICardConfig) {
         super(data);
-        const {ondragend, ondropped} = data;
         this._originalX = this.x;
         this._originalY = this.y;
         this._draggable = true;
         this._dragging = false;
-        this._onDragEnd = ondragend;
-        this._onDropped = ondropped;
         this.hoverActive = true;
         this.setInteractive();
         this.scene.input.setDraggable(this);
     }
 
     onHover() {
-        if (!this.isHandHovered) {
-            this.isHandHovered = true;
+        let delay = 0;
+        if (this.hoverTween?.isPlaying()) {
+            delay = 2000;
+        }
+        this.scene.time.delayedCall(delay, () => {
             this.hoverTween = this.scene.add.tween({
                 targets: [this],
                 ease: 'Cubic',
                 duration: 250,
                 y: this.y - 125
             });
-        }
+        });
+
     }
 
     onHoverOut() {
-        if (this.isHandHovered) {
-            this.isHandHovered = false;
+        let delay = 0;
+        if (this.hoverTween?.isPlaying()) {
+            delay = 375;
+        }
+        this.scene.time.delayedCall(delay, () => {
             this.scene.add.tween({
                 targets: [this],
                 ease: 'Cubic',
@@ -60,7 +55,8 @@ export default class CardDraggable extends CardBase {
                 delay: 125,
                 y: this.y + 125
             });
-        }
+        });
+
     }
 
     activateHandHoverMode() {
@@ -145,22 +141,6 @@ export default class CardDraggable extends CardBase {
 
     set dragging(value: boolean) {
         this._dragging = value;
-    }
-
-    get onDragEnd(): (pointer, gameObject, dropped, gameZone) => void {
-        return this._onDragEnd;
-    }
-
-    set onDragEnd(value: (pointer, gameObject, dropped, gameZone) => void) {
-        this._onDragEnd = value;
-    }
-
-    get onDropped(): (pointer, gameObject, dropped) => void {
-        return this._onDropped;
-    }
-
-    set onDropped(value: (pointer, gameObject, dropped) => void) {
-        this._onDropped = value;
     }
 
     get isTapped() {

@@ -1,5 +1,4 @@
-import {ICardGameZone} from './deck.zone';
-import {BaseZone, IGameZoneConfig} from './base.zone';
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/fftcg_card';
 
@@ -19,29 +18,14 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         return false;
     }
 
-    addCard(card: FFTCGCard) {
-        super.addCard(card);
-    }
-
-    onCardAdded(card: FFTCGCard) {
-        super.onCardAdded(card);
-
-        this.orientCard(card);
-        card.activateHandHoverMode();
-    }
-
-    onCardRemoved(card: FFTCGCard) {
-        super.onCardRemoved(card);
-        card.deactivateHandHoverMode();
-    }
-
     orientCard(card: FFTCGCard) {
         if (this.inverted) {
             card.flipBack();
-            card.untap();
+            card.rotateCard(180);
+
         } else {
             card.flipForward();
-            card.untap();
+            card.rotateCard(0);
         }
     }
 

@@ -29,7 +29,6 @@ export class GamePage implements OnInit {
     }
 
     async toggleMenu() {
-        console.log('Toggle');
         await this.menuController.close('side-menu');
         // await this.menuController.toggle('side-menu');
     }

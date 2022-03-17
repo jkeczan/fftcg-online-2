@@ -1,5 +1,4 @@
-import {BaseZone} from './base.zone';
-import {ICardGameZone} from './deck.zone';
+import {BaseZone, ICardGameZone} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
 
 export default class BackupZone extends BaseZone implements ICardGameZone {
@@ -9,9 +8,12 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
 
     orientCard(card: FFTCGCard) {
         super.orientCard(card);
-
         card.flipForward();
-        card.untap();
+        if (this.inverted) {
+            card.rotateCard(180);
+        } else {
+            card.rotateCard(0);
+        }
     }
 
     onCardAdded(card: FFTCGCard) {

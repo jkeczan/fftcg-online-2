@@ -21,7 +21,7 @@ export default class PlayerFieldZone extends Container {
         const forwardZone = new ForwardZone({
             scene,
             x,
-            y: y - height / 4,
+            y: config.opponent ? y + height / 4 : y - height / 4,
             name: config.opponent ? 'Opponent_Forward' : 'Forward',
             width: width * .95,
             height: height * .4,
@@ -31,7 +31,7 @@ export default class PlayerFieldZone extends Container {
         const backupZone = new BackupZone({
             scene,
             x,
-            y: y + height / 4,
+            y: config.opponent ? y - height / 4 : y + height / 4,
             name: config.opponent ? 'Opponent_Backup' : 'Backup',
             width: width * .95,
             height: height * .4,

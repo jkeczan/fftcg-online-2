@@ -1,7 +1,6 @@
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
 import Graphics = Phaser.GameObjects.Graphics;
-import Rectangle = Phaser.Geom.Rectangle;
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import {Scene} from 'phaser';
@@ -24,8 +23,6 @@ export default class CardBase extends Container {
     private _spriteBorder: Sprite;
     private _particleEmitterManager: ParticleEmitterManager;
     private _exBurstEmitter: ParticleEmitter;
-    private _border: Graphics;
-    private _center: Graphics;
 
     constructor(data: ICardConfig) {
         const {scene, x, y, card, image, name, depth, imageBack} = data;
@@ -33,7 +30,6 @@ export default class CardBase extends Container {
         const spriteCard = new Sprite(scene, 0, 0, card);
         const spriteImage = new Sprite(scene, 0, 0, image);
         const spriteImageBack = new Sprite(scene, 0, 0, imageBack);
-        // const cardBorder = new Graphics(scene);
         const cardCenter = new Graphics(scene);
 
         super(scene, x, y, [cardCenter, spriteImageBack, spriteImage, spriteBorder]);
@@ -44,11 +40,7 @@ export default class CardBase extends Container {
         this.spriteImage = spriteImage;
         this.spriteImageBack = spriteImageBack;
         this.spriteBorder = spriteBorder;
-        // this.border = cardBorder;
-        this.center = cardCenter;
 
-        // this.createBorder();
-        // this.createCenter();
         this.setCardSpriteScale(spriteImageBack);
         this.setCardSpriteScale(spriteImage);
         this.setCardSpriteScale(spriteBorder);
@@ -87,18 +79,6 @@ export default class CardBase extends Container {
         });
     }
 
-    createCenter() {
-        this.center.fillStyle(0xff0000, 1);
-        this.center.fillCircle(this.centerOriginX, this.centerOriginY, 5);
-    }
-
-    createBorder() {
-        this.border.lineStyle(10, 0xff0000, 1);
-        this.border.strokeRect(this.originX - (this.width / 2), this.originY - (this.height / 2), this.width, this.height);
-
-        this.bringToTop(this.border);
-    }
-
     flipBack() {
         this.spriteImage.visible = false;
         this.spriteImageBack.visible = true;
@@ -110,17 +90,17 @@ export default class CardBase extends Container {
     }
 
     crop() {
-        const cropRect = new Rectangle(this.x, this.y, this.width, this.height / 2);
-        // this.spriteImage.setCrop(cropRect);
     }
 
     public rotateCard(angle) {
-        this.scene.add.tween({
-            targets: [this],
-            ease: 'Power1',
-            duration: 250,
-            angle
-        });
+        if (Math.abs(this.angle) !== angle) {
+            this.scene.add.tween({
+                targets: [this],
+                ease: 'Power1',
+                duration: 250,
+                angle
+            });
+        }
     }
 
     highlightZoneParticleEffect() {
@@ -216,24 +196,6 @@ export default class CardBase extends Container {
 
     set spriteImageBack(value: Phaser.GameObjects.Sprite) {
         this._spriteImageBack = value;
-    }
-
-
-    get border(): Phaser.GameObjects.Graphics {
-        return this._border;
-    }
-
-    set border(value: Phaser.GameObjects.Graphics) {
-        this._border = value;
-    }
-
-
-    get center(): Phaser.GameObjects.Graphics {
-        return this._center;
-    }
-
-    set center(value: Phaser.GameObjects.Graphics) {
-        this._center = value;
     }
 
     get spriteBorder(): Phaser.GameObjects.Sprite {

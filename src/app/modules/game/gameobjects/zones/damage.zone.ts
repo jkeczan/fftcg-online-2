@@ -1,5 +1,4 @@
-import {BaseZone, IGameZoneConfig} from './base.zone';
-import {ICardGameZone} from './deck.zone';
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/fftcg_card';
 
@@ -35,7 +34,7 @@ export default class DamageZone extends BaseZone implements ICardGameZone {
         if (this.inverted) {
             card.rotateCard(270);
         } else {
-            card.rotateCard(270);
+            card.rotateCard(90);
         }
     }
 

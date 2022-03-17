@@ -12,6 +12,7 @@ import BreakZone from '../gameobjects/zones/break.zone';
 import DamageZone from '../gameobjects/zones/damage.zone';
 import RemoveFromGameZone from '../gameobjects/zones/remove_from_game.zone';
 import Player from '../gameobjects/players/player.gameobject';
+
 import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DROP = Phaser.Input.Events.DROP;
 import DRAG = Phaser.Input.Events.DRAG;
@@ -22,7 +23,7 @@ import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
 import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
-import GameObject = Phaser.GameObjects.GameObject;
+
 
 export default class GameScene extends Scene {
     private background: Sprite;
@@ -214,7 +215,7 @@ export default class GameScene extends Scene {
                 if (cardTargets[0].isTapped) {
                     cardTargets[0].untap();
                 } else {
-                    cardTargets[0].tap();
+                    cardTargets[0].crop();
                 }
 
             } else if (pointer.leftButtonDown()) {
@@ -244,21 +245,44 @@ export default class GameScene extends Scene {
             card.updateGamePosition(dragX, dragY);
         });
 
-        this.input.on(DROP, (pointer, gameObject: CardDraggable, dropZone: BaseZone) => {
-            gameObject.onDropped(pointer, gameObject, dropZone);
+        this.input.on(DROP, (pointer, gameObject: FFTCGCard, dropZone: BaseZone) => {
+            const currentZoneKey = gameObject.getData('currentZone');
+            const currentZone = this.getZone(currentZoneKey);
+            this.gameManager.moveCard(gameObject, currentZone, dropZone);
             dropZone.unhighlightZone();
             this.children.bringToTop(gameObject);
 
         });
 
-        this.input.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped, zone: GameObject) => {
+        this.input.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped) => {
             if (!dropped) {
                 gameObject.snapBack();
             } else {
                 gameObject.dragging = false;
-                gameObject.onDragEnd(pointer, gameObject, dropped, null);
             }
 
+        });
+
+        this.time.delayedCall(5000, () => {
+            this.dealCards();
+        });
+
+    }
+
+    async dealCards() {
+        for (let i = 0; i < 5; i++) {
+            this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
+            this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
+
+            await this.delayTime(250);
+        }
+    }
+
+    async delayTime(delay: number) {
+        return new Promise((resolve, reject) => {
+            this.time.delayedCall(delay, () => {
+                resolve(true);
+            });
         });
     }
 
@@ -271,18 +295,8 @@ export default class GameScene extends Scene {
                 name: `card-${card.card.serial_number}`,
                 image: 'card9',
                 imageBack: 'card-back',
-                card: 'playercard',
+                card: 'playerCard',
                 depth: 5,
-                ondragend: (pointer, cardTarget, dropped) => {
-                    if (!dropped) {
-                        cardTarget.snapBack();
-                    }
-                },
-                ondropped: (pointer: Pointer, gameObject: FFTCGCard, dropZone: BaseZone) => {
-                    const currentZoneKey = gameObject.getData('currentZone');
-                    const currentZone = this.getZone(currentZoneKey);
-                    this.gameManager.moveCard(gameObject, currentZone, dropZone);
-                },
                 id: card.card.serial_number,
                 cost: card.card.cost,
                 elements: card.card.elements,

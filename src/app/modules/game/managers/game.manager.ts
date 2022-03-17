@@ -12,16 +12,16 @@ export default class GameManager {
 
     moveCard(card: FFTCGCard, fromGameZone: BaseZone, toGameZone: BaseZone): void {
         if (ZoneManager.isSameZone(fromGameZone, toGameZone)) {
-            console.log('Same Zone');
             card.snapBack();
         } else {
             if (fromGameZone) {
                 fromGameZone.removeCard(card);
             }
 
-            toGameZone.addCard(card);
-            toGameZone.onDropped(card);
-            card.setData('currentZone', toGameZone.name);
+            if (toGameZone) {
+                toGameZone.onDropped(card);
+                card.setData('currentZone', toGameZone.name);
+            }
         }
     }
 

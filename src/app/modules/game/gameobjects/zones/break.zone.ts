@@ -1,5 +1,4 @@
-import {BaseZone, IGameZoneConfig} from './base.zone';
-import {ICardGameZone} from './deck.zone';
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
 
 export default class BreakZone extends BaseZone implements ICardGameZone {
@@ -25,8 +24,6 @@ export default class BreakZone extends BaseZone implements ICardGameZone {
         for (const card of this.cards) {
             card.x = this.x;
             card.y = this.y;
-
-            this.onCardAdded(card);
         }
     }
 
