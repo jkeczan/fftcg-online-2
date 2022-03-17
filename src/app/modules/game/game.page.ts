@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Game} from 'phaser';
-import GameScene from './scenes/GameScene';
+import GameScene from './scenes/game.scene';
 import {MenuController} from '@ionic/angular';
 
 @Component({

@@ -1,7 +1,7 @@
-import {ICardGameZone} from './Deck.zone';
-import {BaseZone, IGameZoneConfig} from './Base.zone';
-import CardDraggable from '../CardDraggable';
-import FFTCGCard from '../FftcgCard';
+import {ICardGameZone} from './deck.zone';
+import {BaseZone, IGameZoneConfig} from './base.zone';
+import CardDraggable from '../cards/card_draggable';
+import FFTCGCard from '../cards/fftcg_card';
 
 
 export default class HandZone extends BaseZone implements ICardGameZone {
@@ -36,15 +36,25 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     }
 
     orientCard(card: FFTCGCard) {
-        card.flipForward();
-        card.untap();
+        if (this.inverted) {
+            card.flipBack();
+            card.untap();
+        } else {
+            card.flipForward();
+            card.untap();
+        }
     }
 
     yTranslateOnDrop(card: CardDraggable, index: number): number {
         const centerIndex = (this.cards.length - 1) / 2;
         const shifts = Math.abs(centerIndex - index);
 
-        return this.y + (shifts * 25);
+        if (this.inverted) {
+            return this.y - (shifts * 25);
+        } else {
+            return this.y + (shifts * 25);
+        }
+
     }
 
     shouldBeSideways(): boolean {

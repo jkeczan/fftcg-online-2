@@ -1,15 +1,17 @@
 import {Scene} from 'phaser';
-import CardDraggable from '../gameobjects/CardDraggable';
-import HandZone from '../gameobjects/zones/Hand.zone';
-import DeckZone from '../gameobjects/zones/Deck.zone';
-import {BaseZone} from '../gameobjects/zones/Base.zone';
-import GameManager from '../managers/GameManager';
-import FFTCGCard from '../gameobjects/FftcgCard';
-import DeckService from '../services/DeckService';
+import CardDraggable from '../gameobjects/cards/card_draggable';
+import HandZone from '../gameobjects/zones/hand.zone';
+import DeckZone from '../gameobjects/zones/deck.zone';
+import {BaseZone} from '../gameobjects/zones/base.zone';
+import GameManager from '../managers/game.manager';
+import FFTCGCard from '../gameobjects/cards/fftcg_card';
+import DeckService from '../services/deck.service';
 import {v4 as uuidv4} from 'uuid';
-import PlayerFieldZone from '../gameobjects/zones/PlayerField.zone';
-import BreakZone from '../gameobjects/zones/Break.zone';
-import DamageZone from '../gameobjects/zones/Damage.zone';
+import PlayerFieldZone from '../gameobjects/zones/player_field.zone';
+import BreakZone from '../gameobjects/zones/break.zone';
+import DamageZone from '../gameobjects/zones/damage.zone';
+import RemoveFromGameZone from '../gameobjects/zones/remove_from_game.zone';
+import Player from '../gameobjects/players/player.gameobject';
 import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DROP = Phaser.Input.Events.DROP;
 import DRAG = Phaser.Input.Events.DRAG;
@@ -19,26 +21,17 @@ import DRAG_START = Phaser.Input.Events.DRAG_START;
 import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
 import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
-
-
-export const ZONE_LAYOUT_SPECS = {
-    HEIGHT: 250,
-    WIDTH: 225,
-    SPACING: 5
-};
-
+import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
+import GameObject = Phaser.GameObjects.GameObject;
 
 export default class GameScene extends Scene {
-    private playerField: PlayerFieldZone;
-    private playerHand: HandZone;
-    private playerDeck: DeckZone;
-    private playerBreakZone: BreakZone;
-    private playerDamageZone: DamageZone;
     private background: Sprite;
     private gameManager: GameManager;
     private deck: any;
     private deckService: DeckService;
     private cursors: CursorKeys;
+    private player: Player;
+    private opponent: Player;
 
     constructor() {
         super('MainScene');
@@ -76,57 +69,158 @@ export default class GameScene extends Scene {
         const zoneSpacing = zoneHeight / 10;
 
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.playerDeck = new DeckZone({
+
+        this.player = new Player({});
+        this.opponent = new Player({});
+
+        this.opponent.deck = new DeckZone({
+            scene: this,
+            name: 'Opponent_Deck',
+            x: (zoneWidth / 2),
+            y: (zoneHeight / 4),
+            width: zoneWidth / 2,
+            height: zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: true
+        });
+
+        this.player.deck = new DeckZone({
             scene: this,
             name: 'Deck',
             x: screenWidth - (zoneWidth / 2),
-            y: screenHeight - (zoneHeight / 2),
+            y: screenHeight - (zoneHeight / 4),
             width: zoneWidth / 2,
             height: zoneHeight / 2,
-            borderColor: 0x00ffff
+            borderColor: 0x00ffff,
+            opponent: false
         });
 
-        this.playerHand = new HandZone({
+        this.player.hand = new HandZone({
             scene: this,
             name: 'Hand',
             x: screenWidth / 2,
-            y: screenHeight - (zoneHeight / 2),
+            y: screenHeight - (zoneHeight / 4),
             width: screenWidth * .8,
             height: zoneHeight,
-            borderColor: 0xffff00
+            borderColor: 0xffff00,
+            opponent: false
         });
 
-        this.playerBreakZone = new BreakZone({
+        this.opponent.hand = new HandZone({
+            scene: this,
+            name: 'Opponent_Hand',
+            x: screenWidth / 2,
+            y: (zoneHeight / 4),
+            width: screenWidth * .8,
+            height: zoneHeight,
+            borderColor: 0xffff00,
+            opponent: true
+        });
+
+        this.player.breakZone = new BreakZone({
             scene: this,
             name: 'Break',
             x: screenWidth - (zoneWidth / 2),
-            y: this.playerHand.y - (this.playerDeck.height) - zoneSpacing,
+            y: this.player.deck.y - (this.player.deck.height) - zoneSpacing,
             width: zoneWidth / 2,
-            height: zoneHeight / 2 ,
-            borderColor: 0x00ffff
+            height: zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: false
         });
 
-        this.playerDamageZone = new DamageZone({
+        this.opponent.breakZone = new BreakZone({
+            scene: this,
+            name: 'Opponent_Break',
+            x: (zoneWidth / 2),
+            y: this.opponent.deck.y + (this.opponent.deck.height) + zoneSpacing,
+            width: zoneWidth / 2,
+            height: zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: true
+        });
+
+        this.player.removedFromGame = new RemoveFromGameZone({
+            scene: this,
+            name: 'RFG',
+            x: screenWidth - (zoneWidth / 2),
+            y: this.player.breakZone.y - (this.player.breakZone.height) - zoneSpacing,
+            width: zoneWidth / 2,
+            height: zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: false
+        });
+
+        this.opponent.removedFromGame = new RemoveFromGameZone({
+            scene: this,
+            name: 'Opponent_RFG',
+            x: (zoneWidth / 2),
+            y: this.opponent.breakZone.y + (this.opponent.breakZone.height) + zoneSpacing,
+            width: zoneWidth / 2,
+            height: zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: true
+        });
+
+        this.player.damageZone = new DamageZone({
             scene: this,
             name: 'Damage',
             x: zoneWidth / 4,
-            y: screenHeight - (zoneHeight),
+            y: screenHeight - (zoneHeight / 2),
             width: zoneHeight,
             height: zoneWidth * 2,
-            borderColor: 0x00ffff
+            borderColor: 0x00ffff,
+            opponent: false
         });
 
-        this.playerField = new PlayerFieldZone({
+        this.opponent.damageZone = new DamageZone({
+            scene: this,
+            name: 'Opponent_Damage',
+            x: screenWidth - zoneWidth / 4,
+            y: (zoneHeight / 2),
+            width: zoneHeight,
+            height: zoneWidth * 2,
+            borderColor: 0x00ffff,
+            opponent: true
+        });
+
+        this.player.field = new PlayerFieldZone({
             scene: this,
             name: 'Players Field',
             x: screenWidth / 2,
-            y: this.playerHand.y - (this.playerHand.height * 1.5) - zoneSpacing,
+            y: this.player.hand.y - this.player.hand.height - (zoneHeight / 4) + zoneSpacing,
             width: screenWidth * .8,
-            height: zoneHeight * 2,
-            borderColor: 0xA020F0
+            height: zoneHeight * 1.2,
+            borderColor: 0xA020F0,
+            opponent: false
         });
 
-        await this.createDeck();
+        this.opponent.field = new PlayerFieldZone({
+            scene: this,
+            name: 'Opponents_Players Field',
+            x: screenWidth / 2,
+            // y: 500,
+            y: this.opponent.hand.y + (this.opponent.hand.height) + (zoneHeight / 4) - zoneSpacing,
+            width: screenWidth * .8,
+            height: zoneHeight * 1.2,
+            borderColor: 0xA020F0,
+            opponent: true
+        });
+
+        await this.createDeck(this.player.deck);
+        await this.createDeck(this.opponent.deck);
+
+        this.input.on(POINTER_DOWN, (pointer: Pointer, cardTargets: CardDraggable[]) => {
+            if (pointer.rightButtonDown()) {
+                if (cardTargets[0].isTapped) {
+                    cardTargets[0].untap();
+                } else {
+                    cardTargets[0].tap();
+                }
+
+            } else if (pointer.leftButtonDown()) {
+
+            }
+        });
 
         this.input.on(DRAG_START, (pointer, card: CardDraggable) => {
             card.setStartDragPosition();
@@ -157,16 +251,18 @@ export default class GameScene extends Scene {
 
         });
 
-        this.input.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped) => {
+        this.input.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped, zone: GameObject) => {
             if (!dropped) {
                 gameObject.snapBack();
+            } else {
+                gameObject.dragging = false;
+                gameObject.onDragEnd(pointer, gameObject, dropped, null);
             }
-            gameObject.dragging = false;
-            gameObject.onDragEnd(pointer, gameObject, dropped, null);
+
         });
     }
 
-    async createDeck() {
+    async createDeck(deck: DeckZone) {
         for (const card of this.deck.cards) {
             const newID = uuidv4();
             const newCard = new FFTCGCard({
@@ -183,7 +279,6 @@ export default class GameScene extends Scene {
                     }
                 },
                 ondropped: (pointer: Pointer, gameObject: FFTCGCard, dropZone: BaseZone) => {
-                    gameObject.setStartDragPosition();
                     const currentZoneKey = gameObject.getData('currentZone');
                     const currentZone = this.getZone(currentZoneKey);
                     this.gameManager.moveCard(gameObject, currentZone, dropZone);
@@ -203,7 +298,7 @@ export default class GameScene extends Scene {
             });
 
             newCard.setData('currentZone', 'Deck');
-            this.playerDeck.addCard(newCard);
+            deck.addCard(newCard);
         }
     }
 
@@ -227,12 +322,20 @@ export default class GameScene extends Scene {
 
     getZone(zone: string): BaseZone {
         const zones: { [index: string]: BaseZone } = {
-            Backup: this.playerField.backupZone,
-            Hand: this.playerHand,
-            Forward: this.playerField.forwardZone,
-            Damage: this.playerDamageZone,
-            Deck: this.playerDeck,
-            Break: this.playerBreakZone
+            Backup: this.player.field.backupZone,
+            Hand: this.player.hand,
+            Forward: this.player.field.forwardZone,
+            Damage: this.player.damageZone,
+            Deck: this.player.deck,
+            Break: this.player.breakZone,
+            RFG: this.player.removedFromGame,
+            Opponent_Backup: this.opponent.field.backupZone,
+            Opponent_Hand: this.opponent.hand,
+            Opponent_Forward: this.opponent.field.forwardZone,
+            Opponent_Damage: this.opponent.damageZone,
+            Opponent_Deck: this.opponent.deck,
+            Opponent_Break: this.opponent.breakZone,
+            Opponent_RFG: this.opponent.removedFromGame
         };
 
         return zones[zone];

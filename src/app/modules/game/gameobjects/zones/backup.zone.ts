@@ -1,11 +1,10 @@
-import {BaseZone, IGameZoneConfig} from './Base.zone';
-import {ICardGameZone} from './Deck.zone';
-import CardDraggable from '../CardDraggable';
-import FFTCGCard from '../FftcgCard';
+import {BaseZone} from './base.zone';
+import {ICardGameZone} from './deck.zone';
+import FFTCGCard from '../cards/fftcg_card';
 
-export default class ForwardZone extends BaseZone implements ICardGameZone {
-    constructor(config: IGameZoneConfig) {
-        super(config);
+export default class BackupZone extends BaseZone implements ICardGameZone {
+    constructor(data) {
+        super(data);
     }
 
     orientCard(card: FFTCGCard) {
@@ -16,8 +15,9 @@ export default class ForwardZone extends BaseZone implements ICardGameZone {
     }
 
     onCardAdded(card: FFTCGCard) {
+        super.onCardAdded(card);
+
         this.orientCard(card);
-        card.crop();
     }
 
     shouldBeShown(): boolean {

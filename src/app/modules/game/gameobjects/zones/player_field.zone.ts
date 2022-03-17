@@ -1,14 +1,13 @@
-import ForwardZone from './Forward.zone';
-import BackupZone from './Backup.zone';
-import {Scene} from 'phaser';
+import ForwardZone from './forward.zone';
+import BackupZone from './backup.zone';
+import {IGameZoneConfig} from './base.zone';
 import Container = Phaser.GameObjects.Container;
 import Graphics = Phaser.GameObjects.Graphics;
-import {ZONE_LAYOUT_SPECS} from '../../scenes/GameScene';
-import {IGameZoneConfig} from './Base.zone';
 
 
 interface IFieldConfig extends IGameZoneConfig {
     name: string;
+    opponent: boolean;
 }
 
 export default class PlayerFieldZone extends Container {
@@ -23,19 +22,21 @@ export default class PlayerFieldZone extends Container {
             scene,
             x,
             y: y - height / 4,
-            name: 'Forward',
+            name: config.opponent ? 'Opponent_Forward' : 'Forward',
             width: width * .95,
             height: height * .4,
-            borderColor: 0x0000ff
+            borderColor: 0x0000ff,
+            opponent: config.opponent
         });
         const backupZone = new BackupZone({
             scene,
             x,
             y: y + height / 4,
-            name: 'Backup',
+            name: config.opponent ? 'Opponent_Backup' : 'Backup',
             width: width * .95,
             height: height * .4,
-            borderColor: 0x00ff00
+            borderColor: 0x00ff00,
+            opponent: config.opponent
         });
         const border = new Graphics(scene);
 

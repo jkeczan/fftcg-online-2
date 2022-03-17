@@ -1,8 +1,7 @@
-import CardBase, {ICardConfig} from './CardBase';
-import {BaseZone} from './zones/Base.zone';
+import CardBase, {ICardConfig} from './card_base';
+import {BaseZone} from '../zones/base.zone';
 import Tween = Phaser.Tweens.Tween;
 import Pointer = Phaser.Input.Pointer;
-import Rectangle = Phaser.Geom.Rectangle;
 import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
 import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
 
@@ -19,10 +18,10 @@ export default class CardDraggable extends CardBase {
     private _dragging: boolean;
     private _onDragEnd: (pointer, gameObject, dropped, dropZone) => void;
     private _onDropped: (pointer, gameObject, gameZone) => void;
-    private rotationTween: Tween;
+    private _tapped: boolean;
     private isHandHovered: boolean;
     private hoverActive: boolean;
-    private _tapped: boolean;
+
     private hoverTween: Tween;
 
     constructor(data: ICardDraggableConfig) {
@@ -98,6 +97,14 @@ export default class CardDraggable extends CardBase {
         this._tapped = false;
     }
 
+    invert() {
+        this.angle += 180;
+    }
+
+    uninvert() {
+        this.angle -= 180;
+    }
+
     public updateGamePosition(x?: number, y?: number) {
         if (x) {
             this.x = x;
@@ -154,5 +161,9 @@ export default class CardDraggable extends CardBase {
 
     set onDropped(value: (pointer, gameObject, dropped) => void) {
         this._onDropped = value;
+    }
+
+    get isTapped() {
+        return this._tapped;
     }
 }

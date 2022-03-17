@@ -1,4 +1,4 @@
-import CardDraggable, {ICardDraggableConfig} from './CardDraggable';
+import CardDraggable, {ICardDraggableConfig} from './card_draggable';
 
 export enum FFTCGCardType {
     Forward = 'forward',

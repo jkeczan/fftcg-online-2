@@ -1,7 +1,7 @@
 import {Scene} from 'phaser';
-import {BaseZone} from '../gameobjects/zones/Base.zone';
-import ZoneManager from './ZoneManager';
-import FFTCGCard from '../gameobjects/FftcgCard';
+import {BaseZone} from '../gameobjects/zones/base.zone';
+import ZoneManager from './zone.manager';
+import FFTCGCard from '../gameobjects/cards/fftcg_card';
 
 export default class GameManager {
     private _scene: Scene;
@@ -12,17 +12,17 @@ export default class GameManager {
 
     moveCard(card: FFTCGCard, fromGameZone: BaseZone, toGameZone: BaseZone): void {
         if (ZoneManager.isSameZone(fromGameZone, toGameZone)) {
+            console.log('Same Zone');
             card.snapBack();
-            return;
-        }
+        } else {
+            if (fromGameZone) {
+                fromGameZone.removeCard(card);
+            }
 
-        if (fromGameZone) {
-            fromGameZone.removeCard(card);
+            toGameZone.addCard(card);
+            toGameZone.onDropped(card);
+            card.setData('currentZone', toGameZone.name);
         }
-
-        toGameZone.addCard(card);
-        toGameZone.onDropped(card);
-        card.setData('currentZone', toGameZone.name);
     }
 
     get scene(): Phaser.Scene {

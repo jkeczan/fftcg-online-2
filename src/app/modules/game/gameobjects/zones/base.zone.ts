@@ -3,11 +3,11 @@ import Graphics = Phaser.GameObjects.Graphics;
 import Text = Phaser.GameObjects.Text;
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
-import CardDraggable from '../CardDraggable';
+import CardDraggable from '../cards/card_draggable';
 import {Scene} from 'phaser';
-import {ICardGameZone} from './Deck.zone';
+import {ICardGameZone} from './deck.zone';
 import {Observable, Subject} from 'rxjs';
-import FFTCGCard from '../FftcgCard';
+import FFTCGCard from '../cards/fftcg_card';
 
 declare global {
     interface Window {
@@ -23,6 +23,7 @@ export interface IGameZoneConfig {
     width: number;
     height: number;
     borderColor?: number;
+    opponent: boolean;
 }
 
 export abstract class BaseZone extends Zone implements ICardGameZone {
@@ -39,6 +40,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     protected removeCardEvent: Subject<CardDraggable>;
     protected $removeCardEvent: Observable<CardDraggable>;
     protected cardScale = 1;
+    protected inverted: boolean;
 
     protected constructor(config: IGameZoneConfig) {
         super(config.scene, config.x, config.y, config.width, config.height);
@@ -50,6 +52,8 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.createCardCount();
         this.createLabel();
         this.setupEvents();
+
+        this.inverted = config.opponent;
     }
 
     setupEvents() {
@@ -137,6 +141,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
 
     onCardAdded(card: FFTCGCard) {
         card.setCardScale(this.cardScale);
+        this.orientCard(card);
     }
 
     onCardRemoved(card: FFTCGCard) {
@@ -198,7 +203,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         if (this.highlightedBorder) {
             this.highlightedBorder.destroy(true);
         }
-
         if (this.borderParticleEffect) {
             this.borderParticleEffect.explode(-1, 0, 0);
         }
@@ -222,6 +226,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     orientCard(card: FFTCGCard): void {
+        console.log('Orient');
     }
 
     highlightZoneParticleEffect() {

@@ -1,6 +1,4 @@
-import {BaseZone} from '../gameobjects/zones/Base.zone';
-import CardDraggable from '../gameobjects/CardDraggable';
-import {ZONE_LAYOUT_SPECS} from '../scenes/GameScene';
+import {BaseZone} from '../gameobjects/zones/base.zone';
 
 export default class ZoneManager {
     constructor() {

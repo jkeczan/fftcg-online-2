@@ -1,5 +1,5 @@
-import {BaseZone, IGameZoneConfig} from './Base.zone';
-import FFTCGCard from '../FftcgCard';
+import {BaseZone, IGameZoneConfig} from './base.zone';
+import FFTCGCard from '../cards/fftcg_card';
 
 export interface ICardGameZone {
     shouldBeShown(): boolean;

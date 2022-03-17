@@ -1,7 +1,7 @@
-import {BaseZone, IGameZoneConfig} from './Base.zone';
-import {ICardGameZone} from './Deck.zone';
-import CardDraggable from '../CardDraggable';
-import FFTCGCard from '../FftcgCard';
+import {BaseZone, IGameZoneConfig} from './base.zone';
+import {ICardGameZone} from './deck.zone';
+import CardDraggable from '../cards/card_draggable';
+import FFTCGCard from '../cards/fftcg_card';
 
 export default class DamageZone extends BaseZone implements ICardGameZone {
     constructor(config: IGameZoneConfig) {
@@ -31,19 +31,22 @@ export default class DamageZone extends BaseZone implements ICardGameZone {
 
     orientCard(card: FFTCGCard) {
         super.orientCard(card);
-
         card.flipForward();
-        card.tap();
+        if (this.inverted) {
+            card.rotateCard(270);
+        } else {
+            card.rotateCard(270);
+        }
     }
 
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
         this.orientCard(card);
-        // this.playEXBurst(card);
+        this.playEXBurst(card);
     }
 
     playEXBurst(card: FFTCGCard) {
-       this.highlightZoneParticleEffect();
+        this.highlightZoneParticleEffect();
     }
 
     shouldBeShown(): boolean {
