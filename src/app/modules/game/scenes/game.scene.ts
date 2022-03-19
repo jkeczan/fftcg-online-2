@@ -210,12 +210,14 @@ export default class GameScene extends Scene {
         await this.createDeck(this.player.deck);
         await this.createDeck(this.opponent.deck);
 
+        this.input.mouse.disableContextMenu();
+
         this.input.on(POINTER_DOWN, (pointer: Pointer, cardTargets: CardDraggable[]) => {
             if (pointer.rightButtonDown()) {
                 if (cardTargets[0].isTapped) {
                     cardTargets[0].untap();
                 } else {
-                    cardTargets[0].crop();
+                    cardTargets[0].showToken();
                 }
 
             } else if (pointer.leftButtonDown()) {

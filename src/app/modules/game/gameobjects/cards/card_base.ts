@@ -4,6 +4,7 @@ import Graphics = Phaser.GameObjects.Graphics;
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import {Scene} from 'phaser';
+import Rectangle = Phaser.Geom.Rectangle;
 
 export interface ICardConfig {
     scene: Scene;
@@ -21,6 +22,7 @@ export default class CardBase extends Container {
     private _spriteImage: Sprite;
     private _spriteImageBack: Sprite;
     private _spriteBorder: Sprite;
+    private _tokenSprite: Sprite;
     private _particleEmitterManager: ParticleEmitterManager;
     private _exBurstEmitter: ParticleEmitter;
 
@@ -30,26 +32,37 @@ export default class CardBase extends Container {
         const spriteCard = new Sprite(scene, 0, 0, card);
         const spriteImage = new Sprite(scene, 0, 0, image);
         const spriteImageBack = new Sprite(scene, 0, 0, imageBack);
+        const spriteToken = new Sprite(scene, 0, 0, image);
         const cardCenter = new Graphics(scene);
 
         super(scene, x, y, [cardCenter, spriteImageBack, spriteImage, spriteBorder]);
         this.width = 150;
         this.height = 200;
 
+        // Set Sprites
         this.spriteCard = spriteCard;
         this.spriteImage = spriteImage;
         this.spriteImageBack = spriteImageBack;
         this.spriteBorder = spriteBorder;
+        this.tokenSprite = spriteToken;
 
+        // Scale Sprites
         this.setCardSpriteScale(spriteImageBack);
         this.setCardSpriteScale(spriteImage);
         this.setCardSpriteScale(spriteBorder);
+
+        // Create Sprite Token
+        this.createTokenSprite(this.tokenSprite);
 
         this.scene = scene;
         this.name = name;
         this.depth = depth;
         this.flipBack();
         this.scene.add.existing(this);
+    }
+
+    private createTokenSprite(sprite: Sprite) {
+        this.tokenSprite = sprite.setCrop(0, 0, 179, 152);
     }
 
     private setCardSpriteScale(sprite: Sprite) {
@@ -82,11 +95,23 @@ export default class CardBase extends Container {
     flipBack() {
         this.spriteImage.visible = false;
         this.spriteImageBack.visible = true;
+        this.tokenSprite.visible = false;
     }
 
     flipForward() {
         this.spriteImage.visible = true;
         this.spriteImageBack.visible = false;
+        this.tokenSprite.visible = false;
+    }
+
+    showToken() {
+        this.spriteImage.visible = false;
+        this.spriteImageBack.visible = false;
+        this.tokenSprite.visible = true;
+    }
+
+    hideToken() {
+        this.tokenSprite.visible = false;
     }
 
     crop() {
@@ -220,5 +245,13 @@ export default class CardBase extends Container {
 
     set exBurstEmitter(value: Phaser.GameObjects.Particles.ParticleEmitter) {
         this._exBurstEmitter = value;
+    }
+
+    get tokenSprite(): Phaser.GameObjects.Sprite {
+        return this._tokenSprite;
+    }
+
+    set tokenSprite(value: Phaser.GameObjects.Sprite) {
+        this._tokenSprite = value;
     }
 }
