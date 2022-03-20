@@ -4,7 +4,7 @@ import FFTCGCard from '../cards/fftcg_card';
 
 
 export default class HandZone extends BaseZone implements ICardGameZone {
-    protected cardScale = 1.4;
+    protected cardScale = 1.2;
 
     constructor(config: IGameZoneConfig) {
         super(config);

@@ -6,7 +6,6 @@ import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import CardDraggable from '../cards/card_draggable';
 import {Scene} from 'phaser';
 import FFTCGCard from '../cards/fftcg_card';
-import CubicBezier = Phaser.Curves.CubicBezier;
 
 export interface IGameZoneConfig {
     scene: Scene;
@@ -208,6 +207,12 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     orientCard(card: FFTCGCard): void {
+    }
+
+    activateCards() {
+        for (const card of this.cards) {
+            card.untap();
+        }
     }
 
     highlightZoneParticleEffect() {

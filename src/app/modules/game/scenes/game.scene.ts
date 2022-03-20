@@ -12,7 +12,9 @@ import BreakZone from '../gameobjects/zones/break.zone';
 import DamageZone from '../gameobjects/zones/damage.zone';
 import RemoveFromGameZone from '../gameobjects/zones/remove_from_game.zone';
 import Player from '../gameobjects/players/player.gameobject';
-
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import GameTurnUI from '../gameobjects/game_turn_ui';
+import GameState, {GameStates} from '../states/game.state';
 import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DROP = Phaser.Input.Events.DROP;
 import DRAG = Phaser.Input.Events.DRAG;
@@ -26,6 +28,7 @@ import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
 
 
 export default class GameScene extends Scene {
+    private rexUI: RexUIPlugin;
     private background: Sprite;
     private gameManager: GameManager;
     private deck: any;
@@ -33,6 +36,7 @@ export default class GameScene extends Scene {
     private cursors: CursorKeys;
     private player: Player;
     private opponent: Player;
+    private gameState: GameState;
 
     constructor() {
         super('MainScene');
@@ -42,6 +46,8 @@ export default class GameScene extends Scene {
     }
 
     preload() {
+        this.gameState = new GameState();
+
         this.load.image('card9', '../../../assets/game/cards/12-119L.jpg');
         this.load.image('card-back', '../../../assets/game/cards/card_back.jpg');
         this.load.image('background', '../../../assets/background.jpg');
@@ -55,7 +61,6 @@ export default class GameScene extends Scene {
         // this.socketManager = new SocketManager();
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
-        console.log(screenHeight, screenWidth);
         this.background = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background');
         const scaleX = this.cameras.main.width / this.background.width;
         const scaleY = this.cameras.main.height / this.background.height;
@@ -100,7 +105,7 @@ export default class GameScene extends Scene {
             scene: this,
             name: 'Hand',
             x: screenWidth / 2,
-            y: screenHeight - (zoneHeight / 4),
+            y: screenHeight,
             width: screenWidth * .8,
             height: zoneHeight,
             borderColor: 0xffff00,
@@ -111,7 +116,7 @@ export default class GameScene extends Scene {
             scene: this,
             name: 'Opponent_Hand',
             x: screenWidth / 2,
-            y: (zoneHeight / 4),
+            y: 0,
             width: screenWidth * .8,
             height: zoneHeight,
             borderColor: 0xffff00,
@@ -188,7 +193,7 @@ export default class GameScene extends Scene {
             scene: this,
             name: 'Players Field',
             x: screenWidth / 2,
-            y: this.player.hand.y - this.player.hand.height - (zoneHeight / 4) + zoneSpacing,
+            y: this.player.hand.y - this.player.hand.height - zoneSpacing - (zoneHeight / 4),
             width: screenWidth * .8,
             height: zoneHeight * 1.2,
             borderColor: 0xA020F0,
@@ -200,28 +205,61 @@ export default class GameScene extends Scene {
             name: 'Opponents_Players Field',
             x: screenWidth / 2,
             // y: 500,
-            y: this.opponent.hand.y + (this.opponent.hand.height) + (zoneHeight / 4) - zoneSpacing,
+            y: this.opponent.hand.y + this.opponent.hand.height + zoneSpacing + (zoneHeight / 4),
             width: screenWidth * .8,
             height: zoneHeight * 1.2,
             borderColor: 0xA020F0,
             opponent: true
         });
 
-        await this.createDeck(this.player.deck);
-        await this.createDeck(this.opponent.deck);
+        this.player.turnUI = new GameTurnUI({
+            scene: this,
+            x: screenWidth / 2,
+            y: this.player.hand.y - (this.player.hand.height / 2) - (zoneHeight / 8),
+            width: screenWidth * .5,
+            height: zoneHeight / 4,
+            opponent: false,
+            borderColor: 0xff0000,
+            name: 'Player Game Turn UI'
+        });
+
+        this.opponent.turnUI = new GameTurnUI({
+            scene: this,
+            x: screenWidth / 2,
+            y: (this.opponent.hand.height / 2) + (zoneHeight / 8),
+            width: screenWidth * .5,
+            height: zoneHeight / 4,
+            opponent: false,
+            borderColor: 0xff0000,
+            name: 'Opponent Game Turn UI'
+        });
 
         this.input.mouse.disableContextMenu();
+
+        this.input.keyboard.addKey('N', true, false);
+
+        this.input.keyboard.on('keydown-' + 'N', (event) => {
+            this.gameState.turnState.next();
+        });
+
+        this.input.keyboard.on('keydown-' + 'S', async (event) => {
+            await this.createDeck(this.player.deck);
+            await this.createDeck(this.opponent.deck);
+
+            this.gameState.goto(GameStates.START_GAME);
+        });
+
 
         this.input.on(POINTER_DOWN, (pointer: Pointer, cardTargets: CardDraggable[]) => {
             if (pointer.rightButtonDown()) {
                 if (cardTargets[0].isTapped) {
                     cardTargets[0].untap();
                 } else {
-                    cardTargets[0].showToken();
+                    cardTargets[0].tap();
                 }
 
             } else if (pointer.leftButtonDown()) {
-
+                console.log('Left Button');
             }
         });
 
@@ -265,10 +303,11 @@ export default class GameScene extends Scene {
 
         });
 
-        this.time.delayedCall(5000, () => {
-            this.dealCards();
-        });
+        this.gameState.player = this.player;
+        this.gameState.opponent = this.opponent;
+        this.gameState.start(GameStates.LOADING_GAME);
 
+        await this.gameStateHandlers();
     }
 
     async dealCards() {
@@ -318,7 +357,31 @@ export default class GameScene extends Scene {
         }
     }
 
-    update() {
+    async gameStateHandlers() {
+        this.gameState.on('enter_startGame', () => {
+            console.log('Scene received start game event');
+            this.dealCards();
+            this.gameState.goto(GameStates.PLAYER_TURN);
+
+            this.gameState.turnState.on('enter_drawPhase', () => {
+                console.log('Scene received draw state');
+                if (this.gameState.playerTurn) {
+                    this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
+                    this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
+                } else {
+                    this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
+                    this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
+                }
+            });
+
+            this.gameState.turnState.on('enter_endTurn', () => {
+                console.log('**Game Scene received endTurn**');
+                this.gameState.goto(GameStates.SWITCH_TURN);
+            });
+        });
+    }
+
+    async update() {
         if (this.cursors.left.isDown) {
             this.cameras.main.x -= 6;
         }

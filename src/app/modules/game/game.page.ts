@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Game} from 'phaser';
 import GameScene from './scenes/game.scene';
 import {MenuController} from '@ionic/angular';
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import FSMPlugin from 'phaser3-rex-plugins/plugins/fsm-plugin.js';
 
 @Component({
     selector: 'app-game',
@@ -24,7 +26,17 @@ export class GamePage implements OnInit {
             width: window.screen.width,
             height: window.screen.height,
             scene: GameScene,
-            parent: 'game-container'
+            parent: 'game-container',
+            plugins: [{
+                key: 'rexUI',
+                plugin: RexUIPlugin,
+                mapping: 'rexUI'
+            },
+                {
+                    key: 'rexFSM',
+                    plugin: FSMPlugin,
+                    start: true
+                }]
         });
     }
 

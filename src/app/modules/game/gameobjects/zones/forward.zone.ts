@@ -2,6 +2,7 @@ import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
 
 export default class ForwardZone extends BaseZone implements ICardGameZone {
+    protected cardScale = .7;
     constructor(config: IGameZoneConfig) {
         super(config);
     }

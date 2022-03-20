@@ -2,6 +2,7 @@ import {BaseZone, ICardGameZone} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
 
 export default class BackupZone extends BaseZone implements ICardGameZone {
+    protected cardScale = .7;
     constructor(data) {
         super(data);
     }
@@ -9,6 +10,7 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
     orientCard(card: FFTCGCard) {
         super.orientCard(card);
         card.flipForward();
+        card.tap();
         if (this.inverted) {
             card.rotateCard(180);
         } else {

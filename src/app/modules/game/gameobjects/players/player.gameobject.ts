@@ -4,6 +4,7 @@ import DeckZone from '../zones/deck.zone';
 import BreakZone from '../zones/break.zone';
 import PlayerFieldZone from '../zones/player_field.zone';
 import RemoveFromGameZone from '../zones/remove_from_game.zone';
+import GameTurnUI from '../game_turn_ui';
 
 export interface IPlayerConfig {
     hand?: HandZone;
@@ -12,6 +13,7 @@ export interface IPlayerConfig {
     breakZone?: BreakZone;
     field?: PlayerFieldZone;
     removedFromGame?: RemoveFromGameZone;
+    turnUI?: GameTurnUI;
 }
 
 export default class Player {
@@ -21,7 +23,8 @@ export default class Player {
     private _breakZone: BreakZone;
     private _field: PlayerFieldZone;
     private _removedFromGame: RemoveFromGameZone;
-    private damage: number;
+    private _turnUI: GameTurnUI;
+    private _damage: number;
 
     constructor(config: IPlayerConfig) {
         this._hand = config.hand;
@@ -30,14 +33,15 @@ export default class Player {
         this._breakZone = config.breakZone;
         this._field = config.field;
         this._removedFromGame = config.removedFromGame;
+        this._turnUI = config.turnUI;
     }
 
     addDamage() {
-        this.damage += 1;
+        this._damage += 1;
     }
 
     removeDamage() {
-        this.damage -= 1;
+        this._damage -= 1;
     }
 
     get hand(): HandZone {
@@ -80,12 +84,27 @@ export default class Player {
         this._removedFromGame = value;
     }
 
-
     get damageZone(): DamageZone {
         return this._damageZone;
     }
 
     set damageZone(value: DamageZone) {
         this._damageZone = value;
+    }
+
+    get turnUI(): GameTurnUI {
+        return this._turnUI;
+    }
+
+    set turnUI(value: GameTurnUI) {
+        this._turnUI = value;
+    }
+
+    get damage(): number {
+        return this._damage;
+    }
+
+    set damage(value: number) {
+        this._damage = value;
     }
 }

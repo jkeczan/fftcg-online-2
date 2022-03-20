@@ -4,7 +4,6 @@ import Graphics = Phaser.GameObjects.Graphics;
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import {Scene} from 'phaser';
-import Rectangle = Phaser.Geom.Rectangle;
 
 export interface ICardConfig {
     scene: Scene;
@@ -23,6 +22,7 @@ export default class CardBase extends Container {
     private _spriteImageBack: Sprite;
     private _spriteBorder: Sprite;
     private _tokenSprite: Sprite;
+    private _tokenBorder: Sprite;
     private _particleEmitterManager: ParticleEmitterManager;
     private _exBurstEmitter: ParticleEmitter;
 
@@ -33,9 +33,10 @@ export default class CardBase extends Container {
         const spriteImage = new Sprite(scene, 0, 0, image);
         const spriteImageBack = new Sprite(scene, 0, 0, imageBack);
         const spriteToken = new Sprite(scene, 0, 0, image);
+        const spriteTokenBorder = new Sprite(scene, 0, 0, 'card_border');
         const cardCenter = new Graphics(scene);
 
-        super(scene, x, y, [cardCenter, spriteImageBack, spriteImage, spriteBorder]);
+        super(scene, x, y, [cardCenter, spriteImageBack, spriteImage, spriteBorder, spriteToken, spriteTokenBorder]);
         this.width = 150;
         this.height = 200;
 
@@ -45,14 +46,18 @@ export default class CardBase extends Container {
         this.spriteImageBack = spriteImageBack;
         this.spriteBorder = spriteBorder;
         this.tokenSprite = spriteToken;
+        this.tokenBorder = spriteTokenBorder;
 
         // Scale Sprites
         this.setCardSpriteScale(spriteImageBack);
         this.setCardSpriteScale(spriteImage);
         this.setCardSpriteScale(spriteBorder);
+        this.setCardSpriteScale(spriteTokenBorder);
+        this.setCardSpriteScale(spriteToken);
 
         // Create Sprite Token
         this.createTokenSprite(this.tokenSprite);
+        this.createTokenSprite(this.tokenBorder);
 
         this.scene = scene;
         this.name = name;
@@ -62,7 +67,7 @@ export default class CardBase extends Container {
     }
 
     private createTokenSprite(sprite: Sprite) {
-        this.tokenSprite = sprite.setCrop(0, 0, 179, 152);
+        sprite.setCrop(0, 0, 179, 152);
     }
 
     private setCardSpriteScale(sprite: Sprite) {
@@ -84,7 +89,7 @@ export default class CardBase extends Container {
      * @param scale The Phaser scale to set the entire container to
      */
     setCardScale(scale: number) {
-        const tween = this.scene.add.tween({
+        this.scene.add.tween({
             targets: [this],
             ease: 'Cubic',
             duration: 500,
@@ -96,18 +101,28 @@ export default class CardBase extends Container {
         this.spriteImage.visible = false;
         this.spriteImageBack.visible = true;
         this.tokenSprite.visible = false;
+        this.spriteBorder.visible = true;
+        this.tokenBorder.visible = false;
     }
 
     flipForward() {
         this.spriteImage.visible = true;
+        this.spriteBorder.visible = true;
         this.spriteImageBack.visible = false;
         this.tokenSprite.visible = false;
+        this.tokenBorder.visible = false;
     }
 
     showToken() {
-        this.spriteImage.visible = false;
-        this.spriteImageBack.visible = false;
-        this.tokenSprite.visible = true;
+        // this.spriteImage.frame.cutHeight = this.height / 2;
+        // this.spriteBorder.frame.cutHeight = this.height / 2;
+        // this.tokenSprite.visible = true;
+        // this.spriteImage.visible = false;
+        // this.spriteImageBack.visible = false;
+        // this.tokenSprite.visible = true;
+        // this.tokenBorder.visible = true;
+        // this.tokenSprite.y = this.height / 2;
+        // this.spriteBorder.visible = false;
     }
 
     hideToken() {
@@ -253,5 +268,13 @@ export default class CardBase extends Container {
 
     set tokenSprite(value: Phaser.GameObjects.Sprite) {
         this._tokenSprite = value;
+    }
+
+    get tokenBorder(): Phaser.GameObjects.Sprite {
+        return this._tokenBorder;
+    }
+
+    set tokenBorder(value: Phaser.GameObjects.Sprite) {
+        this._tokenBorder = value;
     }
 }
