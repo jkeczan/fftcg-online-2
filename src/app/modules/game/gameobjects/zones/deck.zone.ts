@@ -2,7 +2,7 @@ import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
 
 export default class DeckZone extends BaseZone implements ICardGameZone {
-    protected cardScale = .5;
+    protected cardScale = .4;
 
     constructor(config: IGameZoneConfig) {
         super(config);
