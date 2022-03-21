@@ -93,7 +93,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
             return cardToRemove.gameCardID !== card.gameCardID;
         });
 
-        this.alignCardsInZone();
+        this.alignCardsInZone(cardToRemove);
         this.onCardRemoved(cardToRemove);
     }
 
@@ -103,22 +103,23 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         });
     }
 
-    alignCardsInZone() {
+    alignCardsInZone(cardAdded: FFTCGCard) {
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
             this.scene.add.tween({
                 targets: [card],
-                ease: 'Sine',
                 duration: 500,
+                ease: 'Cubic',
                 x: this.xTranslateOnDrop(card, i),
-                y: this.yTranslateOnDrop(card, i)
+                y: this.yTranslateOnDrop(card, i),
+                scale: this.cardScale
             });
         }
     }
 
     onCardAdded(card: FFTCGCard) {
-        this.alignCardsInZone();
-        this.updateCardScale(card);
+        this.alignCardsInZone(card);
+        // this.updateCardScale(card);
         this.orientCard(card);
     }
 
@@ -212,6 +213,18 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     activateCards() {
         for (const card of this.cards) {
             card.untap();
+        }
+    }
+
+    shakeCards() {
+        for (const card of this.cards) {
+            card.startShaking();
+        }
+    }
+
+    stopShaking() {
+        for (const card of this.cards) {
+            card.stopShaking();
         }
     }
 

@@ -4,6 +4,8 @@ import GameScene from './scenes/game.scene';
 import {MenuController} from '@ionic/angular';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import FSMPlugin from 'phaser3-rex-plugins/plugins/fsm-plugin.js';
+import ShakePositionPlugin from 'phaser3-rex-plugins/plugins/shakeposition-plugin.js';
+import ShatterImagePlugin from 'phaser3-rex-plugins/plugins/shatterimage-plugin.js';
 
 @Component({
     selector: 'app-game',
@@ -20,6 +22,7 @@ export class GamePage implements OnInit {
     }
 
     ngOnInit() {
+
         this.gameClient = new Phaser.Game({
             type: Phaser.AUTO,
             backgroundColor: '#125555',
@@ -27,16 +30,28 @@ export class GamePage implements OnInit {
             height: window.screen.height,
             scene: GameScene,
             parent: 'game-container',
-            plugins: [{
-                key: 'rexUI',
-                plugin: RexUIPlugin,
-                mapping: 'rexUI'
-            },
-                {
-                    key: 'rexFSM',
-                    plugin: FSMPlugin,
+            plugins: {
+                global: [{
+                    key: 'rexShakePosition',
+                    plugin: ShakePositionPlugin,
                     start: true
-                }]
+                },
+                    {
+                        key: 'rexShatterImagePlugin',
+                        plugin: ShatterImagePlugin,
+                        start: true
+                    }],
+                scene: [{
+                    key: 'rexUI',
+                    plugin: RexUIPlugin,
+                    mapping: 'rexUI'
+                },
+                    {
+                        key: 'rexFSM',
+                        plugin: FSMPlugin,
+                        start: true
+                    }]
+            }
         });
     }
 

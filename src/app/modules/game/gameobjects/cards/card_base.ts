@@ -113,21 +113,9 @@ export default class CardBase extends Container {
         this.tokenBorder.visible = false;
     }
 
-    showToken() {
-        // this.spriteImage.frame.cutHeight = this.height / 2;
-        // this.spriteBorder.frame.cutHeight = this.height / 2;
-        // this.tokenSprite.visible = true;
-        // this.spriteImage.visible = false;
-        // this.spriteImageBack.visible = false;
-        // this.tokenSprite.visible = true;
-        // this.tokenBorder.visible = true;
-        // this.tokenSprite.y = this.height / 2;
-        // this.spriteBorder.visible = false;
-    }
 
-    hideToken() {
-        this.tokenSprite.visible = false;
-    }
+
+
 
     crop() {
     }
@@ -277,4 +265,5 @@ export default class CardBase extends Container {
     set tokenBorder(value: Phaser.GameObjects.Sprite) {
         this._tokenBorder = value;
     }
+
 }

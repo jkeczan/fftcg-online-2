@@ -25,6 +25,7 @@ import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
 import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
+import CardActions from '../gameobjects/cards/card_actions';
 
 
 export default class GameScene extends Scene {
@@ -234,6 +235,8 @@ export default class GameScene extends Scene {
             name: 'Opponent Game Turn UI'
         });
 
+
+
         this.input.mouse.disableContextMenu();
 
         this.input.keyboard.addKey('N', true, false);
@@ -250,7 +253,7 @@ export default class GameScene extends Scene {
         });
 
 
-        this.input.on(POINTER_DOWN, (pointer: Pointer, cardTargets: CardDraggable[]) => {
+        this.input.on(POINTER_DOWN, (pointer: Pointer, cardTargets: CardActions[]) => {
             if (pointer.rightButtonDown()) {
                 if (cardTargets[0].isTapped) {
                     cardTargets[0].untap();

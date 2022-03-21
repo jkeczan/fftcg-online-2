@@ -1,5 +1,6 @@
 import CardDraggable from './card_draggable';
 import {ICardConfig} from './card_base';
+import CardActions from './card_actions';
 
 export enum FFTCGCardType {
     Forward = 'forward',
@@ -42,7 +43,7 @@ export interface IFFTCGCard extends ICardConfig {
     isMultiPlay: boolean;
 }
 
-export default class FFTCGCard extends CardDraggable {
+export default class FFTCGCard extends CardActions {
     private _gameCardID: string;
     private _id: string;
     private _cost: number;

@@ -118,6 +118,7 @@ export default class GameTurnState extends FSM {
     exit_mainPhase1() {
         console.log('Exiting MP1 Phase');
         this.turnUI.mainPhase1.hideIndicator();
+        this.player.hand.stopShaking();
     }
 
     exit_attackPhase() {
@@ -128,6 +129,7 @@ export default class GameTurnState extends FSM {
     exit_mainPhase2() {
         console.log('Exiting MP2 Phase');
         this.turnUI.mainPhase2.hideIndicator();
+        this.player.hand.stopShaking();
     }
 
     exit_endPhase() {
