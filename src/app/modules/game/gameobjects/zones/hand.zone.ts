@@ -1,8 +1,6 @@
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/fftcg_card';
-import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
-import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
 
 export default class HandZone extends BaseZone implements ICardGameZone {
     protected cardScale = 1.2;
@@ -48,7 +46,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
                 y: this.yTranslateOnDrop(card, i),
                 angle: this.angleTranslateOnDrop(card, i),
                 onComplete: () => {
-                    console.log('Set Starting Drag Position', card.x, card.y)
+                    console.log('Set Starting Drag Position', card.x, card.y);
                     card.setStartDragPosition();
                 }
             });
@@ -59,8 +57,9 @@ export default class HandZone extends BaseZone implements ICardGameZone {
 
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
-
-        card.startHover();
+        if (!this.inverted) {
+            card.startHover();
+        }
         // this.activateHandHover(card);
     }
 
@@ -84,8 +83,12 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         super.angleTranslateOnDrop(card, index);
 
         const centerIndex = (this.cards.length - 1) / 2;
-        const shiftDirection = index < centerIndex ? -1 : 1;
+        let shiftDirection = index < centerIndex ? -1 : 1;
         const shifts = Math.abs(centerIndex - index);
+
+        if (this.inverted) {
+            shiftDirection *= -1;
+        }
 
         if (index === centerIndex) {
             return 0;
@@ -103,14 +106,16 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         let baseY;
 
         if (this.inverted) {
-            baseY = this.y + (card.height / 2);
+            baseY = this.y;
             newY = baseY - shiftAmount;
         } else {
             baseY = this.y - (card.height / 2);
             newY = baseY + shiftAmount;
         }
 
-        if (shifts === 0) {
+        if (shifts === 0 && this.inverted) {
+            newY = baseY - 15;
+        } else if (shifts === 0) {
             newY = baseY + 15;
         }
 

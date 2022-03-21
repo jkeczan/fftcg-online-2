@@ -119,7 +119,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
 
     onCardAdded(card: FFTCGCard) {
         this.alignCardsInZone(card);
-        // this.updateCardScale(card);
+        this.updateCardScale(card);
         this.orientCard(card);
     }
 

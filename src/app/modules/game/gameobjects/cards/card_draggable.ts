@@ -60,6 +60,14 @@ export default class CardDraggable extends CardBase {
         }
     }
 
+    startDrag() {
+
+    }
+
+    endDrag() {
+
+    }
+
     setStartDragPosition() {
         this.originalX = this.x;
         this.originalY = this.y;

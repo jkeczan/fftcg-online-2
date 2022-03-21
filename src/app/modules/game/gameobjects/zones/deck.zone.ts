@@ -2,7 +2,7 @@ import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
 
 export default class DeckZone extends BaseZone implements ICardGameZone {
-    protected cardScale = .4;
+    protected cardScale = .6;
 
     constructor(config: IGameZoneConfig) {
         super(config);
@@ -31,9 +31,10 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone() {
-        for (const card of this.cards) {
-            card.x = this.x;
-            card.y = this.y;
+        for (let i = 0; i < this.cards.length; i++) {
+            const card = this.cards[i];
+            card.x = this.x + (i + 3);
+            card.y = this.y + (i + 3);
         }
     }
 

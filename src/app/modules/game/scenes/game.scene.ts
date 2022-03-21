@@ -315,7 +315,7 @@ export default class GameScene extends Scene {
 
     async dealCards() {
         for (let i = 0; i < 5; i++) {
-            // this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
+            this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
             this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
 
             await this.delayTime(250);
