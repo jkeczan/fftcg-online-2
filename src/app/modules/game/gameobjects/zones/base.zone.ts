@@ -156,16 +156,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     angleTranslateOnDrop(card: CardDraggable, index: number) {
-        const centerIndex = (this.cards.length - 1) / 2;
-        const shiftDirection = index < centerIndex ? -1 : 1;
-        const shifts = Math.abs(centerIndex - index);
-        const angle = (shifts * shiftDirection * 7);
-
-        if (index === centerIndex) {
-            return 0;
-        } else {
-            return shiftDirection * 7;
-        }
+        return 0;
     }
 
     highlightZone() {

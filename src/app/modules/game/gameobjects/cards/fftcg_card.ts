@@ -3,10 +3,10 @@ import {ICardConfig} from './card_base';
 import CardActions from './card_actions';
 
 export enum FFTCGCardType {
-    Forward = 'forward',
-    Backup = 'backup',
-    Monster = 'monster',
-    Summon = 'summon'
+    Forward = 'Forward',
+    Backup = 'Backup',
+    Monster = 'Monster',
+    Summon = 'Summon'
 }
 
 export enum FFTCGCardElement {
@@ -32,7 +32,7 @@ export interface IFFTCGCard extends ICardConfig {
     id: string;
     cost: number;
     elements: Array<string>;
-    cardType: string;
+    cardType: FFTCGCardType;
     jobs: Array<string>;
     categories: Array<string>;
     powerLevel: number;
@@ -62,6 +62,7 @@ export default class FFTCGCard extends CardActions {
         super(data);
         this.isExBurst = data.isExBurst;
         this.gameCardID = data.gameCardID;
+        this.cardType = data.cardType;
     }
 
     freeze() {

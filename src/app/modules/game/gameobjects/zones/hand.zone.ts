@@ -4,7 +4,6 @@ import FFTCGCard from '../cards/fftcg_card';
 import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
 import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
 
-
 export default class HandZone extends BaseZone implements ICardGameZone {
     protected cardScale = 1.2;
 
@@ -40,39 +39,34 @@ export default class HandZone extends BaseZone implements ICardGameZone {
             //
             //     beizerCurveTween.play();
             // } else {
+
             this.scene.add.tween({
                 targets: [card],
-                duration: 500,
+                duration: 250,
                 ease: 'Cubic',
                 x: this.xTranslateOnDrop(card, i),
-                y: this.yTranslateOnDrop(card, i)
+                y: this.yTranslateOnDrop(card, i),
+                angle: this.angleTranslateOnDrop(card, i),
+                onComplete: () => {
+                    console.log('Set Starting Drag Position', card.x, card.y)
+                    card.setStartDragPosition();
+                }
             });
             // }
         }
+
     }
 
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
+
+        card.startHover();
         // this.activateHandHover(card);
     }
 
     onCardRemoved(card: FFTCGCard) {
         super.onCardRemoved(card);
         // this.deactivateHandHover(card);
-    }
-
-    activateHandHover(card: FFTCGCard) {
-        card.on(GAMEOBJECT_POINTER_OVER, () => {
-            card.y -= 125;
-        });
-
-        card.on(GAMEOBJECT_POINTER_OUT, () => {
-            card.y += 125;
-        });
-    }
-
-    deactivateHandHover(card: FFTCGCard) {
-        card.off(GAMEOBJECT_POINTER_OVER);
     }
 
     orientCard(card: FFTCGCard) {
@@ -86,15 +80,41 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         }
     }
 
+    angleTranslateOnDrop(card: CardDraggable, index: number): number {
+        super.angleTranslateOnDrop(card, index);
+
+        const centerIndex = (this.cards.length - 1) / 2;
+        const shiftDirection = index < centerIndex ? -1 : 1;
+        const shifts = Math.abs(centerIndex - index);
+
+        if (index === centerIndex) {
+            return 0;
+        } else {
+            return shifts * shiftDirection * 7;
+        }
+    }
+
     yTranslateOnDrop(card: CardDraggable, index: number): number {
         const centerIndex = (this.cards.length - 1) / 2;
         const shifts = Math.abs(centerIndex - index);
 
+        const shiftAmount = shifts * 30;
+        let newY;
+        let baseY;
+
         if (this.inverted) {
-            return this.y - (shifts * 25);
+            baseY = this.y + (card.height / 2);
+            newY = baseY - shiftAmount;
         } else {
-            return this.y + (shifts * 25);
+            baseY = this.y - (card.height / 2);
+            newY = baseY + shiftAmount;
         }
+
+        if (shifts === 0) {
+            newY = baseY + 15;
+        }
+
+        return newY;
     }
 
     shouldBeSideways(): boolean {

@@ -76,7 +76,7 @@ export default class DeckService {
                         },
                         serial_number: '10-039',
                         element: 'Ice',
-                        type: 'Backup',
+                        type: 'Forward',
                         elements: [
                             'Ice'
                         ],

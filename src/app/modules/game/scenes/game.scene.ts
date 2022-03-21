@@ -15,6 +15,7 @@ import Player from '../gameobjects/players/player.gameobject';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import GameTurnUI from '../gameobjects/game_turn_ui';
 import GameState, {GameStates} from '../states/game.state';
+import CardActions from '../gameobjects/cards/card_actions';
 import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DROP = Phaser.Input.Events.DROP;
 import DRAG = Phaser.Input.Events.DRAG;
@@ -25,7 +26,6 @@ import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
 import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
-import CardActions from '../gameobjects/cards/card_actions';
 
 
 export default class GameScene extends Scene {
@@ -217,7 +217,7 @@ export default class GameScene extends Scene {
             scene: this,
             x: screenWidth / 2,
             y: this.player.hand.y - (this.player.hand.height / 2) - (zoneHeight / 8),
-            width: screenWidth * .5,
+            width: screenWidth * .1,
             height: zoneHeight / 4,
             opponent: false,
             borderColor: 0xff0000,
@@ -234,7 +234,6 @@ export default class GameScene extends Scene {
             borderColor: 0xff0000,
             name: 'Opponent Game Turn UI'
         });
-
 
 
         this.input.mouse.disableContextMenu();
@@ -268,6 +267,7 @@ export default class GameScene extends Scene {
 
         this.input.on(DRAG_START, (pointer, card: CardDraggable) => {
             card.setStartDragPosition();
+            card.endHover();
         });
 
         this.input.on(DRAG_ENTER, (pointer, card: CardDraggable, zone: BaseZone) => {
@@ -315,7 +315,7 @@ export default class GameScene extends Scene {
 
     async dealCards() {
         for (let i = 0; i < 5; i++) {
-            this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
+            // this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
             this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
 
             await this.delayTime(250);

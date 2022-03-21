@@ -1,7 +1,7 @@
 import ForwardZone from './forward.zone';
 import BackupZone from './backup.zone';
-import {IGameZoneConfig} from './base.zone';
-import Container = Phaser.GameObjects.Container;
+import {BaseZone, IGameZoneConfig} from './base.zone';
+import FFTCGCard, {FFTCGCardType} from '../cards/fftcg_card';
 import Graphics = Phaser.GameObjects.Graphics;
 
 
@@ -10,10 +10,9 @@ interface IFieldConfig extends IGameZoneConfig {
     opponent: boolean;
 }
 
-export default class PlayerFieldZone extends Container {
+export default class PlayerFieldZone extends BaseZone {
     public forwardZone: ForwardZone;
     public backupZone: BackupZone;
-    private border: Graphics;
 
     constructor(config: IFieldConfig) {
         console.log(config);
@@ -40,7 +39,7 @@ export default class PlayerFieldZone extends Container {
         });
         const border = new Graphics(scene);
 
-        super(scene, x, y, [border]);
+        super(config);
 
         this.width = width;
         this.height = height;
@@ -50,14 +49,36 @@ export default class PlayerFieldZone extends Container {
         this.border = border;
 
         this.createBorder();
+        this.forwardZone.disableInteractive();
+        this.backupZone.disableInteractive();
 
         this.scene.add.existing(this);
     }
 
-    createBorder(color: number = 0xA020F0) {
-        this.border.lineStyle(10, color, .5);
-        this.border.strokeRect(this.originX - (this.width / 2), this.originY - (this.height / 2), this.width, this.height);
+    alignCardsInZone(cardAdded: FFTCGCard) {
+        return null;
+    }
 
-        this.bringToTop(this.border);
+    onCardAdded(card: FFTCGCard) {
+        super.onCardAdded(card);
+
+        this.scene.add.tween({
+            targets: [card],
+            duration: 250,
+            x: this.scene.cameras.main.width - card.width * 2,
+            y: this.scene.cameras.main.height / 2,
+            scale: 2,
+            onComplete: (tween, targets) => {
+                this.scene.time.delayedCall(1500, () => {
+                    if (card.cardType === FFTCGCardType.Forward) {
+                        console.log('Add to Forward Zone');
+                        this.forwardZone.addCard(card);
+                    } else {
+                        console.log('Add to Backup Zone');
+                        this.backupZone.addCard(card);
+                    }
+                });
+            }
+        });
     }
 }
