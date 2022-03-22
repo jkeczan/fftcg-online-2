@@ -27,7 +27,6 @@ import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
 
-
 export default class GameScene extends Scene {
     private rexUI: RexUIPlugin;
     private background: Sprite;
@@ -58,6 +57,7 @@ export default class GameScene extends Scene {
         this.load.image('card-back', '../../../assets/game/cards/card_back.jpg');
         this.load.image('background', '../../../assets/background.jpg');
         this.load.image('card_border', '../../../assets/card_border_rpg.png');
+        this.load.image('wind_cp', '../../../assets/icon/wind_cp.png');
         this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
         this.load.atlasXML('blueUI', 'assets/uipack/Spritesheet/blueSheet.png', 'assets/uipack/Spritesheet/blueSheet.xml');
         this.load.atlasXML('greyUI', 'assets/uipack/Spritesheet/greySheet.png', 'assets/uipack/Spritesheet/greySheet.xml');
@@ -255,6 +255,22 @@ export default class GameScene extends Scene {
             gameState: this.gameState
         });
 
+        // const container = new CPContainer({
+        //     scene: this,
+        //     name: 'test',
+        //     opponent: false,
+        //     x: screenWidth / 2,
+        //     y: screenHeight / 2,
+        //     width: zoneWidth,
+        //     height: zoneHeight / 4
+        // });
+        //
+        // this.add.existing(container);
+        //
+        //
+        // container.createCPs(12, []);
+
+
         this.input.mouse.disableContextMenu();
 
         this.input.keyboard.addKey('N', true, false);
@@ -291,7 +307,11 @@ export default class GameScene extends Scene {
                 if (card instanceof FFTCGCard && this.gameState.state === TurnStates.PLAY_A_CARD) {
                     card.endHover();
                     this.gameState.generatedCP += card.generateCP();
-                    this.gameManager.moveCard(card, this.player.hand, this.player.breakZone);
+                    for (let c = 0; c < card.generateCP(); c++) {
+                        this.player.stagingArea.fillCP();
+                    }
+
+                    this.gameManager.moveCard(card, this.player.hand, this.player.stagingArea);
                 }
             }
         });
@@ -311,9 +331,11 @@ export default class GameScene extends Scene {
             }
         });
 
-        this.input.on(DRAG_ENTER, (pointer, card: CardDraggable, zone: BaseZone) => {});
+        this.input.on(DRAG_ENTER, (pointer, card: CardDraggable, zone: BaseZone) => {
+        });
 
-        this.input.on(DRAG_LEAVE, (pointer, card: CardDraggable, zone: BaseZone) => {});
+        this.input.on(DRAG_LEAVE, (pointer, card: CardDraggable, zone: BaseZone) => {
+        });
 
         this.input.on(DRAG, (pointer, card: CardDraggable, dragX, dragY) => {
             if (!card.draggable) {
@@ -427,8 +449,22 @@ export default class GameScene extends Scene {
             });
 
             this.gameState.on('exit_playCard', () => {
-                this.gameManager.moveCard(this.gameState.cardToPlay, this.player.stagingArea, this.player.field);
+
+                const cardsToMove = this.player.stagingArea.cards;
+                for (let c = 0; c < cardsToMove.length; c++) {
+                    const card = cardsToMove[c];
+                    if (c === 0) {
+                        this.gameManager.moveCard(card, this.player.stagingArea, this.player.field);
+                    } else {
+                        this.gameManager.moveCard(card, this.player.stagingArea, this.player.breakZone);
+                    }
+                }
+
+                this.gameState.cardToPlay.stopZoneParticleEffect();
                 this.gameState.cardToPlay = null;
+                this.gameState.generatedCP = 0;
+                this.player.stagingArea.unstage();
+                this.gameState.goto(TurnStates.ATTACK);
                 this.cameras.main.setBackgroundColor('#125555');
                 this.activateDragHandlers();
             });

@@ -178,7 +178,7 @@ export default class GameState extends FSM {
 
     next_playCard() {
         if (this.generatedCP < this.cardToPlay.requiredCP()) {
-            return null;
+            return this.prevState;
         } else {
             return this.prevState;
         }
@@ -187,8 +187,13 @@ export default class GameState extends FSM {
     enter_activePhase() {
         console.log('Entering Active Phase');
         this.turnUI.activePhase.showIndicator();
-        this.player.field.forwardZone.activateCards();
-        this.player.field.backupZone.activateCards();
+        if (this.playerTurn) {
+            this.player.field.forwardZone.activateCards();
+            this.player.field.backupZone.activateCards();
+        } else {
+            this.opponent.field.forwardZone.activateCards();
+            this.opponent.field.backupZone.activateCards();
+        }
     }
 
     enter_drawPhase() {
@@ -247,6 +252,7 @@ export default class GameState extends FSM {
         console.log('Exiting Play Card');
         this.player.hand.stopShaking();
         this.player.stagingArea.hideButtons();
+
     }
 
     exit_attackPhase() {

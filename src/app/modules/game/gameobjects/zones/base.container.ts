@@ -13,8 +13,4 @@ export default class BaseContainer extends Container {
 
         super(scene, x, y, [...children]);
     }
-
-    onDropped(card: FFTCGCard) {
-
-    }
 }

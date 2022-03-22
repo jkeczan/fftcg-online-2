@@ -30,7 +30,7 @@ export interface IFFTCGCardConfig extends ICardConfig {
     gameCardID: string;
     id: string;
     cost: number;
-    elements: Array<string>;
+    elements: Array<FFTCGCardElement>;
     cardType: FFTCGCardType;
     jobs: Array<string>;
     categories: Array<string>;
@@ -76,6 +76,8 @@ export default class FFTCGCard extends CardActions implements IFFTCGCard {
         this.isExBurst = data.isExBurst;
         this.gameCardID = data.gameCardID;
         this.cardType = data.cardType;
+        this.cost = data.cost;
+        this.element = data.elements;
     }
 
     freeze() {

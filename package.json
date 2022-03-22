@@ -32,7 +32,7 @@
     "@ionic/angular": "^5.0.0",
     "aws-amplify": "^3.3.11",
     "phaser": "^3.55.2",
-    "phaser3-rex-plugins": "^1.1.67",
+    "phaser3-rex-plugins": "^1.1.68",
     "rxjs": "~6.5.5",
     "socket.io-client": "^3.0.3",
     "sockette": "^2.0.6",

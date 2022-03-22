@@ -97,8 +97,11 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
             return cardToRemove.gameCardID !== card.gameCardID;
         });
 
-        this.alignCardsInZone(cardToRemove);
         this.onCardRemoved(cardToRemove);
+    }
+
+    onCardRemoved(cardToRemove: FFTCGCard) {
+        this.alignCardsInZone(cardToRemove);
     }
 
     findCard(cardToFind: FFTCGCard): FFTCGCard {
@@ -108,6 +111,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     alignCardsInZone(cardAdded: FFTCGCard) {
+        console.log('Align Cards in ', this.name);
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
             this.scene.add.tween({
@@ -135,10 +139,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
 
     updateCardScale(card: FFTCGCard) {
         card.setCardScale(this.cardScale);
-    }
-
-    onCardRemoved(card: FFTCGCard) {
-
     }
 
     createLabel(): void {
@@ -202,10 +202,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
 
     shouldStack(): boolean {
         return false;
-    }
-
-    onDropped(card: FFTCGCard) {
-        this.addCard(card);
     }
 
     orientCard(card: FFTCGCard): void {

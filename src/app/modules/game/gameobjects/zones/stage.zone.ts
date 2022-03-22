@@ -2,13 +2,14 @@ import {BaseZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
 import FixWidthButtons from 'phaser3-rex-plugins/templates/ui/fixwidthbuttons/FixWidthButtons';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
+import CPContainer from '../cp_ui';
 import Sprite = Phaser.GameObjects.Sprite;
 import GameObject = Phaser.GameObjects.GameObject;
 
 export default class StageZone extends BaseZone {
-    private card: FFTCGCard;
     private submitImage: Sprite;
     private cancelImage: Sprite;
+    private cpContainer: CPContainer;
     private buttons: FixWidthButtons;
 
     constructor(config: IGameZoneConfig) {
@@ -18,12 +19,15 @@ export default class StageZone extends BaseZone {
         const cancelImage = new Sprite(scene, 0, 0, 'redUI', 'red_button00.png');
 
         super(config);
+        config.height = height * .15;
+        const cpContainer = new CPContainer(config);
 
         this.width = width;
         this.height = height;
 
         this.submitImage = submitImage;
         this.cancelImage = cancelImage;
+        this.cpContainer = cpContainer;
 
         this.submitImage.visible = false;
         this.cancelImage.visible = false;
@@ -31,15 +35,66 @@ export default class StageZone extends BaseZone {
         this.scene.add.existing(this.submitImage);
         this.scene.add.existing(this.cancelImage);
 
+        this.cpContainer.x = this.x;
+        this.cpContainer.y = this.getBounds().bottom;
+
+        this.hideCPContainer();
+
+        // this.cpContainers = [];
         this.createButtons();
         this.hideButtons();
 
     }
 
     onCardAdded(card: FFTCGCard) {
-        card.x = this.x;
-        card.y = this.y;
+        this.alignCardsInZone(card);
         this.showButtons();
+        this.cpContainer.createCPs(card.cost, card.element);
+        this.showCPContainer();
+    }
+
+    alignCardsInZone(cardAdded: FFTCGCard) {
+
+        this.scene.add.tween({
+            duration: 300,
+            targets: [cardAdded],
+            x: this.x,
+            y: this.y - (cardAdded.height / 2),
+            ease: 'Sine'
+        });
+
+        let depth = 100;
+        for (let c = 0; c < this.cards.length; c++) {
+            const card = this.cards[0];
+            card.depth = depth;
+            depth -= 10;
+        }
+    }
+
+    unstage() {
+        this.clearCP();
+        this.hideButtons();
+        this.hideCPContainer();
+    }
+
+    hideCPContainer() {
+        this.cpContainer.visible = false;
+    }
+
+    showCPContainer() {
+        this.cpContainer.visible = true;
+    }
+
+    removeCard(cardToRemove: FFTCGCard) {
+        super.removeCard(cardToRemove);
+    }
+
+    onCardRemoved(cardToRemove: FFTCGCard) {
+        return null;
+    }
+
+    clearCP() {
+        this.cpContainer.clearCP();
     }
 
     showButtons() {
@@ -52,6 +107,13 @@ export default class StageZone extends BaseZone {
         this.buttons.visible = false;
         this.submitImage.visible = false;
         this.cancelImage.visible = false;
+    }
+
+    fillCP() {
+        this.cpContainer.fillNextCP();
+        if (this.cpContainer.amountOfFilledCP === 2) {
+            this.cards[0].highlightZoneParticleEffect();
+        }
     }
 
     createButtons() {

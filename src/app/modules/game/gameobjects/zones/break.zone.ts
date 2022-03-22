@@ -14,22 +14,20 @@ export default class BreakZone extends BaseZone implements ICardGameZone {
         card.flipForward();
         card.untap();
         card.angle = 0;
+        card.setCardScale(this.cardScale);
     }
 
     onCardAdded(card: FFTCGCard) {
-        super.onCardAdded(card);
         this.orientCard(card);
+        this.alignCardsInZone();
     }
 
     alignCardsInZone() {
+        console.log('Align Cards in Break Zone');
         for (const card of this.cards) {
             card.x = this.x;
             card.y = this.y;
         }
-    }
-
-    onDropped(card: FFTCGCard) {
-        super.onDropped(card);
     }
 
     shouldBeShown(): boolean {

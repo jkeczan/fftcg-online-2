@@ -54,12 +54,8 @@ export default class PlayerFieldZone extends BaseZone {
         this.scene.add.existing(this);
     }
 
-    onDropped(card: FFTCGCard) {
-        super.onDropped(card);
-    }
-
     alignCardsInZone(cardAdded: FFTCGCard) {
-
+        return null;
     }
 
     onCardAdded(card: FFTCGCard) {

@@ -7,6 +7,7 @@ import FSMPlugin from 'phaser3-rex-plugins/plugins/fsm-plugin.js';
 import ShakePositionPlugin from 'phaser3-rex-plugins/plugins/shakeposition-plugin.js';
 import ShatterImagePlugin from 'phaser3-rex-plugins/plugins/shatterimage-plugin.js';
 
+
 @Component({
     selector: 'app-game',
     templateUrl: './game.page.html',

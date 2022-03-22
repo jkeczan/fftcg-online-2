@@ -114,9 +114,6 @@ export default class CardBase extends Container {
     }
 
 
-
-
-
     crop() {
     }
 
@@ -132,29 +129,25 @@ export default class CardBase extends Container {
     }
 
     highlightZoneParticleEffect() {
-        this.scene.time.delayedCall(1500, () => {
-                const rect = new Phaser.Geom.Rectangle(this.x - (this.width / 2),
-                    this.y - (this.height / 2), this.height, this.width);
+        // const rect = new Phaser.Geom.Rectangle(this.x - (this.width / 2),
+        //     this.y - (this.height / 2), this.width, this.height);
 
-                this.particleEmitterManager = this.scene.add.particles('flares');
-                this.exBurstEmitter = this.particleEmitterManager.createEmitter({
-                    frame: ['red', 'yellow', 'green', 'blue'],
-                    speed: 50,
-                    lifespan: 1000,
-                    quantity: 10,
-                    frequency: 5,
-                    delay: 100,
-                    scale: {start: 0.4, end: 0},
-                    blendMode: 'ADD',
-                    emitZone: {type: 'edge', source: rect, quantity: 200}
-                });
+        const rect = this.spriteImage.getBounds();
 
-                this.scene.time.delayedCall(1500, () => {
-                        this.stopZoneParticleEffect();
-                    }
-                );
-            }
-        );
+        this.particleEmitterManager = this.scene.add.particles('flares');
+        this.exBurstEmitter = this.particleEmitterManager.createEmitter({
+            frame: ['red', 'yellow', 'green', 'blue'],
+            speed: 48,
+            lifespan: 1500,
+            quantity: 12,
+            frequency: 4,
+            scale: {start: 0.4, end: 0},
+            blendMode: 'ADD',
+            particleBringToTop: true,
+            gravityY: 50,
+            gravityX: -50,
+            emitZone: {type: 'edge', source: rect, quantity: 48}
+        });
     }
 
     stopZoneParticleEffect() {

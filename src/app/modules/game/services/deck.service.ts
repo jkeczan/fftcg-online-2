@@ -95,7 +95,7 @@ export default class DeckService {
                         rarity: 'Common',
                         is_multi_playable: false,
                         job: 'Standard Unit',
-                        cost: 3,
+                        cost: 2,
                         datastore_id: 5708028668018688,
                         current_price: {
                             regular_low_price: '0.08',
@@ -128,7 +128,7 @@ export default class DeckService {
                         rarity: 'Rare',
                         is_multi_playable: false,
                         job: 'Sky Pirate',
-                        cost: 3,
+                        cost: 2,
                         datastore_id: 5708028668018688,
                         current_price: {
                             regular_low_price: '0.08',
@@ -194,7 +194,7 @@ export default class DeckService {
                         rarity: 'Common',
                         is_multi_playable: true,
                         job: 'Dragoon',
-                        cost: 1,
+                        cost: 2,
                         datastore_id: 5708028668018688,
                         current_price: {
                             regular_low_price: '0.08',
