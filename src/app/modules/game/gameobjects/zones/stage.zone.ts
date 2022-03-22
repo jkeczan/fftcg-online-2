@@ -97,6 +97,12 @@ export default class StageZone extends BaseZone {
         this.cpContainer.clearCP();
     }
 
+    unfillCP() {
+        this.cpContainer.removeCP();
+        // this.cpContainer.cp[this.cpContainer.cp.length - 1].unfill();
+        // this.cards[0].stopZoneParticleEffect();
+    }
+
     showButtons() {
         this.buttons.visible = true;
         this.submitImage.visible = true;

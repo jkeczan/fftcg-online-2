@@ -1,4 +1,5 @@
 import {BaseZone} from '../gameobjects/zones/base.zone';
+import FFTCGCard from '../gameobjects/cards/fftcg_card';
 import Container = Phaser.GameObjects.Container;
 
 export default class ZoneManager {
@@ -7,6 +8,14 @@ export default class ZoneManager {
 
     static isSameZone(gameZone1: BaseZone | Container, gameZone2: BaseZone | Container): boolean {
         return gameZone1?.name === gameZone2.name;
+    }
+
+    static isCardInZone(cardToFind: FFTCGCard, zone: BaseZone): boolean {
+        const cardFound = zone.cards.find((card) => {
+            return card.gameCardID === cardToFind.gameCardID;
+        });
+
+        return !!cardFound;
     }
 
 }

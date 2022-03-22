@@ -5,6 +5,7 @@ import ShakePosition from 'phaser3-rex-plugins/plugins/shakeposition.js';
 export default class CardActions extends CardDraggable {
     private _shake: ShakePosition;
     private _tapped: boolean;
+    private _halfTapped: boolean;
     private _isHoverActive: boolean;
 
     constructor(config: ICardConfig) {
@@ -19,6 +20,12 @@ export default class CardActions extends CardDraggable {
     untap() {
         this.rotateCard(0);
         this._tapped = false;
+        this.halfTapped = false;
+    }
+
+    halfTap() {
+        this.rotateCard(45);
+        this.halfTapped = true;
     }
 
     invert() {
@@ -81,5 +88,13 @@ export default class CardActions extends CardDraggable {
 
     set isHoverActive(value: boolean) {
         this._isHoverActive = value;
+    }
+
+    get halfTapped(): boolean {
+        return this._halfTapped;
+    }
+
+    set halfTapped(value: boolean) {
+        this._halfTapped = value;
     }
 }

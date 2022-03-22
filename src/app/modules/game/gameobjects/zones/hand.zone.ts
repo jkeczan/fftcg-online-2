@@ -1,6 +1,13 @@
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/fftcg_card';
+import {TurnStates} from '../../states/game.state';
+import DRAG_END = Phaser.Input.Events.DRAG_END;
+import DROP = Phaser.Input.Events.DROP;
+import DRAG = Phaser.Input.Events.DRAG;
+import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
+import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
+import DRAG_START = Phaser.Physics.Matter.Events.DRAG_START;
 
 export default class HandZone extends BaseZone implements ICardGameZone {
     protected cardScale = 1.1;
@@ -18,7 +25,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone(cardAdded: FFTCGCard) {
-        console.log('Align Cards in Hand')
+        console.log('Align Cards in Hand');
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
             // if (cardAdded.gameCardID === card.gameCardID) {
@@ -124,5 +131,56 @@ export default class HandZone extends BaseZone implements ICardGameZone {
 
     shouldBeSideways(): boolean {
         return false;
+    }
+
+    activateDrag() {
+        for (const cardToDrag of this.cards) {
+            cardToDrag.on(DRAG_START, (pointer, card: CardDraggable) => {
+                if (this.gameState.state !== TurnStates.PLAY_A_CARD) {
+                    cardToDrag.setStartDragPosition();
+                    cardToDrag.endHover();
+                }
+            });
+
+            cardToDrag.on(DRAG_ENTER, (pointer, card: CardDraggable, zone: BaseZone) => {
+            });
+
+            cardToDrag.on(DRAG_LEAVE, (pointer, card: CardDraggable, zone: BaseZone) => {
+            });
+
+            cardToDrag.on(DRAG, (pointer, card: CardDraggable, dragX, dragY) => {
+                if (!cardToDrag.draggable) {
+                    return;
+                }
+                cardToDrag.dragging = true;
+                cardToDrag.updateGamePosition(dragX, dragY);
+            });
+
+            cardToDrag.on(DROP, (pointer, card: FFTCGCard) => {
+                if (this.gameState.state !== TurnStates.PLAY_A_CARD) {
+                    this.gameState.cardToPlay = card;
+                    this.gameState.goto(TurnStates.PLAY_A_CARD);
+                }
+            });
+
+            cardToDrag.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped) => {
+                console.log('Drag End');
+                if (!dropped) {
+                    cardToDrag.snapBack();
+                } else {
+                    cardToDrag.dragging = false;
+                }
+            });
+        }
+    }
+
+    deactivateDrag() {
+        for (const card of this.cards) {
+            card.off(DRAG);
+            card.off(DRAG_START);
+            card.off(DROP);
+            card.off(DRAG_ENTER);
+            card.off(DRAG_LEAVE);
+        }
     }
 }

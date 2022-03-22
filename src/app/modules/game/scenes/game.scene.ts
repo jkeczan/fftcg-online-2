@@ -16,6 +16,7 @@ import Player from '../gameobjects/players/player.gameobject';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import GameTurnUI from '../gameobjects/game_turn_ui';
 import GameState, {GameStates, TurnStates} from '../states/game.state';
+import ZoneManager from '../managers/zone.manager';
 import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DROP = Phaser.Input.Events.DROP;
 import DRAG = Phaser.Input.Events.DRAG;
@@ -119,7 +120,8 @@ export default class GameScene extends Scene {
             width: screenWidth * .8,
             height: zoneHeight,
             borderColor: 0xffff00,
-            opponent: false
+            opponent: false,
+            gameState: this.gameState
         });
 
         this.opponent.hand = new HandZone({
@@ -305,13 +307,26 @@ export default class GameScene extends Scene {
             } else if (pointer.leftButtonDown()) {
                 const card = cardTargets[0];
                 if (card instanceof FFTCGCard && this.gameState.state === TurnStates.PLAY_A_CARD) {
-                    card.endHover();
-                    this.gameState.generatedCP += card.generateCP();
-                    for (let c = 0; c < card.generateCP(); c++) {
-                        this.player.stagingArea.fillCP();
+                    if (ZoneManager.isCardInZone(card, this.getZone('Hand'))) {
+                        card.endHover();
+                        this.gameState.generatedCP += card.generateCP();
+                        for (let c = 0; c < card.generateCP(); c++) {
+                            this.player.stagingArea.fillCP();
+                        }
+
+                        this.gameManager.moveCard(card, this.player.hand, this.player.stagingArea);
+                    } else if (ZoneManager.isCardInZone(card, this.getZone('Backup'))) {
+                        if (!card.halfTapped) {
+                            card.halfTap();
+                            this.gameState.generatedCP++;
+                            this.player.stagingArea.fillCP();
+                        } else {
+                            card.untap();
+                            this.gameState.generatedCP--;
+                            this.player.stagingArea.unfillCP();
+                        }
                     }
 
-                    this.gameManager.moveCard(card, this.player.hand, this.player.stagingArea);
                 }
             }
         });
@@ -325,7 +340,7 @@ export default class GameScene extends Scene {
 
     activateDragHandlers() {
         this.input.on(DRAG_START, (pointer, card: CardDraggable) => {
-            if (this.gameState.state !== TurnStates.PLAY_A_CARD) {
+            if (this.gameState.state !== TurnStates.PLAY_A_CARD && card.draggable) {
                 card.setStartDragPosition();
                 card.endHover();
             }
@@ -352,13 +367,19 @@ export default class GameScene extends Scene {
             }
         });
 
-        this.input.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped) => {
+        this.input.on(DRAG_END, (pointer, card: CardDraggable, dropped) => {
             console.log('Drag End');
-            if (!dropped) {
-                gameObject.snapBack();
+            if (!card.draggable) {
+                return;
             } else {
-                gameObject.dragging = false;
+                if (!dropped) {
+                    console.log('Did not drop');
+                    card.snapBack();
+                } else {
+                    card.dragging = false;
+                }
             }
+
         });
     }
 
@@ -440,7 +461,9 @@ export default class GameScene extends Scene {
 
             this.gameState.on('enter_mainPhase1', () => {
                 this.activateDragHandlers();
+                // this.player.hand.activateDrag();
             });
+
 
             this.gameState.on('enter_playCard', () => {
                 this.cameras.main.setBackgroundColor('#000000');
@@ -460,6 +483,8 @@ export default class GameScene extends Scene {
                     }
                 }
 
+                this.player.field.backupZone.payComittedCP();
+                this.gameState.cardToPlay.draggable = false;
                 this.gameState.cardToPlay.stopZoneParticleEffect();
                 this.gameState.cardToPlay = null;
                 this.gameState.generatedCP = 0;

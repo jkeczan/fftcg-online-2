@@ -57,9 +57,9 @@ export class CP extends Container {
     }
 
     unfill() {
-        // this._border.clear();
-        // this.createBorder();
-        // this.filled = false;
+        this._border.clear();
+        this.createBorder();
+        this.filled = false;
     }
 
     hideIndicator() {
@@ -134,8 +134,6 @@ export default class CPContainer extends Container {
         this._border = border;
 
         this.createBorder(0xff0000);
-        // this.layoutGrid();
-
         this.scene.add.existing(this);
     }
 
@@ -153,7 +151,6 @@ export default class CPContainer extends Container {
 
         this.add(this._cp);
         this.layoutCP();
-        // this.layoutGrid();
     }
 
     layoutCP() {
@@ -184,28 +181,6 @@ export default class CPContainer extends Container {
         }
     }
 
-    // layoutGrid() {
-    //     console.log('Create Grid')
-    //     const grid = new GridSizer(this.scene, {
-    //         x: this.x,
-    //         y: this.y,
-    //         width: 400, height: 400,
-    //         column: 8, row: 8,
-    //         columnProportions: 1, rowProportions: 1,
-    //         space: {
-    //             // top: 20, bottom: 20, left: 10, right: 10,
-    //             column: 4, row: 4
-    //         },
-    //         createCellContainerCallback: (scene, x, y, config) => {
-    //             config.expand = true;
-    //             return this.scene.add.rectangle(0, 0, 0, 0, 14, Phaser.Math.Between(0, 0x1000000));
-    //         }
-    //     });
-    //
-    //     this.scene.add.existing(grid);
-    // }
-
-
     async delayTime(delay: number) {
         return new Promise((resolve, reject) => {
             this.scene.time.delayedCall(delay, () => {
@@ -217,7 +192,6 @@ export default class CPContainer extends Container {
     createBorder(color: number = 0xA020F0) {
         this._border.lineStyle(10, color, .5);
         this._border.strokeRoundedRect(this.originX - (this.width / 2), this.originY - (this.height / 2), this.width, this.height);
-
         this._border.fillStyle(0xffffff, .7);
         this._border.fillRoundedRect(this.originX - (this.width / 2), this.originY - (this.height / 2), this.width, this.height);
 
@@ -240,6 +214,10 @@ export default class CPContainer extends Container {
                 break;
             }
         }
+    }
+
+    removeCP() {
+
     }
 
     get border(): Phaser.GameObjects.Graphics {

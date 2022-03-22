@@ -3,6 +3,7 @@ import FFTCGCard from '../cards/fftcg_card';
 
 export default class BackupZone extends BaseZone implements ICardGameZone {
     protected cardScale = .7;
+
     constructor(data) {
         super(data);
     }
@@ -18,8 +19,17 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
         }
     }
 
+    payComittedCP() {
+        this.cards.filter((card) => {
+            return card.halfTapped;
+        }).forEach((card) => {
+            card.tap();
+        });
+    }
+
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
+        card.draggable = false;
 
         this.orientCard(card);
     }
