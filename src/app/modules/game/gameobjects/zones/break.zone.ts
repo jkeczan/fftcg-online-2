@@ -13,6 +13,7 @@ export default class BreakZone extends BaseZone implements ICardGameZone {
 
         card.flipForward();
         card.untap();
+        card.angle = 0;
     }
 
     onCardAdded(card: FFTCGCard) {

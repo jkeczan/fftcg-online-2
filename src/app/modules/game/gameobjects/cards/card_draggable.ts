@@ -25,8 +25,6 @@ export default class CardDraggable extends CardBase {
         if (!this.hoveringActive) {
             this.hoveringActive = true;
             this.on(GAMEOBJECT_POINTER_OVER, () => {
-                console.log('Game Card over');
-
                 this.scene.add.tween({
                     targets: [this],
                     duration: 100,
@@ -38,7 +36,6 @@ export default class CardDraggable extends CardBase {
             });
 
             this.on(GAMEOBJECT_POINTER_OUT, () => {
-                console.log('Game Card Out');
                 this.scene.add.tween({
                     targets: [this],
                     y: this.originalY,
@@ -60,13 +57,6 @@ export default class CardDraggable extends CardBase {
         }
     }
 
-    startDrag() {
-
-    }
-
-    endDrag() {
-
-    }
 
     setStartDragPosition() {
         this.originalX = this.x;

@@ -15,7 +15,6 @@ export default class PlayerFieldZone extends BaseZone {
     public backupZone: BackupZone;
 
     constructor(config: IFieldConfig) {
-        console.log(config);
         const {scene, x, y, name, width, height} = config;
         const forwardZone = new ForwardZone({
             scene,
@@ -55,30 +54,22 @@ export default class PlayerFieldZone extends BaseZone {
         this.scene.add.existing(this);
     }
 
+    onDropped(card: FFTCGCard) {
+        super.onDropped(card);
+    }
+
     alignCardsInZone(cardAdded: FFTCGCard) {
-        return null;
+
     }
 
     onCardAdded(card: FFTCGCard) {
-        super.onCardAdded(card);
+        this.orientCard(card);
+        if (card.cardType === FFTCGCardType.Forward) {
+            this.forwardZone.addCard(card);
+        } else if (card.cardType === FFTCGCardType.Backup) {
+            this.backupZone.addCard(card);
+        }
 
-        this.scene.add.tween({
-            targets: [card],
-            duration: 250,
-            x: this.scene.cameras.main.width - card.width * 2,
-            y: this.scene.cameras.main.height / 2,
-            scale: 2,
-            onComplete: (tween, targets) => {
-                this.scene.time.delayedCall(1500, () => {
-                    if (card.cardType === FFTCGCardType.Forward) {
-                        console.log('Add to Forward Zone');
-                        this.forwardZone.addCard(card);
-                    } else {
-                        console.log('Add to Backup Zone');
-                        this.backupZone.addCard(card);
-                    }
-                });
-            }
-        });
+        this.removeCard(card);
     }
 }

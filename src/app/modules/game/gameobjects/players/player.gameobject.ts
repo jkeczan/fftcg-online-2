@@ -5,6 +5,7 @@ import BreakZone from '../zones/break.zone';
 import PlayerFieldZone from '../zones/player_field.zone';
 import RemoveFromGameZone from '../zones/remove_from_game.zone';
 import GameTurnUI from '../game_turn_ui';
+import StageZone from '../zones/stage.zone';
 
 export interface IPlayerConfig {
     hand?: HandZone;
@@ -14,6 +15,7 @@ export interface IPlayerConfig {
     field?: PlayerFieldZone;
     removedFromGame?: RemoveFromGameZone;
     turnUI?: GameTurnUI;
+    stagingArea?: StageZone;
 }
 
 export default class Player {
@@ -25,6 +27,7 @@ export default class Player {
     private _removedFromGame: RemoveFromGameZone;
     private _turnUI: GameTurnUI;
     private _damage: number;
+    private _stagingArea: StageZone;
 
     constructor(config: IPlayerConfig) {
         this._hand = config.hand;
@@ -34,6 +37,8 @@ export default class Player {
         this._field = config.field;
         this._removedFromGame = config.removedFromGame;
         this._turnUI = config.turnUI;
+        this._stagingArea = config.stagingArea;
+
     }
 
     addDamage() {
@@ -106,5 +111,13 @@ export default class Player {
 
     set damage(value: number) {
         this._damage = value;
+    }
+
+    get stagingArea(): StageZone {
+        return this._stagingArea;
+    }
+
+    set stagingArea(value: StageZone) {
+        this._stagingArea = value;
     }
 }

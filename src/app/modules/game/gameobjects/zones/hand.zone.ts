@@ -3,7 +3,7 @@ import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/fftcg_card';
 
 export default class HandZone extends BaseZone implements ICardGameZone {
-    protected cardScale = 1.2;
+    protected cardScale = 1.1;
 
     constructor(config: IGameZoneConfig) {
         super(config);
@@ -18,6 +18,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone(cardAdded: FFTCGCard) {
+        console.log('Align Cards in Hand')
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
             // if (cardAdded.gameCardID === card.gameCardID) {
@@ -46,7 +47,6 @@ export default class HandZone extends BaseZone implements ICardGameZone {
                 y: this.yTranslateOnDrop(card, i),
                 angle: this.angleTranslateOnDrop(card, i),
                 onComplete: () => {
-                    console.log('Set Starting Drag Position', card.x, card.y);
                     card.setStartDragPosition();
                 }
             });

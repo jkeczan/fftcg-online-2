@@ -6,6 +6,7 @@ import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import CardDraggable from '../cards/card_draggable';
 import {Scene} from 'phaser';
 import FFTCGCard from '../cards/fftcg_card';
+import GameState from '../../states/game.state';
 
 export interface IGameZoneConfig {
     scene: Scene;
@@ -16,6 +17,7 @@ export interface IGameZoneConfig {
     height: number;
     borderColor?: number;
     opponent: boolean;
+    gameState?: GameState;
 }
 
 export interface ICardGameZone {
@@ -41,10 +43,12 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     private _borderParticleEffect: ParticleEmitter;
     protected cardScale = 1;
     protected inverted: boolean;
+    private _gameState: GameState;
 
     protected constructor(config: IGameZoneConfig) {
         super(config.scene, config.x, config.y, config.width, config.height);
         this.name = config.name;
+        this.gameState = config.gameState;
         this.cards = [];
         this.scene.add.existing(this);
         this.setRectangleDropZone(this.width, this.height);
@@ -121,6 +125,12 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.alignCardsInZone(card);
         this.updateCardScale(card);
         this.orientCard(card);
+    }
+
+    makeCardsDraggable() {
+        for (const card of this.cards) {
+            card.draggable = true;
+        }
     }
 
     updateCardScale(card: FFTCGCard) {
@@ -259,5 +269,13 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
 
     set borderParticleEffect(value: Phaser.GameObjects.Particles.ParticleEmitter) {
         this._borderParticleEffect = value;
+    }
+
+    get gameState(): GameState {
+        return this._gameState;
+    }
+
+    set gameState(value: GameState) {
+        this._gameState = value;
     }
 }

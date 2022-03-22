@@ -1,4 +1,3 @@
-import CardDraggable from './card_draggable';
 import {ICardConfig} from './card_base';
 import CardActions from './card_actions';
 
@@ -27,7 +26,7 @@ export enum FFTCGCardRarity {
     LEGEND = 'Legend'
 }
 
-export interface IFFTCGCard extends ICardConfig {
+export interface IFFTCGCardConfig extends ICardConfig {
     gameCardID: string;
     id: string;
     cost: number;
@@ -43,7 +42,21 @@ export interface IFFTCGCard extends ICardConfig {
     isMultiPlay: boolean;
 }
 
-export default class FFTCGCard extends CardActions {
+export interface IFFTCGCard {
+    generateCP(): number;
+
+    canGenerateCP(): boolean;
+
+    requiredCP(): number;
+
+    onPlay(): boolean;
+
+    onBreak(): boolean;
+
+    onPutIntoBreak(): boolean;
+}
+
+export default class FFTCGCard extends CardActions implements IFFTCGCard {
     private _gameCardID: string;
     private _id: string;
     private _cost: number;
@@ -58,7 +71,7 @@ export default class FFTCGCard extends CardActions {
     private _rarity: FFTCGCardRarity;
     private _isMultiPlay: boolean;
 
-    constructor(data: IFFTCGCard) {
+    constructor(data: IFFTCGCardConfig) {
         super(data);
         this.isExBurst = data.isExBurst;
         this.gameCardID = data.gameCardID;
@@ -67,6 +80,30 @@ export default class FFTCGCard extends CardActions {
 
     freeze() {
         this.rotateCard(180);
+    }
+
+    canGenerateCP(): boolean {
+        return true;
+    }
+
+    generateCP(): number {
+        return 2;
+    }
+
+    requiredCP(): number {
+        return this._cost;
+    }
+
+    onBreak(): boolean {
+        return false;
+    }
+
+    onPlay(): boolean {
+        return false;
+    }
+
+    onPutIntoBreak(): boolean {
+        return false;
     }
 
     get id(): string {

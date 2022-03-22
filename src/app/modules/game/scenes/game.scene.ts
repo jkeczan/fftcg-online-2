@@ -11,11 +11,11 @@ import PlayerFieldZone from '../gameobjects/zones/player_field.zone';
 import BreakZone from '../gameobjects/zones/break.zone';
 import DamageZone from '../gameobjects/zones/damage.zone';
 import RemoveFromGameZone from '../gameobjects/zones/remove_from_game.zone';
+import StageZone from '../gameobjects/zones/stage.zone';
 import Player from '../gameobjects/players/player.gameobject';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import GameTurnUI from '../gameobjects/game_turn_ui';
-import GameState, {GameStates} from '../states/game.state';
-import CardActions from '../gameobjects/cards/card_actions';
+import GameState, {GameStates, TurnStates} from '../states/game.state';
 import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DROP = Phaser.Input.Events.DROP;
 import DRAG = Phaser.Input.Events.DRAG;
@@ -49,11 +49,20 @@ export default class GameScene extends Scene {
     preload() {
         this.gameState = new GameState();
 
-        this.load.image('card9', '../../../assets/game/cards/12-119L.jpg');
+        this.load.image('15-045', '../../../assets/game/cards/15-045.jpeg');
+        this.load.image('15-048', '../../../assets/game/cards/15-048.jpeg');
+        this.load.image('15-052', '../../../assets/game/cards/15-052.jpeg');
+        this.load.image('15-053', '../../../assets/game/cards/15-053.jpeg');
+        this.load.image('15-056', '../../../assets/game/cards/15-056.jpeg');
+        this.load.image('15-058', '../../../assets/game/cards/15-058.jpeg');
         this.load.image('card-back', '../../../assets/game/cards/card_back.jpg');
         this.load.image('background', '../../../assets/background.jpg');
         this.load.image('card_border', '../../../assets/card_border_rpg.png');
         this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
+        this.load.atlasXML('blueUI', 'assets/uipack/Spritesheet/blueSheet.png', 'assets/uipack/Spritesheet/blueSheet.xml');
+        this.load.atlasXML('greyUI', 'assets/uipack/Spritesheet/greySheet.png', 'assets/uipack/Spritesheet/greySheet.xml');
+        this.load.atlasXML('redUI', 'assets/uipack/Spritesheet/redSheet.png', 'assets/uipack/Spritesheet/redSheet.xml');
+
         // this.load.audio('ex-burst', '../../../assets/sounds/ex-burst.mp3');
         // this.load.audio('ex-burst-2', '../../../assets/sounds/ex-burst-2.mp3');
     }
@@ -217,7 +226,7 @@ export default class GameScene extends Scene {
             scene: this,
             x: screenWidth / 2,
             y: this.player.hand.y - (this.player.hand.height / 2) - (zoneHeight / 8),
-            width: screenWidth * .1,
+            width: zoneWidth * 2,
             height: zoneHeight / 4,
             opponent: false,
             borderColor: 0xff0000,
@@ -228,31 +237,48 @@ export default class GameScene extends Scene {
             scene: this,
             x: screenWidth / 2,
             y: (this.opponent.hand.height / 2) + (zoneHeight / 8),
-            width: screenWidth * .5,
+            width: zoneWidth * 2,
             height: zoneHeight / 4,
             opponent: false,
             borderColor: 0xff0000,
             name: 'Opponent Game Turn UI'
         });
 
+        this.player.stagingArea = new StageZone({
+            name: 'Staging Area',
+            opponent: false,
+            scene: this,
+            x: screenWidth - zoneWidth,
+            y: screenHeight / 2,
+            width: zoneWidth,
+            height: zoneHeight,
+            gameState: this.gameState
+        });
 
         this.input.mouse.disableContextMenu();
 
         this.input.keyboard.addKey('N', true, false);
 
         this.input.keyboard.on('keydown-' + 'N', (event) => {
-            this.gameState.turnState.next();
+            this.gameState.next();
+        });
+
+        this.input.keyboard.on('keydown-' + 'SHIFT', (event) => {
+            this.player.deck.shuffle();
         });
 
         this.input.keyboard.on('keydown-' + 'S', async (event) => {
             await this.createDeck(this.player.deck);
             await this.createDeck(this.opponent.deck);
 
+            this.player.deck.shuffle();
+            this.opponent.deck.shuffle();
+
             this.gameState.goto(GameStates.START_GAME);
         });
 
 
-        this.input.on(POINTER_DOWN, (pointer: Pointer, cardTargets: CardActions[]) => {
+        this.input.on(POINTER_DOWN, (pointer: Pointer, cardTargets: FFTCGCard[]) => {
             if (pointer.rightButtonDown()) {
                 if (cardTargets[0].isTapped) {
                     cardTargets[0].untap();
@@ -261,24 +287,33 @@ export default class GameScene extends Scene {
                 }
 
             } else if (pointer.leftButtonDown()) {
-                console.log('Left Button');
+                const card = cardTargets[0];
+                if (card instanceof FFTCGCard && this.gameState.state === TurnStates.PLAY_A_CARD) {
+                    card.endHover();
+                    this.gameState.generatedCP += card.generateCP();
+                    this.gameManager.moveCard(card, this.player.hand, this.player.breakZone);
+                }
             }
         });
 
+        this.gameState.player = this.player;
+        this.gameState.opponent = this.opponent;
+        this.gameState.start(GameStates.LOADING_GAME);
+
+        await this.gameStateHandlers();
+    }
+
+    activateDragHandlers() {
         this.input.on(DRAG_START, (pointer, card: CardDraggable) => {
-            card.setStartDragPosition();
-            card.endHover();
-        });
-
-        this.input.on(DRAG_ENTER, (pointer, card: CardDraggable, zone: BaseZone) => {
-            if (zone.name !== this.getZone(card.getData('currentZone')).name) {
-                zone.highlightZone();
+            if (this.gameState.state !== TurnStates.PLAY_A_CARD) {
+                card.setStartDragPosition();
+                card.endHover();
             }
         });
 
-        this.input.on(DRAG_LEAVE, (pointer, card: CardDraggable, zone: BaseZone) => {
-            zone.unhighlightZone();
-        });
+        this.input.on(DRAG_ENTER, (pointer, card: CardDraggable, zone: BaseZone) => {});
+
+        this.input.on(DRAG_LEAVE, (pointer, card: CardDraggable, zone: BaseZone) => {});
 
         this.input.on(DRAG, (pointer, card: CardDraggable, dragX, dragY) => {
             if (!card.draggable) {
@@ -288,29 +323,29 @@ export default class GameScene extends Scene {
             card.updateGamePosition(dragX, dragY);
         });
 
-        this.input.on(DROP, (pointer, gameObject: FFTCGCard, dropZone: BaseZone) => {
-            const currentZoneKey = gameObject.getData('currentZone');
-            const currentZone = this.getZone(currentZoneKey);
-            this.gameManager.moveCard(gameObject, currentZone, dropZone);
-            dropZone.unhighlightZone();
-            this.children.bringToTop(gameObject);
-
+        this.input.on(DROP, (pointer, card: FFTCGCard) => {
+            if (this.gameState.state !== TurnStates.PLAY_A_CARD) {
+                this.gameState.cardToPlay = card;
+                this.gameState.goto(TurnStates.PLAY_A_CARD);
+            }
         });
 
         this.input.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped) => {
+            console.log('Drag End');
             if (!dropped) {
                 gameObject.snapBack();
             } else {
                 gameObject.dragging = false;
             }
-
         });
+    }
 
-        this.gameState.player = this.player;
-        this.gameState.opponent = this.opponent;
-        this.gameState.start(GameStates.LOADING_GAME);
-
-        await this.gameStateHandlers();
+    deactivateDragHandlers() {
+        this.input.off(DRAG);
+        this.input.off(DRAG_START);
+        this.input.off(DROP);
+        this.input.off(DRAG_ENTER);
+        this.input.off(DRAG_LEAVE);
     }
 
     async dealCards() {
@@ -332,31 +367,33 @@ export default class GameScene extends Scene {
 
     async createDeck(deck: DeckZone) {
         for (const card of this.deck.cards) {
-            const newID = uuidv4();
-            const newCard = new FFTCGCard({
-                gameCardID: newID,
-                scene: this,
-                name: `card-${card.card.serial_number}`,
-                image: 'card9',
-                imageBack: 'card-back',
-                card: 'playerCard',
-                depth: 5,
-                id: card.card.serial_number,
-                cost: card.card.cost,
-                elements: card.card.elements,
-                cardType: card.card.type,
-                jobs: [card.card.job],
-                categories: [card.card.category],
-                powerLevel: card.card.power,
-                effectText: card.card.abilities.join(','),
-                effects: [],
-                isExBurst: card.card.is_ex_burst,
-                rarity: card.card.rarity,
-                isMultiPlay: card.card.is_multi_playable,
-            });
+            for (let i = 0; i < card.quantity; i++) {
+                const newID = uuidv4();
+                const newCard = new FFTCGCard({
+                    gameCardID: newID,
+                    scene: this,
+                    name: `card-${card.card.serial_number}`,
+                    image: card.card.serial_number,
+                    imageBack: 'card-back',
+                    card: 'playerCard',
+                    depth: 5,
+                    id: card.card.serial_number,
+                    cost: card.card.cost,
+                    elements: card.card.elements,
+                    cardType: card.card.type,
+                    jobs: [card.card.job],
+                    categories: [card.card.category],
+                    powerLevel: card.card.power,
+                    effectText: card.card.abilities.join(','),
+                    effects: [],
+                    isExBurst: card.card.is_ex_burst,
+                    rarity: card.card.rarity,
+                    isMultiPlay: card.card.is_multi_playable,
+                });
 
-            newCard.setData('currentZone', 'Deck');
-            deck.addCard(newCard);
+                newCard.setData('currentZone', 'Deck');
+                deck.addCard(newCard);
+            }
         }
     }
 
@@ -366,18 +403,37 @@ export default class GameScene extends Scene {
             this.dealCards();
             this.gameState.goto(GameStates.PLAYER_TURN);
 
-            this.gameState.turnState.on('enter_drawPhase', () => {
+            this.gameState.on('enter_drawPhase', () => {
                 console.log('Scene received draw state');
                 if (this.gameState.playerTurn) {
                     this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
-                    this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
+                    if (!this.gameState.isFirstTurn) {
+                        this.gameManager.moveCard(this.player.deck.cards[0], this.player.deck, this.player.hand);
+                    }
                 } else {
                     this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
                     this.gameManager.moveCard(this.opponent.deck.cards[0], this.opponent.deck, this.opponent.hand);
                 }
             });
 
-            this.gameState.turnState.on('enter_endTurn', () => {
+            this.gameState.on('enter_mainPhase1', () => {
+                this.activateDragHandlers();
+            });
+
+            this.gameState.on('enter_playCard', () => {
+                this.cameras.main.setBackgroundColor('#000000');
+                this.deactivateDragHandlers();
+                this.gameManager.moveCard(this.gameState.cardToPlay, this.player.hand, this.player.stagingArea);
+            });
+
+            this.gameState.on('exit_playCard', () => {
+                this.gameManager.moveCard(this.gameState.cardToPlay, this.player.stagingArea, this.player.field);
+                this.gameState.cardToPlay = null;
+                this.cameras.main.setBackgroundColor('#125555');
+                this.activateDragHandlers();
+            });
+
+            this.gameState.on('enter_endTurn', () => {
                 console.log('**Game Scene received endTurn**');
                 this.gameState.goto(GameStates.SWITCH_TURN);
             });

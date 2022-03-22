@@ -8,7 +8,6 @@ export default class CardContextMenu extends Container {
     public label: Text;
 
     constructor(scene: Scene, x: number, y: number, label: string) {
-        console.log('Card Context Menu: ', x, y);
         const border = new Graphics(scene);
         const text = new Text(scene, 0, 0, label, {});
 

@@ -1,9 +1,9 @@
 import Container = Phaser.GameObjects.Container;
 import Shape = Phaser.GameObjects.Shape;
 import Graphics = Phaser.GameObjects.Graphics;
+import Text = Phaser.GameObjects.Text;
 import {IGameZoneConfig} from './zones/base.zone';
 import {Scene} from 'phaser';
-import Text = Phaser.GameObjects.Text;
 
 export interface IGameTurnConfig {
     scene: Scene;
@@ -54,7 +54,7 @@ export class GameTurn extends Container {
 
     showIndicator() {
         this._border.fillStyle(this.fillColor, .8);
-        this._border.fillCircle(this.originX, this.originY, this.radians);
+        this._border.fillRect(this.originX, this.originY, this.width, this.height);
     }
 
     hideIndicator() {
@@ -63,12 +63,11 @@ export class GameTurn extends Container {
     }
 
     createBorder(color: number = 0xA020F0) {
-        this._border.lineStyle(10, color, .5);
-        this._border.strokeCircle(this.originX, this.originY, this.radians);
+        this._border.lineStyle(10, color, 1);
+        this._border.strokeRect(this.originX, this.originY, this.width, this.height);
 
         this.bringToTop(this._border);
     }
-
 
     get borderColor(): number {
         return this._borderColor;
@@ -226,10 +225,11 @@ export default class GameTurnUI extends Container {
 
         for (let i = 0; i < this.phases.length; i++) {
             const phase = this.phases[i];
-            phase.width = turnWidth;
+            phase.width = turnWidth / 2;
             phase.height = this.height;
             phase.x -= startingPos - (turnWidth / 2) - (turnWidth * i);
-            phase.y = 0;
+            phase.y -= this.height / 2;
+            phase.createBorder(0xffffff);
         }
     }
 

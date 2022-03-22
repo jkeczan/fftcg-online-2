@@ -1,5 +1,6 @@
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
+import Shuffle = Phaser.Utils.Array.Shuffle;
 
 export default class DeckZone extends BaseZone implements ICardGameZone {
     protected cardScale = .6;
@@ -36,6 +37,10 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
             card.x = this.x + (i + 3);
             card.y = this.y + (i + 3);
         }
+    }
+
+    shuffle() {
+        Shuffle(this.cards);
     }
 
     shouldBeShown(): boolean {

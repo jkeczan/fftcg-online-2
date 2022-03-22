@@ -20,18 +20,17 @@ export default class DeckService {
             cards: [
                 {
                     card: {
-                        category: 'XI',
-                        is_ex_burst: true,
+                        category: 'IV',
+                        is_ex_burst: false,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
-                        name: 'Nag\'molada',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
+                        name: 'Edge',
+                        power: 5000,
+                        rarity: 'Hero',
                         is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
+                        job: 'Ninja',
+                        cost: 2,
                         datastore_id: 5708028668018688,
                         current_price: {
                             regular_low_price: '0.08',
@@ -41,62 +40,61 @@ export default class DeckService {
                             serial_number: '10-039',
                             foil_market_price: '0.56'
                         },
-                        serial_number: '10-039',
-                        element: 'Ice',
-                        type: 'Backup',
-                        elements: [
-                            'Ice'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
-                    quantity: 1
-                },
-                {
-                    card: {
-                        category: 'XI',
-                        is_ex_burst: true,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Nag\'molada',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
-                        is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '10-039',
-                        element: 'Ice',
+                        serial_number: '15-045',
+                        element: 'Wind',
                         type: 'Forward',
                         elements: [
-                            'Ice'
+                            'Wind'
                         ],
                         octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
                     },
-                    quantity: 1
+                    quantity: 3
                 },
                 {
                     card: {
-                        category: 'XI',
+                        category: 'IV',
                         is_ex_burst: true,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
-                        name: 'Nag\'molada',
+                        name: 'Kain',
+                        power: 8000,
+                        rarity: 'Legend',
+                        is_multi_playable: false,
+                        job: 'Dragoon',
+                        cost: 2,
+                        datastore_id: 5708028668018688,
+                        current_price: {
+                            regular_low_price: '0.08',
+                            foil_low_price: '0.15',
+                            regular_market_price: '0.13',
+                            date: '2019-10-28T15:48:09.225000Z',
+                            serial_number: '10-039',
+                            foil_market_price: '0.56'
+                        },
+                        serial_number: '15-048',
+                        element: 'Wind',
+                        type: 'Forward',
+                        elements: [
+                            'Wind'
+                        ],
+                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
+                    },
+                    quantity: 3
+                },
+                {
+                    card: {
+                        category: 'II',
+                        is_ex_burst: false,
+                        abilities: [
+                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
+                        ],
+                        name: 'Chocobo',
                         power: null,
                         image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
                         rarity: 'Common',
                         is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
+                        job: 'Standard Unit',
                         cost: 3,
                         datastore_id: 5708028668018688,
                         current_price: {
@@ -107,29 +105,29 @@ export default class DeckService {
                             serial_number: '10-039',
                             foil_market_price: '0.56'
                         },
-                        serial_number: '10-039',
-                        element: 'Ice',
+                        serial_number: '15-052',
+                        element: 'Wind',
                         type: 'Backup',
                         elements: [
-                            'Ice'
+                            'Wind'
                         ],
                         octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
                     },
-                    quantity: 1
+                    quantity: 3
                 },
                 {
                     card: {
-                        category: 'XI',
-                        is_ex_burst: true,
+                        category: 'XII',
+                        is_ex_burst: false,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
-                        name: 'Nag\'molada',
+                        name: 'Filo',
                         power: null,
                         image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
+                        rarity: 'Rare',
                         is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
+                        job: 'Sky Pirate',
                         cost: 3,
                         datastore_id: 5708028668018688,
                         current_price: {
@@ -140,30 +138,30 @@ export default class DeckService {
                             serial_number: '10-039',
                             foil_market_price: '0.56'
                         },
-                        serial_number: '10-039',
-                        element: 'Ice',
+                        serial_number: '15-056',
+                        element: 'Wind',
                         type: 'Backup',
                         elements: [
-                            'Ice'
+                            'Wind'
                         ],
                         octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
                     },
-                    quantity: 1
+                    quantity: 3
                 },
                 {
                     card: {
-                        category: 'XI',
-                        is_ex_burst: true,
+                        category: 'FFEX',
+                        is_ex_burst: false,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
-                        name: 'Nag\'molada',
+                        name: 'Diabolos',
                         power: null,
                         image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
+                        rarity: 'Hero',
                         is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
+                        job: null,
+                        cost: 1,
                         datastore_id: 5708028668018688,
                         current_price: {
                             regular_low_price: '0.08',
@@ -173,30 +171,30 @@ export default class DeckService {
                             serial_number: '10-039',
                             foil_market_price: '0.56'
                         },
-                        serial_number: '10-039',
-                        element: 'Ice',
-                        type: 'Backup',
+                        serial_number: '15-053',
+                        element: 'Wind',
+                        type: 'Summon',
                         elements: [
-                            'Ice'
+                            'Wind'
                         ],
                         octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
                     },
-                    quantity: 1
+                    quantity: 3
                 },
                 {
                     card: {
-                        category: 'XI',
-                        is_ex_burst: true,
+                        category: 'V',
+                        is_ex_burst: false,
                         abilities: [
                             'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
                         ],
-                        name: 'Nag\'molada',
+                        name: 'Dragoon',
                         power: null,
                         image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
                         rarity: 'Common',
-                        is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
+                        is_multi_playable: true,
+                        job: 'Dragoon',
+                        cost: 1,
                         datastore_id: 5708028668018688,
                         current_price: {
                             regular_low_price: '0.08',
@@ -206,147 +204,15 @@ export default class DeckService {
                             serial_number: '10-039',
                             foil_market_price: '0.56'
                         },
-                        serial_number: '10-039',
-                        element: 'Ice',
+                        serial_number: '15-058',
+                        element: 'Wind',
                         type: 'Backup',
                         elements: [
-                            'Ice'
+                            'Wind'
                         ],
                         octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
                     },
-                    quantity: 1
-                },
-                {
-                    card: {
-                        category: 'XI',
-                        is_ex_burst: true,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Nag\'molada',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
-                        is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '10-039',
-                        element: 'Ice',
-                        type: 'Backup',
-                        elements: [
-                            'Ice'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
-                    quantity: 1
-                },
-                {
-                    card: {
-                        category: 'XI',
-                        is_ex_burst: true,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Nag\'molada',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
-                        is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '10-039',
-                        element: 'Ice',
-                        type: 'Backup',
-                        elements: [
-                            'Ice'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
-                    quantity: 1
-                },
-                {
-                    card: {
-                        category: 'XI',
-                        is_ex_burst: true,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Nag\'molada',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
-                        is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '10-039',
-                        element: 'Ice',
-                        type: 'Backup',
-                        elements: [
-                            'Ice'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
-                    quantity: 1
-                },
-                {
-                    card: {
-                        category: 'XI',
-                        is_ex_burst: true,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Nag\'molada',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
-                        is_multi_playable: false,
-                        job: 'Member of the Armathrwn Society',
-                        cost: 3,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '10-039',
-                        element: 'Ice',
-                        type: 'Backup',
-                        elements: [
-                            'Ice'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
-                    quantity: 1
+                    quantity: 3
                 }
             ],
             is_public: false,
