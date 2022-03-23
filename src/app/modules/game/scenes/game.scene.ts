@@ -27,6 +27,7 @@ import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
 import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 import POINTER_DOWN = Phaser.Input.Events.POINTER_DOWN;
+import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 
 export default class GameScene extends Scene {
     private rexUI: RexUIPlugin;
@@ -38,6 +39,7 @@ export default class GameScene extends Scene {
     private player: Player;
     private opponent: Player;
     private gameState: GameState;
+    private particles: ParticleEmitterManager;
 
     constructor() {
         super('MainScene');
@@ -84,7 +86,7 @@ export default class GameScene extends Scene {
         const zoneWidth = screenWidth * .1;
         const zoneHeight = screenHeight * .25;
         const zoneSpacing = zoneHeight / 10;
-
+        this.particles = this.add.particles('flares');
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.player = new Player({});
@@ -226,7 +228,7 @@ export default class GameScene extends Scene {
 
         this.player.turnUI = new GameTurnUI({
             scene: this,
-            x: screenWidth / 2,
+            x: this.player.hand.getBounds().right - zoneWidth,
             y: this.player.hand.y - (this.player.hand.height / 2) - (zoneHeight / 8),
             width: zoneWidth * 2,
             height: zoneHeight / 4,
@@ -237,7 +239,7 @@ export default class GameScene extends Scene {
 
         this.opponent.turnUI = new GameTurnUI({
             scene: this,
-            x: screenWidth / 2,
+            x: this.player.hand.getBounds().left + zoneWidth,
             y: (this.opponent.hand.height / 2) + (zoneHeight / 8),
             width: zoneWidth * 2,
             height: zoneHeight / 4,
@@ -256,22 +258,6 @@ export default class GameScene extends Scene {
             height: zoneHeight,
             gameState: this.gameState
         });
-
-        // const container = new CPContainer({
-        //     scene: this,
-        //     name: 'test',
-        //     opponent: false,
-        //     x: screenWidth / 2,
-        //     y: screenHeight / 2,
-        //     width: zoneWidth,
-        //     height: zoneHeight / 4
-        // });
-        //
-        // this.add.existing(container);
-        //
-        //
-        // container.createCPs(12, []);
-
 
         this.input.mouse.disableContextMenu();
 
@@ -320,6 +306,32 @@ export default class GameScene extends Scene {
                             card.halfTap();
                             this.gameState.generatedCP++;
                             this.player.stagingArea.fillCP();
+                            const path = {t: 0, vec: new Phaser.Math.Vector2()};
+
+                            const startPoint = new Phaser.Math.Vector2(card.x, card.y);
+                            const controlPoint1 = new Phaser.Math.Vector2(card.x - 100, card.y - 300);
+                            const controlPoint2 = new Phaser.Math.Vector2(
+                                Phaser.Math.Between(card.x, this.player.stagingArea.x),
+                                Phaser.Math.Between(card.y, this.player.stagingArea.y)
+                            );
+                            const endPoint = new Phaser.Math.Vector2(this.player.stagingArea.x, this.player.stagingArea.y);
+
+                            const curve = new Phaser.Curves.CubicBezier(startPoint, controlPoint1, controlPoint2, endPoint);
+
+                            const pathEffect = this.particles.createEmitter({
+                                frame: {frames: ['red', 'green', 'blue']},
+                                scale: {start: 0.5, end: 0},
+                                blendMode: 'ADD',
+                                emitZone: {type: 'edge', source: curve, quantity: 48, yoyo: false},
+                                lifespan: 1250,
+                                speed: 250
+                            });
+
+                            this.time.delayedCall(900, () => {
+                                pathEffect.explode(-1, 0, 0);
+
+                                this.particles.removeEmitter(pathEffect);
+                            });
                         } else {
                             card.untap();
                             this.gameState.generatedCP--;

@@ -1,112 +1,60 @@
 import Container = Phaser.GameObjects.Container;
-import Shape = Phaser.GameObjects.Shape;
 import Graphics = Phaser.GameObjects.Graphics;
 import Text = Phaser.GameObjects.Text;
+import Sprite = Phaser.GameObjects.Sprite;
 import {IGameZoneConfig} from './zones/base.zone';
 import {Scene} from 'phaser';
+import BorderContainer from './border_container';
 
 export interface IGameTurnConfig {
     scene: Scene;
     x: number;
     y: number;
     name: string;
-    borderColor?: number;
-    fillColor?: number;
-    shape?: Shape;
-    radians: number;
+    inactiveTexture: string;
+    inactiveFrame: string;
+    activeTexture: string;
+    activeFrame: string;
 }
 
 export class GameTurn extends Container {
-    private _borderColor: number;
-    private _fillColor: number;
-    private _shape: Shape;
-    private _radians: number;
-    private _border: Graphics;
     private _label: Text;
+    private _inactiveSprite: Sprite;
+    private _activeSprite: Sprite;
 
     constructor(config: IGameTurnConfig) {
-        const {scene, borderColor, fillColor, radians, name} = config;
-
-        const border = new Graphics(scene);
+        const {scene, name, activeFrame, inactiveFrame, activeTexture, inactiveTexture} = config;
         const label = new Text(scene,
             0,
             0,
             name.substr(0, 1),
-            {});
+            {fontFamily: 'Ken Vector'});
+        const inactiveSprite = new Sprite(scene, 0, 0, inactiveTexture, inactiveFrame);
+        const activeSprite = new Sprite(scene, 0, 0, activeTexture, activeFrame);
 
-        super(scene, 0, 0, [border, label]);
+        super(scene, 0, 0, [label, inactiveSprite, activeSprite]);
 
-        this._border = border;
-        this._borderColor = borderColor;
-        this._fillColor = fillColor;
-        this._radians = radians;
         this._label = label;
-
-        this.createBorder(borderColor);
+        this.inactiveSprite = inactiveSprite;
+        this.activeSprite = activeSprite;
         this.createLabel();
-
+        this.hideIndicator();
     }
 
     createLabel(): void {
         this.label.x -= this.label.width / 2;
+        this.label.y += this._label.height;
         this.bringToTop(this.label);
     }
 
     showIndicator() {
-        this._border.fillStyle(this.fillColor, .8);
-        this._border.fillRect(this.originX, this.originY, this.width, this.height);
+        this.activeSprite.visible = true;
+        this.inactiveSprite.visible = false;
     }
 
     hideIndicator() {
-        this._border.clear();
-        this.createBorder(this.borderColor);
-    }
-
-    createBorder(color: number = 0xA020F0) {
-        this._border.lineStyle(10, color, 1);
-        this._border.strokeRect(this.originX, this.originY, this.width, this.height);
-
-        this.bringToTop(this._border);
-    }
-
-    get borderColor(): number {
-        return this._borderColor;
-    }
-
-    set borderColor(value: number) {
-        this._borderColor = value;
-    }
-
-    get shape(): Phaser.GameObjects.Shape {
-        return this._shape;
-    }
-
-    set shape(value: Phaser.GameObjects.Shape) {
-        this._shape = value;
-    }
-
-    get radians(): number {
-        return this._radians;
-    }
-
-    set radians(value: number) {
-        this._radians = value;
-    }
-
-    get border(): Phaser.GameObjects.Graphics {
-        return this._border;
-    }
-
-    set border(value: Phaser.GameObjects.Graphics) {
-        this._border = value;
-    }
-
-    get fillColor(): number {
-        return this._fillColor;
-    }
-
-    set fillColor(value: number) {
-        this._fillColor = value;
+        this.activeSprite.visible = false;
+        this.inactiveSprite.visible = true;
     }
 
     get label(): Phaser.GameObjects.Text {
@@ -116,10 +64,25 @@ export class GameTurn extends Container {
     set label(value: Phaser.GameObjects.Text) {
         this._label = value;
     }
+
+    get inactiveSprite(): Phaser.GameObjects.Sprite {
+        return this._inactiveSprite;
+    }
+
+    set inactiveSprite(value: Phaser.GameObjects.Sprite) {
+        this._inactiveSprite = value;
+    }
+
+    get activeSprite(): Phaser.GameObjects.Sprite {
+        return this._activeSprite;
+    }
+
+    set activeSprite(value: Phaser.GameObjects.Sprite) {
+        this._activeSprite = value;
+    }
 }
 
-export default class GameTurnUI extends Container {
-    private _border: Graphics;
+export default class GameTurnUI extends BorderContainer {
     private phases: Array<GameTurn>;
 
     constructor(config: IGameZoneConfig) {
@@ -128,91 +91,90 @@ export default class GameTurnUI extends Container {
             scene,
             x,
             y,
-            radians: height / 2,
             name: GameTurnKey.ACTIVE,
-            borderColor: 0xA020F0,
-            fillColor: 0xff0000
+            inactiveTexture: 'greyUI',
+            inactiveFrame: 'grey_box.png',
+            activeTexture: 'blueUI',
+            activeFrame: 'blue_button10.png'
         });
         const drawPhase = new GameTurn({
             scene,
             x,
             y,
-            radians: height / 2,
             name: GameTurnKey.DRAW,
-            fillColor: 0xff0000
+            inactiveTexture: 'greyUI',
+            inactiveFrame: 'grey_box.png',
+            activeTexture: 'blueUI',
+            activeFrame: 'blue_button10.png'
         });
         const mainPhase1 = new GameTurn({
             scene,
             x,
             y,
-            radians: height / 2,
             name: GameTurnKey.MAIN_1,
-            fillColor: 0xff0000
+            inactiveTexture: 'greyUI',
+            inactiveFrame: 'grey_box.png',
+            activeTexture: 'blueUI',
+            activeFrame: 'blue_button10.png'
         });
         const attackPhase = new GameTurn({
             scene,
             x,
             y,
-            radians: height / 2,
             name: GameTurnKey.ATTACK,
-            fillColor: 0xff0000
+            inactiveTexture: 'greyUI',
+            inactiveFrame: 'grey_box.png',
+            activeTexture: 'blueUI',
+            activeFrame: 'blue_button10.png'
         });
-        // const attackPrep = new GameTurn({
-        //     scene,
-        //     x,
-        //     y,
-        //     radians: height / 2,
-        //     name: 'Attack Prep'
-        // });
-        // const blockPrep = new GameTurn({
-        //     scene,
-        //     x,
-        //     y,
-        //     radians: height / 2,
-        //     name: 'Block Prep'
-        // });
         const mainPhase2 = new GameTurn({
             scene,
             x,
             y,
-            radians: height / 2,
             name: GameTurnKey.MAIN_2,
-            fillColor: 0xff0000
+            inactiveTexture: 'greyUI',
+            inactiveFrame: 'grey_box.png',
+            activeTexture: 'blueUI',
+            activeFrame: 'blue_button10.png'
         });
         const endPhase = new GameTurn({
             scene,
             x,
             y,
-            radians: height / 2,
             name: GameTurnKey.END,
-            fillColor: 0xff0000
+            inactiveTexture: 'greyUI',
+            inactiveFrame: 'grey_box.png',
+            activeTexture: 'blueUI',
+            activeFrame: 'blue_button10.png'
         });
 
-        const border = new Graphics(scene);
 
-        super(scene, x, y, [border]);
+        const phases = [];
+        phases.push(activePhase);
+        phases.push(drawPhase);
+        phases.push(mainPhase1);
+        phases.push(attackPhase);
+        phases.push(mainPhase2);
+        phases.push(endPhase);
 
-        this.phases = [];
-        this.phases.push(activePhase);
-        this.phases.push(drawPhase);
-        this.phases.push(mainPhase1);
-        this.phases.push(attackPhase);
-        // this.phases.push(attackPrep);
-        // this.phases.push(blockPrep);
-        this.phases.push(mainPhase2);
-        this.phases.push(endPhase);
+        super({
+            scene,
+            x,
+            y,
+            width,
+            height,
+            borderColor: 0xff0000
+        });
 
-        this.add(this.phases);
+        this.add(phases);
 
+        this.phases = phases;
         this.name = name;
         this.width = width;
         this.height = height;
-        this._border = border;
 
-        this.createBorder(borderColor);
+
         this.layoutPhases();
-        // this.simulateTurnSwitch();
-
         this.scene.add.existing(this);
     }
 
@@ -229,7 +191,9 @@ export default class GameTurnUI extends Container {
             phase.height = this.height;
             phase.x -= startingPos - (turnWidth / 2) - (turnWidth * i);
             phase.y -= this.height / 2;
-            phase.createBorder(0xffffff);
+            phase.activeSprite.y += this.height / 2;
+            phase.inactiveSprite.y += this.height / 2;
+            // phase.createBorder(0xffffff);
         }
     }
 
@@ -256,21 +220,6 @@ export default class GameTurnUI extends Container {
                 resolve(true);
             });
         });
-    }
-
-    createBorder(color: number = 0xA020F0) {
-        this._border.lineStyle(10, color, .5);
-        this._border.strokeRect(this.originX - (this.width / 2), this.originY - (this.height / 2), this.width, this.height);
-
-        this.bringToTop(this._border);
-    }
-
-    get border(): Phaser.GameObjects.Graphics {
-        return this._border;
-    }
-
-    set border(value: Phaser.GameObjects.Graphics) {
-        this._border = value;
     }
 
     get activePhase(): GameTurn {
