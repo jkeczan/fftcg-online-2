@@ -1,10 +1,13 @@
 import FSM from 'phaser3-rex-plugins/plugins/fsm.js';
-import Player from '../gameobjects/players/player.gameobject';
 import FFTCGCard from '../gameobjects/cards/fftcg_card';
-import GameTurnUI from '../gameobjects/game_turn_ui';
+import Player from '../gameobjects/players/player.gameobject';
+import GameTurnUI from '../ui/game_turn_ui';
 
 
 export enum GameStates {
+    CHOOSE_DECK = 'chooseDeck',
+    ROLL_DICE = 'rollDice',
+    DETERMINE_HAND = 'determineHand',
     LOADING_GAME = 'loadingGame',
     START_GAME = 'startGame',
     PLAYER_TURN = 'playerTurn',
@@ -13,38 +16,110 @@ export enum GameStates {
     END_GAME = 'endGame'
 }
 
-export enum TurnStates {
-    START_TURN = 'startTurn',
-    ACTIVE = 'activePhase',
-    DRAW = 'drawPhase',
-    MAIN_1 = 'mainPhase1',
-    PLAY_A_CARD = 'playCard',
-    ATTACK = 'attackPhase',
-    MAIN_2 = 'mainPhase2',
-    END = 'endPhase',
-    END_TURN = 'endTurn'
+export enum GameStateEvents {
+    ENTER_CHOOSE_DECK = 'enter_chooseDeck',
+    NEXT_CHOOSE_DECK = 'next_chooseDeck',
+    EXIT_CHOOSE_DECK = 'exit_chooseDeck',
+
+    ENTER_ROLL_DICE = 'enter_rollDice',
+    NEXT_ROLL_DICE = 'next_rollDice',
+    EXIT_ROLL_DICE = 'exit_rollDice',
+
+    ENTER_DETERMINE_HAND = 'enter_determineHand',
+    NEXT_DETERMINE_HAND = 'next_determineHand',
+    EXIT_DETERMINE_HAND = 'exit_determineHand',
+
+    ENTER_LOADING_GAME = 'enter_loadingGame',
+    NEXT_LOADING_GAME = 'next_loadingGame',
+    EXIT_LOADING_GAME = 'exit_loadingGame',
+
+    ENTER_START_GAME = 'enter_startGame',
+    NEXT_START_GAME = 'next_startGame',
+    EXIT_START_GAME = 'exit_startGame',
+    ENTER_PLAYER_TURN = 'enter_playerTurn',
+    NEXT_PLAYER_TURN = 'next_playerTurn',
+    EXIT_PLAYER_TURN = 'exit_playerTurn',
+    ENTER_OPPONENT_TURN = 'enter_opponentTurn',
+    NEXT_OPPONENT_TURN = 'next_opponentTurn',
+    EXIT_OPPONENT_TURN = 'exit_opponentTurn',
+    ENTER_SWITCH_TURN = 'enter_switchTurn',
+    NEXT_SWITCH_TURN = 'next_swtichTurn',
+    EXIT_SWITCH_TURN = 'exit_switchTurn',
+    ENTER_END_GAME = 'enter_endGame',
+    NEXT_END_GAME = 'next_endGame',
+    EXIT_END_GAME = 'exit_endGame',
+    STATE_CHANGE = 'statechange'
 }
 
 export default class GameState extends FSM {
     private _player: Player;
-    private _opponent: Player;
     private _playerTurn: boolean; // true for player, false for opponent
+    private _opponent: Player;
     private _cardToPlay: FFTCGCard;
     private _turnUI: GameTurnUI;
     private _generatedCP: number;
     private _isFirstTurn = true;
+    private _stateGovernor: number;
 
     constructor() {
         super();
     }
 
+    on(event: GameStates | string | symbol, fn: (state: GameState) => void, context?: any): this {
+        return super.on(event, fn, context);
+    }
+
+    startGame() {
+        this.goto(GameStates.CHOOSE_DECK);
+    }
+
+    enter_chooseDeck() {
+        console.log('Game State: Entering: Choose Deck');
+    }
+
+    next_chooseDeck() {
+        console.log('Game State: Choose Deck --> Roll Dice');
+        return GameStates.ROLL_DICE;
+    }
+
+    exit_rollDice() {
+        console.log('Game State: Exiting: Roll Dice');
+    }
+
+    enter_rollDice() {
+        console.log('Game State: Entering: Roll Dice');
+    }
+
+    next_rollDice() {
+        console.log('Game State: Roll Dice --> Determine Hand');
+        return GameStates.DETERMINE_HAND;
+    }
+
+    enter_determineHand() {
+        console.log('Game State: Entering: Determine hand');
+    }
+
+    next_determineHand() {
+        console.log('Game State: Determine Hand --> Loading Game');
+        return GameStates.LOADING_GAME;
+    }
+
+    exit_determineHand() {
+        console.log('Game State: Exiting: Determine Hand');
+    }
+
+    exit_chooseDeck() {
+        console.log('Game State: Exiting: Choose Deck');
+    }
+
     enter_loadingGame() {
         console.log('Game State: Entering: Loading Game');
+        this.goto(GameStates.START_GAME);
     }
 
     next_loadingGame() {
         console.log('Game State: Loading...');
-        return GameStates.PLAYER_TURN;
+        return GameStates.START_GAME;
     }
 
     exit_loadingGame() {
@@ -65,10 +140,8 @@ export default class GameState extends FSM {
     }
 
     enter_playerTurn() {
+        this.enable = false;
         console.log('Game State: Entering: Player Turn');
-        this._playerTurn = true;
-        this.turnUI = this.player.turnUI;
-        this.goto(TurnStates.ACTIVE);
     }
 
     next_playerTurn() {
@@ -76,27 +149,24 @@ export default class GameState extends FSM {
         return GameStates.SWITCH_TURN;
     }
 
-    //
-    // exit_playerTurn() {
-    //     console.log('Game State: Exiting: Player Turn');
-    //     return ;
-    // }
+    exit_playerTurn() {
+        console.log('Game State: Exiting: Player Turn');
+        // return GameStates.SWITCH_TURN;
+    }
 
     enter_opponentTurn() {
         console.log('Game State: Entering: Opponent Turn');
-        this.playerTurn = false;
-        this.turnUI = this.opponent.turnUI;
-        this.goto(TurnStates.START_TURN);
     }
 
     next_opponentTurn() {
         console.log('Game State: Opponent Turn');
-        return GameStates.PLAYER_TURN;
+        return GameStates.SWITCH_TURN;
     }
 
     exit_opponentTurn() {
         console.log('Game State: Exiting: Opponent Turn');
-        this.goto(TurnStates.END_TURN);
+
+        // return GameStates.SWITCH_TURN;
     }
 
     enter_switchTurn() {
@@ -133,149 +203,6 @@ export default class GameState extends FSM {
         console.log('Game State: Exiting End Game');
     }
 
-    /**
-     * Turn States
-     */
-    next_startTurn() {
-        console.log('Start Turn -> Active');
-        return TurnStates.ACTIVE;
-    }
-
-    next_activePhase() {
-        console.log('Active Phase -> Draw');
-        return TurnStates.DRAW;
-    }
-
-    next_drawPhase() {
-        console.log('Draw Phase -> Main 1');
-        return TurnStates.MAIN_1;
-    }
-
-    next_mainPhase1() {
-        console.log('MP1 -> Attack');
-        return TurnStates.ATTACK;
-    }
-
-    next_attackPhase() {
-        console.log('Attack -> MP2');
-        return TurnStates.MAIN_2;
-    }
-
-    next_mainPhase2() {
-        console.log('MP2 - > End');
-        return TurnStates.END;
-    }
-
-    next_endPhase() {
-        console.log('End -> End Turn');
-        return TurnStates.END_TURN;
-    }
-
-    next_endTurn() {
-        console.log('End Turn -> null');
-        return null;
-    }
-
-    next_playCard() {
-        if (this.generatedCP < this.cardToPlay.requiredCP()) {
-            return this.prevState;
-        } else {
-            return this.prevState;
-        }
-    }
-
-    enter_activePhase() {
-        console.log('Entering Active Phase');
-        this.turnUI.activePhase.showIndicator();
-        if (this.playerTurn) {
-            this.player.field.forwardZone.activateCards();
-            this.player.field.backupZone.activateCards();
-        } else {
-            this.opponent.field.forwardZone.activateCards();
-            this.opponent.field.backupZone.activateCards();
-        }
-    }
-
-    enter_drawPhase() {
-        console.log('Entering Draw Phase');
-        this.turnUI.drawPhase.showIndicator();
-    }
-
-    enter_mainPhase1() {
-        console.log('Entering MP1 Phase');
-        this.turnUI.mainPhase1.showIndicator();
-    }
-
-    enter_playCard() {
-        console.log('Entering Play Card');
-        this.generatedCP = 0;
-        this.cardToPlay.endHover();
-        // this.player.hand.shakeCards();
-    }
-
-    enter_attackPhase() {
-        console.log('Entering Attack Phase');
-        this.turnUI.attackPhase.showIndicator();
-    }
-
-    enter_mainPhase2() {
-        console.log('Entering MP2 Phase');
-        this.turnUI.mainPhase2.showIndicator();
-    }
-
-    enter_endPhase() {
-        console.log('Entering End Phase');
-        this.turnUI.endPhase.showIndicator();
-    }
-
-    enter_endTurn() {
-        console.log('Entering End Turn');
-    }
-
-    exit_activePhase() {
-        console.log('Exiting Active Phase');
-        this.turnUI.activePhase.hideIndicator();
-    }
-
-    exit_drawPhase() {
-        console.log('Exiting Draw Phase');
-        this.turnUI.drawPhase.hideIndicator();
-    }
-
-    exit_mainPhase1() {
-        console.log('Exiting MP1 Phase');
-        this.turnUI.mainPhase1.hideIndicator();
-        this.player.hand.stopShaking();
-    }
-
-    exit_playCard() {
-        console.log('Exiting Play Card');
-        this.player.hand.stopShaking();
-        this.player.stagingArea.hideButtons();
-
-    }
-
-    exit_attackPhase() {
-        console.log('Exiting Attack Phase');
-        this.turnUI.attackPhase.hideIndicator();
-    }
-
-    exit_mainPhase2() {
-        console.log('Exiting MP2 Phase');
-        this.turnUI.mainPhase2.hideIndicator();
-        this.player.hand.stopShaking();
-    }
-
-    exit_endPhase() {
-        console.log('Exiting End Phase');
-        this.turnUI.endPhase.hideIndicator();
-    }
-
-    exit_endTurn() {
-        console.log('Exiting End Turn');
-        this.isFirstTurn = false;
-    }
-
     get playerTurn(): boolean {
         return this._playerTurn;
     }
@@ -284,13 +211,6 @@ export default class GameState extends FSM {
         this._playerTurn = value;
     }
 
-    get opponent(): Player {
-        return this._opponent;
-    }
-
-    set opponent(value: Player) {
-        this._opponent = value;
-    }
 
     get cardToPlay(): FFTCGCard {
         return this._cardToPlay;
@@ -300,12 +220,31 @@ export default class GameState extends FSM {
         this._cardToPlay = value;
     }
 
+
     get turnUI(): GameTurnUI {
         return this._turnUI;
     }
 
     set turnUI(value: GameTurnUI) {
         this._turnUI = value;
+    }
+
+
+    get generatedCP(): number {
+        return this._generatedCP;
+    }
+
+    set generatedCP(value: number) {
+        this._generatedCP = value;
+    }
+
+
+    get isFirstTurn(): boolean {
+        return this._isFirstTurn;
+    }
+
+    set isFirstTurn(value: boolean) {
+        this._isFirstTurn = value;
     }
 
     get player(): Player {
@@ -316,19 +255,12 @@ export default class GameState extends FSM {
         this._player = value;
     }
 
-    get generatedCP(): number {
-        return this._generatedCP;
+    get opponent(): Player {
+        return this._opponent;
     }
 
-    set generatedCP(value: number) {
-        this._generatedCP = value;
+    set opponent(value: Player) {
+        this._opponent = value;
     }
 
-    get isFirstTurn(): boolean {
-        return this._isFirstTurn;
-    }
-
-    set isFirstTurn(value: boolean) {
-        this._isFirstTurn = value;
-    }
 }

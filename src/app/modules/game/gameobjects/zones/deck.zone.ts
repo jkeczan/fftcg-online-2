@@ -1,5 +1,5 @@
-import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import Shuffle = Phaser.Utils.Array.Shuffle;
 
 export default class DeckZone extends BaseZone implements ICardGameZone {
@@ -31,11 +31,42 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
         this.onCardAdded(card);
     }
 
+    addCards(cards: FFTCGCard[], position: 'top' | 'bottom') {
+        for (const card of cards) {
+            if (position === 'bottom') {
+                this.putCardOnBottom(card);
+            } else if (position === 'top') {
+                this.putCardOnTop(card);
+            }
+        }
+    }
+
+    putCardOnBottom(card) {
+        const cards = [card];
+        this.cards = cards.concat(this.cards);
+        this.onCardAdded(card);
+    }
+
+    putCardOnTop(card) {
+        this.cards.push(card);
+        this.onCardAdded(card);
+    }
+
+    drawCard(numberOfCards: number = 1): FFTCGCard[] {
+        const cards = this.cards.slice(0, numberOfCards);
+
+        for (const card of cards) {
+            this.removeCard(card);
+        }
+
+        return cards;
+    }
+
     alignCardsInZone() {
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
-            card.x = this.x + (i + 3);
-            card.y = this.y + (i + 3);
+            card.x = this.x + (i + 2);
+            card.y = this.y + (i + 2);
         }
     }
 

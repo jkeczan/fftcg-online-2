@@ -1,11 +1,11 @@
 import {Scene} from 'phaser';
-import {IGameZoneConfig} from './zones/base.zone';
-import {FFTCGCardElement} from './cards/fftcg_card';
+import {FFTCGCardElement} from '../gameobjects/cards/fftcg_card';
+import {IGameZoneConfig} from '../gameobjects/zones/base.zone';
 import Container = Phaser.GameObjects.Container;
-import Shape = Phaser.GameObjects.Shape;
 import Graphics = Phaser.GameObjects.Graphics;
-import Text = Phaser.GameObjects.Text;
+import Shape = Phaser.GameObjects.Shape;
 import Sprite = Phaser.GameObjects.Sprite;
+import Text = Phaser.GameObjects.Text;
 
 export interface IGameTurnConfig {
     scene: Scene;

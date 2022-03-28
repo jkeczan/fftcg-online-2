@@ -111,7 +111,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     alignCardsInZone(cardAdded: FFTCGCard) {
-        console.log('Align Cards in ', this.name);
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
             this.scene.add.tween({

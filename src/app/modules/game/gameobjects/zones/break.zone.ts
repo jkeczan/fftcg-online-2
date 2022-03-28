@@ -23,7 +23,6 @@ export default class BreakZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone() {
-        console.log('Align Cards in Break Zone');
         for (const card of this.cards) {
             card.x = this.x;
             card.y = this.y;

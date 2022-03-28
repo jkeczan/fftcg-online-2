@@ -1,5 +1,5 @@
-import {BaseZone, ICardGameZone} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
+import {BaseZone, ICardGameZone} from './base.zone';
 
 export default class BackupZone extends BaseZone implements ICardGameZone {
     protected cardScale = .7;
@@ -25,6 +25,14 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
         }).forEach((card) => {
             card.tap();
         });
+    }
+
+    createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {
+
+    }
+
+    createLabel() {
+        
     }
 
     onCardAdded(card: FFTCGCard) {

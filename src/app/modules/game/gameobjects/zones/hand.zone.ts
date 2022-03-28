@@ -1,12 +1,12 @@
-import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
+import {TurnStates} from '../../states/turn.state';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/fftcg_card';
-import {TurnStates} from '../../states/game.state';
-import DRAG_END = Phaser.Input.Events.DRAG_END;
-import DROP = Phaser.Input.Events.DROP;
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import DRAG = Phaser.Input.Events.DRAG;
+import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
 import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
+import DROP = Phaser.Input.Events.DROP;
 import DRAG_START = Phaser.Physics.Matter.Events.DRAG_START;
 
 export default class HandZone extends BaseZone implements ICardGameZone {
@@ -25,7 +25,6 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone(cardAdded: FFTCGCard) {
-        console.log('Align Cards in Hand');
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
             // if (cardAdded.gameCardID === card.gameCardID) {
@@ -100,7 +99,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         if (index === centerIndex) {
             return 0;
         } else {
-            return shifts * shiftDirection * 7;
+            return shifts * shiftDirection * 4;
         }
     }
 
@@ -108,7 +107,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         const centerIndex = (this.cards.length - 1) / 2;
         const shifts = Math.abs(centerIndex - index);
 
-        const shiftAmount = shifts * 30;
+        const shiftAmount = shifts * 20;
         let newY;
         let baseY;
 
@@ -116,7 +115,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
             baseY = this.y;
             newY = baseY - shiftAmount;
         } else {
-            baseY = this.y - (card.height / 2);
+            baseY = this.y;
             newY = baseY + shiftAmount;
         }
 

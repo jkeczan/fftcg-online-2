@@ -1,8 +1,9 @@
-import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import FFTCGCard from '../cards/fftcg_card';
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 
 export default class ForwardZone extends BaseZone implements ICardGameZone {
     protected cardScale = .7;
+
     constructor(config: IGameZoneConfig) {
         super(config);
     }
@@ -16,6 +17,14 @@ export default class ForwardZone extends BaseZone implements ICardGameZone {
         } else {
             card.rotateCard(0);
         }
+    }
+
+    createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {
+
+    }
+
+    createLabel() {
+
     }
 
     shouldBeShown(): boolean {

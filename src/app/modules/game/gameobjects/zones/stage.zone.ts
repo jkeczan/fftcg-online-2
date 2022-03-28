@@ -1,10 +1,10 @@
-import {BaseZone, IGameZoneConfig} from './base.zone';
-import FFTCGCard from '../cards/fftcg_card';
 import FixWidthButtons from 'phaser3-rex-plugins/templates/ui/fixwidthbuttons/FixWidthButtons';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
-import CPContainer from '../cp_ui';
-import Sprite = Phaser.GameObjects.Sprite;
+import CPContainer from '../../ui/cp_ui';
+import FFTCGCard from '../cards/fftcg_card';
+import {BaseZone, IGameZoneConfig} from './base.zone';
 import GameObject = Phaser.GameObjects.GameObject;
+import Sprite = Phaser.GameObjects.Sprite;
 
 export default class StageZone extends BaseZone {
     private submitImage: Sprite;
@@ -44,6 +44,13 @@ export default class StageZone extends BaseZone {
         this.createButtons();
         this.hideButtons();
 
+    }
+
+
+    createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {
+    }
+
+    createLabel() {
     }
 
     onCardAdded(card: FFTCGCard) {
