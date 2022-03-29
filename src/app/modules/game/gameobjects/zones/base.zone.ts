@@ -1,12 +1,12 @@
-import Zone = Phaser.GameObjects.Zone;
 import Graphics = Phaser.GameObjects.Graphics;
-import Text = Phaser.GameObjects.Text;
-import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
-import CardDraggable from '../cards/card_draggable';
+import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
+import Text = Phaser.GameObjects.Text;
+import Zone = Phaser.GameObjects.Zone;
 import {Scene} from 'phaser';
-import FFTCGCard from '../cards/fftcg_card';
 import GameState from '../../states/game.state';
+import CardDraggable from '../cards/card_draggable';
+import FFTCGCard from '../cards/card_fftcg';
 
 export interface IGameZoneConfig {
     scene: Scene;

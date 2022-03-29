@@ -1,5 +1,5 @@
 import {Scene} from 'phaser';
-import FFTCGCard from '../gameobjects/cards/fftcg_card';
+import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import {BaseZone} from '../gameobjects/zones/base.zone';
 import ZoneManager from './zone.manager';
 

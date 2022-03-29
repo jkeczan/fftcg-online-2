@@ -1,15 +1,15 @@
-import CardDraggable from './card_draggable';
-import {ICardConfig} from './card_base';
+import {Scene} from 'phaser';
 import ShakePosition from 'phaser3-rex-plugins/plugins/shakeposition.js';
+import CardDraggable from './card_draggable';
 
-export default class CardActions extends CardDraggable {
+export default abstract class CardActions extends CardDraggable {
     private _shake: ShakePosition;
     private _tapped: boolean;
     private _halfTapped: boolean;
     private _isHoverActive: boolean;
 
-    constructor(config: ICardConfig) {
-        super(config);
+    constructor(scene: Scene) {
+        super(scene);
     }
 
     tap() {
@@ -37,7 +37,6 @@ export default class CardActions extends CardDraggable {
     }
 
     hideToken() {
-        this.tokenSprite.visible = false;
     }
 
     uninvert() {

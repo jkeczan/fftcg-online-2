@@ -1,5 +1,5 @@
+import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
-import FFTCGCard from '../cards/fftcg_card';
 
 export default class BreakZone extends BaseZone implements ICardGameZone {
     protected cardScale = .5;

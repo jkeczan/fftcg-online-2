@@ -1,4 +1,4 @@
-import FFTCGCard from '../cards/fftcg_card';
+import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 
 export default class ForwardZone extends BaseZone implements ICardGameZone {

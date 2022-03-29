@@ -1,225 +1,182 @@
+export interface GameDeck {
+    cards: Array<GameDeckCard>;
+}
+
+export interface GameDeckCard {
+    serial_number: string;
+    quantity: number;
+}
+
 export default class DeckService {
 
     constructor() {
     }
 
-    getDeck() {
+    getTurksStarterDeck(): GameDeck {
         return {
-            favorites_length: 0,
-            name: 'Locke Storm',
-            format: 'Standard',
-            patreon_status: 'HERO',
-            views: 5,
-            date_submitted: '2020-11-08T04:33:03.714595Z',
-            comments: [],
-            creator_id: 4703099860025344,
-            tournament_info: null,
-            normalized_format: 'standard',
-            favorites: [],
-            datastore_id: 6430661298618368,
             cards: [
                 {
-                    card: {
-                        category: 'IV',
-                        is_ex_burst: false,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Edge',
-                        power: 5000,
-                        rarity: 'Hero',
-                        is_multi_playable: false,
-                        job: 'Ninja',
-                        cost: 2,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '15-045',
-                        element: 'Wind',
-                        type: 'Forward',
-                        elements: [
-                            'Wind'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
+                    serial_number: '15-140S',
                     quantity: 3
                 },
                 {
-                    card: {
-                        category: 'IV',
-                        is_ex_burst: true,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Kain',
-                        power: 8000,
-                        rarity: 'Legend',
-                        is_multi_playable: false,
-                        job: 'Dragoon',
-                        cost: 2,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '15-048',
-                        element: 'Wind',
-                        type: 'Forward',
-                        elements: [
-                            'Wind'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
+                    serial_number: '15-135S',
                     quantity: 3
                 },
                 {
-                    card: {
-                        category: 'II',
-                        is_ex_burst: false,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Chocobo',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
-                        is_multi_playable: false,
-                        job: 'Standard Unit',
-                        cost: 2,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '15-052',
-                        element: 'Wind',
-                        type: 'Backup',
-                        elements: [
-                            'Wind'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
+                    serial_number: '15-137S',
                     quantity: 3
                 },
                 {
-                    card: {
-                        category: 'XII',
-                        is_ex_burst: false,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Filo',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Rare',
-                        is_multi_playable: false,
-                        job: 'Sky Pirate',
-                        cost: 2,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '15-056',
-                        element: 'Wind',
-                        type: 'Backup',
-                        elements: [
-                            'Wind'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
+                    serial_number: '15-138S',
                     quantity: 3
                 },
                 {
-                    card: {
-                        category: 'FFEX',
-                        is_ex_burst: false,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Diabolos',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Hero',
-                        is_multi_playable: false,
-                        job: null,
-                        cost: 1,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '15-053',
-                        element: 'Wind',
-                        type: 'Summon',
-                        elements: [
-                            'Wind'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
+                    serial_number: '11-088R',
                     quantity: 3
                 },
                 {
-                    card: {
-                        category: 'V',
-                        is_ex_burst: false,
-                        abilities: [
-                            'When Nag\'molada enters the field, you may *search* for 1 Monster and add it to your hand.'
-                        ],
-                        name: 'Dragoon',
-                        power: null,
-                        image: 'https://storage.googleapis.com/ffdecks-card-images/10-039C_eg.jpg',
-                        rarity: 'Common',
-                        is_multi_playable: true,
-                        job: 'Dragoon',
-                        cost: 2,
-                        datastore_id: 5708028668018688,
-                        current_price: {
-                            regular_low_price: '0.08',
-                            foil_low_price: '0.15',
-                            regular_market_price: '0.13',
-                            date: '2019-10-28T15:48:09.225000Z',
-                            serial_number: '10-039',
-                            foil_market_price: '0.56'
-                        },
-                        serial_number: '15-058',
-                        element: 'Wind',
-                        type: 'Backup',
-                        elements: [
-                            'Wind'
-                        ],
-                        octgn_id: '7f67ad5b-bb4b-42ba-a065-69aa3626eeca'
-                    },
+                    serial_number: '11-104R',
+                    quantity: 2
+                },
+                {
+                    serial_number: '11-105R',
+                    quantity: 2
+                },
+                {
+                    serial_number: '11-027R',
                     quantity: 3
-                }
-            ],
-            is_public: false,
-            last_edited: '2020-11-22T20:28:36.851160Z',
-            archetype: 'Ice/Wind',
-            creator: 'keczan',
-            description: ''
+                },
+                {
+                    serial_number: '11-040C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '11-042C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '15-136S',
+                    quantity: 3
+                },
+                {
+                    serial_number: '1-138C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '2-108C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '8-095C',
+                    quantity: 3
+                },
+                {
+                    serial_number: '1-040C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '4-027C',
+                    quantity: 2
+                }, {
+                    serial_number: '4-030C',
+                    quantity: 2
+                }, {
+                    serial_number: '8-029C',
+                    quantity: 2
+                }, {
+                    serial_number: '6-102R',
+                    quantity: 2
+                }, {
+                    serial_number: '6-038R',
+                    quantity: 2
+                },
+
+            ]
+        };
+    }
+
+    getAvalanceStarterDeck(): GameDeck {
+        return {
+            cards: [
+                {
+                    serial_number: '15-139S',
+                    quantity: 3
+                },
+                {
+                    serial_number: '15-131S',
+                    quantity: 3
+                },
+                {
+                    serial_number: '15-132S',
+                    quantity: 3
+                },
+                {
+                    serial_number: '15-133S',
+                    quantity: 3
+                },
+                {
+                    serial_number: '15-134S',
+                    quantity: 3
+                },
+                {
+                    serial_number: '15-132S',
+                    quantity: 3
+                },
+                {
+                    serial_number: '9-062H',
+                    quantity: 3
+                },
+                {
+                    serial_number: '1-016C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '10-007H',
+                    quantity: 3
+                },
+                {
+                    serial_number: '10-009C',
+                    quantity: 3
+                },
+                {
+                    serial_number: '1-105C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '5-082C',
+                    quantity: 3
+                },
+                {
+                    serial_number: '8-085C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '9-071C',
+                    quantity: 3
+                },
+                {
+                    serial_number: '1-011C',
+                    quantity: 2
+                },
+                {
+                    serial_number: '2-005C',
+                    quantity: 2
+                }, {
+                    serial_number: '5-017C',
+                    quantity: 2
+                }, {
+                    serial_number: '11-010C',
+                    quantity: 2
+                }, {
+                    serial_number: '6-075R',
+                    quantity: 2
+                }, {
+                    serial_number: '6-017C',
+                    quantity: 2
+                },
+
+            ]
         };
     }
 

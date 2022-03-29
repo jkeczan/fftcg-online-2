@@ -1,6 +1,6 @@
 import {TurnStates} from '../../states/turn.state';
 import CardDraggable from '../cards/card_draggable';
-import FFTCGCard from '../cards/fftcg_card';
+import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import DRAG = Phaser.Input.Events.DRAG;
 import DRAG_END = Phaser.Input.Events.DRAG_END;

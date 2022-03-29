@@ -1,9 +1,10 @@
-import CardBase, {ICardConfig} from './card_base';
-import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
+import {Scene} from 'phaser';
+import CardBase from './card_base';
 import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
+import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
 
 // tslint:disable-next-line:component-class-suffix
-export default class CardDraggable extends CardBase {
+export default abstract class CardDraggable extends CardBase {
     private _originalX: number;
     private _originalY: number;
     private _originalAngle: number;
@@ -11,8 +12,8 @@ export default class CardDraggable extends CardBase {
     private _dragging: boolean;
     private hoveringActive: boolean;
 
-    constructor(config: ICardConfig) {
-        super(config);
+    constructor(scene: Scene) {
+        super(scene);
         this._originalX = this.x;
         this._originalY = this.y;
         this._draggable = true;

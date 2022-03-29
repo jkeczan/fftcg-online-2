@@ -1,7 +1,7 @@
 import FixWidthButtons from 'phaser3-rex-plugins/templates/ui/fixwidthbuttons/FixWidthButtons';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import CPContainer from '../../ui/cp_ui';
-import FFTCGCard from '../cards/fftcg_card';
+import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, IGameZoneConfig} from './base.zone';
 import GameObject = Phaser.GameObjects.GameObject;
 import Sprite = Phaser.GameObjects.Sprite;

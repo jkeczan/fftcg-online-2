@@ -1,6 +1,6 @@
 import {Scene} from 'phaser';
 import {Dialog} from 'phaser3-rex-plugins/templates/ui/ui-components';
-import FFTCGCard from '../gameobjects/cards/fftcg_card';
+import FFTCGCard from '../gameobjects/cards/card_fftcg';
 
 export default class CardModal extends Dialog {
     private cards: Array<FFTCGCard>;

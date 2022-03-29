@@ -1,4 +1,3 @@
-import {ICardConfig} from './card_base';
 import CardActions from './card_actions';
 
 export enum FFTCGCardType {
@@ -26,20 +25,9 @@ export enum FFTCGCardRarity {
     LEGEND = 'Legend'
 }
 
-export interface IFFTCGCardConfig extends ICardConfig {
-    gameCardID: string;
-    id: string;
+export interface IFFTCGCardMetadata {
+    serialNumber: string;
     cost: number;
-    elements: Array<FFTCGCardElement>;
-    cardType: FFTCGCardType;
-    jobs: Array<string>;
-    categories: Array<string>;
-    powerLevel: number;
-    effectText: string;
-    effects: Array<any>;
-    isExBurst: boolean;
-    rarity: string;
-    isMultiPlay: boolean;
 }
 
 export interface IFFTCGCard {
@@ -56,9 +44,8 @@ export interface IFFTCGCard {
     onPutIntoBreak(): boolean;
 }
 
-export default class FFTCGCard extends CardActions implements IFFTCGCard {
+export default abstract class FFTCGCard extends CardActions implements IFFTCGCard {
     private _gameCardID: string;
-    private _id: string;
     private _cost: number;
     private _element: Array<FFTCGCardElement>;
     private _cardType: FFTCGCardType;
@@ -70,15 +57,6 @@ export default class FFTCGCard extends CardActions implements IFFTCGCard {
     private _isExBurst: boolean;
     private _rarity: FFTCGCardRarity;
     private _isMultiPlay: boolean;
-
-    constructor(data: IFFTCGCardConfig) {
-        super(data);
-        this.isExBurst = data.isExBurst;
-        this.gameCardID = data.gameCardID;
-        this.cardType = data.cardType;
-        this.cost = data.cost;
-        this.element = data.elements;
-    }
 
     freeze() {
         this.rotateCard(180);
@@ -106,14 +84,6 @@ export default class FFTCGCard extends CardActions implements IFFTCGCard {
 
     onPutIntoBreak(): boolean {
         return false;
-    }
-
-    get id(): string {
-        return this._id;
-    }
-
-    set id(value: string) {
-        this._id = value;
     }
 
     get cost(): number {

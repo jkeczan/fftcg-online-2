@@ -1,6 +1,5 @@
 import Container = Phaser.GameObjects.Container;
 import GameObject = Phaser.GameObjects.GameObject;
-import FFTCGCard from '../cards/fftcg_card';
 import {IGameZoneConfig} from './base.zone';
 
 export interface IContainerConfig extends IGameZoneConfig {

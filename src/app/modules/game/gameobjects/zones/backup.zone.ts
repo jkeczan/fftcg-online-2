@@ -1,4 +1,4 @@
-import FFTCGCard from '../cards/fftcg_card';
+import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone} from './base.zone';
 
 export default class BackupZone extends BaseZone implements ICardGameZone {
@@ -32,7 +32,7 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
     }
 
     createLabel() {
-        
+
     }
 
     onCardAdded(card: FFTCGCard) {

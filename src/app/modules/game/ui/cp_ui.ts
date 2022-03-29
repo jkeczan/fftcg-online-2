@@ -1,5 +1,5 @@
 import {Scene} from 'phaser';
-import {FFTCGCardElement} from '../gameobjects/cards/fftcg_card';
+import {FFTCGCardElement} from '../gameobjects/cards/card_fftcg';
 import {IGameZoneConfig} from '../gameobjects/zones/base.zone';
 import Container = Phaser.GameObjects.Container;
 import Graphics = Phaser.GameObjects.Graphics;

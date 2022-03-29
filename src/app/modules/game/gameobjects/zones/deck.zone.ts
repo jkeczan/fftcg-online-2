@@ -1,4 +1,4 @@
-import FFTCGCard from '../cards/fftcg_card';
+import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import Shuffle = Phaser.Utils.Array.Shuffle;
 

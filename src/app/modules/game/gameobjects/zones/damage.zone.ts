@@ -1,6 +1,6 @@
-import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import CardDraggable from '../cards/card_draggable';
-import FFTCGCard from '../cards/fftcg_card';
+import FFTCGCard from '../cards/card_fftcg';
+import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 
 export default class DamageZone extends BaseZone implements ICardGameZone {
     constructor(config: IGameZoneConfig) {

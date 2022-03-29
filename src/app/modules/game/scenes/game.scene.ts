@@ -2,9 +2,9 @@ import {uuid4} from '@capacitor/core/dist/esm/util';
 import {Scene} from 'phaser';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import Toast from 'phaser3-rex-plugins/templates/ui/toast/Toast';
-import {v4 as uuidv4} from 'uuid';
 import CardDraggable from '../gameobjects/cards/card_draggable';
-import FFTCGCard from '../gameobjects/cards/fftcg_card';
+import FFTCGCard from '../gameobjects/cards/card_fftcg';
+import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import Player from '../gameobjects/players/player.gameobject';
 import {BaseZone} from '../gameobjects/zones/base.zone';
 import BreakZone from '../gameobjects/zones/break.zone';
@@ -16,7 +16,7 @@ import RemoveFromGameZone from '../gameobjects/zones/remove_from_game.zone';
 import StageZone from '../gameobjects/zones/stage.zone';
 import GameManager from '../managers/game.manager';
 import ZoneManager from '../managers/zone.manager';
-import DeckService from '../services/deck.service';
+import DeckService, {GameDeck} from '../services/deck.service';
 import GameState, {GameStateEvents, GameStates} from '../states/game.state';
 import TurnState, {TurnStateEvents, TurnStates} from '../states/turn.state';
 import GameButton from '../ui/button';
@@ -39,7 +39,7 @@ import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 export default class GameScene extends Scene {
     private background: Sprite;
     private gameManager: GameManager;
-    private deck: any;
+    private deck: GameDeck;
     private deckService: DeckService;
     private cursors: CursorKeys;
     private player: Player;
@@ -54,19 +54,30 @@ export default class GameScene extends Scene {
         super('MainScene');
 
         this.deckService = new DeckService();
-        this.deck = this.deckService.getDeck();
+        this.deck = this.deckService.getTurksStarterDeck();
+
     }
 
     preload() {
         this.gameState = new GameState();
         this.turnState = new TurnState();
 
-        this.load.image('15-045', '../../../assets/game/cards/15-045.jpeg');
-        this.load.image('15-048', '../../../assets/game/cards/15-048.jpeg');
-        this.load.image('15-052', '../../../assets/game/cards/15-052.jpeg');
-        this.load.image('15-053', '../../../assets/game/cards/15-053.jpeg');
-        this.load.image('15-056', '../../../assets/game/cards/15-056.jpeg');
-        this.load.image('15-058', '../../../assets/game/cards/15-058.jpeg');
+        this.load.image('15-135S', '../../../assets/game/cards/opus15/15-135S.jpeg');
+        this.load.image('15-136S', '../../../assets/game/cards/opus15/15-136S.jpeg');
+        this.load.image('15-137S', '../../../assets/game/cards/opus15/15-137S.jpeg');
+        this.load.image('15-138S', '../../../assets/game/cards/opus15/15-138S.jpeg');
+        this.load.image('15-140S', '../../../assets/game/cards/opus15/15-140S.jpeg');
+
+        this.load.image('11-040C', '../../../assets/game/cards/opus11/11-040C.jpeg');
+        this.load.image('11-042C', '../../../assets/game/cards/opus11/11-042C.jpeg');
+        this.load.image('11-088R', '../../../assets/game/cards/opus11/11-088R.jpeg');
+        this.load.image('11-104R', '../../../assets/game/cards/opus11/11-104R.jpeg');
+        this.load.image('11-105R', '../../../assets/game/cards/opus11/11-105R.jpeg');
+        this.load.image('11-127R', '../../../assets/game/cards/opus11/11-127R.jpeg');
+        this.load.image('11-140C', '../../../assets/game/cards/opus11/11-140C.jpeg');
+        this.load.image('11-142C', '../../../assets/game/cards/opus11/11-142C.jpeg');
+
+
         this.load.image('card-back', '../../../assets/game/cards/card_back.jpg');
         this.load.image('background', '../../../assets/background.jpg');
         this.load.image('card_border', '../../../assets/card_border_rpg.png');
@@ -448,33 +459,14 @@ export default class GameScene extends Scene {
     }
 
     async createDeck(deck: DeckZone) {
-        for (const card of this.deck.cards) {
-            for (let i = 0; i < card.quantity; i++) {
-                const newID = uuidv4();
-                const newCard = new FFTCGCard({
-                    gameCardID: newID,
-                    scene: this,
-                    name: `card-${card.card.serial_number}`,
-                    image: card.card.serial_number,
-                    imageBack: 'card-back',
-                    card: 'playerCard',
-                    depth: 5,
-                    id: card.card.serial_number,
-                    cost: card.card.cost,
-                    elements: card.card.elements,
-                    cardType: card.card.type,
-                    jobs: [card.card.job],
-                    categories: [card.card.category],
-                    powerLevel: card.card.power,
-                    effectText: card.card.abilities.join(','),
-                    effects: [],
-                    isExBurst: card.card.is_ex_burst,
-                    rarity: card.card.rarity,
-                    isMultiPlay: card.card.is_multi_playable,
-                });
-
-                newCard.setData('currentZone', 'Deck');
-                deck.addCard(newCard);
+        for (const deckCard of this.deck.cards) {
+            for (let i = 0; i < deckCard.quantity; i++) {
+                // const newCard = new FFTCGCard(deckCard);
+                const newCard = CardFactory.getCard(this, deckCard.serial_number);
+                if (newCard) {
+                    newCard.setData('currentZone', 'Deck');
+                    deck.addCard(newCard);
+                }
             }
         }
     }

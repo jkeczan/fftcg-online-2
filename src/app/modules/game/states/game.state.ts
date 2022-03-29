@@ -1,5 +1,5 @@
 import FSM from 'phaser3-rex-plugins/plugins/fsm.js';
-import FFTCGCard from '../gameobjects/cards/fftcg_card';
+import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import Player from '../gameobjects/players/player.gameobject';
 import GameTurnUI from '../ui/game_turn_ui';
 

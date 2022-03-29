@@ -1,7 +1,7 @@
-import ForwardZone from './forward.zone';
+import FFTCGCard, {FFTCGCardType} from '../cards/card_fftcg';
 import BackupZone from './backup.zone';
 import {BaseZone, IGameZoneConfig} from './base.zone';
-import FFTCGCard, {FFTCGCardType} from '../cards/fftcg_card';
+import ForwardZone from './forward.zone';
 import Graphics = Phaser.GameObjects.Graphics;
 
 

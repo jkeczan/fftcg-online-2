@@ -1,5 +1,5 @@
+import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import {BaseZone} from '../gameobjects/zones/base.zone';
-import FFTCGCard from '../gameobjects/cards/fftcg_card';
 import Container = Phaser.GameObjects.Container;
 
 export default class ZoneManager {
