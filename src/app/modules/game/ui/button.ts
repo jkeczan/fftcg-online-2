@@ -21,13 +21,13 @@ export default class GameButton extends Phaser.GameObjects.Container {
     private downImage: Sprite;
     private label: Text;
 
-    constructor(scene: Scene, x: number, y: number, textures: IGameButtonTextureConfig) {
+    constructor(scene: Scene, x: number, y: number, text: string, textures: IGameButtonTextureConfig) {
         super(scene, x, y);
 
         this.upImage = scene.add.sprite(0, 0, textures.textureUp, textures.frameUp);
         this.overImage = scene.add.sprite(0, 0, textures.textureOver, textures.frameOver);
         this.downImage = scene.add.sprite(0, 0, textures.textureDown, textures.frameDown);
-        this.label = scene.add.text(0, 0, 'Next', {fontFamily: 'Ken Vecotr', fontSize: '25pt'});
+        this.label = scene.add.text(0, 0, text, {fontFamily: 'Ken Vecotr', fontSize: '25pt'});
 
         this.add(this.upImage);
         this.add(this.overImage);

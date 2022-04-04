@@ -19,7 +19,7 @@ export interface IPlayerConfig {
     stagingArea?: StageZone;
 }
 
-export default class Player {
+export default class PlayerBoard {
     constructor(config: IPlayerConfig) {
         this._id = config.id;
         this._hand = config.hand;

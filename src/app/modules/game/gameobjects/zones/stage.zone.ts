@@ -71,8 +71,7 @@ export default class StageZone extends BaseZone {
         });
 
         let depth = 100;
-        for (let c = 0; c < this.cards.length; c++) {
-            const card = this.cards[0];
+        for (const card of this.cards) {
             card.depth = depth;
             depth -= 10;
         }
@@ -148,10 +147,6 @@ export default class StageZone extends BaseZone {
 
         buttons.on('button.click', (button: GameObject, index, pointer, event) => {
             console.log(button, index, pointer, event);
-
-            if (button.name === 'submitButton') {
-                this.gameState.next();
-            }
         });
 
         buttons.on('button.over', (button, index, pointer, event) => {

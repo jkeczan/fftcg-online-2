@@ -1,9 +1,7 @@
-import {TurnStates} from '../../states/turn.state';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 import DRAG = Phaser.Input.Events.DRAG;
-import DRAG_END = Phaser.Input.Events.DRAG_END;
 import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
 import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
 import DROP = Phaser.Input.Events.DROP;
@@ -133,44 +131,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     }
 
     activateDrag() {
-        for (const cardToDrag of this.cards) {
-            cardToDrag.on(DRAG_START, (pointer, card: CardDraggable) => {
-                if (this.gameState.state !== TurnStates.PLAY_A_CARD) {
-                    cardToDrag.setStartDragPosition();
-                    cardToDrag.endHover();
-                }
-            });
 
-            cardToDrag.on(DRAG_ENTER, (pointer, card: CardDraggable, zone: BaseZone) => {
-            });
-
-            cardToDrag.on(DRAG_LEAVE, (pointer, card: CardDraggable, zone: BaseZone) => {
-            });
-
-            cardToDrag.on(DRAG, (pointer, card: CardDraggable, dragX, dragY) => {
-                if (!cardToDrag.draggable) {
-                    return;
-                }
-                cardToDrag.dragging = true;
-                cardToDrag.updateGamePosition(dragX, dragY);
-            });
-
-            cardToDrag.on(DROP, (pointer, card: FFTCGCard) => {
-                if (this.gameState.state !== TurnStates.PLAY_A_CARD) {
-                    this.gameState.cardToPlay = card;
-                    this.gameState.goto(TurnStates.PLAY_A_CARD);
-                }
-            });
-
-            cardToDrag.on(DRAG_END, (pointer, gameObject: CardDraggable, dropped) => {
-                console.log('Drag End');
-                if (!dropped) {
-                    cardToDrag.snapBack();
-                } else {
-                    cardToDrag.dragging = false;
-                }
-            });
-        }
     }
 
     deactivateDrag() {

@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Game} from 'phaser';
-import GameScene from './scenes/game.scene';
 import {MenuController} from '@ionic/angular';
-import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import {Game} from 'phaser';
 import FSMPlugin from 'phaser3-rex-plugins/plugins/fsm-plugin.js';
 import ShakePositionPlugin from 'phaser3-rex-plugins/plugins/shakeposition-plugin.js';
 import ShatterImagePlugin from 'phaser3-rex-plugins/plugins/shatterimage-plugin.js';
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import BootstrapScene from './scenes/bootstrap.scene';
 
 
 @Component({
@@ -23,35 +23,32 @@ export class GamePage implements OnInit {
     }
 
     ngOnInit() {
-
-        this.gameClient = new Phaser.Game({
+        this.gameClient = new Game({
             type: Phaser.AUTO,
-            backgroundColor: '#125555',
-            width: window.screen.width,
-            height: window.screen.height,
-            scene: GameScene,
+            backgroundColor: '#3e3e3e',
+            width: window.innerWidth,
+            height: window.innerHeight,
+            scene: [BootstrapScene],
             parent: 'game-container',
             plugins: {
                 global: [{
                     key: 'rexShakePosition',
                     plugin: ShakePositionPlugin,
                     start: true
-                },
-                    {
-                        key: 'rexShatterImagePlugin',
-                        plugin: ShatterImagePlugin,
-                        start: true
-                    }],
+                }, {
+                    key: 'rexShatterImagePlugin',
+                    plugin: ShatterImagePlugin,
+                    start: true
+                }],
                 scene: [{
                     key: 'rexUI',
                     plugin: RexUIPlugin,
                     mapping: 'rexUI'
-                },
-                    {
-                        key: 'rexFSM',
-                        plugin: FSMPlugin,
-                        start: true
-                    }]
+                }, {
+                    key: 'rexFSM',
+                    plugin: FSMPlugin,
+                    start: true
+                }]
             }
         });
     }

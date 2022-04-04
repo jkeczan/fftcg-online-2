@@ -3,6 +3,7 @@ import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import Sprite = Phaser.GameObjects.Sprite;
 import {Scene} from 'phaser';
+import {IFFTCGCardMetadata} from './card_fftcg';
 
 export interface ICardConfig {
     scene: Scene;
@@ -16,7 +17,7 @@ export interface ICardConfig {
 }
 
 export default abstract class CardBase extends Container {
-    protected abstract _serialNumber: string;
+    protected abstract metadata: IFFTCGCardMetadata;
     private _spriteImage: Sprite;
     private _spriteImageBack: Sprite;
     private _spriteBorder: Sprite;
@@ -33,11 +34,11 @@ export default abstract class CardBase extends Container {
         this.scene.add.existing(this);
     }
 
-    public setupSprites() {
-        // Set Sprites
-        this.spriteImage = new Sprite(this.scene, 0, 0, this.serialNumber);
+    public async setupSprites() {
         this.spriteImageBack = new Sprite(this.scene, 0, 0, 'card-back');
         this.spriteBorder = new Sprite(this.scene, 0, 0, 'card_border');
+        this.add(this.spriteImageBack);
+        this.add(this.spriteBorder);
 
         // Scale Sprites
         this.setCardSpriteScale(this.spriteImageBack);
@@ -48,7 +49,33 @@ export default abstract class CardBase extends Container {
         this.add(this.spriteImageBack);
         this.add(this.spriteBorder);
 
-        this.flipBack();
+        await this.loadCardImage();
+    }
+
+    private async loadCardImage() {
+        return new Promise((resolve, reject) => {
+            if (this.scene.textures.exists(this.metadata.serialNumber)) {
+                this.spriteImage = new Sprite(this.scene, 0, 0, this.metadata.serialNumber);
+                resolve();
+            } else {
+                this.spriteImage = new Sprite(this.scene, 0, 0, 'card-back');
+                const opus = this.metadata.serialNumber.split('-')[0];
+                this.scene.load.image(this.metadata.serialNumber, `assets/game/cards/opus${opus}/${this.metadata.serialNumber}.jpeg`);
+                this.scene.load.once(Phaser.Loader.Events.COMPLETE, () => {
+                    // texture loaded so use instead of the placeholder
+                    this.spriteImage.setTexture(this.metadata.serialNumber);
+                    // Scale Sprites
+                    this.setCardSpriteScale(this.spriteImageBack);
+                    this.setCardSpriteScale(this.spriteImage);
+                    this.setCardSpriteScale(this.spriteBorder);
+
+                    this.add(this.spriteImage);
+                    resolve();
+                });
+
+                this.scene.load.start();
+            }
+        });
     }
 
     private setCardSpriteScale(sprite: Sprite) {
@@ -210,13 +237,5 @@ export default abstract class CardBase extends Container {
 
     set exBurstEmitter(value: Phaser.GameObjects.Particles.ParticleEmitter) {
         this._exBurstEmitter = value;
-    }
-
-    get serialNumber(): string {
-        return this._serialNumber;
-    }
-
-    set serialNumber(value: string) {
-        this._serialNumber = value;
     }
 }

@@ -88,7 +88,7 @@ export class GameTurn extends Container {
 
 export interface IGameTurnUIConfig extends IGameZoneConfig {
     playerID: string;
-    turnState: TurnState;
+    turnState?: TurnState;
 }
 
 export default class GameTurnUI extends BorderContainer {
@@ -209,51 +209,51 @@ export default class GameTurnUI extends BorderContainer {
         this.layoutPhases();
         this.scene.add.existing(this);
 
-        this.turnState.on('statechange', (state: TurnState) => {
-            if (this.playerID === state.player.id) {
-                switch (state.state) {
-                    case TurnStates.ACTIVE:
-                        this.activePhase.showIndicator();
-                        break;
-                    case TurnStates.DRAW:
-                        this.drawPhase.showIndicator();
-                        break;
-                    case TurnStates.MAIN_1:
-                        this.mainPhase1.showIndicator();
-                        break;
-                    case TurnStates.ATTACK:
-                        this.attackPhase.showIndicator();
-                        break;
-                    case TurnStates.MAIN_2:
-                        this.mainPhase2.showIndicator();
-                        break;
-                    case TurnStates.END:
-                        this.endPhase.showIndicator();
-                        break;
-                }
-
-                switch (state.prevState) {
-                    case TurnStates.ACTIVE:
-                        this.activePhase.hideIndicator();
-                        break;
-                    case TurnStates.DRAW:
-                        this.drawPhase.hideIndicator();
-                        break;
-                    case TurnStates.MAIN_1:
-                        this.mainPhase1.hideIndicator();
-                        break;
-                    case TurnStates.ATTACK:
-                        this.attackPhase.hideIndicator();
-                        break;
-                    case TurnStates.MAIN_2:
-                        this.mainPhase2.hideIndicator();
-                        break;
-                    case TurnStates.END:
-                        this.endPhase.hideIndicator();
-                        break;
-                }
-            }
-        });
+        // this.turnState.on('statechange', (state: TurnState) => {
+        //     if (this.playerID === state.player.id) {
+        //         switch (state.state) {
+        //             case TurnStates.ACTIVE:
+        //                 this.activePhase.showIndicator();
+        //                 break;
+        //             case TurnStates.DRAW:
+        //                 this.drawPhase.showIndicator();
+        //                 break;
+        //             case TurnStates.MAIN_1:
+        //                 this.mainPhase1.showIndicator();
+        //                 break;
+        //             case TurnStates.ATTACK:
+        //                 this.attackPhase.showIndicator();
+        //                 break;
+        //             case TurnStates.MAIN_2:
+        //                 this.mainPhase2.showIndicator();
+        //                 break;
+        //             case TurnStates.END:
+        //                 this.endPhase.showIndicator();
+        //                 break;
+        //         }
+        //
+        //         switch (state.prevState) {
+        //             case TurnStates.ACTIVE:
+        //                 this.activePhase.hideIndicator();
+        //                 break;
+        //             case TurnStates.DRAW:
+        //                 this.drawPhase.hideIndicator();
+        //                 break;
+        //             case TurnStates.MAIN_1:
+        //                 this.mainPhase1.hideIndicator();
+        //                 break;
+        //             case TurnStates.ATTACK:
+        //                 this.attackPhase.hideIndicator();
+        //                 break;
+        //             case TurnStates.MAIN_2:
+        //                 this.mainPhase2.hideIndicator();
+        //                 break;
+        //             case TurnStates.END:
+        //                 this.endPhase.hideIndicator();
+        //                 break;
+        //         }
+        //     }
+        // });
     }
 
     layoutPhases() {

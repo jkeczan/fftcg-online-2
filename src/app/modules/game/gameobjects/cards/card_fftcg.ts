@@ -22,12 +22,26 @@ export enum FFTCGCardRarity {
     COMMON = 'Common',
     RARE = 'Rare',
     HERO = 'Hero',
-    LEGEND = 'Legend'
+    LEGEND = 'Legend',
+    STARTER = 'Starter'
 }
 
 export interface IFFTCGCardMetadata {
     serialNumber: string;
     cost: number;
+    elements: FFTCGCardElement[];
+    cardType: FFTCGCardType;
+    jobs: Array<string>;
+    categories: Array<string>;
+    effectText: string;
+    effects: Array<any>;
+    isExBurst: boolean;
+    rarity: FFTCGCardRarity;
+    isMultiPlay: boolean;
+}
+
+export interface IFFTCGForwardMetadata extends IFFTCGCardMetadata {
+    powerLevel: number;
 }
 
 export interface IFFTCGCard {
