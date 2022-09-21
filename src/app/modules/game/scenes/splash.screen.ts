@@ -22,7 +22,7 @@ export default class SplashScreen extends Scene {
         this.logo.scale = 2;
 
         this.server = new Server();
-        this.server.room = await this.server.client.joinOrCreate('Cornelia');
+        this.server.connectedRoom = await this.server.client.joinOrCreate('Cornelia');
 
     }
 

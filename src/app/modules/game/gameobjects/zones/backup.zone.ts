@@ -54,3 +54,29 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
         return false;
     }
 }
+
+Phaser.GameObjects.GameObjectFactory.register(
+    'backupZone',
+    function (this: Phaser.GameObjects.GameObjectFactory, name: string,
+              x: number,
+              y: number,
+              width: number,
+              height: number,
+              borderColor: number,
+              opponent: boolean) {
+        const zone = new BackupZone({
+            name,
+            x,
+            y,
+            width,
+            height,
+            borderColor,
+            opponent
+        })
+
+        this.updateList.add(zone);
+        this.displayList.add(zone);
+
+        return zone
+    }
+);

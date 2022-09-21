@@ -1,3 +1,4 @@
+import {CardState} from '../../server/states/CardState';
 import CardActions from './card_actions';
 
 export enum FFTCGCardType {
@@ -44,21 +45,7 @@ export interface IFFTCGForwardMetadata extends IFFTCGCardMetadata {
     powerLevel: number;
 }
 
-export interface IFFTCGCard {
-    generateCP(): number;
-
-    canGenerateCP(): boolean;
-
-    requiredCP(): number;
-
-    onPlay(): boolean;
-
-    onBreak(): boolean;
-
-    onPutIntoBreak(): boolean;
-}
-
-export default abstract class FFTCGCard extends CardActions implements IFFTCGCard {
+export default abstract class FFTCGCard extends CardActions {
     private _gameCardID: string;
     private _cost: number;
     private _element: Array<FFTCGCardElement>;
@@ -71,34 +58,8 @@ export default abstract class FFTCGCard extends CardActions implements IFFTCGCar
     private _isExBurst: boolean;
     private _rarity: FFTCGCardRarity;
     private _isMultiPlay: boolean;
+    public cardState: CardState;
 
-    freeze() {
-        this.rotateCard(180);
-    }
-
-    canGenerateCP(): boolean {
-        return true;
-    }
-
-    generateCP(): number {
-        return 2;
-    }
-
-    requiredCP(): number {
-        return this._cost;
-    }
-
-    onBreak(): boolean {
-        return false;
-    }
-
-    onPlay(): boolean {
-        return false;
-    }
-
-    onPutIntoBreak(): boolean {
-        return false;
-    }
 
     get cost(): number {
         return this._cost;

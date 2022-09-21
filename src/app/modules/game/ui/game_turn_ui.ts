@@ -6,10 +6,12 @@ import Button from 'phaser3-rex-plugins/plugins/input/button/Button';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import BorderContainer from '../gameobjects/border_container';
 import {IGameZoneConfig} from '../gameobjects/zones/base.zone';
-import TurnState, {TurnStates} from '../states/turn.state';
+import {TurnPhases} from '../server/messages/game_messages';
+import {TurnState, TurnStates} from '../states/turn.state';
 
 export interface IGameTurnConfig {
     scene: Scene;
+    id: TurnPhases;
     x: number;
     y: number;
     name: string;
@@ -20,8 +22,10 @@ export interface IGameTurnConfig {
 }
 
 export class GameTurn extends Container {
+    public id: TurnPhases;
+
     constructor(config: IGameTurnConfig) {
-        const {scene, name, activeFrame, inactiveFrame, activeTexture, inactiveTexture} = config;
+        const {scene, id, name, activeFrame, inactiveFrame, activeTexture, inactiveTexture} = config;
         const label = new Text(scene,
             0,
             0,
@@ -31,12 +35,13 @@ export class GameTurn extends Container {
         const activeSprite = new Sprite(scene, 0, 0, activeTexture, activeFrame);
 
         super(scene, 0, 0, [label, inactiveSprite, activeSprite]);
-
+        this.id = id;
         this._label = label;
         this.inactiveSprite = inactiveSprite;
         this.activeSprite = activeSprite;
         this.createLabel();
         this.hideIndicator();
+
     }
 
     private _label: Text;
@@ -84,6 +89,10 @@ export class GameTurn extends Container {
         this.activeSprite.visible = false;
         this.inactiveSprite.visible = true;
     }
+
+    get isVisible() {
+        return this.activeSprite.visible;
+    }
 }
 
 export interface IGameTurnUIConfig extends IGameZoneConfig {
@@ -105,16 +114,19 @@ export default class GameTurnUI extends BorderContainer {
         const submitImage = new Sprite(scene, 0, 0, 'blueUI', 'blue_button00.png');
         const activePhase = new GameTurn({
             scene,
+            id: TurnPhases.ACTIVE,
             x,
             y,
             name: TurnStates.ACTIVE,
             inactiveTexture: 'greyUI',
             inactiveFrame: 'grey_box.png',
             activeTexture: 'blueUI',
-            activeFrame: 'blue_button10.png'
+            activeFrame: 'blue_button10.png',
+
         });
         const drawPhase = new GameTurn({
             scene,
+            id: TurnPhases.DRAW,
             x,
             y,
             name: TurnStates.DRAW,
@@ -122,9 +134,11 @@ export default class GameTurnUI extends BorderContainer {
             inactiveFrame: 'grey_box.png',
             activeTexture: 'blueUI',
             activeFrame: 'blue_button10.png'
+
         });
         const mainPhase1 = new GameTurn({
             scene,
+            id: TurnPhases.MAIN_1,
             x,
             y,
             name: TurnStates.MAIN_1,
@@ -135,6 +149,7 @@ export default class GameTurnUI extends BorderContainer {
         });
         const attackPhase = new GameTurn({
             scene,
+            id: TurnPhases.ATTACK,
             x,
             y,
             name: TurnStates.ATTACK,
@@ -145,6 +160,7 @@ export default class GameTurnUI extends BorderContainer {
         });
         const mainPhase2 = new GameTurn({
             scene,
+            id: TurnPhases.MAIN_2,
             x,
             y,
             name: TurnStates.MAIN_2,
@@ -155,6 +171,7 @@ export default class GameTurnUI extends BorderContainer {
         });
         const endPhase = new GameTurn({
             scene,
+            id: TurnPhases.END,
             x,
             y,
             name: TurnStates.END,
@@ -208,52 +225,22 @@ export default class GameTurnUI extends BorderContainer {
 
         this.layoutPhases();
         this.scene.add.existing(this);
+    }
 
-        // this.turnState.on('statechange', (state: TurnState) => {
-        //     if (this.playerID === state.player.id) {
-        //         switch (state.state) {
-        //             case TurnStates.ACTIVE:
-        //                 this.activePhase.showIndicator();
-        //                 break;
-        //             case TurnStates.DRAW:
-        //                 this.drawPhase.showIndicator();
-        //                 break;
-        //             case TurnStates.MAIN_1:
-        //                 this.mainPhase1.showIndicator();
-        //                 break;
-        //             case TurnStates.ATTACK:
-        //                 this.attackPhase.showIndicator();
-        //                 break;
-        //             case TurnStates.MAIN_2:
-        //                 this.mainPhase2.showIndicator();
-        //                 break;
-        //             case TurnStates.END:
-        //                 this.endPhase.showIndicator();
-        //                 break;
-        //         }
-        //
-        //         switch (state.prevState) {
-        //             case TurnStates.ACTIVE:
-        //                 this.activePhase.hideIndicator();
-        //                 break;
-        //             case TurnStates.DRAW:
-        //                 this.drawPhase.hideIndicator();
-        //                 break;
-        //             case TurnStates.MAIN_1:
-        //                 this.mainPhase1.hideIndicator();
-        //                 break;
-        //             case TurnStates.ATTACK:
-        //                 this.attackPhase.hideIndicator();
-        //                 break;
-        //             case TurnStates.MAIN_2:
-        //                 this.mainPhase2.hideIndicator();
-        //                 break;
-        //             case TurnStates.END:
-        //                 this.endPhase.hideIndicator();
-        //                 break;
-        //         }
-        //     }
-        // });
+    activatePhase(turnPhase: TurnPhases) {
+        for (const phaseUI of this.phases) {
+            if (phaseUI.id === turnPhase) {
+                phaseUI.showIndicator()
+            }
+        }
+    }
+
+    deactivatePhase(turnPhase: TurnPhases) {
+        for (const phaseUI of this.phases) {
+            if (phaseUI.id === turnPhase) {
+                phaseUI.hideIndicator()
+            }
+        }
     }
 
     layoutPhases() {

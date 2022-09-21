@@ -3,12 +3,12 @@ import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import Text = Phaser.GameObjects.Text;
 import Zone = Phaser.GameObjects.Zone;
-import {Scene} from 'phaser';
+import GameScene from '../../scenes/game.scene';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 
 export interface IGameZoneConfig {
-    scene: Scene;
+    scene: GameScene;
     name: string;
     x: number;
     y: number;
@@ -41,6 +41,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     private _borderParticleEffect: ParticleEmitter;
     protected cardScale = 1;
     protected inverted: boolean;
+    public scene: GameScene;
 
     protected constructor(config: IGameZoneConfig) {
         super(config.scene, config.x, config.y, config.width, config.height);
@@ -53,6 +54,10 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.createLabel();
 
         this.inverted = config.opponent;
+    }
+
+    activateServerHandler() {
+        
     }
 
     createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {
@@ -121,6 +126,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     onCardAdded(card: FFTCGCard) {
+        console.log('align base cards');
         this.alignCardsInZone(card);
         this.updateCardScale(card);
         this.orientCard(card);
@@ -150,6 +156,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     xTranslateOnDrop(card: CardDraggable, index: number) {
+        if (!card) return;
         const centerIndex = (this.cards.length - 1) / 2;
         const shiftDirection = index < centerIndex ? -1 : 1;
         const shifts = Math.abs(centerIndex - index);
@@ -157,6 +164,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     yTranslateOnDrop(card: CardDraggable, index: number) {
+        if (!card) return;
         return this.y;
     }
 
@@ -209,7 +217,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     shakeCards() {
-       
+
     }
 
     stopShaking() {

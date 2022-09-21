@@ -12,16 +12,6 @@ export default abstract class CardDraggable extends CardBase {
     private _dragging: boolean;
     private hoveringActive: boolean;
 
-    constructor(scene: Scene) {
-        super(scene);
-        this._originalX = this.x;
-        this._originalY = this.y;
-        this._draggable = true;
-        this._dragging = false;
-        this.setInteractive();
-        this.scene.input.setDraggable(this);
-    }
-
     startHover() {
         if (!this.hoveringActive) {
             this.hoveringActive = true;

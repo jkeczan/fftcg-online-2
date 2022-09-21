@@ -53,7 +53,7 @@ export enum TurnStateEvents {
     STATE_CHANGE = 'statechange'
 }
 
-export default class TurnState extends FSM {
+export class TurnState extends FSM {
     private _player: Player;
     private lastStateChange: Date;
 

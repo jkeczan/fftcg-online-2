@@ -14,15 +14,20 @@ export default class CardModal extends Dialog {
 
     addCards(cards: FFTCGCard[]) {
         this.cards = this.cards.concat(cards);
+
+        this.layoutCards();
+        this.layout();
     }
 
     layoutCards() {
         for (let c = 0; c < this.cards.length; c++) {
             const card = this.cards[c];
+            card.x = this.scene.cameras.main.width / 2;
+            card.y = this.scene.cameras.main.height / 2;
             card.x = this.xTranslate(card, c);
             card.y = this.yTranslate(card, c);
             card.angle = this.angleTranslate(card, c);
-            card.setCardScale(1.8);
+            card.setCardScale(0.5);
             card.flipForward();
             card.depth = c + 1;
         }

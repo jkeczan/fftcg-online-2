@@ -32,6 +32,7 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
     }
 
     addCards(cards: FFTCGCard[], position: 'top' | 'bottom') {
+        console.log('add cards')
         for (const card of cards) {
             if (position === 'bottom') {
                 this.putCardOnBottom(card);
@@ -42,12 +43,14 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
     }
 
     putCardOnBottom(card) {
+        console.log('on bottom')
         const cards = [card];
         this.cards = cards.concat(this.cards);
         this.onCardAdded(card);
     }
 
     putCardOnTop(card) {
+        console.log('on top')
         this.cards.push(card);
         this.onCardAdded(card);
     }
@@ -63,10 +66,11 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone() {
+        console.log('align decks cards');
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
-            card.x = this.x + (i + 2);
-            card.y = this.y + (i + 2);
+            card.x = this.x
+            card.y = this.y
         }
     }
 

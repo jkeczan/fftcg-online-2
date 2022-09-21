@@ -1,11 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MenuController} from '@ionic/angular';
 import {Game} from 'phaser';
 import FSMPlugin from 'phaser3-rex-plugins/plugins/fsm-plugin.js';
+import OutlinePipelinePlugin from 'phaser3-rex-plugins/plugins/outlinepipeline-plugin';
 import ShakePositionPlugin from 'phaser3-rex-plugins/plugins/shakeposition-plugin.js';
 import ShatterImagePlugin from 'phaser3-rex-plugins/plugins/shatterimage-plugin.js';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import BootstrapScene from './scenes/bootstrap.scene';
+import ChooseDeckScene from './scenes/choose-deck.scene';
+import GameScene from './scenes/game.scene';
+import {GameEcsScene} from './scenes/game_ecs.scene';
+import TestRoomScene from './scenes/test-room.scene';
 
 
 @Component({
@@ -18,17 +22,17 @@ export class GamePage implements OnInit {
     @ViewChild('#game-container')
     private gameContainer: HTMLCanvasElement;
 
-    constructor(private menuController: MenuController) {
+    constructor() {
 
     }
 
     ngOnInit() {
         this.gameClient = new Game({
-            type: Phaser.AUTO,
-            backgroundColor: '#3e3e3e',
-            width: window.innerWidth,
-            height: window.innerHeight,
-            scene: [BootstrapScene],
+            type: Phaser.WEBGL,
+            backgroundColor: '#000000',
+            width: 1920,
+            height: 1080,
+            scene: [BootstrapScene, ChooseDeckScene, GameEcsScene, TestRoomScene],
             parent: 'game-container',
             plugins: {
                 global: [{
@@ -38,6 +42,10 @@ export class GamePage implements OnInit {
                 }, {
                     key: 'rexShatterImagePlugin',
                     plugin: ShatterImagePlugin,
+                    start: true
+                }, {
+                    key: 'rexOutlinePipeline',
+                    plugin: OutlinePipelinePlugin,
                     start: true
                 }],
                 scene: [{
@@ -54,7 +62,7 @@ export class GamePage implements OnInit {
     }
 
     async toggleMenu() {
-        await this.menuController.close('side-menu');
+        // await this.menuController.close('side-menu');
         // await this.menuController.toggle('side-menu');
     }
 

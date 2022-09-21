@@ -15,6 +15,11 @@ export class CorneliaRoomState extends Schema {
     @type("int8") public gamePhase!: number;
     @type("int16") public winningPlayer!: number;
     @type("string") public cardToPlay!: string;
+    @type("int8") public playersReady!: number;
+    @type("int8") public gameSceneLoaded!: number;
+    @type("boolean") public dicedRolled!: boolean;
+    @type("string") public playerGoingFirst!: string;
+    @type("boolean") public isFirstTurn!: boolean;
     @type(GameTurn) public turn: GameTurn = new GameTurn();
     @type({ map: PlayerState }) public players: MapSchema<PlayerState> = new MapSchema<PlayerState>();
 }

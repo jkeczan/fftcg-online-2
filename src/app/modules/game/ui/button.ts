@@ -69,4 +69,8 @@ export default class GameButton extends Phaser.GameObjects.Container {
 
         scene.add.existing(this);
     }
+
+    setText(text: string) {
+        this.label.text = text;
+    }
 }

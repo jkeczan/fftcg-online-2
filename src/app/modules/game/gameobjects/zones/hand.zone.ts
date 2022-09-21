@@ -1,3 +1,4 @@
+import CubicBeizerTween from '../../animations/cubic_beizer.tween';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
@@ -8,7 +9,7 @@ import DROP = Phaser.Input.Events.DROP;
 import DRAG_START = Phaser.Physics.Matter.Events.DRAG_START;
 
 export default class HandZone extends BaseZone implements ICardGameZone {
-    protected cardScale = 1.1;
+    protected cardScale = 0.9;
 
     constructor(config: IGameZoneConfig) {
         super(config);
@@ -22,41 +23,35 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         return false;
     }
 
-    alignCardsInZone(cardAdded: FFTCGCard) {
+    async alignCardsInZone(cardAdded: FFTCGCard) {
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
-            // if (cardAdded.gameCardID === card.gameCardID) {
-            //     const path = {t: 0, vec: new Phaser.Math.Vector2()};
-            //
-            //     const startingPoint = new Phaser.Math.Vector2(card.x, card.y);
-            //     const middleEndingPoint = new Phaser.Math.Vector2(this.scene.cameras.main.width / 2, this.scene.cameras.main.height / 2);
-            //     const endingPoint = new Phaser.Math.Vector2(this.xTranslateOnDrop(card, i), this.yTranslateOnDrop(card, i));
-            //
-            //     const beizerCurveTween = new CubicBeizerTween({
-            //         scene: this.scene,
-            //         startingPoint,
-            //         middleEndingPoint,
-            //         endingPoint,
-            //         target: card,
-            //     });
-            //
-            //     beizerCurveTween.play();
-            // } else {
+            const path = {t: 0, vec: new Phaser.Math.Vector2()};
 
-            this.scene.add.tween({
-                targets: [card],
-                duration: 250,
-                ease: 'Cubic',
-                x: this.xTranslateOnDrop(card, i),
-                y: this.yTranslateOnDrop(card, i),
-                angle: this.angleTranslateOnDrop(card, i),
-                onComplete: () => {
-                    card.setStartDragPosition();
-                }
+            console.log('Card to Align in Hand: ', card, i)
+
+            const startingPoint = new Phaser.Math.Vector2(card.x, card.y);
+            const middleEndingPoint = new Phaser.Math.Vector2(this.scene.cameras.main.width / 2, this.scene.cameras.main.height / 2);
+            const endingPoint = new Phaser.Math.Vector2(this.xTranslateOnDrop(card, i), this.yTranslateOnDrop(card, i));
+
+            const beizerCurveTween = new CubicBeizerTween({
+                scene: this.scene,
+                startingPoint,
+                middleEndingPoint,
+                endingPoint,
+                target: card,
             });
-            // }
+            beizerCurveTween.play();
+            await this.timeout();
         }
+    }
 
+    timeout() {
+        return new Promise((resolve, reject) => {
+            this.scene.time.delayedCall(800, () => {
+                resolve();
+            })
+        })
     }
 
     onCardAdded(card: FFTCGCard) {

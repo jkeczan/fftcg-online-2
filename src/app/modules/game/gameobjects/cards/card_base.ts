@@ -24,7 +24,7 @@ export default abstract class CardBase extends Container {
     private _particleEmitterManager: ParticleEmitterManager;
     private _exBurstEmitter: ParticleEmitter;
 
-    constructor(scene: Scene) {
+    protected constructor(scene: Scene) {
         super(scene);
 
         this.scene = scene;
@@ -35,41 +35,38 @@ export default abstract class CardBase extends Container {
     }
 
     public async setupSprites() {
+        await this.loadCardImage();
+
         this.spriteImageBack = new Sprite(this.scene, 0, 0, 'card-back');
         this.spriteBorder = new Sprite(this.scene, 0, 0, 'card_border');
+
         this.add(this.spriteImageBack);
         this.add(this.spriteBorder);
 
         // Scale Sprites
         this.setCardSpriteScale(this.spriteImageBack);
-        this.setCardSpriteScale(this.spriteImage);
         this.setCardSpriteScale(this.spriteBorder);
 
-        this.add(this.spriteImage);
         this.add(this.spriteImageBack);
         this.add(this.spriteBorder);
 
-        await this.loadCardImage();
     }
 
     private async loadCardImage() {
         return new Promise((resolve, reject) => {
             if (this.scene.textures.exists(this.metadata.serialNumber)) {
                 this.spriteImage = new Sprite(this.scene, 0, 0, this.metadata.serialNumber);
-                resolve();
             } else {
                 this.spriteImage = new Sprite(this.scene, 0, 0, 'card-back');
                 const opus = this.metadata.serialNumber.split('-')[0];
                 this.scene.load.image(this.metadata.serialNumber, `assets/game/cards/opus${opus}/${this.metadata.serialNumber}.jpeg`);
                 this.scene.load.once(Phaser.Loader.Events.COMPLETE, () => {
-                    // texture loaded so use instead of the placeholder
                     this.spriteImage.setTexture(this.metadata.serialNumber);
-                    // Scale Sprites
+                    this.add(this.spriteImage);
+
                     this.setCardSpriteScale(this.spriteImageBack);
                     this.setCardSpriteScale(this.spriteImage);
                     this.setCardSpriteScale(this.spriteBorder);
-
-                    this.add(this.spriteImage);
                     resolve();
                 });
 
@@ -79,13 +76,13 @@ export default abstract class CardBase extends Container {
     }
 
     private setCardSpriteScale(sprite: Sprite) {
-        if (sprite.width > this.width) {
+        if (sprite?.width > this.width) {
             sprite.setScale(
                 1 - ((sprite.width - this.width) / sprite.width),
                 1 - ((sprite.height - this.height) / sprite.height)
             );
         } else {
-            sprite.setScale(
+            sprite?.setScale(
                 1 + ((this.width - sprite.width) / this.width),
                 1 + ((this.height - sprite.height) / this.height)
             );
@@ -112,6 +109,7 @@ export default abstract class CardBase extends Container {
     }
 
     flipForward() {
+        console.log('Flip Forward');
         this.spriteImage.visible = true;
         this.spriteBorder.visible = true;
         this.spriteImageBack.visible = false;

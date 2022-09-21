@@ -64,7 +64,7 @@ export default class CubicBeizerTween {
             this.timeline.add({
                 targets: path2,
                 t: 1,
-                delay: 1500,
+                delay: 50,
                 ease: 'Sine.easeInOut',
                 duration: 500,
                 onUpdate: (tween2, target2: any) => {

@@ -1,3 +1,4 @@
+import CardBase from './card_base';
 import CardDraggable from './card_draggable';
 
 export default abstract class CardActions extends CardDraggable {
