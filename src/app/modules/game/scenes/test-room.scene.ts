@@ -66,6 +66,10 @@ export default class TestRoomScene extends Scene {
             })
         }).setOrigin(0, 0).layout();
 
+
+        t
+
+
         this.add.text(5, 5, 'Commands').setOrigin(0);
 
         this.server.room.onStateChange(async (state: CorneliaRoomState) => {
