@@ -55,12 +55,16 @@ export default abstract class CardBase extends Container {
     private async loadCardImage() {
         return new Promise((resolve, reject) => {
             if (this.scene.textures.exists(this.metadata.serialNumber)) {
+                console.log('Card Found');
                 this.spriteImage = new Sprite(this.scene, 0, 0, this.metadata.serialNumber);
+                resolve(true);
             } else {
+                console.log('Card Not Found');
                 this.spriteImage = new Sprite(this.scene, 0, 0, 'card-back');
                 const opus = this.metadata.serialNumber.split('-')[0];
                 this.scene.load.image(this.metadata.serialNumber, `assets/game/cards/opus${opus}/${this.metadata.serialNumber}.jpeg`);
                 this.scene.load.once(Phaser.Loader.Events.COMPLETE, () => {
+                    console.log('Card Loaded');
                     this.spriteImage.setTexture(this.metadata.serialNumber);
                     this.add(this.spriteImage);
 
@@ -69,7 +73,10 @@ export default abstract class CardBase extends Container {
                     this.setCardSpriteScale(this.spriteBorder);
                     resolve(true);
                 });
-
+                this.scene.load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, (err) => {
+                    console.log(err);
+                    reject(err);
+                });
                 this.scene.load.start();
             }
         });

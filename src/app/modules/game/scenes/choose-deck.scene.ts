@@ -100,8 +100,12 @@ export default class ChooseDeckScene extends Scene {
             this.server.room.send(GameMessages.PlayerConfirmsHand);
             this.nextButton.off(Phaser.Input.Events.GAMEOBJECT_POINTER_UP);
             this.nextButton.setText('Waiting on Other Player');
-            this.scene.start('GameScene', {server: this.server})
-        })
+
+            this.time.delayedCall(1000, () => {
+                this.scene.start('GameScene', {server: this.server});
+
+            });
+        });
 
     }
 

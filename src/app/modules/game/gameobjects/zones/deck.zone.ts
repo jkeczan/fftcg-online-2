@@ -39,6 +39,8 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
             } else if (position === 'top') {
                 this.putCardOnTop(card);
             }
+
+            this.onCardAdded(card);
         }
     }
 
@@ -46,13 +48,11 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
         console.log('on bottom')
         const cards = [card];
         this.cards = cards.concat(this.cards);
-        this.onCardAdded(card);
     }
 
     putCardOnTop(card) {
         console.log('on top')
         this.cards.push(card);
-        this.onCardAdded(card);
     }
 
     drawCard(numberOfCards: number = 1): FFTCGCard[] {
@@ -66,7 +66,8 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
     }
 
     alignCardsInZone() {
-        console.log('align decks cards');
+        console.log('X, Y', this.x, this.y)
+        console.log('Cards to align: ', this.cards.length);
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
             card.x = this.x
@@ -75,7 +76,7 @@ export default class DeckZone extends BaseZone implements ICardGameZone {
     }
 
     shuffle() {
-        Shuffle(this.cards);
+        this.cards = Shuffle(this.cards);
     }
 
     shouldBeShown(): boolean {

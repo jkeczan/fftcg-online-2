@@ -47,13 +47,13 @@ export default class CardFactory {
     };
 
 
-    static getCard(scene: Scene, serialNumber: string, cardState?: CardState): FFTCGCard {
+    static async getCard(scene: Scene, serialNumber: string, cardState?: CardState): Promise<FFTCGCard> {
         const clazz = this.SERIAL_MAP[serialNumber];
         if (clazz) {
             const type: (new (scene: Scene) => FFTCGCard) = clazz;
             const card = this.factory(type, scene);
             card.cardState = cardState;
-            card.setupSprites();
+            await card.setupSprites();
             return card;
         } else {
             console.log('No card found for serial ', serialNumber);

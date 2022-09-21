@@ -23,29 +23,6 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         return false;
     }
 
-    async alignCardsInZone(cardAdded: FFTCGCard) {
-        for (let i = 0; i < this.cards.length; i++) {
-            const card = this.cards[i];
-            const path = {t: 0, vec: new Phaser.Math.Vector2()};
-
-            console.log('Card to Align in Hand: ', card, i)
-
-            const startingPoint = new Phaser.Math.Vector2(card.x, card.y);
-            const middleEndingPoint = new Phaser.Math.Vector2(this.scene.cameras.main.width / 2, this.scene.cameras.main.height / 2);
-            const endingPoint = new Phaser.Math.Vector2(this.xTranslateOnDrop(card, i), this.yTranslateOnDrop(card, i));
-
-            const beizerCurveTween = new CubicBeizerTween({
-                scene: this.scene,
-                startingPoint,
-                middleEndingPoint,
-                endingPoint,
-                target: card,
-            });
-            beizerCurveTween.play();
-            await this.timeout();
-        }
-    }
-
     timeout() {
         return new Promise((resolve, reject) => {
             this.scene.time.delayedCall(800, () => {
