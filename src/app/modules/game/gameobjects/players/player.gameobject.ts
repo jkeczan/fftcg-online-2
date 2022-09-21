@@ -1,3 +1,4 @@
+import GameScene from '../../scenes/game.scene';
 import GameTurnUI from '../../ui/game_turn_ui';
 import BreakZone from '../zones/break.zone';
 import DamageZone from '../zones/damage.zone';
@@ -9,31 +10,121 @@ import StageZone from '../zones/stage.zone';
 
 export interface IPlayerConfig {
     id: string;
-    hand?: HandZone;
-    damageZone?: DamageZone;
-    deck?: DeckZone;
-    breakZone?: BreakZone;
-    field?: PlayerFieldZone;
-    removedFromGame?: RemoveFromGameZone;
-    turnUI?: GameTurnUI;
-    stagingArea?: StageZone;
+    scene: GameScene;
+    opponent: boolean;
+    boardWidth: number;
+    boardHeight: number;
+    zoneWidth: number;
+    zoneHeight: number;
+    zoneSpacing: number;
 }
 
 export default class PlayerBoard {
+    private _scene: GameScene;
+    private _id: string;
+    private _handZone: HandZone;
+    private _deckZone: DeckZone;
+    private _breakZone: BreakZone;
+    private _removedFromGameZone;
+    private _damageZone: DamageZone;
+    private _fieldZone: PlayerFieldZone;
+    private _turnPhaseUI: GameTurnUI;
+    private _stagingAreaZone: StageZone;
+
     constructor(config: IPlayerConfig) {
         this._id = config.id;
-        this._hand = config.hand;
-        this._damageZone = config.damageZone;
-        this._deck = config.deck;
-        this._breakZone = config.breakZone;
-        this._field = config.field;
-        this._removedFromGame = config.removedFromGame;
-        this._turnUI = config.turnUI;
-        this._stagingArea = config.stagingArea;
+        this._scene = config.scene
+
+        this._handZone = new HandZone({
+            scene: config.scene,
+            name: 'Hand',
+            x: config.boardWidth / 2,
+            y: config.opponent ? 0 : config.boardHeight,
+            width: config.boardWidth * 0.7,
+            height: config.zoneHeight,
+            borderColor: 0xffff00,
+            opponent: config.opponent
+        });
+
+        this._deckZone = new DeckZone({
+            scene: config.scene,
+            name: 'Deck',
+            x: config.opponent ? this.handZone.getBounds().left - config.zoneWidth / 4 : this._handZone.getBounds().right + config.zoneWidth / 4,
+            y: config.opponent ? (config.zoneHeight / 4) : config.boardHeight - (config.zoneHeight / 4),
+            width: config.zoneWidth / 2,
+            height: config.zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: config.opponent
+        });
+
+        this._breakZone = new BreakZone({
+            scene: config.scene,
+            name: 'Break',
+            x: config.opponent ? this.deckZone.getBounds().left - config.zoneWidth / 4 : this._deckZone.getBounds().right + config.zoneWidth / 4,
+            y: this.deckZone.y,
+            width: config.zoneWidth / 2,
+            height: config.zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: false
+        });
+
+        this._removedFromGameZone = new RemoveFromGameZone({
+            scene: config.scene,
+            name: 'RFG',
+            x: config.opponent ? this.breakZone.getBounds().left - config.zoneWidth / 4 : this._breakZone.getBounds().right + config.zoneWidth / 4,
+            y: this._breakZone.y,
+            width: config.zoneWidth / 2,
+            height: config.zoneHeight / 2,
+            borderColor: 0x00ffff,
+            opponent: false
+        });
+
+        this._damageZone = new DamageZone({
+            scene: config.scene,
+            name: 'Damage',
+            x: config.opponent ? config.boardWidth - config.zoneWidth / 4 : config.zoneWidth / 4,
+            y: config.opponent ? (config.zoneHeight / 2) : config.boardHeight - (config.zoneHeight / 2),
+            width: config.zoneHeight,
+            height: config.zoneWidth * 2,
+            borderColor: 0x00ffff,
+            opponent: false
+        });
+
+        this._fieldZone = new PlayerFieldZone({
+            scene: config.scene,
+            name: 'Field',
+            x: config.boardWidth / 2,
+            y: config.opponent ? this.handZone.y + this.handZone.height + config.zoneSpacing + (config.zoneHeight / 4) : this._handZone.y - this._handZone.height - config.zoneSpacing - (config.zoneHeight / 4),
+            width: config.boardWidth * 0.7,
+            height: config.zoneHeight * 1.2,
+            borderColor: 0xA020F0,
+            opponent: false
+        });
+
+        this._turnPhaseUI = new GameTurnUI({
+            playerID: config.id,
+            scene: config.scene,
+            x: config.opponent ? this.handZone.getBounds().left + config.zoneWidth * 3 : this._handZone.getBounds().right - config.zoneWidth * 2,
+            y: config.opponent ? (this.handZone.height / 2) + (config.zoneHeight / 8) : this._handZone.y - (this._handZone.height / 2) - (config.zoneHeight / 8),
+            width: config.zoneWidth * 3,
+            height: config.zoneHeight / 4,
+            opponent: false,
+            borderColor: 0xff0000,
+            name: 'Player Game Turn UI'
+        });
+
+        this._stagingAreaZone = new StageZone({
+            name: 'Staging Area',
+            opponent: config.opponent,
+            scene: config.scene,
+            x: config.boardWidth - config.zoneWidth,
+            y: config.boardHeight / 2,
+            width: config.zoneWidth,
+            height: config.zoneHeight
+        });
 
     }
 
-    private _id: string;
 
     get id(): string {
         return this._id;
@@ -43,37 +134,30 @@ export default class PlayerBoard {
         this._id = value;
     }
 
-    private _hand: HandZone;
-
-    get hand(): HandZone {
-        return this._hand;
+    get scene(): GameScene{
+        return this._scene;
     }
 
-    set hand(value: HandZone) {
-        this._hand = value;
+    set scene(value: GameScene) {
+        this._scene = value;
     }
 
-    private _damageZone: DamageZone;
 
-    get damageZone(): DamageZone {
-        return this._damageZone;
+    get handZone(): HandZone {
+        return this._handZone;
     }
 
-    set damageZone(value: DamageZone) {
-        this._damageZone = value;
+    set handZone(value: HandZone) {
+        this._handZone = value;
     }
 
-    private _deck: DeckZone;
-
-    get deck(): DeckZone {
-        return this._deck;
+    get deckZone(): DeckZone {
+        return this._deckZone;
     }
 
-    set deck(value: DeckZone) {
-        this._deck = value;
+    set deckZone(value: DeckZone) {
+        this._deckZone = value;
     }
-
-    private _breakZone: BreakZone;
 
     get breakZone(): BreakZone {
         return this._breakZone;
@@ -83,61 +167,43 @@ export default class PlayerBoard {
         this._breakZone = value;
     }
 
-    private _field: PlayerFieldZone;
-
-    get field(): PlayerFieldZone {
-        return this._field;
+    get removedFromGameZone() {
+        return this._removedFromGameZone;
     }
 
-    set field(value: PlayerFieldZone) {
-        this._field = value;
+    set removedFromGameZone(value) {
+        this._removedFromGameZone = value;
     }
 
-    private _removedFromGame: RemoveFromGameZone;
-
-    get removedFromGame(): RemoveFromGameZone {
-        return this._removedFromGame;
+    get damageZone(): DamageZone {
+        return this._damageZone;
     }
 
-    set removedFromGame(value: RemoveFromGameZone) {
-        this._removedFromGame = value;
+    set damageZone(value: DamageZone) {
+        this._damageZone = value;
     }
 
-    private _turnUI: GameTurnUI;
-
-    get turnUI(): GameTurnUI {
-        return this._turnUI;
+    get fieldZone(): PlayerFieldZone {
+        return this._fieldZone;
     }
 
-    set turnUI(value: GameTurnUI) {
-        this._turnUI = value;
+    set fieldZone(value: PlayerFieldZone) {
+        this._fieldZone = value;
     }
 
-    private _damage: number;
-
-    get damage(): number {
-        return this._damage;
+    get turnPhaseUI(): GameTurnUI {
+        return this._turnPhaseUI;
     }
 
-    set damage(value: number) {
-        this._damage = value;
+    set turnPhaseUI(value: GameTurnUI) {
+        this._turnPhaseUI = value;
     }
 
-    private _stagingArea: StageZone;
-
-    get stagingArea(): StageZone {
-        return this._stagingArea;
+    get stagingAreaZone(): StageZone {
+        return this._stagingAreaZone;
     }
 
-    set stagingArea(value: StageZone) {
-        this._stagingArea = value;
-    }
-
-    addDamage() {
-        this._damage += 1;
-    }
-
-    removeDamage() {
-        this._damage -= 1;
+    set stagingAreaZone(value: StageZone) {
+        this._stagingAreaZone = value;
     }
 }

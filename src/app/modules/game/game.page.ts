@@ -32,7 +32,7 @@ export class GamePage implements OnInit {
             backgroundColor: '#000000',
             width: 1920,
             height: 1080,
-            scene: [BootstrapScene, ChooseDeckScene, GameEcsScene, TestRoomScene],
+            scene: [BootstrapScene, ChooseDeckScene, GameScene, TestRoomScene],
             parent: 'game-container',
             plugins: {
                 global: [{

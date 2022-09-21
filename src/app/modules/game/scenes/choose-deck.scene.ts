@@ -1,14 +1,9 @@
 import {Scene} from 'phaser';
 import OutlinePipelinePlugin from 'phaser3-rex-plugins/plugins/outlinepipeline-plugin';
-import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
-import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
-import {GameMessages, GamePhases} from '../server/messages/game_messages';
+import {GameMessages} from '../server/messages/game_messages';
 import GameServer from '../server/server';
-import {CardState} from '../server/states/CardState';
-import {CorneliaRoomState} from '../server/states/CorneliaRoomState';
 import GameButton from '../ui/button';
-import CardModal from '../ui/card_modal';
 
 export default class ChooseDeckScene extends Scene {
     private server!: GameServer;
@@ -117,7 +112,6 @@ export default class ChooseDeckScene extends Scene {
         postFxPlugin.remove(sprite);
         this.selectedDeck = sprite;
         postFxPlugin.add(sprite, {
-            intensity: 20,
             outlineColor: 0xff6700,
             name: 'outline'
         });

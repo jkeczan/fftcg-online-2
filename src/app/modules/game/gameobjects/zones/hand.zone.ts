@@ -49,7 +49,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     timeout() {
         return new Promise((resolve, reject) => {
             this.scene.time.delayedCall(800, () => {
-                resolve();
+                resolve(true);
             })
         })
     }

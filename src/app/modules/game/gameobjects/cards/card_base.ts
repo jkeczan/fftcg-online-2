@@ -67,7 +67,7 @@ export default abstract class CardBase extends Container {
                     this.setCardSpriteScale(this.spriteImageBack);
                     this.setCardSpriteScale(this.spriteImage);
                     this.setCardSpriteScale(this.spriteBorder);
-                    resolve();
+                    resolve(true);
                 });
 
                 this.scene.load.start();
