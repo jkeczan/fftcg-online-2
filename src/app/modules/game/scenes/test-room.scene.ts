@@ -9,7 +9,7 @@ import {
     DeckChosenMessageInput,
     GameMessages, GamePhases,
     NextPhaseMessageInput,
-    SetGamePhaseMessageInput
+    SetGamePhaseMessageInput, TurnPhases
 } from '../server/messages/game_messages';
 import GameServer from '../server/server';
 import {CorneliaRoomState} from '../server/states/CorneliaRoomState';
@@ -139,6 +139,14 @@ export default class TestRoomScene extends Scene {
             this.toggleParticalEffect();
         }));
 
+        this.player1Menu.push(this.createButton('Activate Main 1', () => {
+            this.activatePhase(TurnPhases.MAIN_1);
+        }));
+
+        this.player1Menu.push(this.createButton('Activate Attack Phase', () => {
+            this.activatePhase(TurnPhases.ATTACK);
+        }));
+
         let counter = 1;
         for (let button of this.player1Menu) {
             button.x = 5;
@@ -237,5 +245,9 @@ export default class TestRoomScene extends Scene {
         } else {
             this.card.highlightZoneParticleEffect();
         }
+    }
+
+    activatePhase(turnPhase: TurnPhases) {
+        this.turnUI.activatePhase(turnPhase)
     }
 }

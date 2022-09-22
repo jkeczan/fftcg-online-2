@@ -1,6 +1,3 @@
-import GlowFilterPipelinePlugin from 'phaser3-rex-plugins/plugins/glowfilterpipeline-plugin';
-import OutlinePipelinePlugin from 'phaser3-rex-plugins/plugins/outlinepipeline-plugin';
-import GlowFilterPostFxPipeline from 'phaser3-rex-plugins/plugins/shaders/glowfilter/GlowFilterPostFxPipeline';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import BorderContainer from '../gameobjects/border_container';
@@ -20,8 +17,7 @@ export default class GameTurnUI extends BorderContainer {
     private turnState: TurnState;
     public rexUI: RexUIPlugin;
 
-
-    public mapping = {
+    public mapping: { [key: number]: string } = {
         1: 'Active',
         2: 'Draw',
         3: 'Main 1',
@@ -69,6 +65,7 @@ export default class GameTurnUI extends BorderContainer {
 
         this.phases = this.turnPhaseCodes.map((code: TurnPhases) => {
             const phaseButton = this.createGridButton(this.mapping[code])
+            phaseButton.setData('code', code);
             sizer.add(phaseButton);
             return phaseButton;
         })
@@ -82,10 +79,11 @@ export default class GameTurnUI extends BorderContainer {
                 child.setState(0);
             } else {
                 (child.childrenMap.background as Sprite).setTexture('redUI', 'red_button00.png');
-
+                (child.childrenMap.background as Sprite).setAlpha(1)
                 child.setState(1);
             }
         })
+
 
         this.turnState = turnState;
         this.name = name;
@@ -96,7 +94,7 @@ export default class GameTurnUI extends BorderContainer {
     }
 
     createGridButton(phaseName: string) {
-        const button = this.scene.add.sprite(0,0, 'blueUI', 'blue_button05.png');
+        const button = this.scene.add.sprite(0,0, 'blueUI', 'blue_button05.png').setAlpha(.5);
         const text = this.rexUI.add.BBCodeText(100, 30, `[color=white]${phaseName}[/color]`, {
             fontSize: '30px',
             align: 'center'
@@ -115,16 +113,25 @@ export default class GameTurnUI extends BorderContainer {
             align: 'center'
         });
 
-        label.setTexture('blueUI', 'blue_button05.png');
-
         return label;
     }
 
     activatePhase(turnPhase: TurnPhases) {
-
+        this.phases.forEach((phase: Label) => {
+            if (phase.getData('code') === turnPhase) {
+                (phase.childrenMap.background as Sprite).setAlpha(1);
+                (phase.childrenMap.background as Sprite).setTexture('blueUI', 'blue_button05.png');
+            } else {
+                (phase.childrenMap.background as Sprite).setAlpha(.5)
+            }
+        })
     }
 
     deactivatePhase(turnPhase: TurnPhases) {
-
+        this.phases.forEach((phase: Label) => {
+            if (phase.getData('code') === turnPhase) {
+                (phase.childrenMap.background as Sprite).setAlpha(.5)
+            }
+        })
     }
 }
