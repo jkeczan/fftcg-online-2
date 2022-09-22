@@ -110,7 +110,8 @@ export default class PlayerBoard {
             height: config.zoneHeight / 4,
             opponent: false,
             borderColor: 0xff0000,
-            name: 'Player Game Turn UI'
+            name: 'Player Game Turn UI',
+            rexUI: this.scene.rexUI
         });
 
         this._stagingAreaZone = new StageZone({

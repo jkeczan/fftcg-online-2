@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Game} from 'phaser';
 import FSMPlugin from 'phaser3-rex-plugins/plugins/fsm-plugin.js';
+import GlowFilterPipelinePlugin from 'phaser3-rex-plugins/plugins/glowfilterpipeline-plugin';
 import OutlinePipelinePlugin from 'phaser3-rex-plugins/plugins/outlinepipeline-plugin';
 import ShakePositionPlugin from 'phaser3-rex-plugins/plugins/shakeposition-plugin.js';
 import ShatterImagePlugin from 'phaser3-rex-plugins/plugins/shatterimage-plugin.js';
@@ -46,6 +47,10 @@ export class GamePage implements OnInit {
                 }, {
                     key: 'rexOutlinePipeline',
                     plugin: OutlinePipelinePlugin,
+                    start: true
+                },{
+                    key: 'rexGlowFilterPipeline',
+                    plugin: GlowFilterPipelinePlugin,
                     start: true
                 }],
                 scene: [{

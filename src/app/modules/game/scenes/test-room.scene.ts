@@ -14,7 +14,9 @@ import {
 import GameServer from '../server/server';
 import {CorneliaRoomState} from '../server/states/CorneliaRoomState';
 import {PlayerState} from '../server/states/PlayerState';
+import GameTurnUI from '../ui/game_turn_ui';
 import {StateTextBuilder} from '../utils';
+import GameScene from './game.scene';
 import GameObject = Phaser.GameObjects.GameObject;
 
 export default class TestRoomScene extends Scene {
@@ -23,6 +25,8 @@ export default class TestRoomScene extends Scene {
     private rexUI: RexUIPlugin;
     public stateBoxPlayer1: TextBox;
     public player1Menu: Label[] = [];
+
+    public turnUI: GameTurnUI;
 
     public card: FFTCGCard;
 
@@ -65,9 +69,22 @@ export default class TestRoomScene extends Scene {
                 maxLines: 15
             })
         }).setOrigin(0, 0).layout();
+        const zoneWidth = innerWidth * .1;
+        const zoneHeight = innerHeight * .25;
+        const zoneSpacing = zoneHeight / 10;
 
-
-        t
+        this.turnUI = new GameTurnUI({
+            playerID: 'test',
+            scene: ((this as any) as GameScene),
+            x: innerWidth / 2,
+            y: 300,
+            width: innerWidth * .7,
+            height: zoneHeight / 4,
+            opponent: false,
+            borderColor: 0xff0000,
+            name: 'Player Game Turn UI',
+            rexUI: this.rexUI
+        })
 
 
         this.add.text(5, 5, 'Commands').setOrigin(0);
@@ -141,6 +158,8 @@ export default class TestRoomScene extends Scene {
             space: {left: 5, right: 5, top: 5, bottom: 5},
             align: 'center',
         });
+
+
 
         testButton.setOrigin(0);
         testButton.layout();
