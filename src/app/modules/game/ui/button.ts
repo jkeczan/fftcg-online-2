@@ -8,11 +8,11 @@ import {Scene} from 'phaser';
 
 export interface IGameButtonTextureConfig {
     textureUp: string;
-    frameUp: string;
+    frameUp?: string;
     textureDown: string;
-    frameDown: string;
+    frameDown?: string;
     textureOver: string;
-    frameOver: string;
+    frameOver?: string;
 }
 
 export default class GameButton extends Phaser.GameObjects.Container {

@@ -1,5 +1,5 @@
-import {Game, Scene} from 'phaser';
-import GridButtons from 'phaser3-rex-plugins/templates/ui/gridbuttons/GridButtons';
+import {getLocaleCurrencyName} from '@angular/common';
+import {Scene} from 'phaser';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import TextBox from 'phaser3-rex-plugins/templates/ui/textbox/TextBox';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
@@ -7,17 +7,94 @@ import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import {
     DeckChosenMessageInput,
-    GameMessages, GamePhases,
-    NextPhaseMessageInput,
-    SetGamePhaseMessageInput, TurnPhases
+    GameMessages,
+    GamePhases,
+    NextPhaseMessageInput, PriorityMessageInput,
+    SetGamePhaseMessageInput,
+    TurnPhases
 } from '../server/messages/game_messages';
 import GameServer from '../server/server';
 import {CorneliaRoomState} from '../server/states/CorneliaRoomState';
 import {PlayerState} from '../server/states/PlayerState';
-import GameTurnUI from '../ui/game_turn_ui';
+import {RequestedPriority} from '../server/states/RequestedPriority';
+import GameTurnUI, {TurnPriorityEvent, TurnUIEvent} from '../ui/game_turn_ui';
 import {StateTextBuilder} from '../utils';
 import GameScene from './game.scene';
-import GameObject = Phaser.GameObjects.GameObject;
+
+const fragmentShader7 = `
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+// Love u Hanna E
+
+uniform float time;
+uniform vec2 mouse;
+uniform vec2 resolution;
+
+float snoise(vec3 uv, float res) {
+    const vec3 s = vec3(1e0, 1e2, 1e3);
+
+    uv *= res;
+
+    vec3 uv0 = floor(mod(uv, res)) * s;
+    vec3 uv1 = floor(mod(uv + vec3(1.0), res)) * s;
+
+    vec3 f = smoothstep(0.0, 1.0, fract(uv));
+
+    vec4 v = vec4(uv0.x + uv0.y + uv0.z,
+              uv1.x + uv0.y + uv0.z,
+              uv0.x + uv1.y + uv0.z,
+              uv1.x + uv1.y + uv0.z);
+
+    vec4 r = fract(sin(v * 1e-1) * 1e3);
+    float r0 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
+
+    r = fract(sin((v + uv1.z - uv0.z) * 1e-1) * 1e3);
+    float r1 = mix(mix(r.x, r.y, f.x), mix(r.z, r.w, f.x), f.y);
+
+    return mix(r0, r1, f.z) * 2.0 - 1.0;
+}
+
+void main() {
+    vec2 p = -0.5 + gl_FragCoord.xy / resolution.xy;
+    p.x *= resolution.x / resolution.y;
+    float lp = .02/length(p);
+    float ap = atan(p.x, p.y);
+
+    float time = time*.04-pow(time, .8)*(1. + .1*cos(time*0.04))*2.;
+
+    float r1 = 0.2;
+    if(lp <= r1){
+        ap -= time*0.1+lp*9.;
+        lp = sqrt(1.-lp/r1)*0.5;
+    }else{
+        ap += time*0.1+lp*2.;
+        lp -= r1;
+    }
+
+    lp = pow(lp*lp, 1./3.);
+
+    p = lp*vec2(sin(ap), cos(ap));
+
+    float color = 5.0 - (6.0 * lp);
+
+    vec3 coord = vec3(atan(p.x, p.y) / 6.2832 + 0.5, 0.4 * lp, 0.5);
+
+    float power = 2.0;
+    for (int i = 0; i < 6; i++) {
+        power *= 2.0;
+        color += (1.5 / power) * snoise(coord + vec3(0.0, -0.05 * time*2.0, 0.01 * time*2.0), 16.0 * power);
+    }
+    color = max(color, 0.0);
+    float c2 = color * color;
+    float c3 = color * c2;
+    vec3 fc = vec3(color * 0.34, c2*0.15, c3*0.85);
+    float f = fract(time);
+    //fc *= smoothstep(f-0.1, f, length(p)) - smoothstep(f, f+0.1, length(p));
+    gl_FragColor = vec4(length(fc)*vec3(1,02,0)*0.04, 1.0);
+}
+`;
 
 export default class TestRoomScene extends Scene {
     private server!: GameServer;
@@ -84,17 +161,38 @@ export default class TestRoomScene extends Scene {
             borderColor: 0xff0000,
             name: 'Player Game Turn UI',
             rexUI: this.rexUI
-        })
+        }).on(TurnUIEvent.RequestPriority, (params: TurnPriorityEvent) => {
+            console.log('Priority Requested', params);
+            const requestMessageParams: PriorityMessageInput = {
+                forTurnPhase: params.turnPhase
+            };
+            this.server.room.send(GameMessages.RequestPriority, requestMessageParams);
+        }).on(TurnUIEvent.ReleasingPriority, (params: TurnPriorityEvent) => {
+            console.log('Priority Released', params);
+            const releaseMessageParams: PriorityMessageInput = {
+                forTurnPhase: params.turnPhase
+            };
+            this.server.room.send(GameMessages.ReleasingPriority, releaseMessageParams);
+        });
 
 
         this.add.text(5, 5, 'Commands').setOrigin(0);
 
         this.server.room.onStateChange(async (state: CorneliaRoomState) => {
             for (let player of state.players.values()) {
-                console.log(player.deckID)
+                console.log(player.deckID);
             }
             this.updateStateDisplay(this.stateBoxPlayer1, state);
         });
+
+        this.server.state.listen('priorities', (currentValue: RequestedPriority[], previousValue: RequestedPriority[]) => {
+
+        });
+
+        this.server.state.turn.listen('turnPhase', (currentValue: TurnPhases, previousValue: TurnPhases) => {
+            this.turnUI.activatePhase(currentValue);
+            this.turnUI.deactivatePhase(previousValue);
+        })
 
         this.addPlayer1TestButtons();
         this.card = await CardFactory.getCard(this, '15-140S');
@@ -168,7 +266,6 @@ export default class TestRoomScene extends Scene {
         });
 
 
-
         testButton.setOrigin(0);
         testButton.layout();
         this.input.enable(testButton);
@@ -182,7 +279,7 @@ export default class TestRoomScene extends Scene {
     }
 
     updateStateDisplay(stateBox: TextBox, state?: CorneliaRoomState) {
-        const currentPlayer: PlayerState = state.players.get(this.server.getCurrentPlayer().sessionID)
+        const currentPlayer: PlayerState = state.players.get(this.server.getCurrentPlayer().sessionID);
         if (!state) {
             state = this.server.room.state;
         }
@@ -199,6 +296,7 @@ export default class TestRoomScene extends Scene {
             .addNewLine(`Deck Chosen: [color=yellow]${currentPlayer.deckID}[/color]`)
             .addNewLine(`Cards in Deck: [color=yellow]${currentPlayer.deckZone.cards.length}[/color]`)
             .addNewLine(`Cards in Hand: [color=yellow]${currentPlayer.handZone.cards.length}[/color]`)
+            .addNewLine(`Priority Windows: [color=yellow]${state.priorities.length}[/color]`);
         stateBox.setText(stb.text);
         stateBox.layout();
     }
@@ -248,6 +346,6 @@ export default class TestRoomScene extends Scene {
     }
 
     activatePhase(turnPhase: TurnPhases) {
-        this.turnUI.activatePhase(turnPhase)
+        this.turnUI.activatePhase(turnPhase);
     }
 }

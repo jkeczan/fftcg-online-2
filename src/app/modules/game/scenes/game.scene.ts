@@ -4,7 +4,7 @@ import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import PlayerBoard, {IPlayerConfig} from '../gameobjects/players/player.gameobject';
 import {BaseZone} from '../gameobjects/zones/base.zone';
 import GameManager from '../managers/game.manager';
-import {GameMessages} from '../server/messages/game_messages';
+import {GameMessages, TurnPhases} from '../server/messages/game_messages';
 import GameServer from '../server/server';
 import {CardState} from '../server/states/CardState';
 import {PlayerState} from '../server/states/PlayerState';
@@ -101,14 +101,27 @@ export default class GameScene extends BaseScene {
             this.server.room.send(GameMessages.NextPhase);
         });
 
+        this.server.room.state.listen('playerTurn', (currentValue: string, previousValue: string) => {
+            if (this.server.getCurrentPlayer().sessionID === currentValue) {
+                this.actionButton.setVisible(true);
+            } else {
+                this.actionButton.setVisible(false);
+            }
+        })
+
         this.server.room.state.turn.listen('turnPhase', (currentValue, previousValue) => {
-            console.log('Phase Changed: ', currentValue, previousValue);
             if (this.server.isPlayersTurn) {
                 this.playerBoard.turnPhaseUI.activatePhase(currentValue);
                 this.playerBoard.turnPhaseUI.deactivatePhase(previousValue);
             } else {
                 this.opponentBoard.turnPhaseUI.activatePhase(currentValue);
                 this.opponentBoard.turnPhaseUI.deactivatePhase(previousValue);
+            }
+
+            if (currentValue === TurnPhases.END_TURN) {
+                this.actionButton.setText('End Turn');
+            } else {
+                this.actionButton.setText('Next');
             }
         });
 
@@ -119,7 +132,6 @@ export default class GameScene extends BaseScene {
                 });
 
                 if (cardToMove) {
-                    console.log('card to hand', cardToMove);
                     this.gameManager.moveCard(
                         cardToMove,
                         this.playerBoard.deckZone,
@@ -128,7 +140,17 @@ export default class GameScene extends BaseScene {
                 }
 
             } else {
+                const cardToMove = this.opponentBoard.deckZone.cards.find((card: FFTCGCard) => {
+                    return card.gameCardID === params.card;
+                });
 
+                if (cardToMove) {
+                    this.gameManager.moveCard(
+                        cardToMove,
+                        this.opponentBoard.deckZone,
+                        this.opponentBoard.handZone
+                    );
+                }
             }
         });
 
@@ -150,7 +172,7 @@ export default class GameScene extends BaseScene {
             if (newCard) {
                 newCard.gameCardID = cardState.gameCardID;
                 newCard.setData('currentZone', 'Deck');
-                return newCard
+                return newCard;
             } else {
                 console.log('card not found');
             }

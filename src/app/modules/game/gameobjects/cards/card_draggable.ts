@@ -41,7 +41,6 @@ export default abstract class CardDraggable extends CardBase {
 
     endHover() {
         if (this.hoveringActive) {
-            console.log('Stop Hovering');
             this.off(GAMEOBJECT_POINTER_OUT);
             this.off(GAMEOBJECT_POINTER_OVER);
             this.hoveringActive = false;

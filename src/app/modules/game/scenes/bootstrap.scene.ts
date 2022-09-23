@@ -49,7 +49,7 @@ export default class BootstrapScene extends Scene {
             textureOver: 'greyUI',
             frameOver: 'grey_button05.png'
         });
-        this.getTestingButton = new GameButton(this, width / 2, (height / 2) + 200, 'Test Room', {
+        this.getTestingButton = new GameButton(this, width / 2, 100, 'Sandbox', {
             textureDown: 'redUI',
             frameDown: 'red_button00.png',
             textureUp: 'blueUI',

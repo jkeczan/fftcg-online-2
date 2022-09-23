@@ -55,8 +55,34 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         }
     }
 
+
+    alignCardsInZone(cardAdded: FFTCGCard) {
+        // super.alignCardsInZone(cardAdded);
+        for (let i = 0; i < this.cards.length; i++) {
+            const card = this.cards[i];
+            this.scene.add.tween({
+                targets: [card],
+                duration: 500,
+                ease: 'Cubic',
+                x: this.xTranslateOnDrop(card, i),
+                y: this.yTranslateOnDrop(card, i),
+                angle: this.angleTranslateOnDrop(card, i),
+                scale: this.cardScale
+            });
+        }
+    }
+
+
+    xTranslateOnDrop(card: CardDraggable, index: number): undefined | number {
+        if (!card) return;
+        const centerIndex = (this.cards.length - 1) / 2;
+        const shiftDirection = index < centerIndex ? -1 : 1;
+        const shifts = Math.abs(centerIndex - index);
+        return this.x + (shifts * shiftDirection * (card.width * .8));
+    }
+
     angleTranslateOnDrop(card: CardDraggable, index: number): number {
-        super.angleTranslateOnDrop(card, index);
+        // super.angleTranslateOnDrop(card, index);
 
         const centerIndex = (this.cards.length - 1) / 2;
         let shiftDirection = index < centerIndex ? -1 : 1;
@@ -77,7 +103,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         const centerIndex = (this.cards.length - 1) / 2;
         const shifts = Math.abs(centerIndex - index);
 
-        const shiftAmount = shifts * 20;
+        const shiftAmount = shifts * 10;
         let newY;
         let baseY;
 
@@ -90,9 +116,9 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         }
 
         if (shifts === 0 && this.inverted) {
-            newY = baseY - 15;
+            newY = baseY - 5;
         } else if (shifts === 0) {
-            newY = baseY + 15;
+            newY = baseY + 5;
         }
 
         return newY;

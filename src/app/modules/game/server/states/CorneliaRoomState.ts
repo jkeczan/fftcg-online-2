@@ -7,6 +7,7 @@
 
 import { Schema, type, ArraySchema, MapSchema, SetSchema, DataChange } from '@colyseus/schema';
 import { GameTurn } from './GameTurn'
+import { RequestedPriority } from './RequestedPriority'
 import { PlayerState } from './PlayerState'
 
 export class CorneliaRoomState extends Schema {
@@ -21,5 +22,6 @@ export class CorneliaRoomState extends Schema {
     @type("string") public playerGoingFirst!: string;
     @type("boolean") public isFirstTurn!: boolean;
     @type(GameTurn) public turn: GameTurn = new GameTurn();
+    @type([ RequestedPriority ]) public priorities: ArraySchema<RequestedPriority> = new ArraySchema<RequestedPriority>();
     @type({ map: PlayerState }) public players: MapSchema<PlayerState> = new MapSchema<PlayerState>();
 }

@@ -9,7 +9,6 @@ import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import BootstrapScene from './scenes/bootstrap.scene';
 import ChooseDeckScene from './scenes/choose-deck.scene';
 import GameScene from './scenes/game.scene';
-import {GameEcsScene} from './scenes/game_ecs.scene';
 import TestRoomScene from './scenes/test-room.scene';
 
 

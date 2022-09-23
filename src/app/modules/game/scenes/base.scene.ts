@@ -7,7 +7,7 @@ import {StateTextBuilder} from '../utils';
 export abstract class BaseScene extends Scene {
     public rexUI: RexUIPlugin;
     protected stateBox: TextBox;
-    protected server: GameServer;
+    public server: GameServer;
 
     protected constructor(id: string = 'BaseScene') {
         super(id);

@@ -5,11 +5,21 @@ import {IGameZoneConfig} from '../gameobjects/zones/base.zone';
 import {TurnPhases} from '../server/messages/game_messages';
 import {TurnState} from '../states/turn.state';
 import Sprite = Phaser.GameObjects.Sprite;
+import EventEmitter = Phaser.Events.EventEmitter;
 
 export interface IGameTurnUIConfig extends IGameZoneConfig {
     playerID: string;
     turnState?: TurnState;
     rexUI: RexUIPlugin;
+}
+
+export interface TurnPriorityEvent {
+    turnPhase: TurnPhases;
+}
+
+export enum TurnUIEvent {
+    RequestPriority = 'requestPriority',
+    ReleasingPriority = 'releasingPriority'
 }
 
 export default class GameTurnUI extends BorderContainer {
@@ -24,7 +34,7 @@ export default class GameTurnUI extends BorderContainer {
         4: 'Attack',
         5: 'Main 2',
         6: 'End'
-    }
+    };
 
     private turnPhaseCodes: TurnPhases[] = [
         TurnPhases.ACTIVE,
@@ -64,25 +74,27 @@ export default class GameTurnUI extends BorderContainer {
 
 
         this.phases = this.turnPhaseCodes.map((code: TurnPhases) => {
-            const phaseButton = this.createGridButton(this.mapping[code])
+            const phaseButton = this.createGridButton(this.mapping[code]);
             phaseButton.setData('code', code);
             sizer.add(phaseButton);
             return phaseButton;
-        })
+        });
 
         sizer.layout();
 
-        sizer.setChildrenInteractive({})
+        sizer.setChildrenInteractive({});
         sizer.on('child.click', (child: Label) => {
             if (child.state === 1) {
-                (child.childrenMap.background as Sprite).setTexture('blueUI', 'blue_button05.png')
+                (child.childrenMap.background as Sprite).setTexture('blueUI', 'blue_button05.png');
                 child.setState(0);
+                this.emit(TurnUIEvent.ReleasingPriority, {turnPhase: child.getData('code')});
             } else {
                 (child.childrenMap.background as Sprite).setTexture('redUI', 'red_button00.png');
-                (child.childrenMap.background as Sprite).setAlpha(1)
+                (child.childrenMap.background as Sprite).setAlpha(1);
                 child.setState(1);
+                this.emit(TurnUIEvent.RequestPriority, {turnPhase: child.getData('code')});
             }
-        })
+        });
 
 
         this.turnState = turnState;
@@ -94,7 +106,7 @@ export default class GameTurnUI extends BorderContainer {
     }
 
     createGridButton(phaseName: string) {
-        const button = this.scene.add.sprite(0,0, 'blueUI', 'blue_button05.png').setAlpha(.5);
+        const button = this.scene.add.sprite(0, 0, 'blueUI', 'blue_button05.png').setAlpha(.5);
         const text = this.rexUI.add.BBCodeText(100, 30, `[color=white]${phaseName}[/color]`, {
             fontSize: '30px',
             align: 'center'
@@ -122,16 +134,16 @@ export default class GameTurnUI extends BorderContainer {
                 (phase.childrenMap.background as Sprite).setAlpha(1);
                 (phase.childrenMap.background as Sprite).setTexture('blueUI', 'blue_button05.png');
             } else {
-                (phase.childrenMap.background as Sprite).setAlpha(.5)
+                (phase.childrenMap.background as Sprite).setAlpha(.5);
             }
-        })
+        });
     }
 
     deactivatePhase(turnPhase: TurnPhases) {
         this.phases.forEach((phase: Label) => {
             if (phase.getData('code') === turnPhase) {
-                (phase.childrenMap.background as Sprite).setAlpha(.5)
+                (phase.childrenMap.background as Sprite).setAlpha(.5);
             }
-        })
+        });
     }
 }

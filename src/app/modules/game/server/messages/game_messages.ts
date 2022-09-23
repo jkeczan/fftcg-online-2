@@ -10,9 +10,10 @@ export enum GameMessages {
     PlayerConfirmsHand,
     NextPhase,
     SetGamePhase,
-    RequestNewTurn
+    RequestNewTurn,
+    RequestPriority,
+    ReleasingPriority
 }
-
 export enum GamePhases {
     WAITING_FOR_PLAYERS,
     READY_TO_START,
@@ -56,4 +57,8 @@ export interface MulliganRequestMessageInput {
 
 export interface SetGamePhaseMessageInput {
     gamePhase: GamePhases
+}
+
+export interface PriorityMessageInput {
+    forTurnPhase: TurnPhases
 }

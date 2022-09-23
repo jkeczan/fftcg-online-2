@@ -1,5 +1,6 @@
 import GameScene from '../../scenes/game.scene';
-import GameTurnUI from '../../ui/game_turn_ui';
+import {GameMessages, PriorityMessageInput} from '../../server/messages/game_messages';
+import GameTurnUI, {TurnPriorityEvent, TurnUIEvent} from '../../ui/game_turn_ui';
 import BreakZone from '../zones/break.zone';
 import DamageZone from '../zones/damage.zone';
 import DeckZone from '../zones/deck.zone';
@@ -104,14 +105,24 @@ export default class PlayerBoard {
         this._turnPhaseUI = new GameTurnUI({
             playerID: config.id,
             scene: config.scene,
-            x: config.opponent ? this.handZone.getBounds().left + config.zoneWidth * 3 : this._handZone.getBounds().right - config.zoneWidth * 2,
+            x: config.boardWidth / 2,
             y: config.opponent ? (this.handZone.height / 2) + (config.zoneHeight / 8) : this._handZone.y - (this._handZone.height / 2) - (config.zoneHeight / 8),
-            width: config.zoneWidth * 3,
+            width: config.boardWidth * 0.7,
             height: config.zoneHeight / 4,
             opponent: false,
             borderColor: 0xff0000,
             name: 'Player Game Turn UI',
             rexUI: this.scene.rexUI
+        }).on(TurnUIEvent.RequestPriority, (params: TurnPriorityEvent) => {
+            const requestMessageParams: PriorityMessageInput = {
+                forTurnPhase: params.turnPhase
+            };
+            this.scene.server.room.send(GameMessages.RequestPriority, requestMessageParams);
+        }).on(TurnUIEvent.ReleasingPriority, (params: TurnPriorityEvent) => {
+            const releaseMessageParams: PriorityMessageInput = {
+                forTurnPhase: params.turnPhase
+            };
+            this.scene.server.room.send(GameMessages.ReleasingPriority, releaseMessageParams);
         });
 
         this._stagingAreaZone = new StageZone({

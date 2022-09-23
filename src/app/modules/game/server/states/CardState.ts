@@ -14,4 +14,6 @@ export class CardState extends Schema {
     @type("int8") public expectedQuantity!: number;
     @type("string") public zoneID!: string;
     @type("string") public serialNumber!: string;
+    @type("string") public active!: string;
+    @type("string") public frozen!: string;
 }
