@@ -102,7 +102,7 @@ export default class ChooseDeckScene extends Scene {
             this.nextButton.setText('Waiting on Other Player');
 
             this.time.delayedCall(1000, () => {
-                this.scene.start('GameScene', {server: this.server});
+                this.scene.start('RelayScene', {server: this.server});
 
             });
         });

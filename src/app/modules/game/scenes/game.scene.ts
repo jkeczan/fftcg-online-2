@@ -25,7 +25,7 @@ export default class GameScene extends BaseScene {
     public output: Label;
     private actionButton: GameButton;
 
-    constructor() {
+    constructor(id: string = 'GameScene') {
         super('GameScene');
     }
 

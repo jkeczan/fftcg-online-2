@@ -14,7 +14,7 @@ export interface IGameTurnConfig {
     name: string;
     borderColor?: number;
     fillColor?: number;
-    shape?: Shape;
+    element?: FFTCGCardElement;
     radians: number;
 }
 
@@ -29,7 +29,8 @@ export class CP extends Container {
 
     constructor(config: IGameTurnConfig) {
         const {scene, borderColor, fillColor, radians, name} = config;
-        const image = new Sprite(scene, 0, 0, 'wind_cp');
+        const image = new Sprite(scene, 0, 0, config.element.toLowerCase() + "_cp");
+
         const border = new Graphics(scene);
         super(scene, 0, 0, [border, image]);
 
@@ -137,19 +138,22 @@ export default class CPContainer extends Container {
         this.scene.add.existing(this);
     }
 
-    createCPs(cost: number, elements: FFTCGCardElement[]) {
-        for (let c = 0; c < cost; c++) {
-            const newCP: CP = new CP({
-                scene: this.scene,
-                name: 'cp',
-                radians: this.height / 2,
-                x: this.x,
-                y: this.y
-            });
-            this._cp.push(newCP);
+    createCPs(crystalPoints: Array<{count: number, element: FFTCGCardElement}>) {
+        for (const crystal of crystalPoints) {
+            for (let c = 0; c < crystal.count; c++) {
+                const newCP: CP = new CP({
+                    scene: this.scene,
+                    name: 'cp',
+                    radians: this.height / 2,
+                    x: this.x,
+                    y: this.y,
+                    element: crystal.element
+                });
+                this._cp.push(newCP);
+                this.add(newCP)
+            }
         }
 
-        this.add(this._cp);
         this.layoutCP();
     }
 
@@ -164,7 +168,8 @@ export default class CPContainer extends Container {
             const shifts = Math.abs(centerIndex - i) % 6;
             const cp = this._cp[i];
             const newX = cp.x + shifts * shiftDirection * (turnWidth + (turnWidth / 2));
-            if (i % 6 === 0) {
+
+            if (i % maxPerRow === 0) {
                 row++;
             }
 

@@ -27,21 +27,17 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         return new Promise((resolve, reject) => {
             this.scene.time.delayedCall(800, () => {
                 resolve(true);
-            })
-        })
+            });
+        });
     }
 
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
-        if (!this.inverted) {
-            card.startHover();
-        }
-        // this.activateHandHover(card);
+        card.startHover();
     }
 
     onCardRemoved(card: FFTCGCard) {
         super.onCardRemoved(card);
-        // this.deactivateHandHover(card);
     }
 
     orientCard(card: FFTCGCard) {
