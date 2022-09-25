@@ -168,8 +168,9 @@ export default class GameScene extends BaseScene {
         this.playerBoard.deckZone.addCards(p1Cards, 'top');
         this.opponentBoard.deckZone.addCards(p2Cards, 'top');
 
-        this.playerBoard.deckZone.shuffle();
-        this.opponentBoard.deckZone.shuffle();
+        this.input.keyboard.on('keyup-S', () => {
+            this.playerBoard.deckZone.shuffle();
+        });
     }
 
     async createDeck(player: PlayerState): Promise<FFTCGCard[]> {

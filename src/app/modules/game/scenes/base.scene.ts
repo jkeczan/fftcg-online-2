@@ -29,7 +29,7 @@ export abstract class BaseScene extends Scene {
             })
         }).setOrigin(0, 0).layout();
 
-        this.input.keyboard.on('keyup-S', () => {
+        this.input.keyboard.on('keyup-D', () => {
             this.showState();
             this.refreshState();
         });

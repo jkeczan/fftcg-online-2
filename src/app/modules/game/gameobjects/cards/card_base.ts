@@ -60,6 +60,7 @@ export default abstract class CardBase extends Container {
             } else {
                 this.spriteImage = new Sprite(this.scene, 0, 0, 'card-back');
                 const opus = this.metadata.serialNumber.split('-')[0];
+                console.log('Load Image for Serial: ', this.metadata.serialNumber);
                 this.scene.load.image(this.metadata.serialNumber, `assets/game/cards/opus${opus}/${this.metadata.serialNumber}.jpeg`);
                 this.scene.load.once(Phaser.Loader.Events.COMPLETE, () => {
                     this.spriteImage.setTexture(this.metadata.serialNumber);
