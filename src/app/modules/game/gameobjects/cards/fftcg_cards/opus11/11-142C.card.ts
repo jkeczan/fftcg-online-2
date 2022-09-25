@@ -2,7 +2,7 @@ import {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGForwardMetadata}
 import FFTCGForward from '../../card_forward';
 
 export default class Loz11 extends FFTCGForward {
-    protected metadata: IFFTCGForwardMetadata = {
+    public metadata: IFFTCGForwardMetadata = {
         cost: 3,
         cardType: FFTCGCardType.Forward,
         elements: [FFTCGCardElement.ICE],

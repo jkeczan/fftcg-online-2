@@ -1,7 +1,7 @@
 import FFTCGCard, {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGForwardMetadata} from '../../card_fftcg';
 
 export default class LightningBlackMage extends FFTCGCard {
-    protected metadata: IFFTCGForwardMetadata = {
+    public metadata: IFFTCGForwardMetadata = {
         cost: 2,
         cardType: FFTCGCardType.Backup,
         elements: [FFTCGCardElement.LIGHTNING],

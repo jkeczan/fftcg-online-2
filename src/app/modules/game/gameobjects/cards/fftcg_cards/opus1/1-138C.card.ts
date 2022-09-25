@@ -1,7 +1,7 @@
 import FFTCGCard, {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGForwardMetadata} from '../../card_fftcg';
 
 export default class LightningSummoner extends FFTCGCard {
-    protected metadata: IFFTCGForwardMetadata = {
+    public metadata: IFFTCGForwardMetadata = {
         cost: 1,
         cardType: FFTCGCardType.Backup,
         elements: [FFTCGCardElement.LIGHTNING],

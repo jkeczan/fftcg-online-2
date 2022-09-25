@@ -3,7 +3,7 @@ import {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGCardMetadata} fr
 import FFTCGForward from '../../card_forward';
 
 export default class PresidentShinra extends FFTCGForward {
-    protected metadata: IFFTCGCardMetadata = {
+    public metadata: IFFTCGCardMetadata = {
         cost: 4,
         cardType: FFTCGCardType.Backup,
         elements: [FFTCGCardElement.LIGHTNING],

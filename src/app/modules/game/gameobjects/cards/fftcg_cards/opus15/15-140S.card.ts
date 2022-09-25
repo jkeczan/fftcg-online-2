@@ -2,10 +2,10 @@ import {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGForwardMetadata}
 import FFTCGForward from '../../card_forward';
 
 export default class Rufus extends FFTCGForward {
-    protected metadata: IFFTCGForwardMetadata = {
+    public metadata: IFFTCGForwardMetadata = {
         cost: 4,
         cardType: FFTCGCardType.Forward,
-        elements: [FFTCGCardElement.LIGHTNING],
+        elements: [FFTCGCardElement.LIGHTNING, FFTCGCardElement.ICE],
         serialNumber: '15-140S',
         jobs: [],
         categories: [],

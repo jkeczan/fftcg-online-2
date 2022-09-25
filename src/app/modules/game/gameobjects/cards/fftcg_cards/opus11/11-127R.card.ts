@@ -2,7 +2,7 @@ import {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGForwardMetadata}
 import FFTCGForward from '../../card_forward';
 
 export default class Kadaj11 extends FFTCGForward {
-    protected metadata: IFFTCGForwardMetadata = {
+    public metadata: IFFTCGForwardMetadata = {
         cost: 2,
         cardType: FFTCGCardType.Forward,
         elements: [FFTCGCardElement.ICE],

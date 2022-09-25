@@ -1,7 +1,7 @@
 import FFTCGCard, {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGCardMetadata} from '../../card_fftcg';
 
 export default class Magus extends FFTCGCard {
-    protected metadata: IFFTCGCardMetadata = {
+    public metadata: IFFTCGCardMetadata = {
         cost: 1,
         cardType: FFTCGCardType.Backup,
         elements: [FFTCGCardElement.LIGHTNING],

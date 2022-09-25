@@ -1,7 +1,7 @@
 import FFTCGCard, {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGCardMetadata} from '../../card_fftcg';
 
 export default class Hades extends FFTCGCard {
-    protected metadata: IFFTCGCardMetadata = {
+    public metadata: IFFTCGCardMetadata = {
         cost: 5,
         cardType: FFTCGCardType.Summon,
         elements: [FFTCGCardElement.ICE],

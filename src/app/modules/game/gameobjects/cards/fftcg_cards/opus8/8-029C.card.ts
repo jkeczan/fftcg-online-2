@@ -1,7 +1,7 @@
 import FFTCGCard, {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGCardMetadata} from '../../card_fftcg';
 
 export default class Bard extends FFTCGCard {
-    protected metadata: IFFTCGCardMetadata = {
+    public metadata: IFFTCGCardMetadata = {
         cost: 2,
         cardType: FFTCGCardType.Backup,
         elements: [FFTCGCardElement.ICE],

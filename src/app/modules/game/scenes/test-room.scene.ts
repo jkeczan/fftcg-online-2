@@ -28,10 +28,12 @@ export default class TestRoomScene extends Scene {
     public rexUI: RexUIPlugin;
     public stateBoxPlayer1: TextBox;
     public player1Menu: Label[] = [];
+    public staging: StageZone;
 
     public turnUI: GameTurnUI;
 
     public card: FFTCGCard;
+    public card2: FFTCGCard;
 
     constructor() {
         super('TestRoomScene');
@@ -134,8 +136,19 @@ export default class TestRoomScene extends Scene {
         this.card.y = 50;
         this.card.angle = 0;
         this.card.setInteractive();
-        // this.card.startHover();
         this.card.enableDrag();
+
+        this.card2 = await CardFactory.getCard(this, '15-140S');
+        this.card2.x = width / 2;
+        this.card2.y = 500;
+        this.card2.angle = 0;
+        this.card2.setInteractive();
+
+        this.time.delayedCall(1000, () => {
+            this.card2.tap();
+            this.staging.addCP(4, this.card2.metadata.elements[0]);
+        });
+
 
         let zone = this.add.zone(500, 300, 300, 300).setRectangleDropZone(300, 300);
 
@@ -144,31 +157,19 @@ export default class TestRoomScene extends Scene {
         graphics.lineStyle(2, 0xffff00);
         graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
 
-        // const cpContainer = new CPContainer({
-        //     scene: ((this as unknown) as GameScene),
-        //     x: width / 2,
-        //     y: height / 2,
-        //     width: zoneWidth,
-        //     height: zoneHeight / 4,
-        //     borderColor: 0x00ff00,
-        //     opponent: false,
-        //     name: 'cpContainer'
-        // });
-        //
-
-        const staging = new StageZone({
+        this.staging = new StageZone({
             scene: ((this as unknown) as GameScene),
             x: 500,
             y: 500,
             width: zoneWidth,
-            height: zoneHeight,
+            height: zoneHeight + 100,
             name: 'stag',
             opponent: false,
             borderColor: 0x3e3e3e
 
         })
 
-        staging.addCard(this.card);
+        this.staging.addCard(this.card);
 
         // cpContainer.createCPs([{count: 4, element: FFTCGCardElement.WIND},{count: 4, element: FFTCGCardElement.EARTH}]);
     }
@@ -216,6 +217,14 @@ export default class TestRoomScene extends Scene {
 
         this.player1Menu.push(this.createButton('Activate Attack Phase', () => {
             this.activatePhase(TurnPhases.ATTACK);
+        }));
+
+        this.player1Menu.push(this.createButton('Load CP', () => {
+            this.fillCP();
+        }));
+
+        this.player1Menu.push(this.createButton('Unload CP', () => {
+            this.unfillCP();
         }));
 
         let counter = 1;
@@ -320,5 +329,13 @@ export default class TestRoomScene extends Scene {
 
     activatePhase(turnPhase: TurnPhases) {
         this.turnUI.activatePhase(turnPhase);
+    }
+
+    fillCP() {
+        this.staging.fillCP();
+    }
+
+    unfillCP() {
+        this.staging.clearCP();
     }
 }

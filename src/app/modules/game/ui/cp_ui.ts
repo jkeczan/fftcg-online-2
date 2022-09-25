@@ -1,11 +1,12 @@
 import {Scene} from 'phaser';
+import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 import {FFTCGCardElement} from '../gameobjects/cards/card_fftcg';
 import {IGameZoneConfig} from '../gameobjects/zones/base.zone';
 import Container = Phaser.GameObjects.Container;
 import Graphics = Phaser.GameObjects.Graphics;
-import Shape = Phaser.GameObjects.Shape;
 import Sprite = Phaser.GameObjects.Sprite;
-import Text = Phaser.GameObjects.Text;
+import FixWidthSizer = UIPlugins.FixWidthSizer;
+import GridSizer = UIPlugins.GridSizer;
 
 export interface IGameTurnConfig {
     scene: Scene;
@@ -23,13 +24,12 @@ export class CP extends Container {
     private _fillColor: number;
     private _radians: number;
     private _border: Graphics;
-    private _label: Text;
     private image: Sprite;
     private _filled: boolean;
 
     constructor(config: IGameTurnConfig) {
         const {scene, borderColor, fillColor, radians, name} = config;
-        const image = new Sprite(scene, 0, 0, config.element.toLowerCase() + "_cp");
+        const image = new Sprite(scene, 0, 0, config.element.toLowerCase() + '_cp');
 
         const border = new Graphics(scene);
         super(scene, 0, 0, [border, image]);
@@ -40,21 +40,20 @@ export class CP extends Container {
         this._radians = radians;
         this.image = image;
 
+        // this.image.width = this.width;
+        // this.image.height = this.height;
         this.image.displayWidth = this.radians * 2;
-        this.image.displayHeight = this.radians * 2;
-
-
-        this.createBorder(borderColor);
+        this.image.displayHeight = this.radians * 2
+        // this.createBorder(borderColor);
+        scene.add.existing(this);
     }
 
     fill() {
         if (!this.filled) {
             this._border.fillStyle(0x00ff00, .8);
             this._border.fillCircle(this.originX, this.originY, this.radians * 1.2);
-
             this.filled = true;
         }
-
     }
 
     unfill() {
@@ -121,6 +120,7 @@ export class CP extends Container {
 export default class CPContainer extends Container {
     private _border: Graphics;
     private _cp: Array<CP>;
+    private sizer: GridSizer;
 
     constructor(config: IGameZoneConfig) {
         const {scene, x, y, width, height, name, borderColor} = config;
@@ -134,27 +134,43 @@ export default class CPContainer extends Container {
         this.height = height;
         this._border = border;
 
-        this.createBorder(0xff0000);
+        this.sizer = scene.rexUI.add.gridSizer({
+            x,
+            y,
+            width,
+            height,
+            row: 1, column: 6,
+            space: {
+                // top: 20, bottom: 20, left: 10, right: 10,
+                column: width / 6, row: height
+            }
+        });
+
+        // this.createBorder(borderColor);
         this.scene.add.existing(this);
+
+        this.sizer.layout();
     }
 
-    createCPs(crystalPoints: Array<{count: number, element: FFTCGCardElement}>) {
-        for (const crystal of crystalPoints) {
-            for (let c = 0; c < crystal.count; c++) {
-                const newCP: CP = new CP({
-                    scene: this.scene,
-                    name: 'cp',
-                    radians: this.height / 2,
-                    x: this.x,
-                    y: this.y,
-                    element: crystal.element
-                });
-                this._cp.push(newCP);
-                this.add(newCP)
-            }
+    createCPs(count: number, element: FFTCGCardElement) {
+        // for (const crystal of crystalPoints) {
+        for (let c = 0; c < count; c++) {
+            const newCP: CP = new CP({
+                scene: this.scene,
+                name: 'cp',
+                radians: this.height / 2,
+                x: 0,
+                y: 0,
+                element
+            });
+            this._cp.push(newCP);
+            this.sizer.add(newCP);
         }
+        // }
 
-        this.layoutCP();
+        // this.layoutCP();
+        this.sizer.layout();
+        console.log('Children', this.sizer.childrenMap);
     }
 
     layoutCP() {
@@ -214,7 +230,7 @@ export default class CPContainer extends Container {
 
     clearCP() {
         for (const cp of this.cp) {
-            if (!cp.filled) {
+            if (cp.filled) {
                 cp.unfill();
                 break;
             }

@@ -1,7 +1,7 @@
 import FFTCGCard, {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGCardMetadata} from '../../card_fftcg';
 
 export default class Ramuh extends FFTCGCard {
-    protected metadata: IFFTCGCardMetadata = {
+    public metadata: IFFTCGCardMetadata = {
         cost: 3,
         cardType: FFTCGCardType.Summon,
         elements: [FFTCGCardElement.LIGHTNING],

@@ -1,7 +1,7 @@
 import FixWidthButtons from 'phaser3-rex-plugins/templates/ui/fixwidthbuttons/FixWidthButtons';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import CPContainer from '../../ui/cp_ui';
-import FFTCGCard from '../cards/card_fftcg';
+import FFTCGCard, {FFTCGCardElement} from '../cards/card_fftcg';
 import {BaseZone, IGameZoneConfig} from './base.zone';
 import GameObject = Phaser.GameObjects.GameObject;
 import Sprite = Phaser.GameObjects.Sprite;
@@ -20,6 +20,8 @@ export default class StageZone extends BaseZone {
 
         super(config);
         config.height = height * .15;
+
+        config.y = this.getBounds().bottom;
         const cpContainer = new CPContainer(config);
 
         this.width = width;
@@ -39,8 +41,6 @@ export default class StageZone extends BaseZone {
         this.cpContainer.y = this.getBounds().bottom;
 
         this.hideCPContainer();
-
-        // this.cpContainers = [];
         this.createButtons();
         this.hideButtons();
 
@@ -53,12 +53,32 @@ export default class StageZone extends BaseZone {
     createLabel() {
     }
 
+    createCardCount() {
+
+    }
+
+    // createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {
+    //
+    // }
+
     onCardAdded(card: FFTCGCard) {
         console.log('Align')
+        card.flipForward();
         this.alignCardsInZone(card);
         this.showButtons();
-        this.cpContainer.createCPs([{count: card.cost, element: card.element[0]}]);
+        // this.calculateCPCosts(card)
         this.showCPContainer();
+    }
+
+    addCP(count: number, element: FFTCGCardElement) {
+        this.cpContainer.createCPs(count, element);
+        this.cpContainer.fillNextCP();
+    }
+
+    calculateCPCosts(card: FFTCGCard) {
+        for (const element of card.metadata.elements) {
+            this.cpContainer.createCPs(card.metadata.cost / 2, element);
+        }
     }
 
     alignCardsInZone(cardAdded: FFTCGCard) {
@@ -101,6 +121,9 @@ export default class StageZone extends BaseZone {
 
     clearCP() {
         this.cpContainer.clearCP();
+        if (this.cpContainer.amountOfFilledCP < 2) {
+            this.cards[0].stopZoneParticleEffect();
+        }
     }
 
     unfillCP() {

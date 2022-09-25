@@ -17,7 +17,7 @@ export interface ICardConfig {
 }
 
 export default abstract class CardBase extends Container {
-    protected abstract metadata: IFFTCGCardMetadata;
+    public abstract metadata: IFFTCGCardMetadata;
     private _spriteImage: Sprite;
     private _spriteImageBack: Sprite;
     private _spriteBorder: Sprite;

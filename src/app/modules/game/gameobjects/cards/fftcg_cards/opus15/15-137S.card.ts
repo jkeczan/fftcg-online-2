@@ -2,7 +2,7 @@ import {FFTCGCardElement, FFTCGCardRarity, FFTCGCardType, IFFTCGForwardMetadata}
 import FFTCGForward from '../../card_forward';
 
 export default class Rude extends FFTCGForward {
-    protected metadata: IFFTCGForwardMetadata = {
+    public metadata: IFFTCGForwardMetadata = {
         cost: 3,
         cardType: FFTCGCardType.Forward,
         elements: [FFTCGCardElement.LIGHTNING],
