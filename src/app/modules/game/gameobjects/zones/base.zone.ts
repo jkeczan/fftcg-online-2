@@ -7,6 +7,16 @@ import GameScene from '../../scenes/game.scene';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 
+export enum GameZoneDataKeys {
+    STAGE_CARD_ON_DROP = 'stage_card_on_drop'
+}
+
+export enum GameZoneEvents {
+    UNSTAGE_CARDS = 'unstageCards',
+    STAGE_CARDS = 'stageCards',
+
+}
+
 export interface IGameZoneConfig {
     scene: GameScene;
     name: string;
@@ -57,7 +67,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     activateServerHandler() {
-        
+
     }
 
     createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {

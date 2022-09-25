@@ -1,6 +1,6 @@
 import FFTCGCard, {FFTCGCardType} from '../cards/card_fftcg';
 import BackupZone from './backup.zone';
-import {BaseZone, IGameZoneConfig} from './base.zone';
+import {BaseZone, GameZoneDataKeys, IGameZoneConfig} from './base.zone';
 import ForwardZone from './forward.zone';
 import Graphics = Phaser.GameObjects.Graphics;
 
@@ -52,6 +52,8 @@ export default class PlayerFieldZone extends BaseZone {
         this.backupZone.disableInteractive();
 
         this.scene.add.existing(this);
+
+        this.setData(GameZoneDataKeys.STAGE_CARD_ON_DROP, true);
     }
 
     alignCardsInZone(cardAdded: FFTCGCard) {

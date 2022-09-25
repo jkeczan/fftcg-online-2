@@ -64,6 +64,7 @@ export class GamePage implements OnInit {
                 }]
             }
         });
+
     }
 
     async toggleMenu() {

@@ -1,4 +1,6 @@
 import {Scene} from 'phaser';
+import GameScene from '../../scenes/game.scene';
+import {GameZoneDataKeys, GameZoneEvents} from '../zones/base.zone';
 import StageZone from '../zones/stage.zone';
 import CardBase from './card_base';
 import FFTCGCard from './card_fftcg';
@@ -11,6 +13,7 @@ import GAMEOBJECT_DRAG_LEAVE = Phaser.Input.Events.GAMEOBJECT_DRAG_LEAVE;
 import GAMEOBJECT_DROP = Phaser.Input.Events.GAMEOBJECT_DROP;
 import Pointer = Phaser.Input.Pointer;
 import GAMEOBJECT_DRAG_END = Phaser.Input.Events.GAMEOBJECT_DRAG_END;
+import Zone = Phaser.GameObjects.Zone;
 
 // tslint:disable-next-line:component-class-suffix
 export default abstract class CardDraggable extends CardBase {
@@ -126,10 +129,15 @@ export default abstract class CardDraggable extends CardBase {
 
         });
 
-        this.scene.input.on(GAMEOBJECT_DROP, (pointer, gameObject, dropZone) => {
+        this.scene.input.on(GAMEOBJECT_DROP, (pointer: Pointer, gameObject: FFTCGCard, dropZone: Zone) => {
             console.log('On Drop')
-            gameObject.x = dropZone.x;
-            gameObject.y = dropZone.y;
+
+            if (dropZone.getData(GameZoneDataKeys.STAGE_CARD_ON_DROP) === true) {
+                this.scene.events.emit(GameZoneEvents.STAGE_CARDS, gameObject);
+            } else {
+                gameObject.x = dropZone.x;
+                gameObject.y = dropZone.y;
+            }
         });
 
         this.scene.input.on(GAMEOBJECT_DRAG_END, (pointer, gameObject, dropped) => {

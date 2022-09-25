@@ -137,6 +137,16 @@ export default class PlayerBoard {
 
     }
 
+    get allZones() {
+        return [
+            this.deckZone,
+            this.handZone,
+            this.fieldZone,
+            this.removedFromGameZone,
+            this.breakZone
+        ]
+    }
+
 
     get id(): string {
         return this._id;

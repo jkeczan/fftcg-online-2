@@ -2,7 +2,7 @@ import FixWidthButtons from 'phaser3-rex-plugins/templates/ui/fixwidthbuttons/Fi
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import CPContainer from '../../ui/cp_ui';
 import FFTCGCard, {FFTCGCardElement} from '../cards/card_fftcg';
-import {BaseZone, IGameZoneConfig} from './base.zone';
+import {BaseZone, GameZoneEvents, IGameZoneConfig} from './base.zone';
 import GameObject = Phaser.GameObjects.GameObject;
 import Sprite = Phaser.GameObjects.Sprite;
 
@@ -43,7 +43,6 @@ export default class StageZone extends BaseZone {
         this.hideCPContainer();
         this.createButtons();
         this.hideButtons();
-
     }
 
 
@@ -64,9 +63,11 @@ export default class StageZone extends BaseZone {
     onCardAdded(card: FFTCGCard) {
         console.log('Align')
         card.flipForward();
+        card.disableInteractive();
+        card.endHover();
+        card.disableDrag();
         this.alignCardsInZone(card);
         this.showButtons();
-        // this.calculateCPCosts(card)
         this.showCPContainer();
     }
 
@@ -101,6 +102,8 @@ export default class StageZone extends BaseZone {
         this.clearCP();
         this.hideButtons();
         this.hideCPContainer();
+
+        this.emit(GameZoneEvents.UNSTAGE_CARDS, this.cards[0]);
     }
 
     hideCPContainer() {
@@ -121,9 +124,6 @@ export default class StageZone extends BaseZone {
 
     clearCP() {
         this.cpContainer.clearCP();
-        if (this.cpContainer.amountOfFilledCP < 2) {
-            this.cards[0].stopZoneParticleEffect();
-        }
     }
 
     unfillCP() {
@@ -169,7 +169,7 @@ export default class StageZone extends BaseZone {
         buttons.depth = 100;
 
         buttons.on('button.click', (button: GameObject, index, pointer, event) => {
-            console.log(button, index, pointer, event);
+            this.unstage();
         });
 
         buttons.on('button.over', (button, index, pointer, event) => {

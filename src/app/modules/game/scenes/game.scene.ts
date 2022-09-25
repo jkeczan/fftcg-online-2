@@ -2,7 +2,7 @@ import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import PlayerBoard, {IPlayerConfig} from '../gameobjects/players/player.gameobject';
-import {BaseZone} from '../gameobjects/zones/base.zone';
+import {BaseZone, GameZoneEvents} from '../gameobjects/zones/base.zone';
 import GameManager from '../managers/game.manager';
 import {GameMessages, TurnPhases} from '../server/messages/game_messages';
 import GameServer from '../server/server';
@@ -19,7 +19,7 @@ export default class GameScene extends BaseScene {
     private background: Sprite;
     private gameManager: GameManager;
     private cursors: CursorKeys;
-    private playerBoard: PlayerBoard;
+    public playerBoard: PlayerBoard;
     private opponentBoard: PlayerBoard;
     private particles: ParticleEmitterManager;
     public output: Label;
@@ -107,7 +107,7 @@ export default class GameScene extends BaseScene {
             } else {
                 this.actionButton.setVisible(false);
             }
-        })
+        });
 
         this.server.room.state.turn.listen('turnPhase', (currentValue, previousValue) => {
             if (this.server.isPlayersTurn) {
@@ -152,6 +152,14 @@ export default class GameScene extends BaseScene {
                     );
                 }
             }
+        });
+
+        this.playerBoard.stagingAreaZone.on(GameZoneEvents.UNSTAGE_CARDS, (card: FFTCGCard) => {
+            this.gameManager.moveCard(card, this.playerBoard.stagingAreaZone, this.playerBoard.handZone);
+        });
+
+        this.events.on(GameZoneEvents.STAGE_CARDS, (card) => {
+            this.gameManager.moveCard(card, this.playerBoard.handZone, this.playerBoard.stagingAreaZone);
         });
 
         const p1Cards = await this.createDeck(this.server.getCurrentPlayer());

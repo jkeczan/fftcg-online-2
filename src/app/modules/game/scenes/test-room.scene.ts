@@ -170,7 +170,6 @@ export default class TestRoomScene extends Scene {
         })
 
         this.staging.addCard(this.card);
-
         // cpContainer.createCPs([{count: 4, element: FFTCGCardElement.WIND},{count: 4, element: FFTCGCardElement.EARTH}]);
     }
 

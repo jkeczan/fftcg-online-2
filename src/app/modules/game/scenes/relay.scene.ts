@@ -25,7 +25,7 @@ export class RelayScene extends BaseScene {
             fontFamily: 'Ken Vector'
         });
 
-        this.time.delayedCall(15000, () => {
+        this.time.delayedCall(2000, () => {
             this.scene.start('GameScene', {server: this.server})
         })
     }

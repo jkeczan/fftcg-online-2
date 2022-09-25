@@ -33,11 +33,16 @@ export default class HandZone extends BaseZone implements ICardGameZone {
 
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
+        card.setInteractive();
+        card.enableDrag();
         card.startHover();
     }
 
     onCardRemoved(card: FFTCGCard) {
         super.onCardRemoved(card);
+
+        card.disableInteractive();
+        card.endHover();
     }
 
     orientCard(card: FFTCGCard) {
