@@ -11,4 +11,5 @@ import { PlayerState } from './PlayerState'
 export class GameTurn extends Schema {
     @type(PlayerState) public player: PlayerState = new PlayerState();
     @type("int8") public turnPhase!: number;
+    @type("string") public playerWithPriority!: string;
 }

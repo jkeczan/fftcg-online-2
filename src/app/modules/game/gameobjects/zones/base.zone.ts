@@ -193,12 +193,15 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
             this.input.hitArea.height);
 
         this.highlightedBorder = border;
+
+        // this.highlightZoneParticleEffect();
     }
 
     unhighlightZone() {
         if (this.highlightedBorder) {
             this.highlightedBorder.destroy(true);
         }
+
         if (this.borderParticleEffect) {
             this.borderParticleEffect.explode(-1, 0, 0);
         }
@@ -236,7 +239,7 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         }
     }
 
-    highlightZoneParticleEffect() {
+    highlightZoneParticleEffect(limitTime?: number) {
         this.scene.time.delayedCall(250, () => {
                 const rect = new Phaser.Geom.Rectangle(this.x - (this.width / 2),
                     this.y - (this.height / 2), this.width, this.height);
@@ -245,7 +248,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
                 this.borderParticleEffect = this.emitterManager.createEmitter({
                     frame: ['red', 'yellow', 'green', 'blue'],
                     speed: 50,
-                    lifespan: 1000,
                     quantity: 10,
                     frequency: 5,
                     delay: 100,
@@ -254,9 +256,11 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
                     emitZone: {type: 'edge', source: rect, quantity: 200}
                 });
 
-                this.scene.time.delayedCall(1500, () => {
-                    this.unhighlightZone();
-                });
+                if (limitTime) {
+                    this.scene.time.delayedCall(limitTime, () => {
+                        this.unhighlightZone();
+                    });
+                }
             }
         );
     }

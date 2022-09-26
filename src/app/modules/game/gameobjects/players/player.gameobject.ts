@@ -34,7 +34,7 @@ export default class PlayerBoard {
 
     constructor(config: IPlayerConfig) {
         this._id = config.id;
-        this._scene = config.scene
+        this._scene = config.scene;
 
         this._handZone = new HandZone({
             scene: config.scene,
@@ -137,6 +137,14 @@ export default class PlayerBoard {
 
     }
 
+    activateTurnUI() {
+        this.handZone.highlightZone();
+    }
+
+    deactivateTurnUI() {
+        this.handZone.unhighlightZone();
+    }
+
     get allZones() {
         return [
             this.deckZone,
@@ -144,7 +152,7 @@ export default class PlayerBoard {
             this.fieldZone,
             this.removedFromGameZone,
             this.breakZone
-        ]
+        ];
     }
 
 
@@ -156,7 +164,7 @@ export default class PlayerBoard {
         this._id = value;
     }
 
-    get scene(): GameScene{
+    get scene(): GameScene {
         return this._scene;
     }
 

@@ -150,8 +150,7 @@ export default abstract class CardBase extends Container {
             scale: {start: 0.4, end: 0},
             blendMode: 'ADD',
             particleBringToTop: true,
-            gravityY: 50,
-            gravityX: -50,
+
             emitZone: {type: 'edge', source: rect, quantity: 48}
         });
     }

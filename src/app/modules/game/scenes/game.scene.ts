@@ -1,4 +1,5 @@
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
+import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import PlayerBoard, {IPlayerConfig} from '../gameobjects/players/player.gameobject';
@@ -14,6 +15,7 @@ import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterMana
 import Sprite = Phaser.GameObjects.Sprite;
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
+import Toast = UIPlugins.Toast;
 
 export default class GameScene extends BaseScene {
     private background: Sprite;
@@ -24,6 +26,7 @@ export default class GameScene extends BaseScene {
     private particles: ParticleEmitterManager;
     public output: Label;
     private actionButton: GameButton;
+    private toast: Toast;
 
     constructor(id: string = 'GameScene') {
         super('GameScene');
@@ -62,6 +65,16 @@ export default class GameScene extends BaseScene {
         const zoneHeight = screenHeight * .25;
         const zoneSpacing = zoneHeight / 10;
 
+        this.toast = this.rexUI.add.toast({
+            x: screenWidth / 2,
+            y: screenHeight / 2,
+            orientation: 'h',
+            align: 'center',
+            transitIn: 'popUp',
+            text: this.add.text(0, 0, '', {fontFamily: 'Ken Vector', fontSize: '40pt'})
+        });
+
+        this.toast.setDepth(1000);
 
         const playerBoardConfig: IPlayerConfig = {
             id: this.server.getCurrentPlayer().sessionID,
@@ -104,8 +117,16 @@ export default class GameScene extends BaseScene {
         this.server.room.state.listen('playerTurn', (currentValue: string, previousValue: string) => {
             if (this.server.getCurrentPlayer().sessionID === currentValue) {
                 this.actionButton.setVisible(true);
+                this.playerBoard.activateTurnUI();
+                this.opponentBoard.deactivateTurnUI();
+
+                this.toast.showMessage('Your Turn');
             } else {
                 this.actionButton.setVisible(false);
+                this.opponentBoard.activateTurnUI();
+                this.playerBoard.deactivateTurnUI();
+
+                this.toast.showMessage('Opponents Turn');
             }
         });
 

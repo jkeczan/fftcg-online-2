@@ -2,7 +2,7 @@ import {Scene} from 'phaser';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import TextBox from 'phaser3-rex-plugins/templates/ui/textbox/TextBox';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
-import FFTCGCard, {FFTCGCardElement} from '../gameobjects/cards/card_fftcg';
+import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import StageZone from '../gameobjects/zones/stage.zone';
 import {
@@ -17,7 +17,6 @@ import GameServer from '../server/server';
 import {CorneliaRoomState} from '../server/states/CorneliaRoomState';
 import {PlayerState} from '../server/states/PlayerState';
 import {RequestedPriority} from '../server/states/RequestedPriority';
-import CPContainer from '../ui/cp_ui';
 import GameTurnUI from '../ui/game_turn_ui';
 import {StateTextBuilder} from '../utils';
 import GameScene from './game.scene';
@@ -58,6 +57,7 @@ export default class TestRoomScene extends Scene {
         this.load.atlasXML('greyUI', 'assets/uipack/Spritesheet/greySheet.png', 'assets/uipack/Spritesheet/greySheet.xml');
         this.load.atlasXML('redUI', 'assets/uipack/Spritesheet/redSheet.png', 'assets/uipack/Spritesheet/redSheet.xml');
 
+
         this.load.glsl('gray_cloud', 'assets/shaders/gray_cloud.frag');
     }
 
@@ -84,6 +84,17 @@ export default class TestRoomScene extends Scene {
         const zoneWidth = innerWidth * .1;
         const zoneHeight = innerHeight * .25;
         const zoneSpacing = zoneHeight / 10;
+        //
+        // let counter = 0;
+        // for (const frame of this.textures.get('blueUI').getFrameNames(false)) {
+        //     console.log(frame);
+        //     if (frame.indexOf('button') > -1) {
+        //         continue;
+        //     }
+        //     // blue_boxTick.png
+        //     this.add.sprite(50 + (25 * counter), 50 + (50 * counter), 'blueUI', frame);
+        //     counter++;
+        // }
 
 
         // this.turnUI = new GameTurnUI({
@@ -128,7 +139,7 @@ export default class TestRoomScene extends Scene {
         this.server.state.turn.listen('turnPhase', (currentValue: TurnPhases, previousValue: TurnPhases) => {
             this.turnUI.activatePhase(currentValue);
             this.turnUI.deactivatePhase(previousValue);
-        })
+        });
 
         this.addPlayer1TestButtons();
         this.card = await CardFactory.getCard(this, '15-140S');
@@ -167,7 +178,7 @@ export default class TestRoomScene extends Scene {
             opponent: false,
             borderColor: 0x3e3e3e
 
-        })
+        });
 
         this.staging.addCard(this.card);
         // cpContainer.createCPs([{count: 4, element: FFTCGCardElement.WIND},{count: 4, element: FFTCGCardElement.EARTH}]);
