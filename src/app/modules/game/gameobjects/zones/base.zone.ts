@@ -183,28 +183,25 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     highlightZone() {
-        const border = new Graphics(this.scene);
-        this.scene.add.existing(border);
-        border.lineStyle(20, 0xff0000, 1);
+        // const border = new Graphics(this.scene);
+        // this.scene.add.existing(border);
+        // border.lineStyle(20, 0xff0000, 1);
+        //
+        // border.strokeRect(this.x - this.input.hitArea.width / 2,
+        //     this.y - this.input.hitArea.height / 2,
+        //     this.input.hitArea.width,
+        //     this.input.hitArea.height);
+        //
+        // this.highlightedBorder = border;
 
-        border.strokeRect(this.x - this.input.hitArea.width / 2,
-            this.y - this.input.hitArea.height / 2,
-            this.input.hitArea.width,
-            this.input.hitArea.height);
-
-        this.highlightedBorder = border;
-
-        // this.highlightZoneParticleEffect();
+        this.highlightZoneParticleEffect();
     }
 
     unhighlightZone() {
-        if (this.highlightedBorder) {
-            this.highlightedBorder.destroy(true);
-        }
-
-        if (this.borderParticleEffect) {
-            this.borderParticleEffect.explode(-1, 0, 0);
-        }
+        // if (this.highlightedBorder) {
+        //     this.highlightedBorder.destroy(true);
+        // }
+        // if (this.emitterManager.emitters.)
     }
 
 
@@ -240,29 +237,19 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     highlightZoneParticleEffect(limitTime?: number) {
-        this.scene.time.delayedCall(250, () => {
-                const rect = new Phaser.Geom.Rectangle(this.x - (this.width / 2),
-                    this.y - (this.height / 2), this.width, this.height);
-
-                this.emitterManager = this.scene.add.particles('flares');
-                this.borderParticleEffect = this.emitterManager.createEmitter({
-                    frame: ['red', 'yellow', 'green', 'blue'],
-                    speed: 50,
-                    quantity: 10,
-                    frequency: 5,
-                    delay: 100,
-                    scale: {start: 0.4, end: 0},
-                    blendMode: 'ADD',
-                    emitZone: {type: 'edge', source: rect, quantity: 200}
-                });
-
-                if (limitTime) {
-                    this.scene.time.delayedCall(limitTime, () => {
-                        this.unhighlightZone();
-                    });
-                }
-            }
-        );
+        // const emitManager = this.scene.add.particles('flares');
+        //
+        // (window as any).emitter = emitManager.createEmitter({
+        //     frame: ['red', 'yellow', 'green', 'blue'],
+        //     speed: 15,
+        //     lifespan: 1500,
+        //     quantity: 25,
+        //     frequency: 4,
+        //     scale: {start: 0.4, end: 0},
+        //     blendMode: 'ADD',
+        //     particleBringToTop: true,
+        //     emitZone: {type: 'edge', source: this.getBounds(), quantity: 140}
+        // });
     }
 
 

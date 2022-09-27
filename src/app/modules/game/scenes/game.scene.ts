@@ -13,8 +13,10 @@ import GameButton from '../ui/button';
 import {BaseScene} from './base.scene';
 import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import Sprite = Phaser.GameObjects.Sprite;
+import Text = Phaser.GameObjects.Text;
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
+import Sizer = UIPlugins.Sizer;
 import Toast = UIPlugins.Toast;
 
 export default class GameScene extends BaseScene {
@@ -27,6 +29,8 @@ export default class GameScene extends BaseScene {
     public output: Label;
     private actionButton: GameButton;
     private toast: Toast;
+    private actionLabel: Text;
+    private actionUI: Sizer;
 
     constructor(id: string = 'GameScene') {
         super('GameScene');
@@ -101,49 +105,104 @@ export default class GameScene extends BaseScene {
         this.playerBoard = new PlayerBoard(playerBoardConfig);
         this.opponentBoard = new PlayerBoard(opponentBoardConfig);
 
-        this.actionButton = new GameButton(this, this.playerBoard.breakZone.x, this.playerBoard.turnPhaseUI.y - 10, 'Next', {
+        this.actionUI = this.rexUI.add.sizer({
+            x: this.playerBoard.breakZone.x,
+            y: this.playerBoard.breakZone.getBounds().top - (zoneHeight / 4),
+            width: 500,
+            orientation: 'v',
+            space: {
+                left: 5, right: 5, top: 5, bottom: 5, item: 5
+            }
+        });
+
+        // this.actionUI.add(this.rexUI.add.label({
+        //     x: 0,
+        //     y: 0,
+        //     align: 'center',
+        //     text: this.add.text(0, 0, 'My Turn', {fontFamily: 'Ken Vector', fontSize: '15pt'})
+        // }));
+
+        this.actionButton = new GameButton(this, 0, 0, 'Next', {
             textureDown: 'redUI',
             frameDown: 'red_button00.png',
             textureUp: 'blueUI',
             frameUp: 'blue_button05.png',
             textureOver: 'greyUI',
             frameOver: 'grey_button05.png'
-        });
-
-        this.actionButton.on(GAMEOBJECT_POINTER_UP, () => {
-            this.server.room.send(GameMessages.NextPhase);
-        });
-
-        this.server.room.state.listen('playerTurn', (currentValue: string, previousValue: string) => {
-            if (this.server.getCurrentPlayer().sessionID === currentValue) {
-                this.actionButton.setVisible(true);
-                this.playerBoard.activateTurnUI();
-                this.opponentBoard.deactivateTurnUI();
-
-                this.toast.showMessage('Your Turn');
-            } else {
-                this.actionButton.setVisible(false);
-                this.opponentBoard.activateTurnUI();
-                this.playerBoard.deactivateTurnUI();
-
-                this.toast.showMessage('Opponents Turn');
+        }).on(GAMEOBJECT_POINTER_UP, () => {
+            if (this.server.isPlayersTurn && this.server.playerHasPriority()) {
+                this.server.room.send(GameMessages.NextPhase);
+            } else if (this.server.isPlayersTurn && !this.server.playerHasPriority()) {
+                console.log('No Priority to do anything');
+            } else if (!this.server.isPlayersTurn && this.server.playerHasPriority()) {
+                this.server.room.send(GameMessages.PassPriority);
+            } else if (!this.server.isPlayersTurn && !this.server.playerHasPriority()) {
+                console.log('No Priority to do anything');
             }
         });
+
+        this.actionUI.add(this.actionButton);
+        this.actionUI.layout();
+
+
+        this.server.room.state.listen('turn', (currentValue, previousValue) => {
+            if (currentValue.player !== previousValue.player) {
+                if (this.server.getCurrentPlayer().sessionID === currentValue.player.sessionID) {
+                    this.toast.showMessage('Your Turn');
+                    (this.actionUI.childrenMap.items[0] as GameButton).setText('My Turn');
+                    (this.actionUI.childrenMap.items[0] as GameButton).enable();
+
+                } else {
+                    this.toast.showMessage(`Opponents Turn`);
+                    (this.actionUI.childrenMap.items[0] as GameButton).setText(`Opponents Turn`);
+                    (this.actionUI.childrenMap.items[0] as GameButton).disable();
+                }
+            }
+        });
+
 
         this.server.room.state.turn.listen('turnPhase', (currentValue, previousValue) => {
             if (this.server.isPlayersTurn) {
                 this.playerBoard.turnPhaseUI.activatePhase(currentValue);
                 this.playerBoard.turnPhaseUI.deactivatePhase(previousValue);
+                if (currentValue === TurnPhases.END_TURN) {
+                    this.actionButton.setText('End Turn');
+                } else {
+                    this.actionButton.setText('Next');
+                }
             } else {
                 this.opponentBoard.turnPhaseUI.activatePhase(currentValue);
                 this.opponentBoard.turnPhaseUI.deactivatePhase(previousValue);
+                this.actionButton.setText('Opponents Turn');
+            }
+        });
+
+        this.server.room.state.turn.listen('playerWithPriority', (currentValue, previousValue) => {
+            // TODO convert to state machine; use RexUI FSM
+            if (this.server.isPlayersTurn && this.server.playerHasPriority()) {
+                (this.actionUI.childrenMap.items[0] as GameButton).enable();
+                this.actionButton.setText('Next');
+            } else if (this.server.isPlayersTurn && !this.server.playerHasPriority()) {
+                (this.actionUI.childrenMap.items[0] as GameButton).disable();
+                this.actionButton.setText('Waiting...');
+            } else if (!this.server.isPlayersTurn && this.server.playerHasPriority()) {
+                (this.actionUI.childrenMap.items[0] as GameButton).enable();
+                this.actionButton.setText('Pass');
+            } else if (!this.server.isPlayersTurn && !this.server.playerHasPriority()) {
+                (this.actionUI.childrenMap.items[0] as GameButton).disable();
+                this.actionButton.setText(`Opponents Turn`);
             }
 
-            if (currentValue === TurnPhases.END_TURN) {
-                this.actionButton.setText('End Turn');
-            } else {
-                this.actionButton.setText('Next');
-            }
+
+            //
+            // if (this.server.getCurrentPlayer().sessionID === currentValue) {
+            //
+            // } else {
+            //     this.opponentBoard.handZone.highlightZone();
+            //     this.playerBoard.handZone.unhighlightZone();
+            //     (this.actionUI.childrenMap.items[0] as GameButton).disable();
+            //     this.actionButton.setText('Opponents Turn');
+            // }
         });
 
         this.server.room.onMessage(GameMessages.DrawCard, (params) => {

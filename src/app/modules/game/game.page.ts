@@ -3,6 +3,7 @@ import {Game} from 'phaser';
 import FSMPlugin from 'phaser3-rex-plugins/plugins/fsm-plugin.js';
 import GlowFilterPipelinePlugin from 'phaser3-rex-plugins/plugins/glowfilterpipeline-plugin';
 import OutlinePipelinePlugin from 'phaser3-rex-plugins/plugins/outlinepipeline-plugin';
+import ParticlesAlongBoundsPlugin from 'phaser3-rex-plugins/plugins/particlesalongbounds-plugin';
 import ShakePositionPlugin from 'phaser3-rex-plugins/plugins/shakeposition-plugin.js';
 import ShatterImagePlugin from 'phaser3-rex-plugins/plugins/shatterimage-plugin.js';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
@@ -48,9 +49,13 @@ export class GamePage implements OnInit {
                     key: 'rexOutlinePipeline',
                     plugin: OutlinePipelinePlugin,
                     start: true
-                },{
+                }, {
                     key: 'rexGlowFilterPipeline',
                     plugin: GlowFilterPipelinePlugin,
+                    start: true
+                }, {
+                    key: 'rexparticlesalongboundsplugin',
+                    plugin: ParticlesAlongBoundsPlugin,
                     start: true
                 }],
                 scene: [{
@@ -64,12 +69,6 @@ export class GamePage implements OnInit {
                 }]
             }
         });
-
-    }
-
-    async toggleMenu() {
-        // await this.menuController.close('side-menu');
-        // await this.menuController.toggle('side-menu');
     }
 
     get game(): Game {

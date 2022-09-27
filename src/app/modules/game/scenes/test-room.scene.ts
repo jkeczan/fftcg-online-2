@@ -1,9 +1,9 @@
 import {Scene} from 'phaser';
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import TextBox from 'phaser3-rex-plugins/templates/ui/textbox/TextBox';
+import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
-import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import StageZone from '../gameobjects/zones/stage.zone';
 import {
     DeckChosenMessageInput,
@@ -17,9 +17,11 @@ import GameServer from '../server/server';
 import {CorneliaRoomState} from '../server/states/CorneliaRoomState';
 import {PlayerState} from '../server/states/PlayerState';
 import {RequestedPriority} from '../server/states/RequestedPriority';
+import GameButton from '../ui/button';
 import GameTurnUI from '../ui/game_turn_ui';
 import {StateTextBuilder} from '../utils';
-import GameScene from './game.scene';
+import Text = Phaser.GameObjects.Text;
+import Sizer = UIPlugins.Sizer;
 
 export default class TestRoomScene extends Scene {
     public server!: GameServer;
@@ -28,6 +30,9 @@ export default class TestRoomScene extends Scene {
     public stateBoxPlayer1: TextBox;
     public player1Menu: Label[] = [];
     public staging: StageZone;
+    private actionUI: Sizer;
+    private actionButton: GameButton;
+    private actionLabel: Text;
 
     public turnUI: GameTurnUI;
 
@@ -126,7 +131,7 @@ export default class TestRoomScene extends Scene {
         this.add.text(5, 5, 'Commands').setOrigin(0);
 
         this.server.room.onStateChange(async (state: CorneliaRoomState) => {
-            for (let player of state.players.values()) {
+            for (const player of state.players.values()) {
                 console.log(player.deckID);
             }
             this.updateStateDisplay(this.stateBoxPlayer1, state);
@@ -142,45 +147,46 @@ export default class TestRoomScene extends Scene {
         });
 
         this.addPlayer1TestButtons();
-        this.card = await CardFactory.getCard(this, '15-140S');
-        this.card.x = width / 2;
-        this.card.y = 50;
-        this.card.angle = 0;
-        this.card.setInteractive();
-        this.card.enableDrag();
+        // this.card = await CardFactory.getCard(this, '15-140S');
+        // this.card.x = width / 2;
+        // this.card.y = 50;
+        // this.card.angle = 0;
+        // this.card.setInteractive();
+        // this.card.enableDrag();
+        //
+        // this.card2 = await CardFactory.getCard(this, '15-140S');
+        // this.card2.x = width / 2;
+        // this.card2.y = 500;
+        // this.card2.angle = 0;
+        // this.card2.setInteractive();
+        //
+        // this.time.delayedCall(1000, () => {
+        //     this.card2.tap();
+        //     this.staging.addCP(4, this.card2.metadata.elements[0]);
+        // });
 
-        this.card2 = await CardFactory.getCard(this, '15-140S');
-        this.card2.x = width / 2;
-        this.card2.y = 500;
-        this.card2.angle = 0;
-        this.card2.setInteractive();
-
-        this.time.delayedCall(1000, () => {
-            this.card2.tap();
-            this.staging.addCP(4, this.card2.metadata.elements[0]);
-        });
-
-
-        let zone = this.add.zone(500, 300, 300, 300).setRectangleDropZone(300, 300);
-
-        //  Just a visual display of the drop zone
-        let graphics = this.add.graphics();
-        graphics.lineStyle(2, 0xffff00);
-        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-
-        this.staging = new StageZone({
-            scene: ((this as unknown) as GameScene),
-            x: 500,
-            y: 500,
-            width: zoneWidth,
-            height: zoneHeight + 100,
-            name: 'stag',
-            opponent: false,
-            borderColor: 0x3e3e3e
-
-        });
-
-        this.staging.addCard(this.card);
+        //
+        // let zone = this.add.zone(500, 300, 300, 300).setRectangleDropZone(300, 300);
+        //
+        // //  Just a visual display of the drop zone
+        // let graphics = this.add.graphics();
+        // graphics.lineStyle(2, 0xffff00);
+        // graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y -
+        // zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+        //
+        // this.staging = new StageZone({
+        //     scene: ((this as unknown) as GameScene),
+        //     x: 500,
+        //     y: 500,
+        //     width: zoneWidth,
+        //     height: zoneHeight + 100,
+        //     name: 'stag',
+        //     opponent: false,
+        //     borderColor: 0x3e3e3e
+        //
+        // });
+        //
+        // this.staging.addCard(this.card);
         // cpContainer.createCPs([{count: 4, element: FFTCGCardElement.WIND},{count: 4, element: FFTCGCardElement.EARTH}]);
     }
 
@@ -237,8 +243,12 @@ export default class TestRoomScene extends Scene {
             this.unfillCP();
         }));
 
+        this.player1Menu.push(this.createButton('Set message', () => {
+            this.actionLabel.setText(' My Turn');
+        }));
+
         let counter = 1;
-        for (let button of this.player1Menu) {
+        for (const button of this.player1Menu) {
             button.x = 5;
             button.y = 40 * counter;
             counter++;

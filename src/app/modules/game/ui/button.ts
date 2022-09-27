@@ -27,7 +27,7 @@ export default class GameButton extends Phaser.GameObjects.Container {
         this.upImage = scene.add.sprite(0, 0, textures.textureUp, textures.frameUp);
         this.overImage = scene.add.sprite(0, 0, textures.textureOver, textures.frameOver);
         this.downImage = scene.add.sprite(0, 0, textures.textureDown, textures.frameDown);
-        this.label = scene.add.text(0, 0, text, {fontFamily: 'Ken Vecotr', fontSize: '25pt'});
+        this.label = scene.add.text(0, 0, text, {fontFamily: 'Ken Vecotr', fontSize: '20pt'});
 
         this.add(this.upImage);
         this.add(this.overImage);
@@ -68,6 +68,16 @@ export default class GameButton extends Phaser.GameObjects.Container {
         });
 
         scene.add.existing(this);
+    }
+
+    enable() {
+        this.setInteractive();
+        this.setAlpha(1);
+    }
+
+    disable() {
+        this.disableInteractive();
+        this.setAlpha(.5);
     }
 
     setText(text: string) {

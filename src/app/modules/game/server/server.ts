@@ -1,7 +1,8 @@
 import {Client, Room} from 'colyseus.js';
+import {environment} from '../../../../environments/environment';
 import {CorneliaRoomState} from './states/CorneliaRoomState';
 import {PlayerState} from './states/PlayerState';
-import {environment} from '../../../../environments/environment';
+
 export enum GameRoom {
     Cornelia = 'Cornelia'
 }
@@ -28,6 +29,10 @@ export default class GameServer {
                 return player;
             }
         }
+    }
+
+    playerHasPriority(): boolean {
+        return this.state.turn.playerWithPriority === this.connectedRoom.sessionId;
     }
 
     get room() {
