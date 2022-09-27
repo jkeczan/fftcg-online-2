@@ -160,19 +160,34 @@ export default class GameScene extends BaseScene {
             });
 
             this.gameManager.moveCard(stagedCard, this.playerBoard.handZone, this.playerBoard.stagingAreaZone);
+            this.playerBoard.activateCPHandlers();
+            this.playerBoard.events.on('DiscardForCP', (params: { card: FFTCGCard }) => {
+                this.gameManager.moveCard(params.card, this.playerBoard.handZone, this.playerBoard.stagingAreaZone);
+            });
         });
 
         this.server.room.onMessage(GameResponseMessages.CardHasBeenUnstaged, (message: CardHasBeenStagedMessage) => {
-            const stagedCard = this.playerBoard.stagingAreaZone.cards.find((card: FFTCGCard) => {
-                return card.gameCardID === message.cardID;
-            });
+            this.playerBoard.deactivateCPHandlers();
 
-            this.gameManager.moveCard(stagedCard, this.playerBoard.stagingAreaZone, this.playerBoard.handZone);
+            for (const stagedCard of this.playerBoard.stagingAreaZone.cards) {
+                this.gameManager.moveCard(stagedCard, this.playerBoard.stagingAreaZone, this.playerBoard.handZone);
+            }
         });
 
 
         this.server.room.onMessage(GameMessages.DrawCard, (params) => {
             this.executeDrawCardCommand(params);
+        });
+
+        this.server.room.onMessage(GameMessages.ResolveStagedCard, (params) => {
+            const foundCard = this.playerBoard.stagingAreaZone.cards.find((card) => {
+                return card.gameCardID === params.cardID;
+            });
+
+            this.gameManager.moveCard(foundCard, this.playerBoard.stagingAreaZone, this.playerBoard.fieldZone.forwardZone);
+            for (const cards of this.playerBoard.stagingAreaZone.cards) {
+                this.gameManager.moveCard(foundCard, this.playerBoard.stagingAreaZone, this.playerBoard.breakZone);
+            }
         });
 
         this.playerBoard.stagingAreaZone.on(GameZoneEvents.RequestUnstageCard, (card: FFTCGCard) => {
@@ -186,6 +201,10 @@ export default class GameScene extends BaseScene {
                 });
             });
 
+        });
+
+        this.events.on(GameZoneEvents.ConfirmPaidCP, () => {
+            this.server.room.send(GameMessages.PlayCard);
         });
 
         const p1Cards = await this.createDeck(this.server.getCurrentPlayer());

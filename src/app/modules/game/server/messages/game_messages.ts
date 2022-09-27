@@ -18,7 +18,8 @@ export enum GameMessages {
     PayCP,
     UnpayCP,
     PlayCard,
-    UnstageCard
+    UnstageCard,
+    ResolveStagedCard
 }
 
 export enum GameResponseMessages {

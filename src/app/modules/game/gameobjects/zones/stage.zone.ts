@@ -169,13 +169,13 @@ export default class StageZone extends BaseZone {
         buttons.depth = 100;
 
         buttons.on('button.click', (button: GameObject, index, pointer, event) => {
-            this.unstage();
-        });
+            if (index === 0) {
+                this.scene.events.emit(GameZoneEvents.ConfirmPaidCP);
+            } else {
+                this.unstage();
+            }
 
-        buttons.on('button.over', (button, index, pointer, event) => {
-            console.log('Buttons Over');
         });
-
 
         this.buttons = this.scene.add.existing(buttons);
     }

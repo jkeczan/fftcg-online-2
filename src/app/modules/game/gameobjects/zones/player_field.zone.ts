@@ -70,4 +70,6 @@ export default class PlayerFieldZone extends BaseZone {
 
         this.removeCard(card);
     }
+
+
 }

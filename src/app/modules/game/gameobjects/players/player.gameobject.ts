@@ -1,6 +1,7 @@
 import GameScene from '../../scenes/game.scene';
 import {GameMessages, PriorityMessageInput} from '../../server/messages/game_messages';
 import GameTurnUI, {TurnPriorityEvent, TurnUIEvent} from '../../ui/game_turn_ui';
+import FFTCGCard from '../cards/card_fftcg';
 import BreakZone from '../zones/break.zone';
 import DamageZone from '../zones/damage.zone';
 import DeckZone from '../zones/deck.zone';
@@ -8,6 +9,9 @@ import HandZone from '../zones/hand.zone';
 import PlayerFieldZone from '../zones/player_field.zone';
 import RemoveFromGameZone from '../zones/remove_from_game.zone';
 import StageZone from '../zones/stage.zone';
+import EventEmitter = Phaser.Events.EventEmitter;
+import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP;
+import Pointer = Phaser.Input.Pointer;
 
 export interface IPlayerConfig {
     id: string;
@@ -31,10 +35,13 @@ export default class PlayerBoard {
     private _fieldZone: PlayerFieldZone;
     private _turnPhaseUI: GameTurnUI;
     private _stagingAreaZone: StageZone;
+    public events: EventEmitter;
 
     constructor(config: IPlayerConfig) {
         this._id = config.id;
         this._scene = config.scene;
+
+        this.events = new EventEmitter();
 
         this._handZone = new HandZone({
             scene: config.scene,
@@ -143,6 +150,32 @@ export default class PlayerBoard {
 
     deactivateTurnUI() {
         this.handZone.unhighlightZone();
+    }
+
+    activateCPHandlers() {
+        for (const card of this.handZone.cards) {
+            card.on(GAMEOBJECT_POINTER_UP, (pointer: Pointer, gameObject: FFTCGCard) => {
+                this.events.emit('DiscardForCP', {card});
+            });
+        }
+    }
+
+    deactivateCPHandlers() {
+        for (const card of this.handZone.cards) {
+            card.off(GAMEOBJECT_POINTER_UP);
+        }
+    }
+
+    highlightAvailableCP() {
+        for (const card of this.handZone.cards) {
+            card.startShaking();
+        }
+    }
+
+    unhighlightAvailableCP() {
+        for (const card of this.handZone.cards) {
+            card.stopShaking();
+        }
     }
 
     get allZones() {

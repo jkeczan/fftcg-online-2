@@ -13,7 +13,8 @@ export enum GameZoneDataKeys {
 
 export enum GameZoneEvents {
     RequestStageCard = 'requestStageCard',
-    RequestUnstageCard = 'requestUnstageCard'
+    RequestUnstageCard = 'requestUnstageCard',
+    ConfirmPaidCP = 'confirmPaidCP'
 }
 
 export interface IGameZoneConfig {
