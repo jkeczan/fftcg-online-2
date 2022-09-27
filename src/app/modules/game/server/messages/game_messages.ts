@@ -13,7 +13,17 @@ export enum GameMessages {
     RequestNewTurn,
     RequestPriority,
     ReleasingPriority,
-    PassPriority
+    PassPriority,
+    StageCard,
+    PayCP,
+    UnpayCP,
+    PlayCard,
+    UnstageCard
+}
+
+export enum GameResponseMessages {
+    CardHasBeenStaged,
+    CardHasBeenUnstaged
 }
 
 export enum GamePhases {
@@ -40,7 +50,6 @@ export enum TurnPhases {
     END_TURN = 7
 }
 
-
 export interface GameStateChangeMessage {
     newState: GamePhases;
 }
@@ -64,3 +73,18 @@ export interface SetGamePhaseMessageInput {
 export interface PriorityMessageInput {
     forTurnPhase: TurnPhases;
 }
+
+export interface StageCardMessageInput {
+    cardID: string;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface PayCPMessageInput {
+
+}
+
+// Response Interfaces
+export interface CardHasBeenStagedMessage {
+    cardID: string;
+}
+

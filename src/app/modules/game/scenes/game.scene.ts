@@ -5,7 +5,12 @@ import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import PlayerBoard, {IPlayerConfig} from '../gameobjects/players/player.gameobject';
 import {BaseZone, GameZoneEvents} from '../gameobjects/zones/base.zone';
 import GameManager from '../managers/game.manager';
-import {GameMessages, TurnPhases} from '../server/messages/game_messages';
+import {
+    CardHasBeenStagedMessage,
+    GameMessages,
+    GameResponseMessages,
+    TurnPhases
+} from '../server/messages/game_messages';
 import GameServer from '../server/server';
 import {CardState} from '../server/states/CardState';
 import {GameTurn} from '../server/states/GameTurn';
@@ -137,7 +142,6 @@ export default class GameScene extends BaseScene {
         this.actionUI.add(this.actionButton);
         this.actionUI.layout();
 
-
         this.server.room.state.listen('turn', (currentValue, previousValue) => {
             this.executeTurnChange(currentValue, previousValue);
         });
@@ -150,16 +154,38 @@ export default class GameScene extends BaseScene {
             this.updateActionButton();
         });
 
+        this.server.room.onMessage(GameResponseMessages.CardHasBeenStaged, (message: CardHasBeenStagedMessage) => {
+            const stagedCard = this.playerBoard.handZone.cards.find((card: FFTCGCard) => {
+                return card.gameCardID === message.cardID;
+            });
+
+            this.gameManager.moveCard(stagedCard, this.playerBoard.handZone, this.playerBoard.stagingAreaZone);
+        });
+
+        this.server.room.onMessage(GameResponseMessages.CardHasBeenUnstaged, (message: CardHasBeenStagedMessage) => {
+            const stagedCard = this.playerBoard.stagingAreaZone.cards.find((card: FFTCGCard) => {
+                return card.gameCardID === message.cardID;
+            });
+
+            this.gameManager.moveCard(stagedCard, this.playerBoard.stagingAreaZone, this.playerBoard.handZone);
+        });
+
+
         this.server.room.onMessage(GameMessages.DrawCard, (params) => {
             this.executeDrawCardCommand(params);
         });
 
-        this.playerBoard.stagingAreaZone.on(GameZoneEvents.UNSTAGE_CARDS, (card: FFTCGCard) => {
-            this.gameManager.moveCard(card, this.playerBoard.stagingAreaZone, this.playerBoard.handZone);
+        this.playerBoard.stagingAreaZone.on(GameZoneEvents.RequestUnstageCard, (card: FFTCGCard) => {
+            this.server.room.send(GameMessages.UnstageCard);
         });
 
-        this.events.on(GameZoneEvents.STAGE_CARDS, (card) => {
-            this.gameManager.moveCard(card, this.playerBoard.handZone, this.playerBoard.stagingAreaZone);
+        this.events.on(GameZoneEvents.RequestStageCard, (card: FFTCGCard) => {
+            this.time.delayedCall(100, () => {
+                this.server.room.send(GameMessages.StageCard, {
+                    cardID: card.cardState.gameCardID
+                });
+            });
+
         });
 
         const p1Cards = await this.createDeck(this.server.getCurrentPlayer());
@@ -167,10 +193,6 @@ export default class GameScene extends BaseScene {
 
         this.playerBoard.deckZone.addCards(p1Cards, 'top');
         this.opponentBoard.deckZone.addCards(p2Cards, 'top');
-
-        this.input.keyboard.on('keyup-S', () => {
-            this.playerBoard.deckZone.shuffle();
-        });
     }
 
     async createDeck(player: PlayerState): Promise<FFTCGCard[]> {

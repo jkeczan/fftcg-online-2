@@ -61,7 +61,7 @@ export default class StageZone extends BaseZone {
     // }
 
     onCardAdded(card: FFTCGCard) {
-        console.log('Align')
+        console.log('Align');
         card.flipForward();
         card.disableInteractive();
         card.endHover();
@@ -103,7 +103,7 @@ export default class StageZone extends BaseZone {
         this.hideButtons();
         this.hideCPContainer();
 
-        this.emit(GameZoneEvents.UNSTAGE_CARDS, this.cards[0]);
+        this.emit(GameZoneEvents.RequestUnstageCard, this.cards[0]);
     }
 
     hideCPContainer() {
