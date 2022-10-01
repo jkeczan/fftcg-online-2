@@ -3,8 +3,11 @@ import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import TextBox from 'phaser3-rex-plugins/templates/ui/textbox/TextBox';
 import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import {ClickComponent} from '../components/click.component';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
+import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import StageZone from '../gameobjects/zones/stage.zone';
+import {ComponentSystem} from '../managers/component.system';
 import {
     DeckChosenMessageInput,
     GameMessages,
@@ -33,6 +36,7 @@ export default class TestRoomScene extends Scene {
     private actionUI: Sizer;
     private actionButton: GameButton;
     private actionLabel: Text;
+    private componentSystem!: ComponentSystem;
 
     public turnUI: GameTurnUI;
 
@@ -43,9 +47,14 @@ export default class TestRoomScene extends Scene {
         super('TestRoomScene');
     }
 
-    preload() {
-        console.log('Preloading Choose Deck Scene');
+    init() {
+        this.componentSystem = new ComponentSystem();
+        this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.componentSystem.destroy();
+        });
+    }
 
+    preload() {
         this.load.image('card-back', 'assets/game/cards/card_back.jpg');
         this.load.image('background', 'assets/cornelia_bg.jpg');
         this.load.image('card_border', 'assets/card_border_rpg.png');
@@ -67,7 +76,6 @@ export default class TestRoomScene extends Scene {
     }
 
     async create(data: { server: GameServer, server2: GameServer }) {
-        console.log('Creating Choose Deck Scene');
         this.server = data.server;
 
         const {width, height} = this.scale;
@@ -132,7 +140,6 @@ export default class TestRoomScene extends Scene {
 
         this.server.room.onStateChange(async (state: CorneliaRoomState) => {
             for (const player of state.players.values()) {
-                console.log(player.deckID);
             }
             this.updateStateDisplay(this.stateBoxPlayer1, state);
         });
@@ -147,12 +154,12 @@ export default class TestRoomScene extends Scene {
         });
 
         this.addPlayer1TestButtons();
-        // this.card = await CardFactory.getCard(this, '15-140S');
-        // this.card.x = width / 2;
-        // this.card.y = 50;
-        // this.card.angle = 0;
-        // this.card.setInteractive();
-        // this.card.enableDrag();
+        this.card = await CardFactory.getCard(this, '15-135S');
+        this.card.x = width / 2;
+        this.card.y = 50;
+        this.card.angle = 0;
+        this.card.setInteractive();
+        this.card.enableDrag();
         //
         // this.card2 = await CardFactory.getCard(this, '15-140S');
         // this.card2.x = width / 2;
@@ -188,6 +195,8 @@ export default class TestRoomScene extends Scene {
         //
         // this.staging.addCard(this.card);
         // cpContainer.createCPs([{count: 4, element: FFTCGCardElement.WIND},{count: 4, element: FFTCGCardElement.EARTH}]);
+
+        this.componentSystem.addComponent(this.card, new ClickComponent());
     }
 
     addPlayer1TestButtons() {
@@ -247,12 +256,20 @@ export default class TestRoomScene extends Scene {
             this.actionLabel.setText(' My Turn');
         }));
 
+
         let counter = 1;
         for (const button of this.player1Menu) {
             button.x = 5;
             button.y = 40 * counter;
             counter++;
         }
+    }
+
+
+    update(time: number, delta: number) {
+        super.update(time, delta);
+
+        this.componentSystem.update(delta);
     }
 
     createButton(text: string, callback: () => void): Label {
@@ -273,7 +290,6 @@ export default class TestRoomScene extends Scene {
         this.input.enable(testButton);
 
         testButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-            console.log('Callback');
             callback();
         });
 
