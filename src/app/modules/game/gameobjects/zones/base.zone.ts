@@ -1,6 +1,4 @@
 import Graphics = Phaser.GameObjects.Graphics;
-import ParticleEmitter = Phaser.GameObjects.Particles.ParticleEmitter;
-import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import Text = Phaser.GameObjects.Text;
 import Zone = Phaser.GameObjects.Zone;
 import GameScene from '../../scenes/game.scene';
@@ -45,9 +43,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     protected cardCount: Text;
     protected label: Text;
     protected border: Graphics;
-    protected highlightedBorder: Graphics;
-    private _emitterManager: ParticleEmitterManager;
-    private _borderParticleEffect: ParticleEmitter;
     protected cardScale = 1;
     protected inverted: boolean;
     public scene: GameScene;
@@ -114,12 +109,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.alignCardsInZone(cardToRemove);
     }
 
-    findCard(cardToFind: FFTCGCard): FFTCGCard {
-        return this.cards.find((card: FFTCGCard) => {
-            return cardToFind.gameCardID === card.gameCardID;
-        });
-    }
-
     alignCardsInZone(cardAdded: FFTCGCard) {
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
@@ -180,25 +169,11 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     }
 
     highlightZone() {
-        // const border = new Graphics(this.scene);
-        // this.scene.add.existing(border);
-        // border.lineStyle(20, 0xff0000, 1);
-        //
-        // border.strokeRect(this.x - this.input.hitArea.width / 2,
-        //     this.y - this.input.hitArea.height / 2,
-        //     this.input.hitArea.width,
-        //     this.input.hitArea.height);
-        //
-        // this.highlightedBorder = border;
-
         this.highlightZoneParticleEffect();
     }
 
     unhighlightZone() {
-        // if (this.highlightedBorder) {
-        //     this.highlightedBorder.destroy(true);
-        // }
-        // if (this.emitterManager.emitters.)
+
     }
 
 
@@ -217,22 +192,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
     orientCard(card: FFTCGCard): void {
     }
 
-    activateCards() {
-        for (const card of this.cards) {
-            card.untap();
-        }
-    }
-
-    shakeCards() {
-
-    }
-
-    stopShaking() {
-        for (const card of this.cards) {
-            card.stopShaking();
-        }
-    }
-
     highlightZoneParticleEffect(limitTime?: number) {
         // const emitManager = this.scene.add.particles('flares');
         //
@@ -247,22 +206,5 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         //     particleBringToTop: true,
         //     emitZone: {type: 'edge', source: this.getBounds(), quantity: 140}
         // });
-    }
-
-
-    get emitterManager(): Phaser.GameObjects.Particles.ParticleEmitterManager {
-        return this._emitterManager;
-    }
-
-    set emitterManager(value: Phaser.GameObjects.Particles.ParticleEmitterManager) {
-        this._emitterManager = value;
-    }
-
-    get borderParticleEffect(): Phaser.GameObjects.Particles.ParticleEmitter {
-        return this._borderParticleEffect;
-    }
-
-    set borderParticleEffect(value: Phaser.GameObjects.Particles.ParticleEmitter) {
-        this._borderParticleEffect = value;
     }
 }

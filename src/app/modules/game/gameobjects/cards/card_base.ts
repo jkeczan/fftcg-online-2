@@ -23,10 +23,13 @@ export default abstract class CardBase extends Container {
     private _spriteBorder: Sprite;
     private _particleEmitterManager: ParticleEmitterManager;
     private _exBurstEmitter: ParticleEmitter;
+    protected tapped: boolean;
+    protected halfTapped: boolean;
+    protected isHoverActive: boolean;
 
     protected constructor(scene: Scene) {
         super(scene);
-        
+
         this.scene = scene;
         this.width = 150;
         this.height = 200;

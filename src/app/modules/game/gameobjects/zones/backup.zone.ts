@@ -19,14 +19,6 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
         }
     }
 
-    payComittedCP() {
-        this.cards.filter((card) => {
-            return card.halfTapped;
-        }).forEach((card) => {
-            card.tap();
-        });
-    }
-
     createBorder(color: number = 0x3e3e3e, lineWidth: number = 10, alpha: number = .5) {
 
     }
@@ -52,29 +44,3 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
         return false;
     }
 }
-
-Phaser.GameObjects.GameObjectFactory.register(
-    'backupZone',
-    function (this: Phaser.GameObjects.GameObjectFactory, name: string,
-              x: number,
-              y: number,
-              width: number,
-              height: number,
-              borderColor: number,
-              opponent: boolean) {
-        const zone = new BackupZone({
-            name,
-            x,
-            y,
-            width,
-            height,
-            borderColor,
-            opponent
-        });
-
-        this.updateList.add(zone);
-        this.displayList.add(zone);
-
-        return zone;
-    }
-);
