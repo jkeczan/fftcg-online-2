@@ -5,17 +5,6 @@ import Sprite = Phaser.GameObjects.Sprite;
 import {Scene} from 'phaser';
 import {IFFTCGCardMetadata} from './card_fftcg';
 
-export interface ICardConfig {
-    scene: Scene;
-    x?: number;
-    y?: number;
-    card: string;
-    image: string;
-    name: string;
-    depth: number;
-    imageBack: string;
-}
-
 export default abstract class CardBase extends Container {
     public abstract metadata: IFFTCGCardMetadata;
     private _spriteImage: Sprite;
@@ -24,8 +13,6 @@ export default abstract class CardBase extends Container {
     private _particleEmitterManager: ParticleEmitterManager;
     private _exBurstEmitter: ParticleEmitter;
     protected tapped: boolean;
-    protected halfTapped: boolean;
-    protected isHoverActive: boolean;
 
     protected constructor(scene: Scene) {
         super(scene);
@@ -46,7 +33,6 @@ export default abstract class CardBase extends Container {
         this.add(this.spriteImageBack);
         this.add(this.spriteBorder);
 
-        // Scale Sprites
         this.setCardSpriteScale(this.spriteImageBack);
         this.setCardSpriteScale(this.spriteBorder);
 
@@ -122,10 +108,6 @@ export default abstract class CardBase extends Container {
         this.spriteImageBack.visible = false;
     }
 
-
-    crop() {
-    }
-
     public rotateCard(angle) {
         if (Math.abs(this.angle) !== angle) {
             this.scene.add.tween({
@@ -138,67 +120,11 @@ export default abstract class CardBase extends Container {
     }
 
     highlightZoneParticleEffect() {
-        // const rect = new Phaser.Geom.Rectangle(this.x - (this.width / 2),
-        //     this.y - (this.height / 2), this.width, this.height);
 
-        const rect = this.spriteImage.getBounds();
-
-        this.particleEmitterManager = this.scene.add.particles('flares');
-        this.exBurstEmitter = this.particleEmitterManager.createEmitter({
-            frame: ['red', 'yellow', 'green', 'blue'],
-            speed: 48,
-            lifespan: 1500,
-            quantity: 12,
-            frequency: 4,
-            scale: {start: 0.4, end: 0},
-            blendMode: 'ADD',
-            particleBringToTop: true,
-            emitZone: {type: 'edge', source: rect, quantity: 48}
-        });
     }
 
     stopZoneParticleEffect() {
         this.exBurstEmitter.explode(-1, 0, 0);
-    }
-
-    get isVisible(): boolean {
-        return this.spriteImage.visible;
-    }
-
-    get isHidden(): boolean {
-        return this.spriteImageBack.visible;
-    }
-
-    get centerOriginX(): number {
-        return this.originX + (this.width / 2);
-    }
-
-    get centerOriginY(): number {
-        return this.originY + (this.height / 2);
-    }
-
-    get halfWidth(): number {
-        return this.width / 2;
-    }
-
-    get halfHeight(): number {
-        return this.height / 2;
-    }
-
-    get fourthWidth(): number {
-        return this.width / 4;
-    }
-
-    get fourthHeight(): number {
-        return this.height / 4;
-    }
-
-    get eigthWidth(): number {
-        return this.width / 8;
-    }
-
-    get eigthHeight(): number {
-        return this.height / 8;
     }
 
     get spriteImage(): Phaser.GameObjects.Sprite {

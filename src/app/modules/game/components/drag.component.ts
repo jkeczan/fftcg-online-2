@@ -12,7 +12,7 @@ import GAMEOBJECT_DROP = Phaser.Input.Events.GAMEOBJECT_DROP;
 import Pointer = Phaser.Input.Pointer;
 
 export class DragComponent<T extends GameObject & { x: number, y: number }> extends BaseComponent implements IComponent {
-    private scene: Scene;
+    protected scene: Scene;
     protected gameObject: T;
     private x: number;
     private y: number;
@@ -71,9 +71,6 @@ export class DragComponent<T extends GameObject & { x: number, y: number }> exte
     private onDrag(pointer, dragX, dragY) {
         this.x = dragX;
         this.y = dragY;
-        //
-        // this.gameObject.x = dragX;
-        // this.gameObject.y = dragY;
     }
 
     private dragEnterZone(pointer: Pointer, dropZone) {

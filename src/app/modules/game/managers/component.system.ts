@@ -5,11 +5,34 @@ export type Constructor<T extends {} = {}> = new (...args: any[]) => T;
 
 export interface IComponent {
 
+    /**
+     * Function called before after commit but before start. Use this method to execute one time component operations
+     * like creating the emitters.
+     */
     awake?: () => void;
+
+    /**
+     * Hook called to start the effect. Use the hook to implement and start your component logic such as event handler
+     * binding
+     */
     start?: () => void;
+
+    /**
+     * Hook Method for updating the component logic. This is called during Scene update
+     * @param dt Delta Time since last frame
+     */
     update?: (dt: number) => void;
+
+    /**
+     * Hook Method that is called when component is destroyed. Use this to remove event listeners and trash any singletons
+     * on the scene needed
+     */
     destroy?: () => void;
 
+    /**
+     * First Hook Method called in the cycle. Use this to setup instance variables.
+     * @param gameObject Game object for this component
+     */
     init(gameObject: GameObject): IComponent;
 }
 

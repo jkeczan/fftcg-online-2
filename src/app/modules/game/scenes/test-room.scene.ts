@@ -4,6 +4,7 @@ import TextBox from 'phaser3-rex-plugins/templates/ui/textbox/TextBox';
 import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import {DragComponent} from '../components/drag.component';
+import {HighlightComponent} from '../components/highlight.component';
 import {HoverComponent} from '../components/hover.component';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
@@ -265,6 +266,14 @@ export default class TestRoomScene extends Scene {
 
         this.player1Menu.push(this.createButton('Remove Hover', () => {
             this.componentSystem.removeComponent(this.card, HoverComponent);
+        }));
+
+        this.player1Menu.push(this.createButton('Add Highlight', () => {
+            this.componentSystem.addComponent(this.card, new HighlightComponent(this));
+        }));
+
+        this.player1Menu.push(this.createButton('Remove Highlight', () => {
+            this.componentSystem.removeComponent(this.card, HighlightComponent);
         }));
 
 

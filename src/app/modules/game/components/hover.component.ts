@@ -10,7 +10,7 @@ import Tween = Phaser.Tweens.Tween;
 export class HoverComponent<T extends GameObject & { x: number, y: number, angle: number }> extends BaseComponent implements IComponent {
     protected gameObject: T;
 
-    private scene: Scene;
+    protected scene: Scene;
     private startingX: number;
     private startingY: number;
     private startingAngle: number;
