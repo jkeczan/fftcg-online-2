@@ -61,11 +61,9 @@ export default class StageZone extends BaseZone {
     // }
 
     onCardAdded(card: FFTCGCard) {
-        console.log('Align')
+        console.log('Align');
         card.flipForward();
         card.disableInteractive();
-        card.endHover();
-        card.disableDrag();
         this.alignCardsInZone(card);
         this.showButtons();
         this.showCPContainer();
