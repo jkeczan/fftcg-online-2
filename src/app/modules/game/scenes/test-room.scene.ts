@@ -3,7 +3,8 @@ import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import TextBox from 'phaser3-rex-plugins/templates/ui/textbox/TextBox';
 import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
-import {ClickComponent} from '../components/click.component';
+import {DragComponent} from '../components/drag.component';
+import {HoverComponent} from '../components/hover.component';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import StageZone from '../gameobjects/zones/stage.zone';
@@ -156,10 +157,9 @@ export default class TestRoomScene extends Scene {
         this.addPlayer1TestButtons();
         this.card = await CardFactory.getCard(this, '15-135S');
         this.card.x = width / 2;
-        this.card.y = 50;
+        this.card.y = height / 2;
         this.card.angle = 0;
         this.card.setInteractive();
-        this.card.enableDrag();
         //
         // this.card2 = await CardFactory.getCard(this, '15-140S');
         // this.card2.x = width / 2;
@@ -195,8 +195,11 @@ export default class TestRoomScene extends Scene {
         //
         // this.staging.addCard(this.card);
         // cpContainer.createCPs([{count: 4, element: FFTCGCardElement.WIND},{count: 4, element: FFTCGCardElement.EARTH}]);
+        //
 
-        this.componentSystem.addComponent(this.card, new ClickComponent());
+        // this.componentSystem.addComponent(this.card, new ClickComponent());
+        this.componentSystem.addComponent(this.card, new DragComponent(this));
+        // this.componentSystem.addComponent(this.card, new HoverComponent(this));
     }
 
     addPlayer1TestButtons() {
@@ -254,6 +257,14 @@ export default class TestRoomScene extends Scene {
 
         this.player1Menu.push(this.createButton('Set message', () => {
             this.actionLabel.setText(' My Turn');
+        }));
+
+        this.player1Menu.push(this.createButton('Add Hover', () => {
+            this.componentSystem.addComponent(this.card, new HoverComponent(this));
+        }));
+
+        this.player1Menu.push(this.createButton('Remove Hover', () => {
+            this.componentSystem.removeComponent(this.card, HoverComponent);
         }));
 
 

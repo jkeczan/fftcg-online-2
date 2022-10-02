@@ -1,19 +1,6 @@
-import {Scene} from 'phaser';
-import GameScene from '../../scenes/game.scene';
-import {GameZoneDataKeys, GameZoneEvents} from '../zones/base.zone';
-import StageZone from '../zones/stage.zone';
 import CardBase from './card_base';
-import FFTCGCard from './card_fftcg';
 import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
 import GAMEOBJECT_POINTER_OVER = Phaser.Input.Events.GAMEOBJECT_POINTER_OVER;
-import GAMEOBJECT_DRAG_START = Phaser.Input.Events.GAMEOBJECT_DRAG_START;
-import GAMEOBJECT_DRAG = Phaser.Input.Events.GAMEOBJECT_DRAG;
-import GAMEOBJECT_DRAG_ENTER = Phaser.Input.Events.GAMEOBJECT_DRAG_ENTER;
-import GAMEOBJECT_DRAG_LEAVE = Phaser.Input.Events.GAMEOBJECT_DRAG_LEAVE;
-import GAMEOBJECT_DROP = Phaser.Input.Events.GAMEOBJECT_DROP;
-import Pointer = Phaser.Input.Pointer;
-import GAMEOBJECT_DRAG_END = Phaser.Input.Events.GAMEOBJECT_DRAG_END;
-import Zone = Phaser.GameObjects.Zone;
 
 // tslint:disable-next-line:component-class-suffix
 export default abstract class CardDraggable extends CardBase {
@@ -98,56 +85,7 @@ export default abstract class CardDraggable extends CardBase {
     }
 
     enableDrag() {
-        this.scene.input.setDraggable(this, true);
 
-        this.scene.input.on(GAMEOBJECT_DRAG_START, (pointer: Pointer, card: FFTCGCard) => {
-            console.log('Drag Start');
-            this.scene.children.bringToTop(card);
-            this.originalX = this.x;
-            this.originalY = this.y;
-        });
-
-        this.scene.input.on(GAMEOBJECT_DRAG, (pointer, gameObject, dragX, dragY) => {
-            console.log('Drag');
-            gameObject.x = dragX;
-            gameObject.y = dragY;
-        });
-
-        this.scene.input.on(GAMEOBJECT_DRAG_ENTER, (pointer, gameObject, dropZone) => {
-
-            // graphics.clear();
-            // graphics.lineStyle(2, 0x00ffff);
-            // graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-
-        });
-
-        this.scene.input.on(GAMEOBJECT_DRAG_LEAVE, (pointer, gameObject, dropZone) => {
-
-            // graphics.clear();
-            // graphics.lineStyle(2, 0xffff00);
-            // graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-
-        });
-
-        this.scene.input.on(GAMEOBJECT_DROP, (pointer: Pointer, gameObject: FFTCGCard, dropZone: Zone) => {
-            console.log('On Drop')
-
-            if (dropZone.getData(GameZoneDataKeys.STAGE_CARD_ON_DROP) === true) {
-                this.scene.events.emit(GameZoneEvents.STAGE_CARDS, gameObject);
-            } else {
-                gameObject.x = dropZone.x;
-                gameObject.y = dropZone.y;
-            }
-        });
-
-        this.scene.input.on(GAMEOBJECT_DRAG_END, (pointer, gameObject, dropped) => {
-            console.log('On End', dropped)
-            if (!dropped) {
-                gameObject.x = gameObject.input.dragStartX;
-                gameObject.y = gameObject.input.dragStartY;
-            }
-
-        });
     }
 
     disableDrag() {

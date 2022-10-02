@@ -1,4 +1,4 @@
-import CubicBeizerTween from '../../animations/cubic_beizer.tween';
+// import CubicBeizerTween from '../../animations/cubic_beizer.tween';
 import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';

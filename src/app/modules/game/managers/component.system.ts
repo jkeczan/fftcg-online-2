@@ -52,7 +52,7 @@ export class ComponentSystem {
             return null;
         }
 
-        components.find((component) => {
+        return components.find((component) => {
             return component instanceof componentType;
         });
     }
@@ -66,7 +66,7 @@ export class ComponentSystem {
         }
 
         const entries = this.componentsByGameObject.entries();
-        for (const [key, components] of entries) {
+        for (const [, components] of entries) {
             components.forEach((component) => {
                 if (component?.update) {
                     component.update(dt);
@@ -75,6 +75,33 @@ export class ComponentSystem {
         }
     }
 
+    /**
+     * Removes component a specific game object by running destroy and removing it from the list of components
+     *
+     * @param gameObject Object to remove component from
+     * @param componentType Component Type to Find and Remove
+     */
+    removeComponent<ComponentType>(gameObject: GameObject, componentType: Constructor<ComponentType>) {
+        const component = this.findComponent(gameObject, componentType);
+
+        if (component) {
+            component.destroy();
+        }
+
+        const components = this.componentsByGameObject.get(gameObject.name);
+
+        const index = components.findIndex((comp: IComponent) => {
+            return comp instanceof componentType;
+        });
+
+        this.componentsByGameObject.set(gameObject.name, components.splice(index, 1));
+
+
+    }
+
+    /**
+     * This destroys the entire component system for all game objects
+     */
     destroy() {
         const entries = this.componentsByGameObject.entries();
         for (const [, components] of entries) {

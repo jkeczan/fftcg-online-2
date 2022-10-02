@@ -26,7 +26,7 @@ export default abstract class CardBase extends Container {
 
     protected constructor(scene: Scene) {
         super(scene);
-
+        
         this.scene = scene;
         this.width = 150;
         this.height = 200;
