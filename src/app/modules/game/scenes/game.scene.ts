@@ -1,9 +1,12 @@
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin';
+import {DragComponent} from '../components/drag.component';
+import {HoverComponent} from '../components/hover.component';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import PlayerBoard, {IPlayerConfig} from '../gameobjects/players/player.gameobject';
 import {BaseZone, GameZoneEvents} from '../gameobjects/zones/base.zone';
+import {ComponentSystem} from '../managers/component.system';
 import GameManager from '../managers/game.manager';
 import {GameMessages, TurnPhases} from '../server/messages/game_messages';
 import GameServer from '../server/server';
@@ -23,6 +26,7 @@ import Toast = UIPlugins.Toast;
 export default class GameScene extends BaseScene {
     private background: Sprite;
     private gameManager: GameManager;
+    private componentSystem: ComponentSystem;
     private cursors: CursorKeys;
     public playerBoard: PlayerBoard;
     private opponentBoard: PlayerBoard;
@@ -35,6 +39,9 @@ export default class GameScene extends BaseScene {
 
     constructor(id: string = 'GameScene') {
         super('GameScene');
+
+        this.gameManager = new GameManager(this);
+        this.componentSystem = new ComponentSystem();
     }
 
 
@@ -61,11 +68,6 @@ export default class GameScene extends BaseScene {
         this.background.setScale(scale).setScrollFactor(0);
         this.background.setAlpha(.3, .3, .3, .3);
         this.background.setSize(screenWidth, screenHeight);
-        this.gameManager = new GameManager(this);
-
-
-        this.particles = this.add.particles('flares');
-        this.cursors = this.input.keyboard.createCursorKeys();
         const zoneWidth = screenWidth * .1;
         const zoneHeight = screenHeight * .25;
         const zoneSpacing = zoneHeight / 10;
@@ -195,7 +197,6 @@ export default class GameScene extends BaseScene {
      * This method is responsible for updating the action button based on the current state
      */
     updateActionButton() {
-        // TODO convert to state machine; use RexUI FSM
 
         if (this.server.isPlayersTurn && this.server.playerHasPriority()) {
             (this.actionUI.childrenMap.items[0] as GameButton).enable();
@@ -293,6 +294,19 @@ export default class GameScene extends BaseScene {
         if (this.server.isPlayersTurn) {
             this.playerBoard.turnPhaseUI.activatePhase(currentPhase);
             this.playerBoard.turnPhaseUI.deactivatePhase(previousPhase);
+
+            if (currentPhase === TurnPhases.MAIN_1 || currentPhase === TurnPhases.MAIN_2) {
+                for (const card of this.playerBoard.handZone.cards) {
+                    this.componentSystem.addComponent(card, new HoverComponent(this));
+                    this.componentSystem.addComponent(card, new DragComponent(this));
+                }
+            } else {
+                for (const card of this.playerBoard.handZone.cards) {
+                    this.componentSystem.removeComponent(card, HoverComponent);
+                    this.componentSystem.removeComponent(card, DragComponent);
+                }
+            }
+
             if (currentPhase === TurnPhases.END_TURN) {
                 this.actionButton.setText('End Turn');
             } else {
@@ -303,5 +317,22 @@ export default class GameScene extends BaseScene {
             this.opponentBoard.turnPhaseUI.deactivatePhase(previousPhase);
             this.actionButton.setText('Opponents Turn');
         }
+
+        // if (this.server.playerHasPriority()) {
+        //     for (const card of this.playerBoard.handZone.cards) {
+        //         this.componentSystem.addComponent(card, new DragComponent(this));
+        //     }
+        // } else {
+        //     for (const card of this.playerBoard.handZone.cards) {
+        //         this.componentSystem.removeComponent(card, DragComponent);
+        //     }
+        // }
+    }
+
+
+    update(time: number, delta: number) {
+        super.update(time, delta);
+
+        this.componentSystem.update(delta);
     }
 }

@@ -67,6 +67,8 @@ export class ComponentSystem {
         if (component.start) {
             this.queuedForStart.push(component);
         }
+
+        console.log('# of Components for Object: ', gameObject.name, ' ', list.length);
     }
 
     findComponent<ComponentType>(gameObject: GameObject, componentType: Constructor<ComponentType>) {
@@ -113,11 +115,13 @@ export class ComponentSystem {
 
         const components = this.componentsByGameObject.get(gameObject.name);
 
-        const index = components.findIndex((comp: IComponent) => {
-            return comp instanceof componentType;
-        });
+        if (components) {
+            const index = components.findIndex((comp: IComponent) => {
+                return comp instanceof componentType;
+            });
 
-        this.componentsByGameObject.set(gameObject.name, components.splice(index, 1));
+            this.componentsByGameObject.set(gameObject.name, components.splice(index, 1));
+        }
 
 
     }
