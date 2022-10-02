@@ -37,8 +37,6 @@ export default class BackupZone extends BaseZone implements ICardGameZone {
 
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
-        card.draggable = false;
-
         this.orientCard(card);
     }
 
@@ -72,11 +70,11 @@ Phaser.GameObjects.GameObjectFactory.register(
             height,
             borderColor,
             opponent
-        })
+        });
 
         this.updateList.add(zone);
         this.displayList.add(zone);
 
-        return zone
+        return zone;
     }
 );

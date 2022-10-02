@@ -1,12 +1,6 @@
 // import CubicBeizerTween from '../../animations/cubic_beizer.tween';
-import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
-import DRAG = Phaser.Input.Events.DRAG;
-import DRAG_ENTER = Phaser.Input.Events.DRAG_ENTER;
-import DRAG_LEAVE = Phaser.Input.Events.DRAG_LEAVE;
-import DROP = Phaser.Input.Events.DROP;
-import DRAG_START = Phaser.Physics.Matter.Events.DRAG_START;
 
 export default class HandZone extends BaseZone implements ICardGameZone {
     protected cardScale = 0.9;
@@ -23,26 +17,15 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         return false;
     }
 
-    timeout() {
-        return new Promise((resolve, reject) => {
-            this.scene.time.delayedCall(800, () => {
-                resolve(true);
-            });
-        });
-    }
-
     onCardAdded(card: FFTCGCard) {
         super.onCardAdded(card);
         card.setInteractive();
-        card.enableDrag();
-        card.startHover();
     }
 
     onCardRemoved(card: FFTCGCard) {
         super.onCardRemoved(card);
 
         card.disableInteractive();
-        card.endHover();
     }
 
     orientCard(card: FFTCGCard) {
@@ -74,15 +57,17 @@ export default class HandZone extends BaseZone implements ICardGameZone {
     }
 
 
-    xTranslateOnDrop(card: CardDraggable, index: number): undefined | number {
-        if (!card) return;
+    xTranslateOnDrop(card: FFTCGCard, index: number): undefined | number {
+        if (!card) {
+            return;
+        }
         const centerIndex = (this.cards.length - 1) / 2;
         const shiftDirection = index < centerIndex ? -1 : 1;
         const shifts = Math.abs(centerIndex - index);
         return this.x + (shifts * shiftDirection * (card.width * .8));
     }
 
-    angleTranslateOnDrop(card: CardDraggable, index: number): number {
+    angleTranslateOnDrop(card: FFTCGCard, index: number): number {
         // super.angleTranslateOnDrop(card, index);
 
         const centerIndex = (this.cards.length - 1) / 2;
@@ -100,7 +85,7 @@ export default class HandZone extends BaseZone implements ICardGameZone {
         }
     }
 
-    yTranslateOnDrop(card: CardDraggable, index: number): number {
+    yTranslateOnDrop(card: FFTCGCard, index: number): number {
         const centerIndex = (this.cards.length - 1) / 2;
         const shifts = Math.abs(centerIndex - index);
 
@@ -127,19 +112,5 @@ export default class HandZone extends BaseZone implements ICardGameZone {
 
     shouldBeSideways(): boolean {
         return false;
-    }
-
-    activateDrag() {
-
-    }
-
-    deactivateDrag() {
-        for (const card of this.cards) {
-            card.off(DRAG);
-            card.off(DRAG_START);
-            card.off(DROP);
-            card.off(DRAG_ENTER);
-            card.off(DRAG_LEAVE);
-        }
     }
 }

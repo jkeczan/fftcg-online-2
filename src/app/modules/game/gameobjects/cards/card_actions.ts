@@ -1,7 +1,6 @@
 import CardBase from './card_base';
-import CardDraggable from './card_draggable';
 
-export default abstract class CardActions extends CardDraggable {
+export default abstract class CardActions extends CardBase {
     private _tapped: boolean;
     private _halfTapped: boolean;
     private _isHoverActive: boolean;

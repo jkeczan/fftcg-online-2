@@ -1,4 +1,3 @@
-import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 import {BaseZone, ICardGameZone, IGameZoneConfig} from './base.zone';
 
@@ -10,8 +9,7 @@ export default class DamageZone extends BaseZone implements ICardGameZone {
     alignCardsInZone() {
         for (let i = 0; i < this.cards.length; i++) {
             const card = this.cards[i];
-            // card.setPosition(this.xTranslateOnDrop(card, i), this.yTranslateOnDrop(card, i));
-            const tween = this.scene.add.tween({
+            this.scene.add.tween({
                 targets: [card],
                 ease: 'Cubic',
                 duration: 500,
@@ -21,7 +19,7 @@ export default class DamageZone extends BaseZone implements ICardGameZone {
         }
     }
 
-    yTranslateOnDrop(card: CardDraggable, index: number): number {
+    yTranslateOnDrop(card: FFTCGCard, index: number): number {
         const centerIndex = (this.cards.length - 1) / 2;
         const shiftDirection = index < centerIndex ? -1 : 1;
         const shifts = Math.abs(centerIndex - index);

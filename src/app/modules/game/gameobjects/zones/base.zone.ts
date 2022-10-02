@@ -4,7 +4,6 @@ import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterMana
 import Text = Phaser.GameObjects.Text;
 import Zone = Phaser.GameObjects.Zone;
 import GameScene from '../../scenes/game.scene';
-import CardDraggable from '../cards/card_draggable';
 import FFTCGCard from '../cards/card_fftcg';
 
 export enum GameZoneDataKeys {
@@ -142,12 +141,6 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.orientCard(card);
     }
 
-    makeCardsDraggable() {
-        for (const card of this.cards) {
-            card.draggable = true;
-        }
-    }
-
     updateCardScale(card: FFTCGCard) {
         card.setCardScale(this.cardScale);
     }
@@ -165,20 +158,24 @@ export abstract class BaseZone extends Zone implements ICardGameZone {
         this.label = label;
     }
 
-    xTranslateOnDrop(card: CardDraggable, index: number) {
-        if (!card) return;
+    xTranslateOnDrop(card: FFTCGCard, index: number) {
+        if (!card) {
+            return;
+        }
         const centerIndex = (this.cards.length - 1) / 2;
         const shiftDirection = index < centerIndex ? -1 : 1;
         const shifts = Math.abs(centerIndex - index);
         return this.x + (shifts * shiftDirection * (card.width));
     }
 
-    yTranslateOnDrop(card: CardDraggable, index: number) {
-        if (!card) return;
+    yTranslateOnDrop(card: FFTCGCard, index: number) {
+        if (!card) {
+            return;
+        }
         return this.y;
     }
 
-    angleTranslateOnDrop(card: CardDraggable, index: number) {
+    angleTranslateOnDrop(card: FFTCGCard, index: number) {
         return 0;
     }
 

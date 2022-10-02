@@ -20,7 +20,8 @@ export default class GameManager {
 
     moveCard(card: FFTCGCard, fromGameZone: BaseZone, toGameZone: BaseZone): void {
         if (ZoneManager.isSameZone(fromGameZone, toGameZone)) {
-            card.snapBack();
+            // TODO Figure out programatical snap back
+            // card.snapBack();
         } else {
             if (fromGameZone) {
                 fromGameZone.removeCard(card);
