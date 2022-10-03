@@ -1,5 +1,5 @@
 import {Scene} from 'phaser';
-import {IComponent} from '../managers/component.system';
+import {IComponent} from '../managers/component.manager';
 import {BaseComponent} from './base.component';
 import GameObject = Phaser.GameObjects.GameObject;
 import Zone = Phaser.GameObjects.Zone;

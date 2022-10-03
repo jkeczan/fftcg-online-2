@@ -16,6 +16,12 @@ export enum GameMessages {
     PassPriority
 }
 
+export enum GameResponseMessages {
+    CardHasBeenStaged,
+    CardHasBeenUnstaged,
+    PlayerHasPriority
+}
+
 export enum GamePhases {
     WAITING_FOR_PLAYERS,
     READY_TO_START,

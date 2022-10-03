@@ -37,7 +37,7 @@ export interface IComponent {
 }
 
 
-export class ComponentSystem {
+export class ComponentManager {
 
     private componentsByGameObject = new Map<string, IComponent[]>();
     private queuedForStart: IComponent[];
@@ -120,7 +120,11 @@ export class ComponentSystem {
                 return comp instanceof componentType;
             });
 
-            this.componentsByGameObject.set(gameObject.name, components.splice(index, 1));
+            const list = components.splice(index, 1);
+            this.componentsByGameObject.set(gameObject.name, list);
+
+            console.log('# of Components for Object: ', gameObject.name, ' ', list.length);
+
         }
 
 

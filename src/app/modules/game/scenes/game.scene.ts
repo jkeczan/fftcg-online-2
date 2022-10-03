@@ -6,9 +6,9 @@ import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import PlayerBoard, {IPlayerConfig} from '../gameobjects/players/player.gameobject';
 import {BaseZone, GameZoneEvents} from '../gameobjects/zones/base.zone';
-import {ComponentSystem} from '../managers/component.system';
+import {ComponentManager} from '../managers/component.manager';
 import GameManager from '../managers/game.manager';
-import {GameMessages, TurnPhases} from '../server/messages/game_messages';
+import {GameMessages, GameResponseMessages, TurnPhases} from '../server/messages/game_messages';
 import GameServer from '../server/server';
 import {CardState} from '../server/states/CardState';
 import {GameTurn} from '../server/states/GameTurn';
@@ -26,7 +26,7 @@ import Toast = UIPlugins.Toast;
 export default class GameScene extends BaseScene {
     private background: Sprite;
     private gameManager: GameManager;
-    private componentSystem: ComponentSystem;
+    private componentSystem: ComponentManager;
     private cursors: CursorKeys;
     public playerBoard: PlayerBoard;
     private opponentBoard: PlayerBoard;
@@ -41,7 +41,7 @@ export default class GameScene extends BaseScene {
         super('GameScene');
 
         this.gameManager = new GameManager(this);
-        this.componentSystem = new ComponentSystem();
+        this.componentSystem = new ComponentManager();
     }
 
 
@@ -154,6 +154,13 @@ export default class GameScene extends BaseScene {
 
         this.server.room.onMessage(GameMessages.DrawCard, (params) => {
             this.executeDrawCardCommand(params);
+        });
+
+        this.server.room.onMessage(GameResponseMessages.PlayerHasPriority, (params) => {
+            for (const card of this.playerBoard.handZone.cards) {
+                this.componentSystem.addComponent(card, new HoverComponent(this));
+                this.componentSystem.addComponent(card, new DragComponent(this));
+            }
         });
 
         this.playerBoard.stagingAreaZone.on(GameZoneEvents.UNSTAGE_CARDS, (card: FFTCGCard) => {
@@ -295,18 +302,6 @@ export default class GameScene extends BaseScene {
             this.playerBoard.turnPhaseUI.activatePhase(currentPhase);
             this.playerBoard.turnPhaseUI.deactivatePhase(previousPhase);
 
-            if (currentPhase === TurnPhases.MAIN_1 || currentPhase === TurnPhases.MAIN_2) {
-                for (const card of this.playerBoard.handZone.cards) {
-                    this.componentSystem.addComponent(card, new HoverComponent(this));
-                    this.componentSystem.addComponent(card, new DragComponent(this));
-                }
-            } else {
-                for (const card of this.playerBoard.handZone.cards) {
-                    this.componentSystem.removeComponent(card, HoverComponent);
-                    this.componentSystem.removeComponent(card, DragComponent);
-                }
-            }
-
             if (currentPhase === TurnPhases.END_TURN) {
                 this.actionButton.setText('End Turn');
             } else {
@@ -317,16 +312,6 @@ export default class GameScene extends BaseScene {
             this.opponentBoard.turnPhaseUI.deactivatePhase(previousPhase);
             this.actionButton.setText('Opponents Turn');
         }
-
-        // if (this.server.playerHasPriority()) {
-        //     for (const card of this.playerBoard.handZone.cards) {
-        //         this.componentSystem.addComponent(card, new DragComponent(this));
-        //     }
-        // } else {
-        //     for (const card of this.playerBoard.handZone.cards) {
-        //         this.componentSystem.removeComponent(card, DragComponent);
-        //     }
-        // }
     }
 
 

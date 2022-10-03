@@ -3,13 +3,13 @@ import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import TextBox from 'phaser3-rex-plugins/templates/ui/textbox/TextBox';
 import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
-import {DragComponent} from '../components/drag.component';
-import {HighlightComponent} from '../components/highlight.component';
+import {BorderComponent} from '../components/border.component';
 import {HoverComponent} from '../components/hover.component';
+import {Card2} from '../gameobjects/cards/card2';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
 import StageZone from '../gameobjects/zones/stage.zone';
-import {ComponentSystem} from '../managers/component.system';
+import {ComponentManager} from '../managers/component.manager';
 import {
     DeckChosenMessageInput,
     GameMessages,
@@ -38,21 +38,21 @@ export default class TestRoomScene extends Scene {
     private actionUI: Sizer;
     private actionButton: GameButton;
     private actionLabel: Text;
-    private componentSystem!: ComponentSystem;
+    private componentManager!: ComponentManager;
 
     public turnUI: GameTurnUI;
 
     public card: FFTCGCard;
-    public card2: FFTCGCard;
+    public card2: Card2;
 
     constructor() {
         super('TestRoomScene');
     }
 
     init() {
-        this.componentSystem = new ComponentSystem();
+        this.componentManager = new ComponentManager();
         this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
-            this.componentSystem.destroy();
+            this.componentManager.destroy();
         });
     }
 
@@ -68,6 +68,7 @@ export default class TestRoomScene extends Scene {
         this.load.image('dark_cp', 'assets/icon/dark_cp.png');
         this.load.image('light_cp', 'assets/icon/light_cp.png');
         this.load.image('ice_cp', 'assets/icon/ice_cp.png');
+        this.load.image('15-135S', 'assets/game/cards/opus15/15-135S.jpeg');
         this.load.atlas('flares', 'assets/flares.png', 'assets/flares.json');
         this.load.atlasXML('blueUI', 'assets/uipack/Spritesheet/blueSheet.png', 'assets/uipack/Spritesheet/blueSheet.xml');
         this.load.atlasXML('greyUI', 'assets/uipack/Spritesheet/greySheet.png', 'assets/uipack/Spritesheet/greySheet.xml');
@@ -156,11 +157,16 @@ export default class TestRoomScene extends Scene {
         });
 
         this.addPlayer1TestButtons();
+
         this.card = await CardFactory.getCard(this, '15-135S');
         this.card.x = width / 2;
         this.card.y = height / 2;
+        this.card.width = 200;
+        this.card.height = 300;
         this.card.angle = 0;
-        this.card.setInteractive();
+
+        // this.componentManager.addComponent(this.card, new BorderComponent(this));
+
         //
         // this.card2 = await CardFactory.getCard(this, '15-140S');
         // this.card2.x = width / 2;
@@ -198,9 +204,6 @@ export default class TestRoomScene extends Scene {
         // cpContainer.createCPs([{count: 4, element: FFTCGCardElement.WIND},{count: 4, element: FFTCGCardElement.EARTH}]);
         //
 
-        // this.componentSystem.addComponent(this.card, new ClickComponent());
-        this.componentSystem.addComponent(this.card, new DragComponent(this));
-        // this.componentSystem.addComponent(this.card, new HoverComponent(this));
     }
 
     addPlayer1TestButtons() {
@@ -261,19 +264,19 @@ export default class TestRoomScene extends Scene {
         }));
 
         this.player1Menu.push(this.createButton('Add Hover', () => {
-            this.componentSystem.addComponent(this.card, new HoverComponent(this));
+            this.componentManager.addComponent(this.card, new HoverComponent(this));
         }));
 
         this.player1Menu.push(this.createButton('Remove Hover', () => {
-            this.componentSystem.removeComponent(this.card, HoverComponent);
+            this.componentManager.removeComponent(this.card, HoverComponent);
         }));
 
-        this.player1Menu.push(this.createButton('Add Highlight', () => {
-            this.componentSystem.addComponent(this.card, new HighlightComponent(this));
+        this.player1Menu.push(this.createButton('Add Border', () => {
+            this.componentManager.addComponent(this.card, new BorderComponent(this));
         }));
 
-        this.player1Menu.push(this.createButton('Remove Highlight', () => {
-            this.componentSystem.removeComponent(this.card, HighlightComponent);
+        this.player1Menu.push(this.createButton('Remove Border', () => {
+            this.componentManager.removeComponent(this.card, BorderComponent);
         }));
 
 
@@ -289,13 +292,11 @@ export default class TestRoomScene extends Scene {
     update(time: number, delta: number) {
         super.update(time, delta);
 
-        this.componentSystem.update(delta);
+        this.componentManager.update(delta);
     }
 
     createButton(text: string, callback: () => void): Label {
         const testButton = this.rexUI.add.label({
-            // width: 200,
-            // height: 200,
             background: this.rexUI.add.roundRectangle(0, 0, 0, 0, 1).setStrokeStyle(2, 0xFFFFFF),
             text: this.add.text(0, 0, text, {
                 fontSize: '16pt'

@@ -1,5 +1,5 @@
 import {Scene} from 'phaser';
-import {IComponent} from '../managers/component.system';
+import {IComponent} from '../managers/component.manager';
 import {BaseComponent} from './base.component';
 import GameObject = Phaser.GameObjects.GameObject;
 import GAMEOBJECT_POINTER_OUT = Phaser.Input.Events.GAMEOBJECT_POINTER_OUT;
@@ -62,7 +62,6 @@ export class HoverComponent<T extends GameObject & { x: number, y: number, angle
             scale: 2,
             ease: 'Sine'
         });
-
     }
 
     onPointerOut() {
