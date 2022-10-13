@@ -56,8 +56,7 @@ export abstract class BaseScene extends Scene {
             .addNewLine(`Dice Roll: [color=yellow]${currentPlayer.diceRoll}[/color]`)
             .addNewLine(`Dice Have Been Rolled: [color=yellow]${this.server.room.state.dicedRolled}[/color]`)
             .addNewLine(`Deck Chosen: [color=yellow]${currentPlayer.deckID}[/color]`)
-            .addNewLine(`Cards in Deck: [color=yellow]${currentPlayer.deckZone.cards.length}[/color]`)
-            .addNewLine(`Cards in Hand: [color=yellow]${currentPlayer.handZone.cards.length}[/color]`);
+            .addNewLine(`Cards in Deck: [color=yellow]${currentPlayer.deck.length}[/color]`);
         this.stateBox.setText(stb.text);
         this.stateBox.layout();
     }

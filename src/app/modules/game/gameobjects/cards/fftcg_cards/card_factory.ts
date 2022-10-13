@@ -1,5 +1,5 @@
 import {Scene} from 'phaser';
-import {CardState} from '../../../server/states/CardState';
+import {GameCard} from '../../../server/states/GameCard';
 import FFTCGCard from '../card_fftcg';
 import LightningSummoner from './opus1/1-138C.card';
 import Magus from './opus1/1-140C.card';
@@ -47,7 +47,7 @@ export default class CardFactory {
     };
 
 
-    static async getCard(scene: Scene, serialNumber: string, cardState?: CardState): Promise<FFTCGCard> {
+    static async getCard(scene: Scene, serialNumber: string, cardState?: GameCard): Promise<FFTCGCard> {
         const clazz = this.SERIAL_MAP[serialNumber];
         if (clazz) {
             const type: (new (scene: Scene) => FFTCGCard) = clazz;

@@ -1,11 +1,9 @@
 import {Scene} from 'phaser';
-import {GameMessages, GamePhases} from '../server/messages/game_messages';
+import {GamePhases} from '../server/messages/game_messages';
 import GameServer from '../server/server';
 import {CorneliaRoomState} from '../server/states/CorneliaRoomState';
-import {PlayerState} from '../server/states/PlayerState';
 import GameButton from '../ui/button';
 import Sprite = Phaser.GameObjects.Sprite;
-
 
 export default class BootstrapScene extends Scene {
     private server!: GameServer;
@@ -26,7 +24,6 @@ export default class BootstrapScene extends Scene {
         this.load.atlasXML('blueUI', 'assets/uipack/Spritesheet/blueSheet.png', 'assets/uipack/Spritesheet/blueSheet.xml');
         this.load.atlasXML('greyUI', 'assets/uipack/Spritesheet/greySheet.png', 'assets/uipack/Spritesheet/greySheet.xml');
         this.load.atlasXML('redUI', 'assets/uipack/Spritesheet/redSheet.png', 'assets/uipack/Spritesheet/redSheet.xml');
-
     }
 
     create() {
@@ -49,14 +46,29 @@ export default class BootstrapScene extends Scene {
             textureOver: 'greyUI',
             frameOver: 'grey_button05.png'
         });
-        this.getTestingButton = new GameButton(this, width / 2, 100, 'Sandbox', {
+
+        new GameButton(this, width - (width / 4), (height / 2) + 100, 'UI Test Scene', {
             textureDown: 'redUI',
             frameDown: 'red_button00.png',
             textureUp: 'blueUI',
             frameUp: 'blue_button05.png',
             textureOver: 'greyUI',
             frameOver: 'grey_button05.png'
+        }).on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+            this.scene.start('UITestScene');
         });
+
+        new GameButton(this, width / 4, (height / 2) + 100, 'Sandbox', {
+            textureDown: 'redUI',
+            frameDown: 'red_button00.png',
+            textureUp: 'blueUI',
+            frameUp: 'blue_button05.png',
+            textureOver: 'greyUI',
+            frameOver: 'grey_button05.png'
+        }).on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+            this.scene.start('TestScene');
+        });
+
         this.headerText.setOrigin(0.5, 0.55);
         this.headerText.setStroke('0xFF0000', 10);
         this.logoSprite.scale = 2;
@@ -79,12 +91,13 @@ export default class BootstrapScene extends Scene {
         //     }
         // });
 
-        this.getTestingButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, async () => {
-            await this.server.joinGame();
-            this.scene.start('TestRoomScene', {
-                server: this.server
-            });
-        });
+        // this.getTestingButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, async () => {
+        //     await this.server.joinGame();
+        //     this.scene.start('TestRoomScene', {
+        //         server: this.server
+        //     });
+        // });
+
 
         this.getStartedButton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, async () => {
             this.add.tween({
@@ -101,7 +114,7 @@ export default class BootstrapScene extends Scene {
                 this.getStartedButton.visible = false;
 
                 if (state.gamePhase === GamePhases.WAITING_FOR_PLAYERS) {
-                    console.log('Waiting For Players')
+                    console.log('Waiting For Players');
                     this.headerText.text = '\nWaiting on another player...';
                 } else if (state.gamePhase === GamePhases.READY_TO_START) {
                     this.headerText.text = `Game Started...`;
@@ -109,7 +122,7 @@ export default class BootstrapScene extends Scene {
                         this.scene.start('ChooseDeckScene', {
                             server: this.server
                         });
-                    })
+                    });
 
 
                 }

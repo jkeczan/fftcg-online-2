@@ -3,12 +3,12 @@
 // DO NOT CHANGE IT MANUALLY UNLESS YOU KNOW WHAT YOU'RE DOING
 // 
 // GENERATED USING @colyseus/schema 1.0.34
-// 
+//
 
-import { Schema, type, ArraySchema, MapSchema, SetSchema, DataChange } from '@colyseus/schema';
+import {Schema, type} from '@colyseus/schema';
 
 
-export class CardState extends Schema {
+export class GameCard extends Schema {
     @type("string") public owner!: string;
     @type("string") public gameCardID!: string;
     @type("int8") public expectedQuantity!: number;

@@ -1,4 +1,4 @@
-import {CardState} from '../../server/states/CardState';
+import {GameCard} from '../../server/states/GameCard';
 import CardActions from './card_actions';
 
 export enum FFTCGCardType {
@@ -58,7 +58,7 @@ export default abstract class FFTCGCard extends CardActions {
     private _isExBurst: boolean;
     private _rarity: FFTCGCardRarity;
     private _isMultiPlay: boolean;
-    public cardState: CardState;
+    public cardState: GameCard;
 
 
     get cost(): number {

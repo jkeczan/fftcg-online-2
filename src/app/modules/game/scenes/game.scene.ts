@@ -1,5 +1,7 @@
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin';
+import {CommandDispatcher} from '../commands/command.system';
+import {DrawCardsAnimation} from '../commands/drawCardAnimation.command';
 import {DragComponent} from '../components/drag.component';
 import {HoverComponent} from '../components/hover.component';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
@@ -10,38 +12,34 @@ import {ComponentSystem} from '../managers/component.system';
 import GameManager from '../managers/game.manager';
 import {GameMessages, TurnPhases} from '../server/messages/game_messages';
 import GameServer from '../server/server';
-import {CardState} from '../server/states/CardState';
+import {GameCard} from '../server/states/GameCard';
 import {GameTurn} from '../server/states/GameTurn';
 import {PlayerState} from '../server/states/PlayerState';
 import GameButton from '../ui/button';
 import {BaseScene} from './base.scene';
-import ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
 import Sprite = Phaser.GameObjects.Sprite;
-import Text = Phaser.GameObjects.Text;
 import GAMEOBJECT_POINTER_UP = Phaser.Input.Events.GAMEOBJECT_POINTER_UP;
-import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 import Sizer = UIPlugins.Sizer;
 import Toast = UIPlugins.Toast;
 
 export default class GameScene extends BaseScene {
-    private background: Sprite;
-    private gameManager: GameManager;
-    private componentSystem: ComponentSystem;
-    private cursors: CursorKeys;
+    public background: Sprite;
+    public gameManager: GameManager;
+    public componentSystem: ComponentSystem;
+    public commandSystem: CommandDispatcher<any>;
     public playerBoard: PlayerBoard;
-    private opponentBoard: PlayerBoard;
-    private particles: ParticleEmitterManager;
+    public opponentBoard: PlayerBoard;
     public output: Label;
-    private actionButton: GameButton;
-    private toast: Toast;
-    private actionLabel: Text;
-    private actionUI: Sizer;
+    public actionButton: GameButton;
+    public toast: Toast;
+    public actionUI: Sizer;
 
     constructor(id: string = 'GameScene') {
-        super('GameScene');
+        super(id);
 
         this.gameManager = new GameManager(this);
         this.componentSystem = new ComponentSystem();
+        this.commandSystem = new CommandDispatcher<any>(this);
     }
 
 
@@ -118,13 +116,6 @@ export default class GameScene extends BaseScene {
             }
         });
 
-        // this.actionUI.add(this.rexUI.add.label({
-        //     x: 0,
-        //     y: 0,
-        //     align: 'center',
-        //     text: this.add.text(0, 0, 'My Turn', {fontFamily: 'Ken Vector', fontSize: '15pt'})
-        // }));
-
         this.actionButton = new GameButton(this, 0, 0, 'Next', {
             textureDown: 'redUI',
             frameDown: 'red_button00.png',
@@ -176,9 +167,9 @@ export default class GameScene extends BaseScene {
     }
 
     async createDeck(player: PlayerState): Promise<FFTCGCard[]> {
-        console.log('Deck Length: ', player.deckZone.cards.length);
+        console.log('Deck Length: ', player.deck.length);
 
-        const cards = Promise.all(player.deckZone.cards.map(async (cardState: CardState) => {
+        const cards = Promise.all(player.deck.map(async (cardState: GameCard) => {
             const newCard = await CardFactory.getCard(this, cardState.serialNumber, cardState);
             if (newCard) {
                 newCard.gameCardID = cardState.gameCardID;
@@ -241,32 +232,12 @@ export default class GameScene extends BaseScene {
     }
 
     executeDrawCardCommand(params) {
-        if (this.server.getCurrentPlayer().sessionID === params.player) {
-            const cardToMove = this.playerBoard.deckZone.cards.find((card: FFTCGCard) => {
-                return card.gameCardID === params.card;
-            });
+        const drawCommand = new DrawCardsAnimation();
 
-            if (cardToMove) {
-                this.gameManager.moveCard(
-                    cardToMove,
-                    this.playerBoard.deckZone,
-                    this.playerBoard.handZone
-                );
-            }
-
-        } else {
-            const cardToMove = this.opponentBoard.deckZone.cards.find((card: FFTCGCard) => {
-                return card.gameCardID === params.card;
-            });
-
-            if (cardToMove) {
-                this.gameManager.moveCard(
-                    cardToMove,
-                    this.opponentBoard.deckZone,
-                    this.opponentBoard.handZone
-                );
-            }
-        }
+        this.commandSystem.dispatch(drawCommand, {
+            player: params.player,
+            card: params.card
+        });
     }
 
     getZone(zone: string): BaseZone {
@@ -334,5 +305,6 @@ export default class GameScene extends BaseScene {
         super.update(time, delta);
 
         this.componentSystem.update(delta);
+        this.commandSystem.start();
     }
 }

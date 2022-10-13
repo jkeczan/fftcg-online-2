@@ -332,8 +332,7 @@ export default class TestRoomScene extends Scene {
             .addNewLine(`Dice Roll: [color=yellow]${currentPlayer.diceRoll}[/color]`)
             .addNewLine(`Dice Have Been Rolled: [color=yellow]${state.dicedRolled}[/color]`)
             .addNewLine(`Deck Chosen: [color=yellow]${currentPlayer.deckID}[/color]`)
-            .addNewLine(`Cards in Deck: [color=yellow]${currentPlayer.deckZone.cards.length}[/color]`)
-            .addNewLine(`Cards in Hand: [color=yellow]${currentPlayer.handZone.cards.length}[/color]`)
+            .addNewLine(`Cards in Deck: [color=yellow]${currentPlayer.deck.length}[/color]`)
             .addNewLine(`Priority Windows: [color=yellow]${state.priorities.length}[/color]`);
         stateBox.setText(stb.text);
         stateBox.layout();
