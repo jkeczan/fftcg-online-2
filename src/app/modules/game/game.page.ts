@@ -12,6 +12,8 @@ import ChooseDeckScene from './scenes/choose-deck.scene';
 import GameScene from './scenes/game.scene';
 import {RelayScene} from './scenes/relay.scene';
 import TestRoomScene from './scenes/test-room.scene';
+import Center = Phaser.Scale.Center;
+import ScaleModes = Phaser.Scale.ScaleModes;
 
 
 @Component({
@@ -34,6 +36,10 @@ export class GamePage implements OnInit {
             backgroundColor: '#000000',
             width: 1920,
             height: 1080,
+            scale: {
+                mode: ScaleModes.FIT,
+                autoCenter: Center.CENTER_BOTH
+            },
             scene: [BootstrapScene, ChooseDeckScene, GameScene, TestRoomScene, RelayScene],
             parent: 'game-container',
             plugins: {

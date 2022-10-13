@@ -1,6 +1,6 @@
 import Container = Phaser.GameObjects.Container;
-import Graphics = Phaser.GameObjects.Graphics;
 import GameObject = Phaser.GameObjects.GameObject;
+import Graphics = Phaser.GameObjects.Graphics;
 import {Scene} from 'phaser';
 
 export interface IBorderContainerConfig {
@@ -16,6 +16,7 @@ export interface IBorderContainerConfig {
 export default class BorderContainer extends Container {
     private _border: Graphics;
 
+
     constructor(config: IBorderContainerConfig) {
         const border = new Graphics(config.scene);
 
@@ -24,6 +25,8 @@ export default class BorderContainer extends Container {
         this.height = config.height;
         this._border = border;
         this.createBorder(config.borderColor);
+
+        this.set;
     }
 
     createBorder(color: number = 0xA020F0) {

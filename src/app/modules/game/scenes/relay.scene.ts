@@ -20,13 +20,13 @@ export class RelayScene extends BaseScene {
         // this.add.shader('loading_text', width / 2, 200, width, 600);
 
 
-        this.add.text(width / 2.4,  100, 'Loading Game', {
+        this.add.text(width / 2.4, 100, 'Loading Game', {
             fontSize: '40pt',
             fontFamily: 'Ken Vector'
         });
 
         this.time.delayedCall(2000, () => {
-            this.scene.start('GameScene', {server: this.server})
-        })
+            this.scene.start('GameScene', {server: this.server});
+        });
     }
 }

@@ -59,8 +59,8 @@ export default class GameScene extends BaseScene {
     async create(data: { server: GameServer }) {
         super.create(data);
 
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
+        const screenWidth = this.scale.width;
+        const screenHeight = this.scale.height;
         this.background = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background');
         const scaleX = this.cameras.main.width / this.background.width;
         const scaleY = this.cameras.main.height / this.background.height;
@@ -118,13 +118,6 @@ export default class GameScene extends BaseScene {
             }
         });
 
-        // this.actionUI.add(this.rexUI.add.label({
-        //     x: 0,
-        //     y: 0,
-        //     align: 'center',
-        //     text: this.add.text(0, 0, 'My Turn', {fontFamily: 'Ken Vector', fontSize: '15pt'})
-        // }));
-
         this.actionButton = new GameButton(this, 0, 0, 'Next', {
             textureDown: 'redUI',
             frameDown: 'red_button00.png',
@@ -160,7 +153,8 @@ export default class GameScene extends BaseScene {
             this.gameManager.moveCard(card, this.playerBoard.stagingAreaZone, this.playerBoard.handZone);
         });
 
-        this.events.on(GameZoneEvents.STAGE_CARDS, (card) => {
+        this.events.on(GameZoneEvents.STAGE_CARDS, (card: FFTCGCard) => {
+            this.componentSystem.removeComponent(card, DragComponent);
             this.gameManager.moveCard(card, this.playerBoard.handZone, this.playerBoard.stagingAreaZone);
         });
 
@@ -176,9 +170,9 @@ export default class GameScene extends BaseScene {
     }
 
     async createDeck(player: PlayerState): Promise<FFTCGCard[]> {
-        console.log('Deck Length: ', player.deckZone.cards.length);
+        console.log('Deck Length: ', player.deck.length);
 
-        const cards = Promise.all(player.deckZone.cards.map(async (cardState: CardState) => {
+        const cards = Promise.all(player.deck.map(async (cardState: CardState) => {
             const newCard = await CardFactory.getCard(this, cardState.serialNumber, cardState);
             if (newCard) {
                 newCard.gameCardID = cardState.gameCardID;
