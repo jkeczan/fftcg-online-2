@@ -26,6 +26,7 @@
     "colyseus.js": "^0.14.13",
     "phaser": "^3.55.2",
     "phaser3-rex-plugins": "^1.1.68",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "~7.5.0",
     "short-uuid": "^4.2.0",
     "socket.io-client": "^3.0.3",

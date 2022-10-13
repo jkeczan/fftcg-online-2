@@ -1,4 +1,5 @@
 import {Scene} from 'phaser';
+import 'reflect-metadata';
 import {GameMessages} from '../server/messages/game_messages';
 
 const registeredCommands: Map<GameMessages, any[]> = new Map();
@@ -111,27 +112,39 @@ export interface ICommandHandlerPayload<ServerCommandMessage> {
 }
 
 
+/**
+ * It doesn't seem possible as is to have this run for each class BEFORE it is called. This would run when a command
+ * is constructed the first time; however, that isn't what we want.
+ *
+ * We want a map of MessageType => {priority: number, classArray: CommandClass[]} sorted by priority ASC that we can register to pull a list of classes for a command
+ *
+ * @param {ICommandHandlerPayload<any>} config
+ * @returns {<T extends {new(...args: any[]): {}}>(constr: T) => any}
+ * @constructor
+ */
 export function CommandHandler(config: ICommandHandlerPayload<any>) {
+    console.log('Factory Start');
+
     return function _CommandHandler<T extends new(...args: any[]) => {}>(constr: T) {
-        console.log(constr);
-        if (isCommand(constr)) {
-            console.log('Register Command Handler for Message: ', config.messageType);
-            const currentCommands = registeredCommands.get(config.messageType);
-
-            if (currentCommands?.length > 1) {
-                currentCommands.push(constr);
-                registeredCommands.set(config.messageType, currentCommands);
-            } else {
-                registeredCommands.set(config.messageType, [constr]);
-            }
-        } else {
-            console.log('Not a Command');
-        }
-
-        console.log(registeredCommands.values());
-
+        console.log('Inner Factory');
         return class extends constr {
             constructor(...args: any[]) {
+
+                if (isCommand(constr)) {
+                    console.log('Register Command Handler for Message: ', config.messageType);
+                    const currentCommands = registeredCommands.get(config.messageType);
+
+                    if (currentCommands?.length > 1) {
+                        currentCommands.push(constr);
+                        registeredCommands.set(config.messageType, currentCommands);
+                    } else {
+                        registeredCommands.set(config.messageType, [constr]);
+                    }
+                } else {
+                    console.log('Not a Command');
+                }
+
+                console.log(registeredCommands.values());
                 super(...args);
             }
         };

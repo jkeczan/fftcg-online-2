@@ -9,6 +9,7 @@ export class UpdateActionButtonCommand extends GameCommand implements IGameComma
     }
 
     execute(): void {
+
     }
 
     follow(payload: unknown): {} {
