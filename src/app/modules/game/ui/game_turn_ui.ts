@@ -1,13 +1,11 @@
 import Label from 'phaser3-rex-plugins/templates/ui/label/Label';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
-import BorderContainer from '../gameobjects/border_container';
-import {IGameZoneConfig} from '../gameobjects/zones/base.zone';
+import BorderContainer, {IBorderContainerConfig} from '../gameobjects/border_container';
 import {TurnPhases} from '../server/messages/game_messages';
 import {TurnState} from '../states/turn.state';
 import Sprite = Phaser.GameObjects.Sprite;
-import EventEmitter = Phaser.Events.EventEmitter;
 
-export interface IGameTurnUIConfig extends IGameZoneConfig {
+export interface IGameTurnUIConfig extends IBorderContainerConfig {
     playerID: string;
     turnState?: TurnState;
     rexUI: RexUIPlugin;
@@ -60,7 +58,7 @@ export default class GameTurnUI extends BorderContainer {
 
         this.rexUI = config.rexUI;
 
-        let sizer = this.rexUI.add.gridSizer({
+        const sizer = this.rexUI.add.gridSizer({
             x: this.x, y: this.y,
             width: config.width, height: config.height,
             column: 6, row: 1,
@@ -117,7 +115,7 @@ export default class GameTurnUI extends BorderContainer {
             width: 40,
             height: 40,
             background: button,
-            text: text,
+            text,
             space: {
                 left: 10,
                 right: 10,

@@ -1,11 +1,10 @@
 import {Scene} from 'phaser';
 import UIPlugins from 'phaser3-rex-plugins/templates/ui/ui-plugin';
+import {IBorderContainerConfig} from '../gameobjects/border_container';
 import {FFTCGCardElement} from '../gameobjects/cards/card_fftcg';
-import {IGameZoneConfig} from '../gameobjects/zones/base.zone';
 import Container = Phaser.GameObjects.Container;
 import Graphics = Phaser.GameObjects.Graphics;
 import Sprite = Phaser.GameObjects.Sprite;
-import FixWidthSizer = UIPlugins.FixWidthSizer;
 import GridSizer = UIPlugins.GridSizer;
 
 export interface IGameTurnConfig {
@@ -43,7 +42,7 @@ export class CP extends Container {
         // this.image.width = this.width;
         // this.image.height = this.height;
         this.image.displayWidth = this.radians * 2;
-        this.image.displayHeight = this.radians * 2
+        this.image.displayHeight = this.radians * 2;
         // this.createBorder(borderColor);
         scene.add.existing(this);
     }
@@ -122,7 +121,7 @@ export default class CPContainer extends Container {
     private _cp: Array<CP>;
     private sizer: GridSizer;
 
-    constructor(config: IGameZoneConfig) {
+    constructor(config: IBorderContainerConfig) {
         const {scene, x, y, width, height, name, borderColor} = config;
         const border = new Graphics(scene);
 

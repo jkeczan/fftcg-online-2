@@ -1,5 +1,5 @@
 import FSM from 'phaser3-rex-plugins/plugins/fsm.js';
-import Player from '../gameobjects/players/player.gameobject';
+import Player from '../gameobjects/players/playerboard.container';
 
 export enum TurnStates {
     START_TURN = 'startTurn',

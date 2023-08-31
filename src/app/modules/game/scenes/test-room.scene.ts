@@ -6,9 +6,9 @@ import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import {DragComponent} from '../components/drag.component';
 import {HighlightComponent} from '../components/highlight.component';
 import {HoverComponent} from '../components/hover.component';
+import BorderContainer from '../gameobjects/border_container';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
 import CardFactory from '../gameobjects/cards/fftcg_cards/card_factory';
-import StageZone from '../gameobjects/zones/stage.zone';
 import {ComponentSystem} from '../managers/component.system';
 import {
     DeckChosenMessageInput,
@@ -34,7 +34,7 @@ export default class TestRoomScene extends Scene {
     public rexUI: RexUIPlugin;
     public stateBoxPlayer1: TextBox;
     public player1Menu: Label[] = [];
-    public staging: StageZone;
+    public staging: BorderContainer;
     private actionUI: Sizer;
     private actionButton: GameButton;
     private actionLabel: Text;
@@ -387,10 +387,8 @@ export default class TestRoomScene extends Scene {
     }
 
     fillCP() {
-        this.staging.fillCP();
     }
 
     unfillCP() {
-        this.staging.clearCP();
     }
 }

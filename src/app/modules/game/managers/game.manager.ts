@@ -1,7 +1,6 @@
 import {Scene} from 'phaser';
+import BorderContainer from '../gameobjects/border_container';
 import FFTCGCard from '../gameobjects/cards/card_fftcg';
-import {BaseZone} from '../gameobjects/zones/base.zone';
-import ZoneManager from './zone.manager';
 
 export default class GameManager {
     constructor(scene) {
@@ -18,19 +17,21 @@ export default class GameManager {
         this._scene = value;
     }
 
-    moveCard(card: FFTCGCard, fromGameZone: BaseZone, toGameZone: BaseZone): void {
-        if (ZoneManager.isSameZone(fromGameZone, toGameZone)) {
-            // TODO Figure out programatical snap back
-            // card.snapBack();
-        } else {
-            if (fromGameZone) {
-                fromGameZone.removeCard(card);
-            }
+    moveCard(card: FFTCGCard, fromGameZone: BorderContainer, toGameZone: BorderContainer): void {
+        // TODO implement when card tracking is enabled
 
-            if (toGameZone) {
-                toGameZone.addCard(card);
-                card.setData('currentZone', toGameZone.name);
-            }
-        }
+        // if (ZoneManager.isSameZone(fromGameZone, toGameZone)) {
+        //     // TODO Figure out programatical snap back
+        //     // card.snapBack();
+        // } else {
+        //     if (fromGameZone) {
+        //         fromGameZone.removeCard(card);
+        //     }
+        //
+        //     if (toGameZone) {
+        //         toGameZone.addCard(card);
+        //         card.setData('currentZone', toGameZone.name);
+        //     }
+        // }
     }
 }

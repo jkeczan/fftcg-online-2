@@ -9,7 +9,7 @@ import ShatterImagePlugin from 'phaser3-rex-plugins/plugins/shatterimage-plugin.
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import BootstrapScene from './scenes/bootstrap.scene';
 import ChooseDeckScene from './scenes/choose-deck.scene';
-import GameScene from './scenes/game.scene';
+import {GameSceneV2} from './scenes/gamev2.scene';
 import {RelayScene} from './scenes/relay.scene';
 import TestRoomScene from './scenes/test-room.scene';
 import Center = Phaser.Scale.Center;
@@ -40,7 +40,7 @@ export class GamePage implements OnInit {
                 mode: ScaleModes.FIT,
                 autoCenter: Center.CENTER_BOTH
             },
-            scene: [BootstrapScene, ChooseDeckScene, GameScene, TestRoomScene, RelayScene],
+            scene: [BootstrapScene, ChooseDeckScene, GameSceneV2, TestRoomScene, RelayScene],
             parent: 'game-container',
             plugins: {
                 global: [{

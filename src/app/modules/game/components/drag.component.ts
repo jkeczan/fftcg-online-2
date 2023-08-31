@@ -1,5 +1,4 @@
 import {Scene} from 'phaser';
-import {GameZoneEvents} from '../gameobjects/zones/base.zone';
 import {IComponent} from '../managers/component.system';
 import {BaseComponent} from './base.component';
 import GameObject = Phaser.GameObjects.GameObject;
@@ -82,11 +81,8 @@ export class DragComponent<T extends GameObject & { x: number, y: number }> exte
     }
 
     private handleDrop(pointer: Pointer, dropZone: Zone) {
-
         this.x = dropZone.x;
         this.y = dropZone.y;
-
-        this.scene.events.emit(GameZoneEvents.STAGE_CARDS, this.gameObject);
     }
 
     private handleDragEnd(pointer: Pointer, dragX: number, dragY: number, dropped: boolean) {

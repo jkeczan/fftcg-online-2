@@ -1,46 +1,39 @@
 import Container = Phaser.GameObjects.Container;
 import GameObject = Phaser.GameObjects.GameObject;
 import Graphics = Phaser.GameObjects.Graphics;
-import {Scene} from 'phaser';
+import {GameSceneV2} from '../scenes/gamev2.scene';
 
 export interface IBorderContainerConfig {
-    scene: Scene;
+    scene: GameSceneV2;
     x: number;
     y: number;
     width: number;
     height: number;
     children?: Array<GameObject>;
     borderColor: number;
+    name?: string;
 }
 
 export default class BorderContainer extends Container {
-    private _border: Graphics;
+    private border: Graphics;
 
 
     constructor(config: IBorderContainerConfig) {
         const border = new Graphics(config.scene);
 
         super(config.scene, config.x, config.y, [border]);
+
         this.width = config.width;
         this.height = config.height;
-        this._border = border;
+        this.border = border;
         this.createBorder(config.borderColor);
-
-        this.set;
     }
 
     createBorder(color: number = 0xA020F0) {
-        this._border.lineStyle(10, color, .5);
-        this._border.strokeRect(this.originX - (this.width / 2), this.originY - (this.height / 2), this.width, this.height);
+        console.log('Create Borders');
+        this.border.lineStyle(10, color, .5);
+        this.border.strokeRect(this.originX - (this.width / 2), this.originY - (this.height / 2), this.width, this.height);
 
-        this.bringToTop(this._border);
-    }
-
-    get border(): Phaser.GameObjects.Graphics {
-        return this._border;
-    }
-
-    set border(value: Phaser.GameObjects.Graphics) {
-        this._border = value;
+        this.bringToTop(this.border);
     }
 }
